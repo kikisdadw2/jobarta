@@ -64,10 +64,19 @@ create table if not exists public.lowongan (
 create index if not exists lowongan_geog_idx on public.lowongan using gist (geog);
 create index if not exists lowongan_pemilik_idx on public.lowongan (pemilik);
 
+create or replace function public.sentuh_diperbarui_pada()
+returns trigger language plpgsql as $$
+begin
+  new.diperbarui_pada = now();
+  return new;
+end;
+$$;
+
 drop trigger if exists lowongan_updated_at on public.lowongan;
-create trigger lowongan_updated_at
+drop trigger if exists lowongan_diperbarui_pada on public.lowongan;
+create trigger lowongan_diperbarui_pada
   before update on public.lowongan
-  for each row execute function public.sentuh_updated_at();
+  for each row execute function public.sentuh_diperbarui_pada();
 
 -- ---------------------------------------------------------------------------
 -- 2. RLS
