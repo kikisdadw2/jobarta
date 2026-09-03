@@ -9,60 +9,103 @@
  *   dibuatPada  string  ISO — dipakai mengurutkan dasbor
  *   aktif       boolean false = ditutup, hilang dari peta tapi tetap di dasbor
  *
- * `terverifikasi` SENGAJA tidak disimpan di sini. Ia diturunkan dari status
- * perusahaan saat dibaca (lihat `semuaLowongan`), supaya satu persetujuan
- * admin langsung berlaku untuk semua lowongan lama — bukan cuma yang baru.
+ * PENYIMPANAN: sejak lowongan harus terlihat LINTAS PENGGUNA (employer pasang,
+ * pencari kerja lain melihat), sumber kebenarannya adalah tabel `lowongan` di
+ * Supabase — lihat `lowongan-db.js`. localStorage hanya dipakai sebagai
+ * cadangan saat kredensial Supabase tidak ada, supaya UI tetap bisa
+ * didemokan tanpa backend.
+ *
+ * Semua fungsi di bawah ASINKRON. Itu konsekuensi tak terhindarkan dari pindah
+ * ke jaringan, dan sengaja tidak disembunyikan di balik cache sinkron: cache
+ * seperti itu akan menampilkan data basi tepat pada kasus yang paling penting,
+ * yaitu employer yang baru saja memasang lowongan.
  */
 
 import statis from "../data/lowongan";
 import { bacaPerusahaan } from "./perusahaan";
+import { supabase, adaSupabase } from "./supabase";
+import * as db from "./lowongan-db";
 
 const KUNCI = "jobarta.lowonganku";
 
-export function bacaLowonganku() {
+/* ---------------------------------------------------------------------------
+ * Cadangan localStorage (dipakai hanya bila !adaSupabase)
+ * ------------------------------------------------------------------------- */
+function bacaLokal() {
   try {
-    const mentah = localStorage.getItem(KUNCI);
-    const isi = mentah ? JSON.parse(mentah) : [];
+    const isi = JSON.parse(localStorage.getItem(KUNCI) || "[]");
     return Array.isArray(isi) ? isi : [];
   } catch {
     return [];
   }
 }
 
-function tulis(daftar) {
+function tulisLokal(daftar) {
   try {
     localStorage.setItem(KUNCI, JSON.stringify(daftar));
   } catch {
-    /* kuota penuh: lowongan tidak bertahan setelah tab ditutup */
+    /* kuota penuh / mode privat: biarkan, data sesi ini saja yang hilang */
   }
   return daftar;
 }
 
-/* Id memakai cap waktu, bukan urutan (`lok-1`, `lok-2`): urutan akan bentrok
- * dengan lowongan yang sudah dihapus dan membuat satu lamaran lama menempel
- * ke lowongan baru yang kebetulan mewarisi nomornya. */
-function idBaru() {
-  return `lok-${Date.now().toString(36)}`;
+async function idPengguna() {
+  const { data } = await supabase.auth.getSession();
+  const id = data?.session?.user?.id;
+  if (!id) throw new Error("Kamu harus masuk dulu untuk mengelola lowongan.");
+  return id;
 }
 
-export function tambahLowongan(isi) {
-  return tulis([
-    ...bacaLowonganku(),
-    { ...isi, id: idBaru(), dibuatPada: new Date().toISOString(), aktif: true },
-  ]);
+/* ---------------------------------------------------------------------------
+ * CRUD
+ * ------------------------------------------------------------------------- */
+
+/** Lowongan milik employer yang sedang masuk, termasuk yang sudah ditutup. */
+export async function bacaLowonganku() {
+  if (!adaSupabase) return bacaLokal();
+  return db.ambilMilik(await idPengguna());
 }
 
-export function perbaruiLowongan(id, patch) {
-  return tulis(bacaLowonganku().map((l) => (l.id === id ? { ...l, ...patch } : l)));
+export async function tambahLowongan(isi) {
+  if (!adaSupabase) {
+    return tulisLokal([
+      ...bacaLokal(),
+      {
+        ...isi,
+        id: `lok-${Date.now().toString(36)}`,
+        dibuatPada: new Date().toISOString(),
+        aktif: true,
+      },
+    ]);
+  }
+  await db.sisipkan(isi, await idPengguna());
+  return bacaLowonganku();
 }
 
-export function hapusLowongan(id) {
-  return tulis(bacaLowonganku().filter((l) => l.id !== id));
+export async function perbaruiLowongan(id, patch) {
+  if (!adaSupabase) {
+    return tulisLokal(
+      bacaLokal().map((l) => (l.id === id ? { ...l, ...patch } : l))
+    );
+  }
+  await db.perbarui(id, patch);
+  return bacaLowonganku();
 }
 
-export function cariLowonganku(id) {
-  return bacaLowonganku().find((l) => l.id === id) || null;
+export async function hapusLowongan(id) {
+  if (!adaSupabase) return tulisLokal(bacaLokal().filter((l) => l.id !== id));
+  await db.hapus(id);
+  return bacaLowonganku();
 }
+
+export async function cariLowonganku(id) {
+  if (!adaSupabase) return bacaLokal().find((l) => l.id === id) || null;
+  return db.ambilSatu(id);
+}
+
+/* ---------------------------------------------------------------------------
+ * Katalog untuk peta
+ * ------------------------------------------------------------------------- */
 
 /* Ubah baris simpanan jadi bentuk yang dibaca peta.
  *
@@ -75,11 +118,21 @@ function keBentukPeta(l, perusahaan) {
     0,
     Math.floor((Date.now() - new Date(l.dibuatPada).getTime()) / 86400000)
   );
+  /* Status verifikasi berasal dari DATABASE bila ada (kolom `terverifikasi`,
+   * yang hanya boleh ditulis admin), dan hanya jatuh ke profil perusahaan
+   * lokal pada mode cadangan. Sebelumnya ia selalu diturunkan dari profil
+   * lokal — itu tidak bisa dipertahankan begitu lowongan dilihat orang lain,
+   * karena profil perusahaan si employer tidak ada di perangkat mereka. */
+  const verif = adaSupabase
+    ? { terverifikasi: l.terverifikasi === true, diverifikasiPada: l.diverifikasiPada }
+    : {
+        terverifikasi: perusahaan.status === "terverifikasi",
+        diverifikasiPada: perusahaan.diverifikasiPada ?? undefined,
+      };
   return {
     ...l,
-    perusahaan: perusahaan.nama || l.perusahaan || "Perusahaan tanpa nama",
-    terverifikasi: perusahaan.status === "terverifikasi",
-    diverifikasiPada: perusahaan.diverifikasiPada ?? undefined,
+    perusahaan: l.perusahaan || perusahaan.nama || "Perusahaan tanpa nama",
+    ...verif,
     dipostingHari: hari,
   };
 }
@@ -95,19 +148,43 @@ function keBentukPeta(l, perusahaan) {
  * verifikasi di JOBARTA adalah pembeda kepercayaan, bukan gerbang tayang —
  * kalau ia jadi gerbang, employer baru melihat kerjanya menghilang dan tidak
  * pernah kembali. Lihat catatan keputusan di decisions.md.
+ *
+ * 30 lowongan contoh tetap disertakan dari sisi klien: kalau Supabase sedang
+ * bermasalah, peta tetap terisi. Risiko "peta kosong saat pengunjung datang"
+ * adalah risiko fatal yang tercatat di catatan proyek.
  */
-export function semuaLowongan() {
+export async function semuaLowongan() {
   const perusahaan = bacaPerusahaan();
-  const milikku = bacaLowonganku()
+  let dari;
+  try {
+    dari = adaSupabase ? await db.ambilPublik() : bacaLokal();
+  } catch {
+    dari = []; // backend bermasalah — peta tetap tampil dengan 30 contoh
+  }
+  const dinamis = dari
     .filter((l) => l.aktif !== false)
     .map((l) => keBentukPeta(l, perusahaan))
     .sort((a, b) => new Date(b.dibuatPada) - new Date(a.dibuatPada));
-  return [...milikku, ...statis];
+  return [...dinamis, ...statis];
 }
 
 /** Semua lowongan termasuk yang ditutup — dipakai Lamaran Saya supaya lamaran
  *  ke lowongan yang sudah ditutup tidak menghilang dari riwayat pelamar. */
-export function katalogLengkap() {
+export async function katalogLengkap() {
   const perusahaan = bacaPerusahaan();
-  return [...bacaLowonganku().map((l) => keBentukPeta(l, perusahaan)), ...statis];
+  let dari = [];
+  try {
+    dari = adaSupabase ? await db.ambilPublik() : bacaLokal();
+  } catch {
+    dari = [];
+  }
+  return [...dari.map((l) => keBentukPeta(l, perusahaan)), ...statis];
+}
+
+/** Pencarian radius lewat PostGIS. Dipakai saat peta perlu jawaban dari
+ *  database alih-alih menyaring seluruh katalog di HP. */
+export async function lowonganDekat(lat, lng, radiusM = 5000) {
+  if (!adaSupabase) return [];
+  const perusahaan = bacaPerusahaan();
+  return (await db.dekat(lat, lng, radiusM)).map((l) => keBentukPeta(l, perusahaan));
 }

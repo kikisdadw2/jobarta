@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { KATEGORI, TIPE_KERJA } from "../data/lowongan";
+import statis, { KATEGORI, TIPE_KERJA } from "../data/lowongan";
 import { semuaLowongan } from "../lib/lowonganku";
 import PetaLowongan from "../components/PetaLowongan";
 import KartuLowongan from "../components/KartuLowongan";
@@ -35,11 +35,24 @@ const SNAP = ["peek", "setengah", "penuh"];
 
 export default function Peta() {
   const [param] = useSearchParams();
-  /* Dibaca SEKALI per kunjungan, bukan setiap render: `semuaLowongan()`
-   * menyentuh localStorage dan membuat array baru, jadi memanggilnya di badan
+  /* Diambil SEKALI per kunjungan, bukan setiap render: `semuaLowongan()`
+   * memanggil jaringan dan membuat array baru, jadi memanggilnya di badan
    * komponen akan membatalkan setiap useMemo di bawahnya pada tiap ketikan di
-   * kotak cari. */
-  const [lowongan] = useState(semuaLowongan);
+   * kotak cari.
+   *
+   * Nilai awalnya 30 lowongan contoh, bukan array kosong: peta terisi sejak
+   * bingkai pertama, lalu lowongan dari database menyusul tanpa layar kosong
+   * di antaranya. */
+  const [lowongan, setLowongan] = useState(statis);
+  useEffect(() => {
+    let batal = false;
+    semuaLowongan().then((d) => {
+      if (!batal) setLowongan(d);
+    });
+    return () => {
+      batal = true; // komponen sudah dilepas: jangan setState ke yang tiada
+    };
+  }, []);
   const [kategori, setKategori] = useState(param.get("kategori") || SEMUA);
   const [tipe, setTipe] = useState(SEMUA);
   const [gajiMin, setGajiMin] = useState(0);

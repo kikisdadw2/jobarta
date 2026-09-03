@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import NavPerusahaan from "../komponen-ui/NavPerusahaan";
 import PetaPilih from "../components/PetaPilih";
@@ -58,20 +58,30 @@ export default function PasangLowongan() {
   const { id } = useParams();
   const perusahaan = bacaPerusahaan();
 
-  const [form, setForm] = useState(() => {
-    if (!id) return { ...KOSONG };
-    const lama = cariLowonganku(id);
-    if (!lama) return { ...KOSONG };
-    return {
-      ...KOSONG,
-      ...lama,
-      gajiMin: lama.gajiMin ?? "",
-      gajiMax: lama.gajiMax ?? "",
-      syarat: (lama.syarat || []).join("\n"),
-    };
-  });
+  const [form, setForm] = useState({ ...KOSONG });
   const [galat, setGalat] = useState({});
   const [dicoba, setDicoba] = useState(false);
+  const [mengirim, setMengirim] = useState(false);
+  const [galatKirim, setGalatKirim] = useState(null);
+
+  /* Mode edit memuat lowongan lama dari server. Ia tidak bisa lagi jadi nilai
+   * awal useState seperti dulu, karena pembacaannya kini menyeberangi
+   * jaringan. */
+  useEffect(() => {
+    if (!id) return;
+    let batal = false;
+    cariLowonganku(id).then((lama) => {
+      if (batal || !lama) return;
+      setForm({
+        ...KOSONG,
+        ...lama,
+        gajiMin: lama.gajiMin ?? "",
+        gajiMax: lama.gajiMax ?? "",
+        syarat: (lama.syarat || []).join("\n"),
+      });
+    });
+    return () => { batal = true; };
+  }, [id]);
 
   function ubah(patch) {
     setForm((f) => {
@@ -83,7 +93,7 @@ export default function PasangLowongan() {
     });
   }
 
-  function kirim(e) {
+  async function kirim(e) {
     e.preventDefault();
     setDicoba(true);
     const g = periksa(form);
@@ -111,9 +121,19 @@ export default function PasangLowongan() {
       syarat: form.syarat.split("\n").map((s) => s.trim()).filter(Boolean),
     };
 
-    if (id) perbaruiLowongan(id, isi);
-    else tambahLowongan(isi);
-    navigate("/perusahaan?baru=1");
+    /* Navigasi HANYA setelah server mengonfirmasi. Kalau dipindah lebih dulu,
+     * employer melihat "Lowongan kamu sudah tayang" padahal simpanannya gagal
+     * — dan dasbor yang memuat ulang dari server akan tampak kosong. */
+    setMengirim(true);
+    setGalatKirim(null);
+    try {
+      if (id) await perbaruiLowongan(id, isi);
+      else await tambahLowongan(isi);
+      navigate("/perusahaan?baru=1");
+    } catch {
+      setGalatKirim("Lowongan belum tersimpan. Periksa koneksi lalu coba lagi.");
+      setMengirim(false);
+    }
   }
 
   return (
@@ -276,9 +296,25 @@ export default function PasangLowongan() {
             />
           </div>
 
+          {galatKirim && (
+            <p className="catatan catatan--rusak" role="alert">
+              {galatKirim}
+            </p>
+          )}
+
           <div className="tumpuk">
-            <button type="submit" className="tombol tombol--primary tombol--penuh tombol--besar">
-              {id ? "Simpan perubahan" : "Pasang lowongan"}
+            {/* Dinonaktifkan selama pengiriman: tanpa ini, ketukan ganda di
+                koneksi lambat memasang dua lowongan yang sama. */}
+            <button
+              type="submit"
+              className="tombol tombol--primary tombol--penuh tombol--besar"
+              disabled={mengirim}
+            >
+              {mengirim
+                ? "Menyimpan…"
+                : id
+                  ? "Simpan perubahan"
+                  : "Pasang lowongan"}
             </button>
             <button
               type="button"

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NavAkun from "../komponen-ui/NavAkun";
 import { katalogLengkap } from "../lib/lowonganku";
@@ -6,10 +6,10 @@ import { bacaLamaran, batalkanLamaran, STATUS_LAMARAN } from "../lib/lamaran";
 import { formatGaji } from "../lib/format";
 
 /* Dibangun di dalam komponen, bukan sebagai konstanta modul: lowongan buatan
- * employer tersimpan di localStorage dan bisa berubah selama sesi berjalan.
+ * employer tersimpan di database dan bisa berubah selama sesi berjalan.
  * Konstanta modul akan membeku pada isi saat berkas pertama diimpor. */
-function bangunPeta() {
-  return new Map(katalogLengkap().map((l) => [l.id, l]));
+async function bangunPeta() {
+  return new Map((await katalogLengkap()).map((l) => [l.id, l]));
 }
 
 function tanggal(iso) {
@@ -24,7 +24,12 @@ function tanggal(iso) {
  * lamaran yang baru saja dikirim. */
 export default function LamaranSaya() {
   const [daftar, setDaftar] = useState(bacaLamaran);
-  const [petaLowongan] = useState(bangunPeta);
+  const [petaLowongan, setPetaLowongan] = useState(() => new Map());
+  useEffect(() => {
+    let batal = false;
+    bangunPeta().then((m) => !batal && setPetaLowongan(m));
+    return () => { batal = true; };
+  }, []);
 
   const urut = [...daftar].sort(
     (a, b) => new Date(b.dilamarPada) - new Date(a.dilamarPada)

@@ -218,6 +218,7 @@
   border: 1px solid var(--color-border); font-size: 15px; line-height: 1.55;
 }
 .catatan--sukses { border-left: 4px solid var(--color-accent); }
+.catatan--rusak { border-left: 4px solid var(--color-destructive); }
 .peringatan--error { border-left-color: var(--color-destructive); }
 
 .lingkaran {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import NavPerusahaan from "../komponen-ui/NavPerusahaan";
 import { Terverifikasi } from "../komponen-ui/Dasar";
@@ -24,7 +24,30 @@ function tanggal(iso) {
 
 export default function Perusahaan() {
   const [param] = useSearchParams();
-  const [daftar, setDaftar] = useState(bacaLowonganku);
+  const [daftar, setDaftar] = useState([]);
+  const [memuat, setMemuat] = useState(true);
+  const [galat, setGalat] = useState(null);
+
+  useEffect(() => {
+    let batal = false;
+    bacaLowonganku()
+      .then((d) => !batal && setDaftar(d))
+      .catch(() => !batal && setGalat("Daftar lowongan belum bisa dimuat. Periksa koneksi lalu muat ulang."))
+      .finally(() => !batal && setMemuat(false));
+    return () => { batal = true; };
+  }, []);
+
+  /* Setiap aksi mengembalikan daftar TERBARU dari server, bukan hasil tebakan
+   * di klien. Sedikit lebih lambat, tapi dasbor tidak pernah menampilkan
+   * keadaan yang berbeda dari isi database. */
+  async function jalankan(aksi) {
+    setGalat(null);
+    try {
+      setDaftar(await aksi());
+    } catch {
+      setGalat("Perubahan belum tersimpan. Periksa koneksi lalu coba lagi.");
+    }
+  }
   const [konfirmasi, setKonfirmasi] = useState(null); // id yang menunggu konfirmasi hapus
   const perusahaan = bacaPerusahaan();
   const status = STATUS_VERIFIKASI[perusahaan.status] ?? STATUS_VERIFIKASI.belum;
@@ -90,7 +113,20 @@ export default function Perusahaan() {
           </Link>
         </div>
 
-        {urut.length === 0 ? (
+        {galat && (
+          <p className="catatan catatan--rusak" role="alert">
+            {galat}
+          </p>
+        )}
+
+        {/* Keadaan memuat dibedakan dari keadaan kosong. Tanpa pemisahan ini,
+            employer yang koneksinya lambat akan membaca "Belum ada lowongan
+            yang kamu pasang" — dan mengira kerjanya hilang. */}
+        {memuat ? (
+          <p className="catatan" role="status">
+            Memuat lowongan kamu…
+          </p>
+        ) : urut.length === 0 ? (
           <div className="kosong">
             <h3>Belum ada lowongan yang kamu pasang</h3>
             <p>
@@ -140,7 +176,9 @@ export default function Perusahaan() {
                         type="button"
                         className="tautan-aksi"
                         onClick={() =>
-                          setDaftar(perbaruiLowongan(l.id, { aktif: l.aktif === false }))
+                          jalankan(() =>
+                            perbaruiLowongan(l.id, { aktif: l.aktif === false })
+                          )
                         }
                       >
                         {l.aktif === false ? "Tayangkan lagi" : "Tutup lowongan"}
@@ -156,7 +194,7 @@ export default function Perusahaan() {
                             type="button"
                             className="tautan-aksi tautan-aksi--rusak"
                             onClick={() => {
-                              setDaftar(hapusLowongan(l.id));
+                              jalankan(() => hapusLowongan(l.id));
                               setKonfirmasi(null);
                             }}
                           >
