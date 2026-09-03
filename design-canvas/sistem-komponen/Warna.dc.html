@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 13px; letter-spacing: -0.01em; }
+    .sw { border-radius: 8px; height: 72px; border: 1px solid rgba(46,58,77,.16); }
+    .cell { display: flex; flex-direction: column; gap: 8px; }
+  </style>
+</helmet>
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Skala Warna</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 64ch; line-height: 1.6">Rasio kontras dihitung terhadap permukaan <span class="tok">#F7F6F2</span>. Ambang: 4,5:1 untuk teks isi, 3:1 untuk teks besar dan batas komponen.</p>
+  <p style="font-size: 14px; margin: 0 0 32px; color: #4B6587">Palet dikunci 2026-08-28 &mdash; krem hangat sebagai latar, slate sebagai aksi, hijau &amp; bata sebagai status.</p>
+
+  <h2 class="lex" style="font-weight: 500; font-size: 18px; margin: 0 0 16px">Mode terang</h2>
+  <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-bottom: 32px">
+    <div class="cell">
+      <div class="sw" style="background: #F0E5CF"></div>
+      <div class="tok">--color-background</div><div class="tok" style="opacity:.75">#F0E5CF</div>
+      <div style="font-size: 14px; opacity: .8">latar halaman</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #F7F6F2"></div>
+      <div class="tok">--color-surface</div><div class="tok" style="opacity:.75">#F7F6F2</div>
+      <div style="font-size: 14px; opacity: .8">kartu, panel, input</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #C8C6C6"></div>
+      <div class="tok">--color-border</div><div class="tok" style="opacity:.75">#C8C6C6</div>
+      <div style="font-size: 14px; font-weight: 600; color: #8A3232">1,6:1 &middot; hanya garis</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #4B6587"></div>
+      <div class="tok">--color-primary</div><div class="tok" style="opacity:.75">#4B6587</div>
+      <div style="font-size: 14px; font-weight: 600">5,5:1 &middot; lolos AA</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #2E3A4D"></div>
+      <div class="tok">--color-foreground</div><div class="tok" style="opacity:.75">#2E3A4D</div>
+      <div style="font-size: 14px; font-weight: 600">10,6:1 &middot; lolos AAA</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #3F6B4F"></div>
+      <div class="tok">--color-accent</div><div class="tok" style="opacity:.75">#3F6B4F</div>
+      <div style="font-size: 14px; font-weight: 600">5,7:1 &middot; lolos AA</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #9E3B3B"></div>
+      <div class="tok">--color-destructive</div><div class="tok" style="opacity:.75">#9E3B3B</div>
+      <div style="font-size: 14px; font-weight: 600">6,2:1 &middot; lolos AA</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #F7F6F2"></div>
+      <div class="tok">--color-on-primary</div><div class="tok" style="opacity:.75">#F7F6F2</div>
+      <div style="font-size: 14px; opacity: .8">teks di atas warna pekat</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #E8E3D6"></div>
+      <div class="tok">--color-muted</div><div class="tok" style="opacity:.75">#E8E3D6</div>
+      <div style="font-size: 14px; opacity: .8">panel sekunder</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #4B6587; outline: 3px solid #4B6587; outline-offset: 3px"></div>
+      <div class="tok">--color-ring</div><div class="tok" style="opacity:.75">#4B6587</div>
+      <div style="font-size: 14px; opacity: .8">cincin fokus 3px</div>
+    </div>
+  </div>
+
+  <h2 class="lex" style="font-weight: 500; font-size: 18px; margin: 0 0 8px">Teks putih di atas warna pekat</h2>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 32px">
+    <div style="background: #4B6587; color: #F7F6F2; border-radius: 8px; padding: 16px 20px">
+      <div style="font-size: 16px; font-weight: 600">Cari Lowongan</div>
+      <div style="font-size: 14px; opacity: .9; margin-top: 4px">6,0:1 &middot; lolos AA</div>
+    </div>
+    <div style="background: #3F6B4F; color: #F7F6F2; border-radius: 8px; padding: 16px 20px">
+      <div style="font-size: 16px; font-weight: 600">Lamar Sekarang</div>
+      <div style="font-size: 14px; opacity: .9; margin-top: 4px">6,1:1 &middot; lolos AA</div>
+    </div>
+    <div style="background: #9E3B3B; color: #F7F6F2; border-radius: 8px; padding: 16px 20px">
+      <div style="font-size: 16px; font-weight: 600">Laporkan Lowongan</div>
+      <div style="font-size: 14px; opacity: .9; margin-top: 4px">6,7:1 &middot; lolos AA</div>
+    </div>
+  </div>
+
+  <h2 class="lex" style="font-weight: 500; font-size: 18px; margin: 0 0 16px">Mode gelap</h2>
+  <div style="background: #23211E; border-radius: 12px; padding: 24px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; color: #F0E5CF; margin-bottom: 32px">
+    <div class="cell">
+      <div class="sw" style="background: #23211E; border-color: rgba(240,229,207,.24)"></div><div class="tok">--color-background</div><div class="tok" style="opacity:.8">#23211E</div>
+      <div style="font-size: 14px; opacity: .85">latar halaman</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #2E2B26; border-color: rgba(240,229,207,.24)"></div><div class="tok">--color-surface</div><div class="tok" style="opacity:.8">#2E2B26</div>
+      <div style="font-size: 14px; opacity: .85">kartu, panel</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #4A453D"></div><div class="tok">--color-border</div><div class="tok" style="opacity:.8">#4A453D</div>
+      <div style="font-size: 14px; opacity: .85">hanya garis</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #8FA8C8"></div><div class="tok">--color-primary</div><div class="tok" style="opacity:.8">#8FA8C8</div>
+      <div style="font-size: 14px; font-weight: 600">6,6:1</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #F0E5CF"></div><div class="tok">--color-foreground</div><div class="tok" style="opacity:.8">#F0E5CF</div>
+      <div style="font-size: 14px; font-weight: 600">12,9:1</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #7FB68C"></div><div class="tok">--color-accent</div><div class="tok" style="opacity:.8">#7FB68C</div>
+      <div style="font-size: 14px; font-weight: 600">6,9:1</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #E08585"></div><div class="tok">--color-destructive</div><div class="tok" style="opacity:.8">#E08585</div>
+      <div style="font-size: 14px; font-weight: 600">6,0:1</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #23211E; border-color: rgba(240,229,207,.24)"></div><div class="tok">--color-on-primary</div><div class="tok" style="opacity:.8">#23211E</div>
+      <div style="font-size: 14px; opacity: .85">teks di atas primary</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #3A362F"></div><div class="tok">--color-muted</div><div class="tok" style="opacity:.8">#3A362F</div>
+      <div style="font-size: 14px; opacity: .85">panel sekunder</div>
+    </div>
+    <div class="cell">
+      <div class="sw" style="background: #8FA8C8; outline: 3px solid #8FA8C8; outline-offset: 3px"></div><div class="tok">--color-ring</div><div class="tok" style="opacity:.8">#8FA8C8</div>
+      <div style="font-size: 14px; opacity: .85">cincin fokus 3px</div>
+    </div>
+  </div>
+
+  <div style="border-left: 4px solid #9E3B3B; background: #F7F6F2; padding: 16px 20px; border-radius: 0 8px 8px 0">
+    <div class="lex" style="font-weight: 600; font-size: 18px; margin-bottom: 8px">Empat aturan yang mengikat semua halaman</div>
+    <ol style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.7">
+      <li><span class="tok">#C8C6C6</span> NEVER memikul makna &mdash; ia garis dan pemisah, bukan teks, ikon, atau label nonaktif.</li>
+      <li>Hijau <span class="tok">#3F6B4F</span> memikul dua peran: badge TERVERIFIKASI dan CTA &ldquo;Lamar Sekarang&rdquo;. Keduanya berarti &ldquo;aman&rdquo;.</li>
+      <li>Merah <span class="tok">#9E3B3B</span> NEVER dipakai selain error dan pelaporan &mdash; betapapun cocoknya dengan krem.</li>
+      <li>Latar <span class="tok">#F0E5CF</span> dan permukaan <span class="tok">#F7F6F2</span> cuma beda <strong>1,16:1</strong>. Kartu WAJIB punya garis atau bayangan &mdash; beda warna saja tidak cukup untuk memisahkan.</li>
+    </ol>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

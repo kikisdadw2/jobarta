@@ -1,0 +1,116 @@
+{
+  "pages": [
+    {
+      "id": "page-1",
+      "name": "Layar auth"
+    },
+    {
+      "id": "page-2",
+      "name": "Mode gelap"
+    }
+  ],
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "page": "page-1",
+      "title": "Masuk — 3 state",
+      "x": 0,
+      "y": 0,
+      "w": 1300,
+      "h": 1150
+    },
+    {
+      "file": "MasukLanjutan.dc.html",
+      "page": "page-1",
+      "title": "Masuk — state sisa & desktop",
+      "x": 1400,
+      "y": 0,
+      "w": 2360,
+      "h": 1300
+    },
+    {
+      "file": "Daftar.dc.html",
+      "page": "page-1",
+      "title": "Daftar — form & cek username",
+      "x": 0,
+      "y": 1450,
+      "w": 900,
+      "h": 1330
+    },
+    {
+      "file": "DaftarDialog.dc.html",
+      "page": "page-1",
+      "title": "Daftar — dialog Opsi B & error",
+      "x": 1000,
+      "y": 1450,
+      "w": 1820,
+      "h": 1150
+    },
+    {
+      "file": "VerifikasiEmail.dc.html",
+      "page": "page-1",
+      "title": "Verifikasi email pemulihan",
+      "x": 0,
+      "y": 2850,
+      "w": 1700,
+      "h": 1100
+    },
+    {
+      "file": "LupaPassword.dc.html",
+      "page": "page-1",
+      "title": "Lupa password",
+      "x": 1800,
+      "y": 2850,
+      "w": 1700,
+      "h": 1100
+    },
+    {
+      "file": "AturUlang.dc.html",
+      "page": "page-1",
+      "title": "Atur ulang password",
+      "x": 0,
+      "y": 4100,
+      "w": 1700,
+      "h": 1100
+    },
+    {
+      "file": "Gelap.dc.html",
+      "page": "page-2",
+      "title": "Mode gelap",
+      "x": 0,
+      "y": 0,
+      "w": 1300,
+      "h": 1250
+    }
+  ],
+  "annotations": [
+    {
+      "id": "urutan-baca",
+      "page": "page-1",
+      "x": 0,
+      "y": -150,
+      "w": 900,
+      "text": "DESIGN 2B — 5 layar auth JOBARTA\nUrutan baca: Masuk → Daftar → Verifikasi email → Lupa password → Atur ulang.\nSemua copy Bahasa Indonesia sungguhan. Email sintetis internal tidak pernah muncul di layar mana pun."
+    },
+    {
+      "id": "aturan-keamanan",
+      "page": "page-1",
+      "x": 1800,
+      "y": 4100,
+      "w": 420,
+      "text": "Tiga aturan yang mengikat semua layar:\n\n1. Pesan salah kredensial digabung — tidak pernah menyebut mana yang salah.\n2. Lupa password menjawab sama persis untuk email terdaftar maupun tidak.\n3. Email pemulihan tidak pernah menggabungkan akun Google dan akun password."
+    },
+    {
+      "id": "jalan-buntu",
+      "page": "page-1",
+      "x": 1800,
+      "y": 4420,
+      "w": 420,
+      "text": "Satu jalan buntu memang ada dan sengaja digambar: akun tanpa email pemulihan tidak bisa dibuka lagi. Layar Lupa Password menyatakannya sejak awal, bukan setelah orang menunggu email yang tidak akan datang."
+    }
+  ],
+  "launch": {
+    "view": "canvas",
+    "page": "page-1"
+  }
+}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 13px; color: #4B6587; }
+    .row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #C8C6C6; }
+    .meta { display: flex; flex-direction: column; gap: 4px; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+  </style>
+</helmet>
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Tipografi</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 62ch; line-height: 1.6">Judul memakai <strong>Lexend</strong>, isi memakai <strong>Source Sans 3</strong>. Skala 12 &middot; 14 &middot; 16 &middot; 18 &middot; 24 &middot; 32 &middot; 40. Body minimal 16px di mobile.</p>
+  <p style="font-size: 14px; margin: 0 0 32px; color: #4B6587">Contoh memakai kalimat produk sungguhan, bukan lorem ipsum &mdash; supaya panjang baris dan pemenggalan kata Bahasa Indonesia ikut teruji.</p>
+
+  <div class="row">
+    <div class="meta"><div class="tok">40 / Lexend 600</div><div style="font-size: 14px">Judul hero &mdash; desktop</div><div style="font-size: 14px; opacity: .75">line-height 1.15</div></div>
+    <div class="lex" style="font-size: 40px; font-weight: 600; line-height: 1.15; text-wrap: balance">Cari kerja di dekat rumah kamu</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="tok">32 / Lexend 600</div><div style="font-size: 14px">Judul halaman</div><div style="font-size: 14px; opacity: .75">line-height 1.2</div></div>
+    <div class="lex" style="font-size: 32px; font-weight: 600; line-height: 1.2; text-wrap: balance">Lowongan di sekitar Pasar Minggu</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="tok">24 / Lexend 500</div><div style="font-size: 14px">Judul bagian</div><div style="font-size: 14px; opacity: .75">line-height 1.3</div></div>
+    <div class="lex" style="font-size: 24px; font-weight: 500; line-height: 1.3">Kenapa lowongan di sini bisa dipercaya</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="tok">18 / Lexend 500</div><div style="font-size: 14px">Judul kartu &middot; JobCard</div><div style="font-size: 14px; opacity: .75">line-height 1.4</div></div>
+    <div class="lex" style="font-size: 18px; font-weight: 500; line-height: 1.4">Staf Gudang &mdash; Shift Pagi</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="tok">18 / Source Sans 3 400</div><div style="font-size: 14px">Teks pengantar</div><div style="font-size: 14px; opacity: .75">line-height 1.6</div></div>
+    <div style="font-size: 18px; line-height: 1.6; max-width: 62ch">Semua perusahaan di JOBARTA diperiksa legalitasnya sebelum boleh memasang lowongan.</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="tok">16 / Source Sans 3 400</div><div style="font-size: 14px">Isi &mdash; ukuran dasar</div><div style="font-size: 14px; opacity: .75">line-height 1.75 &middot; 60&ndash;75 karakter</div></div>
+    <div style="font-size: 16px; line-height: 1.75; max-width: 68ch">Kamu bisa mengatur radius pencarian sampai 10&nbsp;km dari titik yang kamu pilih di peta. Lowongan yang muncul cuma yang benar-benar bisa kamu tempuh setiap hari, jadi kamu tidak buang waktu melamar pekerjaan yang terlalu jauh.</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="tok">16 / Source Sans 3 600</div><div style="font-size: 14px">Label field &amp; tombol</div><div style="font-size: 14px; opacity: .75">selalu terlihat, bukan placeholder</div></div>
+    <div style="font-size: 16px; font-weight: 600">Alamat tempat kerja</div>
+  </div>
+  <div class="row">
+    <div class="meta"><div class="tok">14 / Source Sans 3 400</div><div style="font-size: 14px">Teks pendamping</div><div style="font-size: 14px; opacity: .75">bantuan &amp; metadata kartu</div></div>
+    <div style="font-size: 14px; line-height: 1.6">2,4&nbsp;km dari kamu &middot; Penuh waktu &middot; Diposting 3 hari lalu</div>
+  </div>
+  <div class="row" style="border-bottom: none">
+    <div class="meta"><div class="tok">12 / Source Sans 3 400</div><div style="font-size: 14px">Caption &amp; legal</div><div style="font-size: 14px; opacity: .75">batas bawah &mdash; tidak untuk isi</div></div>
+    <div style="font-size: 12px; line-height: 1.6">&copy; OpenStreetMap contributors &middot; Data peta dilisensikan ODbL</div>
+  </div>
+
+  <div style="margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+    <div style="background: #E8E3D6; border-radius: 12px; padding: 20px">
+      <div class="lex" style="font-size: 18px; font-weight: 600; margin-bottom: 12px">Angka pakai tabular-nums</div>
+      <div style="font-variant-numeric: tabular-nums; font-size: 16px; line-height: 1.9">
+        <div>Rp&nbsp;4.500.000 &ndash; Rp&nbsp;5.200.000</div>
+        <div>Rp&nbsp;3.100.000 &ndash; Rp&nbsp;3.800.000</div>
+        <div>Rp&nbsp;12.000.000 &ndash; Rp&nbsp;18.000.000</div>
+      </div>
+      <div style="font-size: 14px; margin-top: 12px; opacity: .8">Digit sejajar rapi di kolom &mdash; wajib untuk gaji dan jarak.</div>
+    </div>
+    <div style="background: #E8E3D6; border-radius: 12px; padding: 20px">
+      <div class="lex" style="font-size: 18px; font-weight: 600; margin-bottom: 12px">Judul pakai text-wrap: balance</div>
+      <div class="lex" style="font-size: 24px; font-weight: 500; line-height: 1.3; text-wrap: balance; max-width: 22ch">Admin Toko Sembako di Jagakarsa</div>
+      <div style="font-size: 14px; margin-top: 12px; opacity: .8">Baris terakhir tidak menyisakan satu kata sendirian.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

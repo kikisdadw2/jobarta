@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; line-height: 1.6; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .7; margin-bottom: 10px; }
+    .col { width: 375px; flex: none; }
+    .card { border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; position: relative; }
+    .cl { background: #F7F6F2; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .cd { background: #2E2B26; border: 1px solid #4A453D; color: #F0E5CF; }
+    .track { height: 8px; border-radius: 999px; background: #E3D5B8; overflow: hidden; }
+    .track-d { height: 8px; border-radius: 999px; background: #3A362F; overflow: hidden; }
+    .item { display: flex; align-items: center; gap: 10px; font-size: 15px; line-height: 1.4; min-height: 32px; }
+    .link { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 15px; font-weight: 600; min-height: 44px; padding: 0 10px; background: transparent; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .icob { width: 44px; height: 44px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; position: absolute; top: 4px; right: 4px; }
+    .note { font-size: 14px; line-height: 1.55; margin: 0; }
+    .map { border-radius: 12px; height: 150px; background: #E3D5B8; border: 1px solid #C8C6C6; display: flex; align-items: center; justify-content: center; }
+    .hd { font-family: 'Lexend', system-ui, sans-serif; font-size: 17px; font-weight: 600; margin: 0; line-height: 1.35; }
+  </style>
+</helmet>
+
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Pengingat setelah dilewati</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 66ch; line-height: 1.6">Pengguna yang menekan &ldquo;Nanti saja&rdquo; tidak dihukum. Kelengkapan profil muncul sebagai <strong>kartu tipis di halaman peta</strong> &mdash; bukan modal, bukan pemblokir, dan bisa ditutup.</p>
+  <p class="tok" style="margin: 0 0 32px">Bisa ditutup &middot; tidak pernah menutupi peta &middot; hilang sendiri setelah 100% &middot; tiga item saja</p>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap">
+
+    <div class="col">
+      <div class="lbl">1 &middot; Kartu di halaman peta &mdash; 1 dari 3 selesai</div>
+      <div style="border: 1px solid #C8C6C6; border-radius: 16px; overflow: hidden; background: #F0E5CF">
+        <div class="map">
+          <span class="tok" style="opacity: .7">peta &mdash; DESIGN 4</span>
+        </div>
+        <div style="padding: 12px">
+          <div class="card cl">
+            <button class="icob" aria-label="Tutup pengingat">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+            </button>
+            <div style="padding-right: 40px">
+              <h3 class="hd">Profil kamu 1 dari 3 lengkap</h3>
+              <p class="note" style="color: #4B6587; margin-top: 4px">Pelamar dengan profil lengkap lebih sering dibalas.</p>
+            </div>
+            <div class="track"><div style="width: 33%; height: 100%; background: #4B6587"></div></div>
+            <div style="display: flex; flex-direction: column; gap: 2px">
+              <div class="item">
+                <span style="width: 22px; height: 22px; border-radius: 50%; background: #3F6B4F; flex: none; display: flex; align-items: center; justify-content: center">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                </span>
+                Foto profil
+              </div>
+              <div class="item">
+                <span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #C8C6C6; flex: none; box-sizing: border-box"></span>
+                Berkas CV
+              </div>
+              <div class="item">
+                <span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #C8C6C6; flex: none; box-sizing: border-box"></span>
+                Lokasi domisili
+              </div>
+            </div>
+            <button class="link" style="color: #4B6587; align-self: flex-start; padding-left: 0">Lengkapi sekarang</button>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="margin-top: 12px">Kartu duduk <strong>di bawah</strong> peta, tidak melayang di atasnya &mdash; peta adalah alasan pengguna datang, jadi tidak boleh tertutup pengingat. Item yang belum selesai pakai lingkaran kosong bergaris, bukan teks abu: <strong>#C8C6C6</strong> tidak pernah memikul makna.</p>
+    </div>
+
+    <div class="col">
+      <div class="lbl">2 &middot; Mode gelap &mdash; 2 dari 3 selesai</div>
+      <div style="border: 1px solid #4A453D; border-radius: 16px; overflow: hidden; background: #23211E">
+        <div class="map" style="background: #3A362F; border-color: #4A453D">
+          <span class="tok" style="opacity: .7; color: #8FA8C8">peta &mdash; DESIGN 4</span>
+        </div>
+        <div style="padding: 12px">
+          <div class="card cd">
+            <button class="icob" aria-label="Tutup pengingat">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+            </button>
+            <div style="padding-right: 40px">
+              <h3 class="hd">Profil kamu 2 dari 3 lengkap</h3>
+              <p class="note" style="color: #8FA8C8; margin-top: 4px">Tinggal satu langkah lagi.</p>
+            </div>
+            <div class="track-d"><div style="width: 66%; height: 100%; background: #8FA8C8"></div></div>
+            <div style="display: flex; flex-direction: column; gap: 2px">
+              <div class="item">
+                <span style="width: 22px; height: 22px; border-radius: 50%; background: #7FB68C; flex: none; display: flex; align-items: center; justify-content: center">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#23211E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                </span>
+                Foto profil
+              </div>
+              <div class="item">
+                <span style="width: 22px; height: 22px; border-radius: 50%; background: #7FB68C; flex: none; display: flex; align-items: center; justify-content: center">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#23211E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                </span>
+                Berkas CV
+              </div>
+              <div class="item">
+                <span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #4A453D; flex: none; box-sizing: border-box"></span>
+                Lokasi domisili
+              </div>
+            </div>
+            <button class="link" style="color: #8FA8C8; align-self: flex-start; padding-left: 0">Lengkapi sekarang</button>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="margin-top: 12px">Centang mode gelap pakai <strong>#7FB68C</strong> dengan ikon gelap di dalamnya &mdash; hijau terang mode gelap tidak cukup kontras untuk memuat ikon terang.</p>
+    </div>
+
+    <div class="col">
+      <div class="lbl">3 &middot; Sudah 100% &mdash; apresiasi singkat, lalu kartunya hilang</div>
+      <div style="border: 1px solid #C8C6C6; border-radius: 16px; overflow: hidden; background: #F0E5CF">
+        <div class="map">
+          <span class="tok" style="opacity: .7">peta &mdash; DESIGN 4</span>
+        </div>
+        <div style="padding: 12px">
+          <div class="card cl" style="border-color: #3F6B4F">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span style="width: 34px; height: 34px; border-radius: 50%; background: #3F6B4F; flex: none; display: flex; align-items: center; justify-content: center">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+              </span>
+              <div>
+                <h3 class="hd">Profil kamu lengkap</h3>
+                <p class="note" style="color: #4B6587; margin-top: 2px">Sekarang tinggal cari yang cocok.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="margin-top: 12px">Kartu penuh tidak berubah jadi kartu &ldquo;100%&rdquo; permanen &mdash; ia muncul sebentar sebagai apresiasi lalu <strong>menghilang</strong>. Progres bar ikut hilang: setelah selesai, angka itu tidak lagi membawa informasi apa pun.</p>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 40px; padding: 20px; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; max-width: 900px">
+    <p class="note" style="margin: 0">Tiga item dipilih karena masing-masing punya <strong>manfaat yang bisa dijelaskan</strong> ke pengguna: foto membuat lamaran dikenali, CV membuat lamaran bisa dikirim, domisili membuat jarak di peta akurat. Item keempat apa pun yang tidak lolos uji itu tidak boleh masuk daftar &mdash; pengingat berubah jadi pekerjaan rumah begitu isinya tidak jelas gunanya.</p>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

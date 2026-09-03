@@ -1,0 +1,15 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "1 · Lengkapi Profil 375px", "x": 0, "y": 0, "w": 1780, "h": 1180 },
+    { "file": "Desktop.dc.html", "title": "2 · Lengkapi Profil 1440px", "x": 1880, "y": 0, "w": 1600, "h": 1400 },
+    { "file": "Unggah.dc.html", "title": "3 · Unggah CV — anatomi & state", "x": 0, "y": 1560, "w": 1780, "h": 1080 },
+    { "file": "Lampirkan.dc.html", "title": "4 · Lampirkan CV — just-in-time 🔴", "x": 1880, "y": 1560, "w": 1800, "h": 1230 },
+    { "file": "Pengingat.dc.html", "title": "5 · Pengingat setelah dilewati", "x": 0, "y": 2920, "w": 1420, "h": 1000 },
+    { "file": "Dialog.dc.html", "title": "6 · Potong foto & belum tersimpan", "x": 1560, "y": 2920, "w": 1980, "h": 1620 }
+  ],
+  "annotations": [
+    { "id": "prinsip", "x": 0, "y": -230, "w": 1000, "text": "DESIGN 3B — Lengkapi Profil\nLayar OPSIONAL setelah onboarding pilih peran (DESIGN 3).\n\nPrinsip pengikat: momen \"aha\" seeker JOBARTA bukan \"punya CV\", melainkan MELIHAT LOWONGAN NYATA DI DEKAT RUMAHNYA. Karena itu tidak ada indikator langkah \"3 dari 3\" di sini, dan unggah CV dipindah jadi just-in-time saat menekan \"Lamar\" pertama kali (artboard 4).\n\nKomponen diturunkan dari DESIGN 1. Palet krem/slate, dikunci 2026-08-28." },
+    { "id": "jit", "x": 1880, "y": 1400, "w": 700, "text": "Artboard 4 adalah yang paling penting di prompt ini: di sinilah motivasi pengguna paling tinggi — dia sudah menemukan lowongan yang dia mau." }
+  ],
+  "launch": { "view": "canvas" }
+}

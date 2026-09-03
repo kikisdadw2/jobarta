@@ -1,0 +1,11 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "1 · Mobile 375px — bottom sheet", "x": 0, "y": 0, "w": 1400, "h": 1180 },
+    { "file": "Desktop.dc.html", "title": "2 · Desktop 1440px — split view", "x": 1500, "y": 0, "w": 1560, "h": 1180 },
+    { "file": "States.dc.html", "title": "3 · Empat state wajib", "x": 0, "y": 1340, "w": 1800, "h": 1120 }
+  ],
+  "annotations": [
+    { "id": "scope", "x": 0, "y": -160, "w": 900, "text": "DESIGN 4 — Kerangka Halaman Peta\nYang didesain: BINGKAI-nya. Peta sungguhan (clustering, pan/zoom, sinkronisasi hover)\nhanya bisa dinilai saat dikode — area peta di sini placeholder bergrid.\nKomponen diturunkan dari DESIGN 1 Sistem Komponen." }
+  ],
+  "launch": { "view": "canvas" }
+}

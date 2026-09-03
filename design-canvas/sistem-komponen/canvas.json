@@ -1,0 +1,16 @@
+{
+  "artboards": [
+    { "file": "Warna.dc.html", "title": "1 · Skala Warna", "x": 0, "y": 0, "w": 1100, "h": 1160 },
+    { "file": "Tipografi.dc.html", "title": "2 · Tipografi", "x": 1200, "y": 0, "w": 1000, "h": 1160 },
+    { "file": "Tombol.dc.html", "title": "3 · Tombol", "x": 2300, "y": 0, "w": 1400, "h": 1160 },
+    { "file": "Form.dc.html", "title": "4 · Input & Form", "x": 0, "y": 1320, "w": 1100, "h": 1500 },
+    { "file": "Main.dc.html", "title": "5 · Kartu Lowongan", "x": 1200, "y": 1320, "w": 1400, "h": 1180 },
+    { "file": "BadgeStatus.dc.html", "title": "6 · Badge & Status", "x": 2700, "y": 1320, "w": 1000, "h": 1320 },
+    { "file": "EmptyState.dc.html", "title": "7 · Empty State", "x": 0, "y": 2960, "w": 1400, "h": 1240 }
+  ],
+  "annotations": [
+    { "id": "fondasi", "x": 0, "y": -170, "w": 900, "text": "JOBARTA — Sistem Komponen\nPalet krem–slate, dikunci 2026-08-28. Fondasi untuk semua halaman lain:\nDESIGN 2 Landing, 3 Onboarding, 3B Lengkapi Profil, 4 Kerangka Peta, 5 Detail Lowongan.\nJangan mendesain ulang komponen di halaman — ambil dari sini." },
+    { "id": "gate", "x": 1500, "y": 2960, "w": 900, "text": "Gate sebelum canvas ini dianggap selesai:\n• teks isi < 16px? tidak\n• field tanpa label terlihat? tidak\n• makna dibedakan warna saja? tidak\n• kata \"Barlow\"? nol" }
+  ],
+  "launch": { "view": "canvas" }
+}

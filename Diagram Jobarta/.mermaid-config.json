@@ -1,0 +1,21 @@
+{
+  "theme": "base",
+  "themeVariables": {
+    "background": "#F0E5CF",
+    "primaryColor": "#F7F6F2",
+    "primaryTextColor": "#2E3A4D",
+    "primaryBorderColor": "#4B6587",
+    "secondaryColor": "#F0E5CF",
+    "tertiaryColor": "#F7F6F2",
+    "lineColor": "#4B6587",
+    "textColor": "#2E3A4D",
+    "fontSize": "15px"
+  },
+  "er": {
+    "fontSize": 14
+  },
+  "flowchart": {
+    "useMaxWidth": false,
+    "htmlLabels": true
+  }
+}

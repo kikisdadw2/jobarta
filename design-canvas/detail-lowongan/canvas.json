@@ -1,0 +1,11 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "1 · Mobile 375px", "x": 0, "y": 0, "w": 1000, "h": 2320 },
+    { "file": "Desktop.dc.html", "title": "2 · Desktop 1440px", "x": 1100, "y": 0, "w": 1560, "h": 1780 },
+    { "file": "States.dc.html", "title": "3 · Lima state tombol + konfirmasi", "x": 1100, "y": 1900, "w": 1560, "h": 1300 }
+  ],
+  "annotations": [
+    { "id": "trust", "x": 0, "y": -160, "w": 900, "text": "DESIGN 5 — Detail Lowongan\nLayar penentu kepercayaan: di sinilah pengguna memutuskan \"ini asli atau penipuan?\"\nBadge terverifikasi, tombol lapor, dan catatan biaya bukan pelengkap — itu isi utamanya.\nKomponen diturunkan dari DESIGN 1." }
+  ],
+  "launch": { "view": "canvas" }
+}

@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 13px; color: #4B6587; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 44px; padding: 10px 20px; border-radius: 8px; border: 2px solid transparent; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+    .hdr { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .7; }
+    .stack { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  </style>
+</helmet>
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Tombol</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 62ch; line-height: 1.6">Tinggi minimum 44px, jarak antar tombol minimal 8px. Label spesifik &mdash; &ldquo;Lamar Sekarang&rdquo;, bukan &ldquo;Kirim&rdquo;.</p>
+  <p style="font-size: 14px; margin: 0 0 32px; color: #4B6587">Cincin fokus: <span class="tok">outline 3px solid #4B6587; outline-offset 2px</span> &mdash; tebal dan di luar tombol supaya terlihat di layar HP yang silau.</p>
+
+  <div style="display: grid; grid-template-columns: 150px repeat(6, minmax(0, 1fr)); gap: 16px; align-items: start">
+    <div></div>
+    <div class="hdr">Default</div><div class="hdr">Hover</div><div class="hdr">Focus</div><div class="hdr">Active</div><div class="hdr">Disabled</div><div class="hdr">Loading</div>
+
+    <div style="padding-top: 10px"><div class="lex" style="font-weight: 600; font-size: 18px">Accent</div><div class="tok">#3F6B4F</div><div style="font-size: 13px; line-height: 1.45; margin-top: 4px">Khusus aksi &ldquo;aman&rdquo;: melamar. Sewarna badge TERVERIFIKASI.</div></div>
+    <div><button class="btn" style="background: #3F6B4F; color: #F7F6F2">Lamar Sekarang</button></div>
+    <div><button class="btn" style="background: #34573F; color: #F7F6F2">Lamar Sekarang</button></div>
+    <div><button class="btn" style="background: #3F6B4F; color: #F7F6F2; outline: 3px solid #3F6B4F; outline-offset: 2px">Lamar Sekarang</button></div>
+    <div><button class="btn" style="background: #2B4634; color: #F7F6F2; transform: translateY(1px)">Lamar Sekarang</button></div>
+    <div><button class="btn" style="background: #D6D2C8; color: #7A7468; cursor: not-allowed">Sudah Dilamar</button></div>
+    <div><button class="btn" style="background: #3F6B4F; color: #F7F6F2">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"></path></svg>
+      Mengirim&hellip;</button></div>
+
+    <div style="padding-top: 10px"><div class="lex" style="font-weight: 600; font-size: 18px">Primary</div><div class="tok">#4B6587</div><div style="font-size: 13px; line-height: 1.45; margin-top: 4px">Aksi utama selain melamar.</div></div>
+    <div><button class="btn" style="background: #4B6587; color: #F7F6F2">Cari Lowongan</button></div>
+    <div><button class="btn" style="background: #3A5070; color: #F7F6F2">Cari Lowongan</button></div>
+    <div><button class="btn" style="background: #4B6587; color: #F7F6F2; outline: 3px solid #4B6587; outline-offset: 2px">Cari Lowongan</button></div>
+    <div><button class="btn" style="background: #2E3A4D; color: #F7F6F2; transform: translateY(1px)">Cari Lowongan</button></div>
+    <div><button class="btn" style="background: #D6D2C8; color: #7A7468; cursor: not-allowed">Cari Lowongan</button></div>
+    <div><button class="btn" style="background: #4B6587; color: #F7F6F2">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"></path></svg>
+      Mencari&hellip;</button></div>
+
+    <div style="padding-top: 10px"><div class="lex" style="font-weight: 600; font-size: 18px">Secondary</div><div class="tok">garis #4B6587</div></div>
+    <div><button class="btn" style="background: transparent; color: #4B6587; border-color: #4B6587">Simpan Lowongan</button></div>
+    <div><button class="btn" style="background: #E5DFD0; color: #3A5070; border-color: #3A5070">Simpan Lowongan</button></div>
+    <div><button class="btn" style="background: transparent; color: #4B6587; border-color: #4B6587; outline: 3px solid #4B6587; outline-offset: 2px">Simpan Lowongan</button></div>
+    <div><button class="btn" style="background: #C8C6C6; color: #2E3A4D; border-color: #2E3A4D">Simpan Lowongan</button></div>
+    <div><button class="btn" style="background: transparent; color: #8A8578; border-color: #D6D2C8; cursor: not-allowed">Simpan Lowongan</button></div>
+    <div><button class="btn" style="background: transparent; color: #4B6587; border-color: #4B6587">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"></path></svg>
+      Menyimpan&hellip;</button></div>
+
+    <div style="padding-top: 10px"><div class="lex" style="font-weight: 600; font-size: 18px">Ghost</div><div class="tok">tanpa bidang</div></div>
+    <div><button class="btn" style="background: transparent; color: #4B6587">Lewati</button></div>
+    <div><button class="btn" style="background: #E8E3D6; color: #3A5070">Lewati</button></div>
+    <div><button class="btn" style="background: transparent; color: #4B6587; outline: 3px solid #4B6587; outline-offset: 2px">Lewati</button></div>
+    <div><button class="btn" style="background: #C8C6C6; color: #2E3A4D">Lewati</button></div>
+    <div><button class="btn" style="background: transparent; color: #8A8578; cursor: not-allowed">Lewati</button></div>
+    <div><button class="btn" style="background: transparent; color: #4B6587">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"></path></svg>
+      Memuat&hellip;</button></div>
+
+    <div style="padding-top: 10px"><div class="lex" style="font-weight: 600; font-size: 18px">Destructive</div><div class="tok">#9E3B3B</div></div>
+    <div><button class="btn" style="background: transparent; color: #8A3232; border-color: #9E3B3B">Laporkan Lowongan</button></div>
+    <div><button class="btn" style="background: #FBF4F1; color: #7A2C2C; border-color: #8A3232">Laporkan Lowongan</button></div>
+    <div><button class="btn" style="background: transparent; color: #8A3232; border-color: #9E3B3B; outline: 3px solid #9E3B3B; outline-offset: 2px">Laporkan Lowongan</button></div>
+    <div><button class="btn" style="background: #F5E4E1; color: #6B2626; border-color: #7A2C2C">Laporkan Lowongan</button></div>
+    <div><button class="btn" style="background: transparent; color: #C9B5AF; border-color: #E3D5CF; cursor: not-allowed">Laporkan Lowongan</button></div>
+    <div><button class="btn" style="background: transparent; color: #8A3232; border-color: #9E3B3B">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A3232" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"></path></svg>
+      Mengirim&hellip;</button></div>
+  </div>
+
+  <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+    <div style="background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 20px">
+      <div class="lex" style="font-size: 18px; font-weight: 600; margin-bottom: 12px">Lebar penuh di 375px</div>
+      <div class="stack" style="align-items: stretch">
+        <button class="btn" style="background: #4B6587; color: #F7F6F2; width: 100%">Lamar Sekarang</button>
+        <button class="btn" style="background: transparent; color: #4B6587; border-color: #4B6587; width: 100%">Simpan Lowongan</button>
+      </div>
+      <div style="font-size: 14px; margin-top: 12px; line-height: 1.6">Di mobile tombol menumpuk dan melebar penuh, jarak 12px. Satu aksi utama saja yang berisi.</div>
+    </div>
+    <div style="background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 20px">
+      <div class="lex" style="font-size: 18px; font-weight: 600; margin-bottom: 12px">Tombol ikon &mdash; tetap 44px</div>
+      <div style="display: flex; gap: 12px; align-items: center">
+        <button class="btn" style="background: #F7F6F2; color: #4B6587; border-color: #C8C6C6; width: 44px; height: 44px; padding: 0" aria-label="Lokasi saya">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path><circle cx="12" cy="12" r="8"></circle></svg>
+        </button>
+        <button class="btn" style="background: #F7F6F2; color: #4B6587; border-color: #C8C6C6; width: 44px; height: 44px; padding: 0" aria-label="Perbesar peta">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+        </button>
+        <span style="font-size: 14px; line-height: 1.5">Hanya untuk kontrol peta yang maknanya universal &mdash; wajib punya <span class="tok">aria-label</span>.</span>
+      </div>
+      <div style="font-size: 14px; margin-top: 12px; line-height: 1.6; color: #8A3232; font-weight: 600">Tombol aksi biasa tidak boleh tanpa teks.</div>
+    </div>
+    <div style="background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 20px">
+      <div class="lex" style="font-size: 18px; font-weight: 600; margin-bottom: 12px">Gerak</div>
+      <div style="font-size: 16px; line-height: 1.7">Transisi <strong>150ms ease-out</strong> pada <span class="tok">background-color</span> dan <span class="tok">transform</span> saja.</div>
+      <div style="font-size: 16px; line-height: 1.7; margin-top: 8px">Active menurunkan tombol 1px. Semua gerak dimatikan di <span class="tok">prefers-reduced-motion</span>.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

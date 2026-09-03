@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .card { background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .meta { font-size: 14px; color: #4B6587; font-variant-numeric: tabular-nums; }
+    .btn { font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; border-radius: 8px; border: 2px solid transparent; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+  </style>
+</helmet>
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+
+  <div class="lex" style="font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #4B6587">Opsi A &mdash; Krem dominan</div>
+
+  <div style="display: flex; gap: 8px">
+    <div style="flex: 1; background: #F7F6F2; border: 2px solid #C8C6C6; border-radius: 8px; min-height: 48px; display: flex; align-items: center; padding: 0 14px; gap: 10px; min-width: 0">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" style="flex: none" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <span style="font-size: 16px; color: #4B6587; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Kasir, Pasar Minggu&hellip;</span>
+    </div>
+    <button class="btn" style="background: #4B6587; color: #F7F6F2; padding: 0 18px; flex: none">Cari</button>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: baseline">
+    <div style="font-size: 15px; font-variant-numeric: tabular-nums"><strong>48 lowongan</strong> di area ini</div>
+    <div style="font-size: 15px; color: #4B6587">Terdekat &#9662;</div>
+  </div>
+
+  <div class="card">
+    <div style="display: flex; gap: 8px; align-items: flex-start; justify-content: space-between">
+      <h3 class="lex" style="font-size: 18px; font-weight: 600; margin: 0; line-height: 1.35; text-wrap: balance">Staf Gudang &mdash; Shift Pagi</h3>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+      <span style="font-size: 15px; font-weight: 600">PT Sinar Logistik</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; background: #3F6B4F; color: #F7F6F2; border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 700">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+        TERVERIFIKASI
+      </span>
+    </div>
+    <div style="font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums">Rp&nbsp;4.500.000 &ndash; Rp&nbsp;5.200.000</div>
+    <div class="meta">2,4&nbsp;km dari kamu &middot; Penuh waktu &middot; 3 hari lalu</div>
+    <button class="btn" style="background: #3F6B4F; color: #F7F6F2; width: 100%">Lamar Sekarang</button>
+  </div>
+
+  <div class="card">
+    <h3 class="lex" style="font-size: 18px; font-weight: 600; margin: 0; line-height: 1.35; text-wrap: balance">Admin Toko Sembako Jagakarsa</h3>
+    <div style="font-size: 15px; font-weight: 600">Toko Berkah Jaya</div>
+    <div style="font-size: 16px; font-weight: 600; color: #4B6587">Gaji dirundingkan</div>
+    <div class="meta">1,1&nbsp;km dari kamu &middot; Paruh waktu &middot; 1 hari lalu</div>
+    <div style="display: flex; gap: 8px">
+      <button class="btn" style="background: transparent; color: #4B6587; border-color: #4B6587; flex: 1">Simpan</button>
+      <button class="btn" style="background: transparent; color: #9E3B3B; border-color: #9E3B3B; padding: 0 16px; flex: none" aria-label="Laporkan lowongan">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9E3B3B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <div style="background: #F7F6F2; border: 2px solid #9E3B3B; border-radius: 12px; padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9E3B3B" stroke-width="2.5" stroke-linecap="round" style="flex: none; margin-top: 2px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6M12 16.5v.01"></path></svg>
+    <div style="font-size: 15px; line-height: 1.55; color: #9E3B3B; font-weight: 600">Lokasi kamu belum aktif. Nyalakan izin lokasi di pengaturan browser, atau ketik nama kelurahan di kotak pencarian.</div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

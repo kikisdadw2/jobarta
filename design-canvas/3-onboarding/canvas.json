@@ -1,0 +1,98 @@
+{
+  "pages": [
+    {
+      "id": "page-1",
+      "name": "Alur onboarding"
+    },
+    {
+      "id": "page-2",
+      "name": "Mode gelap"
+    }
+  ],
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "page": "page-1",
+      "title": "A · Pilih Peran",
+      "x": 0,
+      "y": 0,
+      "w": 2360,
+      "h": 1250
+    },
+    {
+      "file": "LengkapiData.dc.html",
+      "page": "page-1",
+      "title": "B · Lengkapi Data (2 varian)",
+      "x": 2460,
+      "y": 0,
+      "w": 1300,
+      "h": 1120
+    },
+    {
+      "file": "ConsentPDP.dc.html",
+      "page": "page-1",
+      "title": "C · Consent PDP (2 varian)",
+      "x": 0,
+      "y": 1400,
+      "w": 2360,
+      "h": 1300
+    },
+    {
+      "file": "Menolak.dc.html",
+      "page": "page-1",
+      "title": "D · Menolak persetujuan",
+      "x": 2460,
+      "y": 1400,
+      "w": 1300,
+      "h": 1120
+    },
+    {
+      "file": "Sukses.dc.html",
+      "page": "page-1",
+      "title": "E · Sukses per peran",
+      "x": 0,
+      "y": 2840,
+      "w": 2360,
+      "h": 1220
+    },
+    {
+      "file": "Gelap.dc.html",
+      "page": "page-2",
+      "title": "Mode gelap",
+      "x": 0,
+      "y": 0,
+      "w": 1300,
+      "h": 1220
+    }
+  ],
+  "annotations": [
+    {
+      "id": "alur-utama",
+      "page": "page-1",
+      "x": 0,
+      "y": -170,
+      "w": 1000,
+      "text": "DESIGN 3 — ONBOARDING (revisi 1 September 2026)\nA Pilih Peran → B Lengkapi Data → C Consent PDP → E Sukses.\nD Menolak adalah cabang dari C.\n\nLayar Masuk TIDAK ada di alur ini — sudah pindah ke DESIGN 2B."
+    },
+    {
+      "id": "dua-jalur",
+      "page": "page-1",
+      "x": 2460,
+      "y": 2760,
+      "w": 460,
+      "text": "Kenapa banyak layar punya dua varian:\n\nJalur Google membawa nama, foto, dan email — tapi belum pernah ditanya soal consent.\n\nJalur username+password tidak membawa satu pun dari ketiganya — tapi consent-nya sudah diberikan saat mendaftar.\n\nSatu bentuk layar tidak bisa melayani keduanya dengan jujur."
+    },
+    {
+      "id": "cabang-tolak",
+      "page": "page-1",
+      "x": 2460,
+      "y": 3180,
+      "w": 460,
+      "text": "Cabang menolak consent berubah total.\n\nDulu: “pendaftaran dibatalkan”.\nSekarang: akun Auth sudah terlanjur terbentuk, jadi yang benar adalah account_status = deactivated, lalu tawaran hapus data dengan tenggat 30 hari (UU PDP No. 27/2022)."
+    }
+  ],
+  "launch": {
+    "view": "canvas",
+    "page": "page-1"
+  }
+}

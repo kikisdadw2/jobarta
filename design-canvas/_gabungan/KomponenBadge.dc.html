@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 13px; color: #4B6587; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 700; letter-spacing: .02em; }
+    .card { background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 20px; }
+    .hdr { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .7; margin-bottom: 12px; }
+    .step { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; flex: 1; min-width: 0; }
+    .dot { width: 44px; height: 44px; border-radius: 999px; display: flex; align-items: center; justify-content: center; flex: none; }
+  </style>
+</helmet>
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Badge &amp; Status</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 64ch; line-height: 1.6">Setiap status dibedakan oleh <strong>ikon + teks</strong>, tidak pernah oleh warna saja. Sekitar 8% laki-laki Indonesia mengalami buta warna merah-hijau &mdash; dan status di produk ini menentukan apakah orang melamar atau tidak.</p>
+  <p class="tok" style="margin: 0 0 32px">radius 999px &middot; padding 5px 12px &middot; font 13px/700</p>
+
+  <div class="card" style="margin-bottom: 24px">
+    <div class="hdr">Verifikasi perusahaan</div>
+    <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 16px">
+      <span class="badge" style="background: #3F6B4F; color: #F7F6F2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+        TERVERIFIKASI
+      </span>
+      <span class="badge" style="background: #F0E5CF; color: #6B5A2E; border: 1.5px solid #A08B4A">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B5A2E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+        MENUNGGU VERIFIKASI
+      </span>
+      <span class="badge" style="background: #9E3B3B; color: #F7F6F2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        DITOLAK
+      </span>
+    </div>
+    <div style="font-size: 15px; line-height: 1.7">
+      Kuning <span class="tok">#A08B4A</span> tidak ada di palet inti &mdash; ia diturunkan khusus untuk &ldquo;menunggu&rdquo;, satu-satunya status yang bukan aman dan bukan gagal. Teks <span class="tok">#6B5A2E</span> di atas krem = <strong>5,9:1</strong>.<br>
+      Perusahaan berstatus <em>menunggu</em> atau <em>ditolak</em> tidak boleh memasang lowongan &mdash; badge ini hanya tampil di panel admin &amp; halaman perusahaan sendiri, tidak pernah di kartu lowongan publik.
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 24px">
+    <div class="hdr">Status lamaran &mdash; StatusBadge</div>
+    <div style="display: flex; gap: 8px; align-items: flex-start; margin-bottom: 20px">
+      <div class="step">
+        <div class="dot" style="background: #3F6B4F">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 21 3l-8 18-2-7z"></path></svg>
+        </div>
+        <div style="font-size: 15px; font-weight: 600">Dikirim</div>
+        <div style="font-size: 13px; color: #4B6587">12 Agu</div>
+      </div>
+      <div style="height: 2px; background: #C8C6C6; flex: 1; margin-top: 21px"></div>
+      <div class="step">
+        <div class="dot" style="background: #3F6B4F">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"></path><circle cx="12" cy="12" r="2.5"></circle></svg>
+        </div>
+        <div style="font-size: 15px; font-weight: 600">Dilihat</div>
+        <div style="font-size: 13px; color: #4B6587">14 Agu</div>
+      </div>
+      <div style="height: 2px; background: #C8C6C6; flex: 1; margin-top: 21px"></div>
+      <div class="step">
+        <div class="dot" style="background: #4B6587">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v4M16 3v4M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path></svg>
+        </div>
+        <div style="font-size: 15px; font-weight: 600">Wawancara</div>
+        <div style="font-size: 13px; color: #4B6587">20 Agu, 10.00</div>
+      </div>
+      <div style="height: 2px; background: #C8C6C6; flex: 1; margin-top: 21px"></div>
+      <div class="step">
+        <div class="dot" style="background: #E8E3D6; border: 2px dashed #C8C6C6; box-sizing: border-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A7468" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 8v4M12 16v.01"></path></svg>
+        </div>
+        <div style="font-size: 15px; font-weight: 600; color: #7A7468">Hasil</div>
+        <div style="font-size: 13px; color: #7A7468">belum ada</div>
+      </div>
+    </div>
+    <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 12px">
+      <span class="badge" style="background: #3F6B4F; color: #F7F6F2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+        DITERIMA
+      </span>
+      <span class="badge" style="background: #F7F6F2; color: #8A3232; border: 1.5px solid #9E3B3B">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8A3232" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        TIDAK DILANJUTKAN
+      </span>
+    </div>
+    <div style="font-size: 15px; line-height: 1.7">
+      Langkah &ldquo;Hasil&rdquo; digambar sebagai lingkaran putus-putus &mdash; belum terjadi, bukan gagal. Perbedaan itu penting: pelamar yang melihat kotak kosong menyimpulkan ditolak.<br>
+      Label penolakan berbunyi <strong>&ldquo;Tidak dilanjutkan&rdquo;</strong>, bukan &ldquo;Ditolak&rdquo;. Bata dipakai sebagai garis, bukan bidang penuh &mdash; kabar buruk tidak perlu berteriak.
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+    <div class="card">
+      <div class="hdr">Uji buta warna &mdash; grayscale</div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; filter: grayscale(1)">
+        <span class="badge" style="background: #3F6B4F; color: #F7F6F2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+          TERVERIFIKASI
+        </span>
+        <span class="badge" style="background: #9E3B3B; color: #F7F6F2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+          DITOLAK
+        </span>
+      </div>
+      <div style="font-size: 15px; line-height: 1.7; margin-top: 12px">Tanpa warna sama sekali, centang dan silang tetap membedakan keduanya. Kalau badge di halaman mana pun gagal uji ini, badge-nya yang salah.</div>
+    </div>
+    <div class="card">
+      <div class="hdr">Yang TIDAK boleh</div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px">
+        <span class="badge" style="background: #3F6B4F; color: #F7F6F2">TERVERIFIKASI</span>
+        <span class="badge" style="background: #3F6B4F; color: #F7F6F2; padding: 5px 9px" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4 10-10"></path></svg>
+        </span>
+        <span style="width: 12px; height: 12px; border-radius: 999px; background: #3F6B4F; align-self: center"></span>
+      </div>
+      <div style="font-size: 15px; line-height: 1.7; color: #8A3232; font-weight: 600">Ketiganya dilarang: teks tanpa ikon, ikon tanpa teks, dan titik warna polos. Yang terakhir paling sering muncul di dashboard &mdash; dan paling tidak bisa dibaca.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

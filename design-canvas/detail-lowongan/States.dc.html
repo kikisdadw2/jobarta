@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; }
+    .bar { width: 375px; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 12px; flex: none; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .7; margin-bottom: 10px; }
+    .note { font-size: 14px; line-height: 1.6; margin-top: 10px; max-width: 375px; }
+    .fld { font-family: inherit; font-size: 16px; color: #2E3A4D; background: #F7F6F2; border: 2px solid #C8C6C6; border-radius: 8px; padding: 10px 14px; box-sizing: border-box; width: 100%; }
+  </style>
+</helmet>
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Lima State Tombol Lamar</h1>
+  <p style="font-size: 16px; margin: 0 0 32px; max-width: 68ch; line-height: 1.6">Digambar sejak awal karena di sinilah bug UX paling sering muncul &mdash; pengguna menekan &ldquo;Lamar&rdquo; dua kali lalu bingung kenapa ditolak sistem.</p>
+
+  <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start">
+
+    <div>
+      <div class="lbl">1 &middot; Bisa dilamar</div>
+      <div class="bar">
+        <button class="btn" style="background: #3F6B4F; color: #F7F6F2">Lamar Sekarang</button>
+      </div>
+      <p class="note">Keadaan dasar. Satu-satunya tombol berbidang penuh di layar.</p>
+    </div>
+
+    <div>
+      <div class="lbl">2 &middot; Sedang mengirim</div>
+      <div class="bar">
+        <button class="btn" style="background: #3F6B4F; color: #F7F6F2; cursor: wait" aria-busy="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"></path></svg>
+          Mengirim&hellip;
+        </button>
+      </div>
+      <p class="note">Tombol tetap aktif secara visual tapi tidak bisa ditekan lagi &mdash; teks diakhiri elipsis, <span class="tok">aria-busy="true"</span>.</p>
+    </div>
+
+    <div>
+      <div class="lbl">3 &middot; Sudah dilamar</div>
+      <div class="bar">
+        <button class="btn" style="background: #E8E3D6; color: #5C574E; cursor: not-allowed; border-color: #C8C6C6" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5C574E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+          Sudah Dilamar
+        </button>
+        <div style="font-size: 14px; text-align: center; margin-top: 8px; color: #4B6587">Kamu melamar pada 12&nbsp;Agustus&nbsp;2026 &middot; <a href="#" style="font-weight: 600">Lihat lamaran</a></div>
+      </div>
+      <p class="note">Tanggal melamar <strong>wajib</strong> disebut. Tanpa itu pengguna tidak yakin apakah lamarannya benar-benar terkirim, lalu mencoba lagi lewat jalur lain.</p>
+    </div>
+
+    <div>
+      <div class="lbl">4 &middot; Lowongan ditutup</div>
+      <div class="bar">
+        <div style="background: #E8E3D6; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; display: flex; gap: 10px; align-items: flex-start">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5C574E" stroke-width="2.2" stroke-linecap="round" style="flex: none; margin-top: 1px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+          <div style="font-size: 14px; line-height: 1.55">Lowongan ini ditutup pada 20&nbsp;Agustus&nbsp;2026.</div>
+        </div>
+        <button class="btn" style="background: #4B6587; color: #F7F6F2">Cari Lowongan Serupa</button>
+      </div>
+      <p class="note">Tombol lamar <strong>diganti</strong>, bukan dinonaktifkan &mdash; tombol mati yang tak bisa ditekan tidak memberi jalan ke mana pun. Warnanya kembali ke primary karena mencari bukan aksi &ldquo;aman&rdquo;.</p>
+    </div>
+
+    <div>
+      <div class="lbl">5 &middot; Belum login</div>
+      <div class="bar">
+        <button class="btn" style="background: #4B6587; color: #F7F6F2">Masuk untuk Melamar</button>
+        <div style="font-size: 14px; text-align: center; margin-top: 8px; color: #4B6587; line-height: 1.5">Gratis, cukup pakai akun Google kamu</div>
+      </div>
+      <p class="note">Label menyebut <strong>tujuannya</strong>, bukan sekadar &ldquo;Masuk&rdquo;. Setelah login, pengguna dikembalikan ke lowongan ini &mdash; bukan ke beranda.</p>
+    </div>
+
+  </div>
+
+  <h2 class="lex" style="font-weight: 600; font-size: 24px; margin: 44px 0 16px">Modal konfirmasi lamaran</h2>
+
+  <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start">
+    <div>
+      <div class="lbl">375px &mdash; bottom sheet</div>
+      <div style="width: 375px; height: 620px; position: relative; border: 1px solid #C8C6C6; border-radius: 16px; overflow: hidden; background: #F0E5CF; flex: none">
+        <div style="padding: 16px 12px; opacity: .55">
+          <div class="lex" style="font-size: 22px; font-weight: 600; margin-bottom: 10px">Staf Gudang &mdash; Shift Pagi</div>
+          <div style="font-size: 15px; margin-bottom: 14px">PT Sinar Logistik</div>
+          <div style="height: 12px; background: #E8E3D6; border-radius: 6px; margin-bottom: 8px"></div>
+          <div style="height: 12px; background: #E8E3D6; border-radius: 6px; width: 80%; margin-bottom: 8px"></div>
+          <div style="height: 12px; background: #E8E3D6; border-radius: 6px; width: 60%"></div>
+        </div>
+        <div style="position: absolute; inset: 0; background: rgba(46,58,77,.5)"></div>
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; background: #F7F6F2; border-radius: 16px 16px 0 0; padding: 16px 16px 14px">
+          <div style="width: 40px; height: 4px; border-radius: 999px; background: #C8C6C6; margin: 0 auto 14px"></div>
+          <h3 class="lex" style="font-size: 20px; font-weight: 600; margin: 0 0 8px; text-wrap: balance">Kirim lamaran ke PT Sinar Logistik?</h3>
+          <p style="font-size: 15px; line-height: 1.6; margin: 0 0 14px">CV dan data profil kamu akan dikirim ke perusahaan. Lamaran yang sudah dikirim tidak bisa dibatalkan.</p>
+
+          <div style="background: #F0E5CF; border-radius: 8px; padding: 12px; margin-bottom: 14px; display: flex; gap: 10px; align-items: center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg>
+            <div style="min-width: 0; flex: 1">
+              <div style="font-size: 15px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">CV-Rizky-Ghazirah-2026.pdf</div>
+              <div style="font-size: 13px; color: #4B6587">1,8&nbsp;MB</div>
+            </div>
+            <a href="#" style="font-size: 14px; font-weight: 600; flex: none">Ganti</a>
+          </div>
+
+          <label for="cat" style="font-size: 15px; font-weight: 600; display: block; margin-bottom: 6px">Catatan untuk perusahaan <span style="font-weight: 400; color: #4B6587">(opsional)</span></label>
+          <textarea class="fld" id="cat" rows="2" style="resize: none; margin-bottom: 14px" placeholder="Contoh: Saya bisa mulai kerja minggu depan&hellip;"></textarea>
+
+          <button class="btn" style="background: #3F6B4F; color: #F7F6F2; margin-bottom: 8px">Kirim Lamaran</button>
+          <button class="btn" style="background: transparent; color: #4B6587">Batal</button>
+          <div style="height: 16px; margin-top: 8px; background: repeating-linear-gradient(45deg, #E8E3D6 0 6px, transparent 6px 12px); border-radius: 4px"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex: 1; min-width: 340px; max-width: 620px">
+      <div class="lbl">Kenapa ada konfirmasi</div>
+      <div style="background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 20px">
+        <ul style="font-size: 16px; line-height: 1.75; margin: 0; padding-left: 20px">
+          <li>Melamar adalah aksi yang <strong>tidak bisa dibatalkan</strong> dan mengirim data pribadi (CV, nama, kontak) ke pihak ketiga. Aturan Web Interface Guidelines: aksi destruktif atau tak-terbalikkan wajib punya konfirmasi atau undo. Di sini undo mustahil, jadi konfirmasi wajib.</li>
+          <li>Konfirmasi menyebut <strong>ke siapa</strong> data dikirim, bukan cuma &ldquo;Yakin?&rdquo; &mdash; ini juga memenuhi transparansi UU PDP.</li>
+          <li>Berkas CV ditampilkan di sini supaya pengguna tahu <strong>versi mana</strong> yang terkirim, dan bisa menggantinya tanpa keluar dari alur.</li>
+          <li>Catatan lamaran ditandai <strong>opsional</strong> secara eksplisit. Tanpa label itu, sebagian pengguna berhenti karena merasa harus menulis surat lamaran.</li>
+          <li>Bila pengguna belum punya CV, sheet ini digantikan sheet &ldquo;Lampirkan CV&rdquo; dari DESIGN 3B &mdash; komponen dropzone yang sama, bukan yang baru.</li>
+          <li>Tombol Batal berbentuk ghost, bukan abu samar &mdash; jalan mundur harus jelas terbaca, bukan disembunyikan.</li>
+        </ul>
+      </div>
+
+      <div class="lbl" style="margin-top: 24px">Setelah berhasil</div>
+      <div style="background: #F7F6F2; border: 1px solid #3F6B4F; border-left-width: 4px; border-radius: 0 8px 8px 0; padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3F6B4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 1px" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+        <div style="font-size: 15px; line-height: 1.6"><strong>Lamaran terkirim.</strong> Kamu bisa memantau statusnya di &ldquo;Lamaran Saya&rdquo;. Perusahaan biasanya membalas dalam 3&ndash;7 hari.<br><span style="font-size: 14px; color: #4B6587">Diumumkan lewat <span class="tok">aria-live="polite"</span>, lalu tombol berubah ke state 3.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

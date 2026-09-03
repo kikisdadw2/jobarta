@@ -1,0 +1,21 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "1 · Layar Masuk — 375px & 1440px", "x": 0, "y": 0, "w": 1720, "h": 2560 },
+    { "file": "MasukState.dc.html", "title": "2 · Layar Masuk — memuat & gagal", "x": 1820, "y": 0, "w": 1820, "h": 1180 },
+    { "file": "PilihPeran.dc.html", "title": "3 · Pilih Peran 375px — belum & sudah memilih", "x": 0, "y": 2720, "w": 1820, "h": 1180 },
+    { "file": "PeranDesktop.dc.html", "title": "3′ · Pilih Peran 1440px", "x": 1920, "y": 2720, "w": 1720, "h": 1620 },
+    { "file": "DariLanding.dc.html", "title": "3″ · Datang dari CTA landing 🔴", "x": 0, "y": 4060, "w": 1820, "h": 2000 },
+    { "file": "NamaPerusahaan.dc.html", "title": "4 · Nama Perusahaan — employer saja", "x": 1920, "y": 4500, "w": 1720, "h": 2020 },
+    { "file": "Consent.dc.html", "title": "5 · Consent PDP — wajib 🔴", "x": 0, "y": 6220, "w": 1820, "h": 2400 },
+    { "file": "TolakConsent.dc.html", "title": "6 · Menolak Consent 🔴", "x": 1920, "y": 6680, "w": 1720, "h": 2380 },
+    { "file": "Sukses.dc.html", "title": "7 · Layar Sukses — seeker vs employer", "x": 0, "y": 8780, "w": 1820, "h": 1900 },
+    { "file": "Progres.dc.html", "title": "8 · Indikator Progres — potongan komponen", "x": 1920, "y": 9220, "w": 1500, "h": 1400 }
+  ],
+  "annotations": [
+    { "id": "prinsip", "x": 0, "y": -300, "w": 1100, "text": "DESIGN 3 — Onboarding Pilih Peran + Consent PDP\n\nPrinsip pengikat: OAuth Google adalah satu-satunya pintu, dan akun auth.users SUDAH terbentuk sebelum consent diminta. Konsekuensinya menentukan seluruh alur ini — tidak ada halaman /register, dan \"menolak consent\" bukan berarti \"pendaftaran dibatalkan\" (lihat artboard 6).\n\nLayar ini menulis ke: profiles.role · profiles.account_status · consent_records · deletion_requests.\nPalet krem/slate, dikunci 2026-08-28. Komponen diambil dari design-canvas/sistem-komponen." },
+    { "id": "peran", "x": 0, "y": 2460, "w": 780, "text": "Artboard 3 adalah layar paling menentukan: satu ketukan di sini menulis profiles.role dan belum ada alur ganti peran. Karena itu artboard 3″ menolak memilihkan peran meski niat pengguna sudah jelas dari landing." },
+    { "id": "pdp", "x": 0, "y": 5960, "w": 780, "text": "Artboard 5 & 6 adalah kewajiban UU PDP No. 27/2022 — bukan sekadar kepatuhan. Untuk produk yang risiko terbesarnya adalah penipuan kerja, transparansi di layar ini adalah sinyal kepercayaan yang paling murah dan paling awal." },
+    { "id": "progres", "x": 1920, "y": 8960, "w": 700, "text": "DESIGN 3B (Lengkapi Profil) sengaja TIDAK ikut dihitung di indikator progres. 3B sudah dikunci sebagai layar opsional; memasukkannya ke hitungan membuatnya terasa wajib dan menaikkan drop-off." }
+  ],
+  "launch": { "view": "canvas" }
+}

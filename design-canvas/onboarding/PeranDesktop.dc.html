@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .dk a { color: #8FA8C8; } .dk a:hover { color: #F0E5CF; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; line-height: 1.6; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .75; margin-bottom: 10px; }
+    .phone { width: 375px; border: 1px solid #C8C6C6; border-radius: 16px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .phone-d { width: 375px; border: 1px solid #4A453D; border-radius: 16px; background: #23211E; flex: none; overflow: hidden; }
+    .desk { width: 1440px; border: 1px solid #C8C6C6; border-radius: 12px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .desk-d { width: 1440px; border: 1px solid #4A453D; border-radius: 12px; background: #23211E; flex: none; overflow: hidden; }
+    .pad { padding: 24px 20px 28px; display: flex; flex-direction: column; gap: 24px; box-sizing: border-box; }
+    .h1 { font-family: 'Lexend', system-ui, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0 0 8px; text-wrap: balance; }
+    .h1d { font-family: 'Lexend', system-ui, sans-serif; font-size: 32px; font-weight: 600; line-height: 1.25; margin: 0 0 12px; text-wrap: balance; }
+    .sub { font-size: 16px; line-height: 1.6; margin: 0; }
+    .hint { font-size: 14px; line-height: 1.5; margin: 6px 0 0; }
+    .field { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; width: 100%; min-height: 48px; box-sizing: border-box; padding: 12px; border-radius: 8px; min-width: 0; }
+    .fl { background: #F7F6F2; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .fd { background: #2E2B26; border: 1px solid #4A453D; color: #F0E5CF; }
+    .ring { outline: 3px solid #4B6587; outline-offset: 2px; }
+    .ring-d { outline: 3px solid #8FA8C8; outline-offset: 2px; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; border: 2px solid transparent; cursor: pointer; transition: transform 180ms ease-out, opacity 180ms ease-out; }
+    .btn-p { background: #4B6587; color: #F7F6F2; }
+    .btn-pd { background: #8FA8C8; color: #23211E; }
+    .btn-off { background: #4B6587; color: #F7F6F2; opacity: .45; cursor: not-allowed; }
+    .btn-offd { background: #8FA8C8; color: #23211E; opacity: .45; cursor: not-allowed; }
+    .btn-out { background: transparent; border: 2px solid #4B6587; color: #4B6587; }
+    .btn-outd { background: transparent; border: 2px solid #8FA8C8; color: #8FA8C8; }
+    .btn-del { background: transparent; border: 2px solid #9E3B3B; color: #9E3B3B; }
+    .btn-deld { background: transparent; border: 2px solid #E08585; color: #E08585; }
+    .goog { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .goog-l { background: #FFFFFF; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .goog-d { background: #131314; border: 1px solid #8E918F; color: #E3E3E3; }
+    .card { border-radius: 12px; padding: 16px; box-sizing: border-box; }
+    .cl { background: #F7F6F2; border: 1px solid #C8C6C6; }
+    .cd { background: #2E2B26; border: 1px solid #4A453D; }
+    .rolecard { border-radius: 12px; padding: 20px; box-sizing: border-box; width: 100%; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 10px; min-height: 44px; font-family: 'Source Sans 3', system-ui, sans-serif; transition: transform 200ms ease-out; }
+    .rc-l { background: #F7F6F2; border: 2px solid #C8C6C6; color: #2E3A4D; }
+    .rc-l-on { background: #F7F6F2; border: 4px solid #4B6587; color: #2E3A4D; }
+    .rc-d { background: #2E2B26; border: 2px solid #4A453D; color: #F0E5CF; }
+    .rc-d-on { background: #2E2B26; border: 4px solid #8FA8C8; color: #F0E5CF; }
+    .rt { font-family: 'Lexend', system-ui, sans-serif; font-size: 20px; font-weight: 600; line-height: 1.3; }
+    .note { font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .cbrow { display: flex; gap: 12px; align-items: flex-start; padding: 8px; margin: -8px; border-radius: 8px; cursor: pointer; }
+    .cb { width: 28px; height: 28px; border-radius: 6px; flex: none; display: flex; align-items: center; justify-content: center; margin: 8px; }
+    .cb-l { background: #F7F6F2; border: 2px solid #4B6587; }
+    .cb-lon { background: #4B6587; border: 2px solid #4B6587; }
+    .cb-d { background: #2E2B26; border: 2px solid #8FA8C8; }
+    .cb-don { background: #8FA8C8; border: 2px solid #8FA8C8; }
+    .ver { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 14px; font-weight: 600; }
+    .errbox { border-radius: 8px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.5; }
+    .err-l { background: #F7F6F2; border: 2px solid #9E3B3B; color: #2E3A4D; }
+    .err-d { background: #2E2B26; border: 2px solid #E08585; color: #F0E5CF; }
+    .scrim { background: rgba(46,58,77,.55); }
+    .scrim-d { background: rgba(10,9,8,.72); }
+    .col { display: flex; flex-direction: column; }
+    .step { display: flex; align-items: center; gap: 8px; }
+    .dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none; }
+    .barline { height: 4px; border-radius: 2px; flex: 1 1 auto; min-width: 24px; }
+    .btn, .goog, .rolecard, .cbrow, .icob { touch-action: manipulation; -webkit-tap-highlight-color: rgba(75,101,135,.18); }
+    .btn-p:hover { background: #3E5573; } .btn-pd:hover { background: #A6BAD5; }
+    .btn-out:hover { background: #E3D5B8; } .btn-outd:hover { background: #3A362F; }
+    .btn-del:hover { background: #F0DDDD; } .btn-deld:hover { background: #3A2C2C; }
+    .goog-l:hover { background: #F2F2F2; } .goog-d:hover { background: #1E1E1F; }
+    .rolecard:hover { border-color: #4B6587; } .rc-d:hover, .rc-d-on:hover { border-color: #8FA8C8; }
+    .cbrow:hover { background: #E3D5B8; } .dk .cbrow:hover { background: #3A362F; }
+    .btn[disabled]:hover { background: #4B6587; } .btn-offd[disabled]:hover { background: #8FA8C8; }
+    .phone-d, .desk-d, .dk { color-scheme: dark; }
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .rolecard { transition: none; }
+    }
+  </style>
+</helmet>
+
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">3&prime; &middot; Pilih Peran &mdash; 1440px, berdampingan</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 66ch; line-height: 1.6">Di desktop kedua kartu berdiri sejajar dalam grid dua kolom yang sama lebar. Tidak ada kartu yang lebih besar, lebih terang, atau lebih dulu &mdash; dua peran ini setara di mata produk.</p>
+  <p class="tok" style="margin: 0 0 32px; max-width: 100ch">Perbedaan susunan dari 375px bukan sekadar skala: di sini kartu jadi dua kolom, penjelasan boleh dua baris, dan tombol Lanjut berhenti melebar penuh (maks. 280px, rata kiri sejajar grid) karena tombol selebar 1440px justru sulit ditemukan mata.</p>
+
+  <div class="col" style="gap: 48px">
+
+    <div>
+      <div class="lbl">3e &middot; 1440px terang &mdash; belum memilih, lanjut nonaktif</div>
+      <div class="desk">
+        <div style="padding: 64px 96px; display: flex; flex-direction: column; gap: 32px; min-height: 560px; box-sizing: border-box">
+          <div class="step" style="gap: 8px; max-width: 300px">
+            <span class="dot" style="background: #4B6587; color: #F7F6F2">1</span>
+            <span class="barline" style="background: #C8C6C6"></span>
+            <span class="dot" style="background: #F7F6F2; border: 2px solid #C8C6C6; color: #4B6587; box-sizing: border-box">2</span>
+            <span style="font-size: 14px; font-weight: 600; color: #4B6587; margin-left: 4px">Langkah 1 dari 2</span>
+          </div>
+          <div>
+            <h2 class="h1d" style="max-width: 22ch">Kamu ke JOBARTA untuk apa?</h2>
+            <p class="sub" style="color: #4B6587; font-size: 18px; max-width: 60ch">Pilih satu. Ini menentukan tampilan JOBARTA untukmu, jadi pilih dengan tenang.</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+            <button class="rolecard rc-l" aria-pressed="false" style="padding: 28px; gap: 12px">
+              <div style="display: flex; align-items: center; gap: 14px">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg>
+                <span class="rt" style="font-size: 24px">Saya Cari Kerja</span>
+              </div>
+              <span style="font-size: 18px; line-height: 1.55">Cari lowongan di peta, simpan yang cocok, lalu lamar.</span>
+              <span class="note" style="color: #3F6B4F; font-size: 16px">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F6B4F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6z"></path></svg>
+                Gratis selamanya
+              </span>
+            </button>
+
+            <button class="rolecard rc-l" aria-pressed="false" style="padding: 28px; gap: 12px">
+              <div style="display: flex; align-items: center; gap: 14px">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M3 20V9l7-4 7 4v11"></path><path d="M3 20h18"></path><path d="M9 20v-5h4v5"></path><path d="M17 20V12h4v8"></path></svg>
+                <span class="rt" style="font-size: 24px">Saya Pasang Lowongan</span>
+              </div>
+              <span style="font-size: 18px; line-height: 1.55">Pasang lowongan dan terima lamaran dari sekitar lokasimu.</span>
+              <span class="note" style="color: #4B6587; font-size: 16px">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"></path><path d="M14 3v4h4"></path><path d="m9 14 2 2 4-4"></path></svg>
+                Perlu verifikasi dokumen usaha
+              </span>
+            </button>
+          </div>
+
+          <div class="col" style="gap: 8px; align-items: flex-start">
+            <button class="btn btn-off" disabled aria-disabled="true" style="width: 280px">Lanjut</button>
+            <p class="hint" style="color: #4B6587; font-size: 16px; margin: 0">Pilih salah satu kartu di atas untuk melanjutkan.</p>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 110ch; margin-top: 12px">Urutan baca sama persis dengan 375px: indikator &rarr; judul &rarr; keterangan &rarr; kartu kiri &rarr; kartu kanan &rarr; Lanjut &rarr; kalimat bantuan. Kartu kiri di DOM = kartu kiri di layar, jadi urutan Tab tidak pernah melompat.</p>
+    </div>
+
+    <div>
+      <div class="lbl">3f &middot; 1440px gelap &mdash; sudah memilih &ldquo;Cari Kerja&rdquo;, fokus keyboard di tombol Lanjut</div>
+      <div class="desk-d dk">
+        <div style="padding: 64px 96px; display: flex; flex-direction: column; gap: 32px; min-height: 560px; box-sizing: border-box; color: #F0E5CF">
+          <div class="step" style="gap: 8px; max-width: 300px">
+            <span class="dot" style="background: #8FA8C8; color: #23211E">1</span>
+            <span class="barline" style="background: #4A453D"></span>
+            <span class="dot" style="background: #2E2B26; border: 2px solid #4A453D; color: #8FA8C8; box-sizing: border-box">2</span>
+            <span style="font-size: 14px; font-weight: 600; color: #8FA8C8; margin-left: 4px">Langkah 1 dari 2</span>
+          </div>
+          <div>
+            <h2 class="h1d" style="max-width: 22ch">Kamu ke JOBARTA untuk apa?</h2>
+            <p class="sub" style="color: #8FA8C8; font-size: 18px; max-width: 60ch">Pilih satu. Ini menentukan tampilan JOBARTA untukmu, jadi pilih dengan tenang.</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+            <button class="rolecard rc-d-on" aria-pressed="true" style="padding: 26px; gap: 12px">
+              <div style="display: flex; align-items: center; gap: 14px">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg>
+                <span class="rt" style="font-size: 24px">Saya Cari Kerja</span>
+                <span style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; color: #8FA8C8; font-size: 15px; font-weight: 700">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.6 2.6L16 9.4"></path></svg>
+                  Dipilih
+                </span>
+              </div>
+              <span style="font-size: 18px; line-height: 1.55">Cari lowongan di peta, simpan yang cocok, lalu lamar.</span>
+              <span class="note" style="color: #7FB68C; font-size: 16px">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FB68C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6z"></path></svg>
+                Gratis selamanya
+              </span>
+            </button>
+
+            <button class="rolecard rc-d" aria-pressed="false" style="padding: 28px; gap: 12px">
+              <div style="display: flex; align-items: center; gap: 14px">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M3 20V9l7-4 7 4v11"></path><path d="M3 20h18"></path><path d="M9 20v-5h4v5"></path><path d="M17 20V12h4v8"></path></svg>
+                <span class="rt" style="font-size: 24px">Saya Pasang Lowongan</span>
+              </div>
+              <span style="font-size: 18px; line-height: 1.55">Pasang lowongan dan terima lamaran dari sekitar lokasimu.</span>
+              <span class="note" style="color: #8FA8C8; font-size: 16px">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"></path><path d="M14 3v4h4"></path><path d="m9 14 2 2 4-4"></path></svg>
+                Perlu verifikasi dokumen usaha
+              </span>
+            </button>
+          </div>
+
+          <div class="col" style="gap: 8px; align-items: flex-start">
+            <button class="btn btn-pd ring-d" style="width: 280px">Lanjut</button>
+            <p class="hint" style="color: #8FA8C8; font-size: 16px; margin: 0">Kamu masuk sebagai pencari kerja. Langkah berikutnya: persetujuan data.</p>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 110ch; margin-top: 12px">Ring fokus gelap <strong>#8FA8C8</strong> 3px dengan <span class="tok">outline-offset: 2px</span> &mdash; terbaca di atas latar <strong>#23211E</strong> maupun di atas tombol <strong>#8FA8C8</strong> sendiri karena offset memberi celah latar di antaranya.</p>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

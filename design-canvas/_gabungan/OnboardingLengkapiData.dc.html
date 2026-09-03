@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+  <style>
+    button, a, input, label { touch-action: manipulation; }
+    body { margin: 0; background: #E5D8BD; font-family: "Source Sans 3", system-ui, sans-serif; color: #2E3A4D; }
+    a { color: #4B6587; } a:hover { color: #3B5170; }
+    .sheet { padding: 32px; }
+    .row { display: flex; gap: 32px; align-items: flex-start; }
+    .col { display: flex; flex-direction: column; gap: 12px; }
+    .lbl { font: 600 15px "Lexend", system-ui, sans-serif; }
+    .cap { font: 400 13px "Source Sans 3", system-ui, sans-serif; color: #4B6587; max-width: 375px; }
+    .scr { width: 375px; height: 812px; box-sizing: border-box; background: #F0E5CF; border: 1px solid #C8C6C6; overflow: hidden; display: flex; flex-direction: column; padding: 40px 24px 24px; }
+    .fld { display: block; font: 600 14px "Source Sans 3", system-ui, sans-serif; margin-bottom: 6px; }
+    .inp { width: 100%; height: 48px; box-sizing: border-box; padding: 0 14px; font: 400 16px "Source Sans 3", system-ui, sans-serif; color: #2E3A4D; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 10px; }
+    .hint { font: 400 13px "Source Sans 3", system-ui, sans-serif; color: #4B6587; line-height: 1.5; margin: 6px 0 0; }
+    .prog { margin-bottom: 24px; }
+  </style>
+</helmet>
+
+<div class="sheet">
+  <h1 style="font: 700 26px 'Lexend', system-ui, sans-serif; margin: 0 0 6px">B · Lengkapi Data — dua varian, langkah 2 dari 3</h1>
+  <p style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; margin: 0 0 28px; max-width: 900px">Layar ini tidak bisa lagi memakai satu bentuk. Jalur Google membawa nama, foto, dan email; jalur username tidak membawa satu pun dari ketiganya. Yang lama (“nama &amp; email dari Google, read-only”) hanya benar untuk separuh pengguna.</p>
+
+  <div class="row">
+
+    <!-- VARIAN GOOGLE -->
+    <div class="col">
+      <div class="lbl">Varian A · masuk lewat Google</div>
+      <div class="scr">
+        <div class="prog">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px">
+            <span style="font: 600 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Langkah 2 dari 3</span>
+            <span style="font: 400 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Lengkapi data</span>
+          </div>
+          <div style="display: flex; gap: 6px">
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #4B6587"></div>
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #4B6587"></div>
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #C8C6C6"></div>
+          </div>
+        </div>
+
+        <h2 style="font: 600 26px 'Lexend', system-ui, sans-serif; margin: 0 0 8px; text-wrap: balance">Betulkan data kamu</h2>
+        <p style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 24px">Kami ambil dari akun Google kamu. Ubah kalau ada yang kurang pas.</p>
+
+        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 22px">
+          <div style="flex: none; width: 72px; height: 72px; border-radius: 999px; background: #4B6587; color: #F7F6F2; display: flex; align-items: center; justify-content: center; font: 600 26px 'Lexend', system-ui, sans-serif">RG</div>
+          <div style="min-width: 0">
+            <div style="font: 600 15px 'Source Sans 3', system-ui, sans-serif; margin-bottom: 6px">Foto profil</div>
+            <button style="height: 44px; padding: 0 14px; background: #F7F6F2; color: #4B6587; border: 1px solid #C8C6C6; border-radius: 10px; font: 600 14px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">Ganti foto</button>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px">
+          <div>
+            <label class="fld">Nama lengkap</label>
+            <input class="inp" type="text" value="Rizky Ghazirah Himawan" autocomplete="name">
+            <p class="hint">Nama ini yang dilihat perusahaan saat kamu melamar.</p>
+          </div>
+
+          <div>
+            <label class="fld">Email</label>
+            <div style="display: flex; align-items: center; gap: 10px; height: 48px; box-sizing: border-box; padding: 0 14px; background: #EAE3D3; border: 1px solid #C8C6C6; border-radius: 10px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
+              <span style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">rizky.ghazirah@gmail.com</span>
+            </div>
+            <p class="hint">Tidak bisa diubah di sini karena email inilah yang dipakai untuk masuk lewat Google. Kalau mau ganti, ganti dulu di akun Google kamu.</p>
+          </div>
+        </div>
+
+        <button style="margin-top: auto; width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 17px 'Lexend', system-ui, sans-serif; cursor: pointer">Lanjut</button>
+      </div>
+      <div class="cap">Field terkunci memakai latar #EAE3D3 dan ikon gembok — bukan teks abu, yang design system larang sebagai penanda nonaktif.</div>
+    </div>
+
+    <!-- VARIAN PASSWORD -->
+    <div class="col">
+      <div class="lbl">Varian B · masuk lewat username + password</div>
+      <div class="scr">
+        <div class="prog">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px">
+            <span style="font: 600 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Langkah 2 dari 3</span>
+            <span style="font: 400 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Lengkapi data</span>
+          </div>
+          <div style="display: flex; gap: 6px">
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #4B6587"></div>
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #4B6587"></div>
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #C8C6C6"></div>
+          </div>
+        </div>
+
+        <h2 style="font: 600 26px 'Lexend', system-ui, sans-serif; margin: 0 0 8px; text-wrap: balance">Kenalkan diri kamu</h2>
+        <p style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 24px">Perusahaan melihat nama, bukan username. Foto boleh dilewati.</p>
+
+        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 22px">
+          <div style="flex: none; width: 72px; height: 72px; border-radius: 999px; background: #EAE3D3; border: 1px dashed #C8C6C6; display: flex; align-items: center; justify-content: center">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"></circle><path d="M4.5 20a7.5 7.5 0 0 1 15 0"></path></svg>
+          </div>
+          <div style="min-width: 0">
+            <div style="font: 600 15px 'Source Sans 3', system-ui, sans-serif; margin-bottom: 6px">Foto profil <span style="font-weight: 400; color: #4B6587">(opsional)</span></div>
+            <button style="height: 44px; padding: 0 14px; background: #F7F6F2; color: #4B6587; border: 1px solid #C8C6C6; border-radius: 10px; font: 600 14px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">Unggah foto</button>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px">
+          <div>
+            <label class="fld">Nama lengkap</label>
+            <input class="inp" type="text" value="" placeholder="Nama sesuai KTP atau ijazah…" autocomplete="name" style="outline: 3px solid #4B6587; outline-offset: 2px">
+            <p class="hint">Nama ini yang dilihat perusahaan saat kamu melamar. Username <strong>rizkyghazirah</strong> tidak ditampilkan ke perusahaan.</p>
+          </div>
+
+          <div style="background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 16px">
+            <div style="display: flex; align-items: center; gap: 8px; font: 600 15px 'Source Sans 3', system-ui, sans-serif; margin-bottom: 8px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A08B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"></rect><path d="m3 7 9 6 9-6"></path></svg>
+              Tambah email pemulihan?
+            </div>
+            <p style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.55; margin: 0 0 12px">Akun kamu sekarang belum punya email pemulihan, jadi tidak bisa dibuka lagi kalau lupa password.</p>
+            <input class="inp" type="email" value="" placeholder="nama@email.com…" autocomplete="email" style="margin-bottom: 10px">
+            <p class="hint" style="margin: 0">Boleh dilewati. Kamu bisa menambahkannya kapan saja lewat halaman profil.</p>
+          </div>
+        </div>
+
+        <button style="margin-top: auto; width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 17px 'Lexend', system-ui, sans-serif; cursor: pointer">Lanjut</button>
+      </div>
+      <div class="cap">Ajakan email pemulihan muncul di sini karena inilah kesempatan kedua — dan terakhir yang wajar — sebelum orang masuk aplikasi dan lupa soal itu.</div>
+    </div>
+
+    <!-- STATE MEMUAT -->
+    <div class="col">
+      <div class="lbl">State memuat — menyimpan data</div>
+      <div class="scr">
+        <div class="prog">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px">
+            <span style="font: 600 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Langkah 2 dari 3</span>
+            <span style="font: 400 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Lengkapi data</span>
+          </div>
+          <div style="display: flex; gap: 6px">
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #4B6587"></div>
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #4B6587"></div>
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #C8C6C6"></div>
+          </div>
+        </div>
+
+        <h2 style="font: 600 26px 'Lexend', system-ui, sans-serif; margin: 0 0 8px">Kenalkan diri kamu</h2>
+        <p style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 24px">Perusahaan melihat nama, bukan username.</p>
+
+        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 22px; opacity: .55">
+          <div style="flex: none; width: 72px; height: 72px; border-radius: 999px; background: #EAE3D3; border: 1px dashed #C8C6C6"></div>
+          <div style="min-width: 0">
+            <div style="font: 600 15px 'Source Sans 3', system-ui, sans-serif; margin-bottom: 6px">Foto profil (opsional)</div>
+            <div style="height: 44px; width: 130px; background: #EAE3D3; border-radius: 10px"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px; opacity: .55">
+          <div>
+            <label class="fld">Nama lengkap</label>
+            <input class="inp" type="text" value="Rizky Ghazirah Himawan" readonly>
+          </div>
+          <div>
+            <label class="fld">Email pemulihan (opsional)</label>
+            <input class="inp" type="email" value="rizky@email.com" autocomplete="email" spellcheck="false" readonly>
+          </div>
+        </div>
+
+        <div style="margin-top: auto">
+          <button style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 17px 'Lexend', system-ui, sans-serif; opacity: .75">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"></path></svg>
+            Menyimpan…
+          </button>
+          <p class="hint" style="text-align: center">Jangan tutup halaman ini dulu.</p>
+        </div>
+      </div>
+      <div class="cap">Form ikut diredupkan supaya jelas seluruh layar sedang terkunci, bukan cuma tombolnya.</div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+  <style>
+    button, a, input, label { touch-action: manipulation; }
+    body { margin: 0; background: #E5D8BD; font-family: "Source Sans 3", system-ui, sans-serif; color: #2E3A4D; }
+    a { color: #4B6587; } a:hover { color: #3B5170; }
+    .sheet { padding: 32px; }
+    .row { display: flex; gap: 32px; align-items: flex-start; }
+    .col { display: flex; flex-direction: column; gap: 12px; }
+    .lbl { font: 600 15px "Lexend", system-ui, sans-serif; }
+    .cap { font: 400 13px "Source Sans 3", system-ui, sans-serif; color: #4B6587; max-width: 375px; }
+    .scr { width: 375px; height: 1010px; box-sizing: border-box; background: #F0E5CF; border: 1px solid #C8C6C6; overflow: hidden; display: flex; flex-direction: column; padding: 40px 24px 24px; }
+    .fld { display: block; font: 600 14px "Source Sans 3", system-ui, sans-serif; margin-bottom: 6px; }
+    .inp { width: 100%; height: 48px; box-sizing: border-box; padding: 0 14px; font: 400 16px "Source Sans 3", system-ui, sans-serif; color: #2E3A4D; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 10px; }
+    .hint { font: 400 13px "Source Sans 3", system-ui, sans-serif; color: #4B6587; line-height: 1.5; margin: 6px 0 0; }
+  </style>
+</helmet>
+
+<div class="sheet">
+  <h1 style="font: 700 26px 'Lexend', system-ui, sans-serif; margin: 0 0 6px">Daftar — jalur username + password</h1>
+  <p style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; margin: 0 0 28px; max-width: 820px">Urutan field dari yang paling murah ke paling mahal secara kognitif: username → password → email pemulihan → consent. Email sintetis internal tidak pernah muncul di layar mana pun.</p>
+
+  <div class="row">
+
+    <!-- FORM UTUH -->
+    <div class="col">
+      <div class="lbl">Form utuh — 375px</div>
+      <div class="scr">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px">
+          <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-8-7-12.5A7 7 0 0 1 19 9.5C19 14 12 22 12 22Z" fill="#4B6587"></path><circle cx="12" cy="9.5" r="2.6" fill="#F7F6F2"></circle></svg>
+          <div style="font: 700 20px 'Lexend', system-ui, sans-serif">JOBARTA</div>
+        </div>
+
+        <h2 style="font: 600 26px 'Lexend', system-ui, sans-serif; margin: 0 0 4px">Buat akun</h2>
+        <p style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; color: #4B6587; margin: 0 0 20px">Sudah punya akun? <a href="#" style="font-weight: 600">Masuk</a></p>
+
+        <button style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 48px; background: #F7F6F2; color: #2E3A4D; border: 1px solid #C8C6C6; border-radius: 10px; font: 600 16px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62Z"></path><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18Z"></path><path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33Z"></path><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58Z"></path></svg>
+          Daftar dengan Google
+        </button>
+
+        <div style="display: flex; align-items: center; gap: 12px; margin: 18px 0">
+          <div style="flex: 1; height: 1px; background: #C8C6C6"></div>
+          <div style="font: 400 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">atau</div>
+          <div style="flex: 1; height: 1px; background: #C8C6C6"></div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px">
+          <div>
+            <label class="fld">Username</label>
+            <input class="inp" type="text" value="rizkyghazirah" autocomplete="username">
+            <p class="hint" style="display: flex; align-items: center; gap: 6px; color: #3F6B4F; font-weight: 600">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+              Username ini bisa dipakai
+            </p>
+            <p class="hint">3–20 karakter: huruf, angka, titik, garis bawah. Username tidak bisa diganti sendiri setelah akun dibuat.</p>
+          </div>
+
+          <div>
+            <label class="fld">Password</label>
+            <div style="display: flex; gap: 8px">
+              <input class="inp" type="password" value="••••••••••" autocomplete="new-password" style="flex: 1; min-width: 0; width: auto">
+              <button style="display: flex; align-items: center; gap: 6px; height: 48px; padding: 0 12px; background: #F7F6F2; color: #4B6587; border: 1px solid #C8C6C6; border-radius: 10px; font: 600 14px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                Lihat
+              </button>
+            </div>
+            <ul style="list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
+              <li style="display: flex; align-items: center; gap: 8px; font: 600 14px 'Source Sans 3', system-ui, sans-serif; color: #3F6B4F">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+                Minimal 8 karakter
+              </li>
+              <li style="display: flex; align-items: center; gap: 8px; font: 600 14px 'Source Sans 3', system-ui, sans-serif; color: #3F6B4F">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+                Ada huruf dan angka
+              </li>
+              <li style="display: flex; align-items: center; gap: 8px; font: 400 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle></svg>
+                Bukan tanggal lahir atau nama kamu
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <label class="fld">Email pemulihan <span style="font-weight: 400; color: #4B6587">(opsional)</span></label>
+            <input class="inp" type="email" value="" placeholder="nama@email.com…" autocomplete="email">
+            <p class="hint">Dipakai kalau kamu lupa password. Tanpa ini, akunmu tidak bisa dipulihkan.</p>
+          </div>
+
+          <div style="display: flex; gap: 12px; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 10px; padding: 14px">
+            <input type="checkbox" style="flex: none; width: 24px; height: 24px; accent-color: #4B6587; margin: 2px 0 0">
+            <div style="font: 400 14px 'Source Sans 3', system-ui, sans-serif; line-height: 1.55">Saya setuju JOBARTA mengolah <strong>CV, lokasi domisili, dan email</strong> saya untuk mencocokkan lowongan dan meneruskan lamaran ke perusahaan. <a href="#">Kebijakan Privasi</a> · <a href="#">Syarat Penggunaan</a></div>
+          </div>
+
+          <button style="width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 17px 'Lexend', system-ui, sans-serif; cursor: pointer; opacity: .45">Daftar</button>
+          <p class="hint" style="text-align: center; margin-top: -8px">Tombol aktif setelah kotak persetujuan dicentang.</p>
+        </div>
+      </div>
+      <div class="cap">Checkbox tidak pernah tercentang otomatis — kewajiban UU PDP No. 27/2022, dan dark pattern kalau dilanggar.</div>
+    </div>
+
+    <!-- ANATOMI CEK USERNAME -->
+    <div class="col">
+      <div class="lbl">Anatomi — 3 state pengecekan username</div>
+      <div style="width: 375px; box-sizing: border-box; background: #F0E5CF; border: 1px solid #C8C6C6; padding: 24px; display: flex; flex-direction: column; gap: 28px">
+
+        <div>
+          <div style="font: 600 13px 'Lexend', system-ui, sans-serif; color: #4B6587; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .04em">A · Sedang mengecek</div>
+          <label class="fld">Username</label>
+          <input class="inp" type="text" value="rizky" autocomplete="username" spellcheck="false">
+          <p class="hint" style="display: flex; align-items: center; gap: 6px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"></path></svg>
+            Mengecek ketersediaan…
+          </p>
+        </div>
+
+        <div>
+          <div style="font: 600 13px 'Lexend', system-ui, sans-serif; color: #4B6587; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .04em">B · Tersedia</div>
+          <label class="fld">Username</label>
+          <input class="inp" type="text" value="rizkyghazirah" autocomplete="username" spellcheck="false" style="border: 2px solid #3F6B4F">
+          <p class="hint" style="display: flex; align-items: center; gap: 6px; color: #3F6B4F; font-weight: 600">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+            Username ini bisa dipakai
+          </p>
+        </div>
+
+        <div>
+          <div style="font: 600 13px 'Lexend', system-ui, sans-serif; color: #4B6587; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .04em">C · Sudah dipakai</div>
+          <label class="fld">Username</label>
+          <input class="inp" type="text" value="rizky" autocomplete="username" spellcheck="false" style="border: 2px solid #9E3B3B">
+          <p class="hint" style="display: flex; align-items: flex-start; gap: 6px; color: #9E3B3B; font-weight: 600">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="flex: none; margin-top: 2px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5"></path><path d="M12 16.2v.2"></path></svg>
+            <span>Username “rizky” sudah dipakai. Coba yang lain.</span>
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px">
+            <button style="height: 44px; padding: 0 14px; background: #F7F6F2; color: #4B6587; border: 1px solid #C8C6C6; border-radius: 999px; font: 600 14px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">rizky.jkt</button>
+            <button style="height: 44px; padding: 0 14px; background: #F7F6F2; color: #4B6587; border: 1px solid #C8C6C6; border-radius: 999px; font: 600 14px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">rizky_g</button>
+            <button style="height: 44px; padding: 0 14px; background: #F7F6F2; color: #4B6587; border: 1px solid #C8C6C6; border-radius: 999px; font: 600 14px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">rizky2026</button>
+          </div>
+        </div>
+
+        <div style="background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 10px; padding: 14px; font: 400 13px 'Source Sans 3', system-ui, sans-serif; line-height: 1.55">
+          <strong>Kenapa saran alternatif, bukan cuma pesan error?</strong> Pengguna sasaran sering menyerah di titik ini. Tiga tombol saran mengubah jalan buntu jadi satu ketukan.
+        </div>
+      </div>
+      <div class="cap">Validasi dijalankan saat field ditinggalkan (blur), bukan tiap ketukan — mengetik sambil dimarahi bikin orang berhenti.</div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

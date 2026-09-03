@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+  <style>
+    button, a, input, label { touch-action: manipulation; }
+    body { margin: 0; background: #E5D8BD; font-family: "Source Sans 3", system-ui, sans-serif; color: #2E3A4D; }
+    a { color: #4B6587; } a:hover { color: #3B5170; }
+    .sheet { padding: 32px; }
+    .row { display: flex; gap: 32px; align-items: flex-start; }
+    .col { display: flex; flex-direction: column; gap: 12px; }
+    .lbl { font: 600 15px "Lexend", system-ui, sans-serif; }
+    .cap { font: 400 13px "Source Sans 3", system-ui, sans-serif; color: #4B6587; max-width: 375px; }
+    .scr { width: 375px; height: 812px; box-sizing: border-box; background: #F0E5CF; border: 1px solid #C8C6C6; overflow: hidden; display: flex; flex-direction: column; padding: 40px 24px 24px; }
+  </style>
+</helmet>
+
+<div class="sheet">
+  <h1 style="font: 700 26px 'Lexend', system-ui, sans-serif; margin: 0 0 6px">D · Menolak persetujuan</h1>
+  <p style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; margin: 0 0 28px; max-width: 900px">Akun Auth sudah terbentuk sebelum layar ini, jadi menolak <strong>tidak bisa</strong> berarti “pendaftaran dibatalkan”. Yang benar: akun berstatus <code style="font: 600 14px ui-monospace, monospace">deactivated</code>, lalu ditawari penghapusan data.</p>
+
+  <div class="row">
+
+    <!-- 1 KONFIRMASI -->
+    <div class="col">
+      <div class="lbl">1 · Konfirmasi menolak</div>
+      <div class="scr" style="position: relative; padding: 0; display: block">
+        <div style="position: absolute; inset: 0; padding: 40px 24px; filter: blur(1.5px); opacity: .4">
+          <h2 style="font: 600 26px 'Lexend', system-ui, sans-serif; margin: 0 0 16px">Data apa yang kami simpan</h2>
+          <div style="height: 220px; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; margin-bottom: 16px"></div>
+          <div style="height: 84px; background: #F7F6F2; border: 2px solid #4B6587; border-radius: 12px"></div>
+        </div>
+        <div style="position: absolute; inset: 0; background: rgba(46, 58, 77, .55)"></div>
+
+        <div role="dialog" aria-modal="true" style="position: absolute; left: 16px; right: 16px; top: 50%; transform: translateY(-50%); background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 16px; padding: 24px; box-shadow: 0 8px 32px rgba(46, 58, 77, .28)">
+          <h2 style="font: 600 21px 'Lexend', system-ui, sans-serif; margin: 0 0 12px; text-wrap: balance">Tanpa persetujuan, JOBARTA tidak bisa dipakai</h2>
+          <p style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 16px">Kami butuh izin menyimpan CV dan lokasi kamu untuk bisa menunjukkan lowongan terdekat dan mengirim lamaran. Tanpa itu, tidak ada yang bisa kami lakukan.</p>
+          <p style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 24px">Akunmu akan dinonaktifkan, dan kamu bisa minta datanya dihapus.</p>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <button style="width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 16px 'Lexend', system-ui, sans-serif; cursor: pointer; outline: 3px solid #4B6587; outline-offset: 2px">Kembali &amp; baca lagi</button>
+            <button style="width: 100%; height: 52px; background: #F7F6F2; color: #2E3A4D; border: 1px solid #C8C6C6; border-radius: 10px; font: 600 16px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">Ya, saya tidak setuju</button>
+          </div>
+        </div>
+      </div>
+      <div class="cap">Tombol menolak bertepi netral, bukan merah. Menolak adalah hak pengguna menurut UU PDP — mewarnainya merah membingkainya sebagai kesalahan.</div>
+    </div>
+
+    <!-- 2 KONSEKUENSI -->
+    <div class="col">
+      <div class="lbl">2 · Akun dinonaktifkan</div>
+      <div class="scr">
+        <div style="display: flex; justify-content: center; margin: 16px 0 24px">
+          <div style="width: 76px; height: 76px; border-radius: 999px; background: #F7F6F2; border: 2px solid #A08B4A; display: flex; align-items: center; justify-content: center">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#A08B4A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12h7"></path></svg>
+          </div>
+        </div>
+
+        <h2 style="font: 600 25px 'Lexend', system-ui, sans-serif; margin: 0 0 14px; text-align: center; text-wrap: balance">Akun kamu dinonaktifkan</h2>
+        <p style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 20px">Akunmu tetap ada tapi tidak bisa dipakai. Kami tidak mengolah datamu untuk apa pun selama statusnya begini.</p>
+
+        <div style="background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 18px; margin-bottom: 22px">
+          <div style="font: 600 16px 'Source Sans 3', system-ui, sans-serif; margin-bottom: 10px">Yang masih tersimpan</div>
+          <ul style="margin: 0; padding-left: 20px; font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.7">
+            <li>Nama dan email dari akun Google</li>
+            <li>Tanggal akun dibuat</li>
+          </ul>
+          <p style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.55; margin: 12px 0 0">Kamu belum sempat mengunggah CV atau mengisi lokasi, jadi keduanya memang tidak ada.</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <button style="width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 16px 'Lexend', system-ui, sans-serif; cursor: pointer">Berubah pikiran — aktifkan akun</button>
+          <button style="width: 100%; height: 52px; background: transparent; color: #9E3B3B; border: 1px solid #9E3B3B; border-radius: 10px; font: 600 16px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">Hapus data saya</button>
+        </div>
+
+        <p style="font: 400 13px 'Source Sans 3', system-ui, sans-serif; color: #4B6587; line-height: 1.55; margin: 16px 0 0">Kedua tombol sama besar dan sama jelas. Menyulitkan penghapusan data melanggar UU PDP, bukan sekadar tidak sopan.</p>
+      </div>
+      <div class="cap">Daftar “yang masih tersimpan” jujur menyebut apa yang ada — dan menyebut yang tidak ada. Itu yang membuat tawaran hapus data terasa bermakna.</div>
+    </div>
+
+    <!-- 3 HAPUS DATA -->
+    <div class="col">
+      <div class="lbl">3 · Permintaan hapus data diterima</div>
+      <div class="scr">
+        <div style="display: flex; justify-content: center; margin: 16px 0 24px">
+          <div style="width: 76px; height: 76px; border-radius: 999px; background: #3F6B4F; display: flex; align-items: center; justify-content: center">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+          </div>
+        </div>
+
+        <h2 style="font: 600 25px 'Lexend', system-ui, sans-serif; margin: 0 0 14px; text-align: center; text-wrap: balance">Permintaan hapus data kami terima</h2>
+        <p style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 20px">Data kamu dihapus paling lambat <strong>1 Oktober 2026</strong> — 30 hari sejak hari ini, sesuai UU PDP No. 27/2022.</p>
+
+        <div style="background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 18px; margin-bottom: 20px">
+          <div style="display: flex; gap: 12px; margin-bottom: 14px">
+            <div style="flex: none; width: 26px; height: 26px; border-radius: 999px; background: #3F6B4F; color: #F7F6F2; display: flex; align-items: center; justify-content: center; font: 700 14px 'Source Sans 3', system-ui, sans-serif">1</div>
+            <div style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.55"><strong>Hari ini</strong> — akun dikunci, tidak ada lagi pengolahan data.</div>
+          </div>
+          <div style="display: flex; gap: 12px; margin-bottom: 14px">
+            <div style="flex: none; width: 26px; height: 26px; border-radius: 999px; background: #EAE3D3; border: 1px solid #C8C6C6; color: #4B6587; display: flex; align-items: center; justify-content: center; font: 700 14px 'Source Sans 3', system-ui, sans-serif">2</div>
+            <div style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.55"><strong>Dalam 30 hari</strong> — seluruh data dihapus permanen dari server kami.</div>
+          </div>
+          <div style="display: flex; gap: 12px">
+            <div style="flex: none; width: 26px; height: 26px; border-radius: 999px; background: #EAE3D3; border: 1px solid #C8C6C6; color: #4B6587; display: flex; align-items: center; justify-content: center; font: 700 14px 'Source Sans 3', system-ui, sans-serif">3</div>
+            <div style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.55"><strong>Setelah selesai</strong> — kami kirim konfirmasi ke email kamu.</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; background: #F5E4E1; border-left: 4px solid #9E3B3B; border-radius: 10px; padding: 14px; margin-bottom: 20px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9E3B3B" stroke-width="2.2" stroke-linecap="round" style="flex: none; margin-top: 2px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5"></path><path d="M12 16.2v.2"></path></svg>
+          <div style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.55">Kamu bisa membatalkan sampai <strong>1 Oktober 2026</strong>. Setelah itu tidak bisa dikembalikan.</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: auto">
+          <button style="width: 100%; height: 52px; background: #F7F6F2; color: #2E3A4D; border: 1px solid #C8C6C6; border-radius: 10px; font: 600 16px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">Batalkan penghapusan</button>
+          <button style="width: 100%; height: 48px; background: transparent; color: #4B6587; border: 0; font: 600 16px 'Source Sans 3', system-ui, sans-serif; cursor: pointer; text-decoration: underline">Tutup</button>
+        </div>
+      </div>
+      <div class="cap">Tenggat 30 hari ditulis sebagai tanggal, bukan “30 hari” saja — orang tidak menghitung mundur di kepala.</div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

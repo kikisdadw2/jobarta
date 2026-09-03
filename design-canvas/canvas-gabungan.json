@@ -1,0 +1,43 @@
+{
+  "pages": [
+    { "id": "page-1", "name": "Sistem Komponen" },
+    { "id": "page-2", "name": "Kerangka Peta" },
+    { "id": "page-3", "name": "Detail Lowongan" },
+    { "id": "page-4", "name": "Lengkapi Profil" }
+  ],
+  "artboards": [
+    { "file": "Warna.dc.html",       "title": "1 · Skala Warna",      "page": "page-1", "x": 0,    "y": 0,    "w": 1100, "h": 1160 },
+    { "file": "Tipografi.dc.html",   "title": "2 · Tipografi",        "page": "page-1", "x": 1200, "y": 0,    "w": 1000, "h": 1160 },
+    { "file": "Tombol.dc.html",      "title": "3 · Tombol",           "page": "page-1", "x": 2300, "y": 0,    "w": 1400, "h": 1400 },
+    { "file": "Form.dc.html",        "title": "4 · Input & Form",     "page": "page-1", "x": 0,    "y": 1560, "w": 1100, "h": 1500 },
+    { "file": "Main.dc.html",        "title": "5 · Kartu Lowongan",   "page": "page-1", "x": 1200, "y": 1560, "w": 1400, "h": 1180 },
+    { "file": "BadgeStatus.dc.html", "title": "6 · Badge & Status",   "page": "page-1", "x": 2700, "y": 1560, "w": 1000, "h": 1320 },
+    { "file": "EmptyState.dc.html",  "title": "7 · Empty State",      "page": "page-1", "x": 0,    "y": 3200, "w": 1400, "h": 1240 },
+
+    { "file": "PetaMobile.dc.html",  "title": "1 · Mobile 375px — bottom sheet", "page": "page-2", "x": 0,    "y": 0,    "w": 1400, "h": 1180 },
+    { "file": "PetaDesktop.dc.html", "title": "2 · Desktop 1440px — split view", "page": "page-2", "x": 1500, "y": 0,    "w": 1560, "h": 1180 },
+    { "file": "PetaStates.dc.html",  "title": "3 · Empat state wajib",           "page": "page-2", "x": 0,    "y": 1340, "w": 1800, "h": 1120 },
+
+    { "file": "DetailMobile.dc.html",  "title": "1 · Mobile 375px",                    "page": "page-3", "x": 0,    "y": 0,    "w": 1000, "h": 2320 },
+    { "file": "DetailDesktop.dc.html", "title": "2 · Desktop 1440px",                  "page": "page-3", "x": 1100, "y": 0,    "w": 1560, "h": 1780 },
+    { "file": "DetailStates.dc.html",  "title": "3 · Lima state tombol + konfirmasi",  "page": "page-3", "x": 1100, "y": 1900, "w": 1560, "h": 1300 },
+
+    { "file": "ProfilMobile.dc.html",    "title": "1 · Lengkapi Profil 375px",        "page": "page-4", "x": 0,    "y": 0,    "w": 1780, "h": 1180 },
+    { "file": "ProfilDesktop.dc.html",   "title": "2 · Lengkapi Profil 1440px",       "page": "page-4", "x": 1880, "y": 0,    "w": 1600, "h": 1400 },
+    { "file": "ProfilUnggah.dc.html",    "title": "3 · Unggah CV — anatomi & state",  "page": "page-4", "x": 0,    "y": 1560, "w": 1780, "h": 1080 },
+    { "file": "ProfilLampirkan.dc.html", "title": "4 · Lampirkan CV — just-in-time 🔴","page": "page-4", "x": 1880, "y": 1560, "w": 1800, "h": 1230 },
+    { "file": "ProfilPengingat.dc.html", "title": "5 · Pengingat setelah dilewati",   "page": "page-4", "x": 0,    "y": 2920, "w": 1420, "h": 1000 },
+    { "file": "ProfilDialog.dc.html",    "title": "6 · Potong foto & belum tersimpan","page": "page-4", "x": 1560, "y": 2920, "w": 1980, "h": 1620 }
+  ],
+  "annotations": [
+    { "id": "sk-intro", "x": 0, "y": -170, "w": 900, "page": "page-1",
+      "text": "SISTEM KOMPONEN — fondasi semua halaman.\nPalet krem–slate, dikunci 2026-08-28. Jangan mendesain ulang komponen di halaman lain;\nambil dari sini. Sumber token: D:\\JOBARTA\\BLOK-DESIGN-SYSTEM.md" },
+    { "id": "peta-intro", "x": 0, "y": -170, "w": 900, "page": "page-2",
+      "text": "KERANGKA PETA — yang didesain adalah BINGKAI-nya.\nPeta sungguhan (clustering, pan/zoom, sinkronisasi hover) hanya bisa dinilai saat dikode;\narea peta di sini placeholder bergrid." },
+    { "id": "detail-intro", "x": 0, "y": -170, "w": 900, "page": "page-3",
+      "text": "DETAIL LOWONGAN — layar penentu kepercayaan.\nDi sinilah pengguna memutuskan \"ini asli atau penipuan?\"\nBadge terverifikasi, tombol lapor, dan catatan biaya adalah isi utamanya, bukan pelengkap." },
+    { "id": "profil-intro", "x": 0, "y": -230, "w": 1000, "page": "page-4",
+      "text": "LENGKAPI PROFIL (DESIGN 3B) — layar OPSIONAL setelah onboarding pilih peran.\n\nPrinsip pengikat: momen \"aha\" seeker bukan \"punya CV\", melainkan MELIHAT LOWONGAN NYATA DI DEKAT RUMAHNYA.\nKarena itu tidak ada indikator langkah \"3 dari 3\", dan unggah CV dipindah jadi just-in-time saat menekan \"Lamar\" pertama kali (artboard 4)." }
+  ],
+  "launch": { "view": "canvas", "page": "page-4" }
+}

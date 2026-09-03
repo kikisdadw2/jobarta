@@ -1,0 +1,23 @@
+flowchart TD
+    A([Perusahaan terverifikasi]) --> B[Buat lowongan baru]
+    B --> C[Isi judul, deskripsi,<br/>tipe kerja, rentang gaji]
+    C --> D[Tentukan lokasi:<br/>klik titik di peta]
+    D --> E{Pin sudah tepat?}
+    E -->|Belum| D
+    E -->|Sudah| F{Terbitkan sekarang?}
+    F -->|Tidak| G[(status = draft)]
+    G --> B
+    F -->|Ya| H[/Backend memeriksa ulang<br/>verif_status = verified/]
+    H --> I{Lolos?}
+    I -->|Tidak| J[Tolak: hanya perusahaan<br/>terverifikasi boleh menerbitkan]
+    J --> G
+    I -->|Ya| K[(status = published<br/>published_at = now)]
+    K --> L[Lowongan tampil<br/>sebagai pin di peta]
+    L --> M[Pelamar mengirim lamaran]
+    M --> N[Buka daftar pelamar<br/>di dasbor perusahaan]
+    N --> O[Baca profil pelamar]
+    O --> P[(UPDATE applications.status:<br/>viewed / interview /<br/>accepted / rejected)]
+    P --> Q{Lowongan masih dibuka?}
+    Q -->|Ya| M
+    Q -->|Tidak| R[(status = closed)]
+    R --> S([Selesai])

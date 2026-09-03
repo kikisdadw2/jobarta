@@ -1,0 +1,14 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "1 · Landing 375px — halaman penuh", "x": 0, "y": 0, "w": 560, "h": 3600 },
+    { "file": "Desktop.dc.html", "title": "2 · Landing 1440px — halaman penuh", "x": 700, "y": 0, "w": 1600, "h": 3900 },
+    { "file": "Gelap.dc.html", "title": "3 · Mode gelap — bagian kunci", "x": 2400, "y": 0, "w": 940, "h": 2000 }
+  ],
+  "annotations": [
+    { "id": "landing-intro", "x": 0, "y": -230, "w": 1000, "text": "DESIGN 2 — LANDING / HOME\n\nPattern marketplace: SEARCH BAR adalah CTA utama, bukan tombol daftar. Pengguna datang untuk mencari kerja, bukan membaca profil perusahaan kita.\n\nSection Kepercayaan & Keamanan diberi bobot visual paling besar (satu-satunya panel berbingkai hijau) — itu pembeda utama produk melawan lowongan palsu, bukan pelengkap." },
+    { "id": "landing-osm", "x": 2400, "y": 2080, "w": 900, "text": "Atribusi © OpenStreetMap contributors wajib muncul di setiap halaman yang menampilkan peta — termasuk cuplikan produk di hero landing, bukan cuma di halaman peta. Lisensi ODbL." },
+    { "id": "landing-peta-hidup", "x": 700, "y": 3980, "w": 1100, "text": "🗺️ CATATAN UNTUK YANG MENGKODE — cuplikan peta di hero BUKAN gambar mati.\n\nDi kode, ganti dengan peta interaktif sungguhan: react-leaflet + tile OpenStreetMap + supercluster (stack sudah dikunci 2026-08-24). Pin berangka = kluster dari supercluster, bukan angka yang ditulis tangan. Kartu lowongan di bawah muncul saat pin ditekan.\n\nYang digambar di artboard ini cuma BINGKAI dan proporsinya — sama seperti perlakuan di DESIGN 4 Kerangka Peta.\n\n🔴 Tiga syarat yang tidak boleh dilewat:\n1. Atribusi '© OpenStreetMap contributors' WAJIB terlihat di atas peta (lisensi ODbL), bukan cuma di footer.\n2. Tile publik tile.openstreetmap.org punya batas pemakaian — set User-Agent identitas aplikasi, dan siapkan penyedia tile sendiri bila trafik naik.\n3. Peta di landing dimuat MALAS (lazy): pengguna sasaran pakai Android kelas menengah di 4G tidak stabil. Muat gambar statis ringan dulu, jadikan interaktif setelah halaman siap atau saat pengguna menyentuhnya — jangan tahan render halaman demi peta." },
+    { "id": "landing-placeholder", "x": 0, "y": 3700, "w": 1000, "text": "🔴 PLACEHOLDER — enam kategori (Ritel · F&B · Gudang & Logistik · Admin · Kurir · Produksi) dan angka gaji di kartu lowongan masih tebakan.\n\nKeduanya baru bisa dipastikan setelah Fase 3: seed 30–50 lowongan asli di area pilot. Kategori harus DITURUNKAN dari lowongan yang benar-benar terkumpul, bukan ditentukan lebih dulu — kalau ternyata banyak bengkel dan laundry, daftarnya berubah." }
+  ],
+  "launch": { "view": "canvas" }
+}

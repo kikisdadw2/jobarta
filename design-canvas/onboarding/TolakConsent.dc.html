@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .dk a { color: #8FA8C8; } .dk a:hover { color: #F0E5CF; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; line-height: 1.6; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .75; margin-bottom: 10px; }
+    .phone { width: 375px; border: 1px solid #C8C6C6; border-radius: 16px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .phone-d { width: 375px; border: 1px solid #4A453D; border-radius: 16px; background: #23211E; flex: none; overflow: hidden; }
+    .desk { width: 1440px; border: 1px solid #C8C6C6; border-radius: 12px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .desk-d { width: 1440px; border: 1px solid #4A453D; border-radius: 12px; background: #23211E; flex: none; overflow: hidden; }
+    .pad { padding: 24px 20px 28px; display: flex; flex-direction: column; gap: 24px; box-sizing: border-box; }
+    .h1 { font-family: 'Lexend', system-ui, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0 0 8px; text-wrap: balance; }
+    .h1d { font-family: 'Lexend', system-ui, sans-serif; font-size: 32px; font-weight: 600; line-height: 1.25; margin: 0 0 12px; text-wrap: balance; }
+    .sub { font-size: 16px; line-height: 1.6; margin: 0; }
+    .hint { font-size: 14px; line-height: 1.5; margin: 6px 0 0; }
+    .field { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; width: 100%; min-height: 48px; box-sizing: border-box; padding: 12px; border-radius: 8px; min-width: 0; }
+    .fl { background: #F7F6F2; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .fd { background: #2E2B26; border: 1px solid #4A453D; color: #F0E5CF; }
+    .ring { outline: 3px solid #4B6587; outline-offset: 2px; }
+    .ring-d { outline: 3px solid #8FA8C8; outline-offset: 2px; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; border: 2px solid transparent; cursor: pointer; transition: transform 180ms ease-out, opacity 180ms ease-out; }
+    .btn-p { background: #4B6587; color: #F7F6F2; }
+    .btn-pd { background: #8FA8C8; color: #23211E; }
+    .btn-off { background: #4B6587; color: #F7F6F2; opacity: .45; cursor: not-allowed; }
+    .btn-offd { background: #8FA8C8; color: #23211E; opacity: .45; cursor: not-allowed; }
+    .btn-out { background: transparent; border: 2px solid #4B6587; color: #4B6587; }
+    .btn-outd { background: transparent; border: 2px solid #8FA8C8; color: #8FA8C8; }
+    .btn-del { background: transparent; border: 2px solid #9E3B3B; color: #9E3B3B; }
+    .btn-deld { background: transparent; border: 2px solid #E08585; color: #E08585; }
+    .goog { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .goog-l { background: #FFFFFF; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .goog-d { background: #131314; border: 1px solid #8E918F; color: #E3E3E3; }
+    .card { border-radius: 12px; padding: 16px; box-sizing: border-box; }
+    .cl { background: #F7F6F2; border: 1px solid #C8C6C6; }
+    .cd { background: #2E2B26; border: 1px solid #4A453D; }
+    .rolecard { border-radius: 12px; padding: 20px; box-sizing: border-box; width: 100%; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 10px; min-height: 44px; font-family: 'Source Sans 3', system-ui, sans-serif; transition: transform 200ms ease-out; }
+    .rc-l { background: #F7F6F2; border: 2px solid #C8C6C6; color: #2E3A4D; }
+    .rc-l-on { background: #F7F6F2; border: 4px solid #4B6587; color: #2E3A4D; }
+    .rc-d { background: #2E2B26; border: 2px solid #4A453D; color: #F0E5CF; }
+    .rc-d-on { background: #2E2B26; border: 4px solid #8FA8C8; color: #F0E5CF; }
+    .rt { font-family: 'Lexend', system-ui, sans-serif; font-size: 20px; font-weight: 600; line-height: 1.3; }
+    .note { font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .cbrow { display: flex; gap: 12px; align-items: flex-start; padding: 8px; margin: -8px; border-radius: 8px; cursor: pointer; }
+    .cb { width: 28px; height: 28px; border-radius: 6px; flex: none; display: flex; align-items: center; justify-content: center; margin: 8px; }
+    .cb-l { background: #F7F6F2; border: 2px solid #4B6587; }
+    .cb-lon { background: #4B6587; border: 2px solid #4B6587; }
+    .cb-d { background: #2E2B26; border: 2px solid #8FA8C8; }
+    .cb-don { background: #8FA8C8; border: 2px solid #8FA8C8; }
+    .ver { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 14px; font-weight: 600; }
+    .errbox { border-radius: 8px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.5; }
+    .err-l { background: #F7F6F2; border: 2px solid #9E3B3B; color: #2E3A4D; }
+    .err-d { background: #2E2B26; border: 2px solid #E08585; color: #F0E5CF; }
+    .scrim { background: rgba(46,58,77,.55); }
+    .scrim-d { background: rgba(10,9,8,.72); }
+    .col { display: flex; flex-direction: column; }
+    .step { display: flex; align-items: center; gap: 8px; }
+    .dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none; }
+    .barline { height: 4px; border-radius: 2px; flex: 1 1 auto; min-width: 24px; }
+    .btn, .goog, .rolecard, .cbrow, .icob { touch-action: manipulation; -webkit-tap-highlight-color: rgba(75,101,135,.18); }
+    .btn-p:hover { background: #3E5573; } .btn-pd:hover { background: #A6BAD5; }
+    .btn-out:hover { background: #E3D5B8; } .btn-outd:hover { background: #3A362F; }
+    .btn-del:hover { background: #F0DDDD; } .btn-deld:hover { background: #3A2C2C; }
+    .goog-l:hover { background: #F2F2F2; } .goog-d:hover { background: #1E1E1F; }
+    .rolecard:hover { border-color: #4B6587; } .rc-d:hover, .rc-d-on:hover { border-color: #8FA8C8; }
+    .cbrow:hover { background: #E3D5B8; } .dk .cbrow:hover { background: #3A362F; }
+    .btn[disabled]:hover { background: #4B6587; } .btn-offd[disabled]:hover { background: #8FA8C8; }
+    .phone-d, .desk-d, .dk { color-scheme: dark; }
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .rolecard { transition: none; }
+    }
+  </style>
+</helmet>
+
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">6 &middot; Menolak Consent &mdash; dialog yang paling gampang dilupakan</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 74ch; line-height: 1.6">Saat Google mengembalikan callback, <span class="tok">auth.users</span> dan <span class="tok">profiles</span> SUDAH terbentuk lewat trigger. Email, nama, dan foto profil sudah masuk sistem sebelum kalimat consent pertama dibaca.</p>
+  <p class="tok" style="margin: 0 0 32px; max-width: 105ch">Maka &ldquo;Pendaftaran dibatalkan&rdquo; adalah kalimat yang TIDAK AKURAT &mdash; ia menjanjikan ketiadaan yang tidak ada. Yang benar dan bisa dipertanggungjawabkan: <strong>akun tidak akan diaktifkan</strong> (<span class="tok">account_status</span> tetap <span class="tok">pending_consent</span>), <strong>sebutkan data yang terlanjur tersimpan</strong>, dan <strong>tawarkan penghapusan sebagai tombol yang terbaca jelas</strong> &mdash; yang menulis <span class="tok">deletion_requests</span> dengan <span class="tok">trigger = menolak_pdp</span>.</p>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap">
+
+    <div>
+      <div class="lbl">6a &middot; 375px terang &mdash; dialog di atas layar consent</div>
+      <div class="phone" style="position: relative">
+        <div class="pad" style="min-height: 780px; filter: blur(1px)" aria-hidden="true">
+          <div>
+            <h2 class="h1">Data apa yang kami simpan</h2>
+            <p class="sub" style="color: #4B6587">Baca dulu sebentar. Kamu boleh tidak setuju.</p>
+          </div>
+          <div class="card cl" style="height: 300px"></div>
+          <div class="card cl" style="height: 90px"></div>
+        </div>
+        <div class="scrim" style="position: absolute; inset: 0; display: flex; align-items: flex-end">
+          <div style="background: #F7F6F2; border-top: 1px solid #C8C6C6; border-radius: 16px 16px 0 0; padding: 24px 20px 28px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; color: #2E3A4D" role="dialog" aria-modal="true" aria-labelledby="dt1">
+            <div>
+              <h3 class="lex" id="dt1" style="font-size: 22px; font-weight: 600; margin: 0 0 10px; line-height: 1.3">Akunmu tidak akan diaktifkan</h3>
+              <p style="margin: 0; font-size: 16px; line-height: 1.6">Tanpa persetujuan ini, JOBARTA tidak boleh memakai datamu, jadi akunmu berhenti di sini &mdash; kamu tidak bisa melamar atau memasang lowongan.</p>
+            </div>
+
+            <div style="border: 1px solid #C8C6C6; border-radius: 8px; padding: 14px; background: #F0E5CF">
+              <p style="margin: 0 0 10px; font-size: 16px; font-weight: 600">Yang sudah tersimpan saat kamu masuk lewat Google:</p>
+              <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.7">
+                <li>Alamat email &mdash; rizky&#64;contoh.com</li>
+                <li>Nama dari akun Google</li>
+                <li>Foto profil Google</li>
+              </ul>
+              <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.55">Ketiganya masuk saat Google mengembalikanmu ke sini, sebelum halaman ini muncul. Kami tidak menyembunyikannya darimu.</p>
+            </div>
+
+            <div class="col" style="gap: 8px">
+              <button class="btn btn-del">Hapus data saya sekarang</button>
+              <button class="btn btn-p">Kembali &amp; baca lagi</button>
+            </div>
+            <p style="margin: -8px 0 0; font-size: 16px; line-height: 1.55; color: #2E3A4D">Penghapusan diproses maksimal 7&nbsp;hari kerja, lalu kami kirim satu email pemberitahuan. Kamu tetap boleh mendaftar lagi kapan saja.</p>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Urutan baca dalam dialog: judul &rarr; akibat &rarr; judul daftar data &rarr; 3 butir data &rarr; kalimat kejujuran &rarr; tombol Hapus &rarr; tombol Kembali &rarr; kalimat tenggat. Fokus berpindah ke judul dialog saat terbuka, terperangkap di dalamnya, dan Esc = &ldquo;Kembali &amp; baca lagi&rdquo; (jalan yang tidak merusak apa pun).</p>
+    </div>
+
+    <div>
+      <div class="lbl">6b &middot; 375px gelap &mdash; fokus keyboard di tombol hapus</div>
+      <div class="phone-d dk" style="position: relative">
+        <div class="pad" style="min-height: 780px; filter: blur(1px); color: #F0E5CF" aria-hidden="true">
+          <div>
+            <h2 class="h1">Data apa yang kami simpan</h2>
+            <p class="sub" style="color: #8FA8C8">Baca dulu sebentar. Kamu boleh tidak setuju.</p>
+          </div>
+          <div class="card cd" style="height: 300px"></div>
+          <div class="card cd" style="height: 90px"></div>
+        </div>
+        <div class="scrim-d" style="position: absolute; inset: 0; display: flex; align-items: flex-end">
+          <div style="background: #2E2B26; border-top: 1px solid #4A453D; border-radius: 16px 16px 0 0; padding: 24px 20px 28px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; color: #F0E5CF" role="dialog" aria-modal="true" aria-labelledby="dt2">
+            <div>
+              <h3 class="lex" id="dt2" style="font-size: 22px; font-weight: 600; margin: 0 0 10px; line-height: 1.3">Akunmu tidak akan diaktifkan</h3>
+              <p style="margin: 0; font-size: 16px; line-height: 1.6">Tanpa persetujuan ini, JOBARTA tidak boleh memakai datamu, jadi akunmu berhenti di sini &mdash; kamu tidak bisa melamar atau memasang lowongan.</p>
+            </div>
+
+            <div style="border: 1px solid #4A453D; border-radius: 8px; padding: 14px; background: #23211E">
+              <p style="margin: 0 0 10px; font-size: 16px; font-weight: 600">Yang sudah tersimpan saat kamu masuk lewat Google:</p>
+              <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.7">
+                <li>Alamat email &mdash; rizky&#64;contoh.com</li>
+                <li>Nama dari akun Google</li>
+                <li>Foto profil Google</li>
+              </ul>
+              <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.55">Ketiganya masuk saat Google mengembalikanmu ke sini, sebelum halaman ini muncul. Kami tidak menyembunyikannya darimu.</p>
+            </div>
+
+            <div class="col" style="gap: 8px">
+              <button class="btn btn-deld ring-d">Hapus data saya sekarang</button>
+              <button class="btn btn-pd">Kembali &amp; baca lagi</button>
+            </div>
+            <p style="margin: -8px 0 0; font-size: 16px; line-height: 1.55">Penghapusan diproses maksimal 7&nbsp;hari kerja, lalu kami kirim satu email pemberitahuan. Kamu tetap boleh mendaftar lagi kapan saja.</p>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Scrim gelap digambar sendiri: <strong>rgba(10,9,8,.72)</strong> &mdash; lebih pekat daripada scrim terang <strong>rgba(46,58,77,.55)</strong>, karena di mode gelap beda terang antara latar dan lembar dialog jauh lebih kecil. Kotak daftar data memakai <strong>#23211E</strong> di atas lembar <strong>#2E2B26</strong>: kebalikan susunan mode terang, bukan salinannya.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px">
+    <div class="lbl">6c &middot; 1440px terang &mdash; dialog tengah</div>
+    <div class="desk" style="position: relative">
+      <div style="padding: 56px 96px; filter: blur(1px); min-height: 520px" aria-hidden="true">
+        <h2 class="h1d">Data apa yang kami simpan</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 1000px; margin-top: 24px">
+          <div class="card cl" style="height: 92px"></div>
+          <div class="card cl" style="height: 92px"></div>
+          <div class="card cl" style="height: 92px"></div>
+          <div class="card cl" style="height: 92px"></div>
+        </div>
+      </div>
+      <div class="scrim" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center">
+        <div style="background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 16px; padding: 32px; width: 620px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; color: #2E3A4D" role="dialog" aria-modal="true" aria-labelledby="dt3">
+          <div>
+            <h3 class="lex" id="dt3" style="font-size: 26px; font-weight: 600; margin: 0 0 10px; line-height: 1.3">Akunmu tidak akan diaktifkan</h3>
+            <p style="margin: 0; font-size: 17px; line-height: 1.6">Tanpa persetujuan ini, JOBARTA tidak boleh memakai datamu, jadi akunmu berhenti di sini &mdash; kamu tidak bisa melamar atau memasang lowongan.</p>
+          </div>
+          <div style="border: 1px solid #C8C6C6; border-radius: 8px; padding: 16px; background: #F0E5CF">
+            <p style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Yang sudah tersimpan saat kamu masuk lewat Google:</p>
+            <ul style="margin: 0; padding-left: 20px; font-size: 17px; line-height: 1.7">
+              <li>Alamat email &mdash; rizky&#64;contoh.com</li>
+              <li>Nama dari akun Google</li>
+              <li>Foto profil Google</li>
+            </ul>
+            <p style="margin: 10px 0 0; font-size: 17px; line-height: 1.55">Ketiganya masuk saat Google mengembalikanmu ke sini, sebelum halaman ini muncul. Kami tidak menyembunyikannya darimu.</p>
+          </div>
+          <div style="display: flex; gap: 16px">
+            <button class="btn btn-del" style="width: 268px">Hapus data saya sekarang</button>
+            <button class="btn btn-p" style="width: 268px">Kembali &amp; baca lagi</button>
+          </div>
+          <p style="margin: 0; font-size: 17px; line-height: 1.55">Penghapusan diproses maksimal 7&nbsp;hari kerja, lalu kami kirim satu email pemberitahuan. Kamu tetap boleh mendaftar lagi kapan saja.</p>
+        </div>
+      </div>
+    </div>
+    <p class="tok" style="max-width: 110ch; margin-top: 12px">Kedua tombol <strong>sama lebar 268px dan sama tinggi 48px</strong>. Tombol hapus memakai garis <strong>#9E3B3B</strong> penuh &mdash; merah dipakai di sini karena ini memang tindakan merusak, sesuai aturan bahwa merah hanya untuk error dan hal berbahaya. Yang TIDAK dilakukan: menjadikan &ldquo;Hapus&rdquo; sebagai tautan kecil, atau membuat &ldquo;Kembali&rdquo; sebagai satu-satunya tombol penuh.</p>
+  </div>
+
+  <div style="margin-top: 48px">
+    <div class="lbl">6d &middot; 1440px gelap &mdash; dialog tengah</div>
+    <div class="desk-d dk" style="position: relative">
+      <div style="padding: 56px 96px; filter: blur(1px); min-height: 520px" aria-hidden="true">
+        <h2 class="h1d" style="color: #F0E5CF">Data apa yang kami simpan</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 1000px; margin-top: 24px">
+          <div class="card cd" style="height: 92px"></div>
+          <div class="card cd" style="height: 92px"></div>
+          <div class="card cd" style="height: 92px"></div>
+          <div class="card cd" style="height: 92px"></div>
+        </div>
+      </div>
+      <div class="scrim-d" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center">
+        <div style="background: #2E2B26; border: 1px solid #4A453D; border-radius: 16px; padding: 32px; width: 620px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; color: #F0E5CF" role="dialog" aria-modal="true" aria-labelledby="dt4">
+          <div>
+            <h3 class="lex" id="dt4" style="font-size: 26px; font-weight: 600; margin: 0 0 10px; line-height: 1.3">Akunmu tidak akan diaktifkan</h3>
+            <p style="margin: 0; font-size: 17px; line-height: 1.6">Tanpa persetujuan ini, JOBARTA tidak boleh memakai datamu, jadi akunmu berhenti di sini &mdash; kamu tidak bisa melamar atau memasang lowongan.</p>
+          </div>
+          <div style="border: 1px solid #4A453D; border-radius: 8px; padding: 16px; background: #23211E">
+            <p style="margin: 0 0 10px; font-size: 17px; font-weight: 600">Yang sudah tersimpan saat kamu masuk lewat Google:</p>
+            <ul style="margin: 0; padding-left: 20px; font-size: 17px; line-height: 1.7">
+              <li>Alamat email &mdash; rizky&#64;contoh.com</li>
+              <li>Nama dari akun Google</li>
+              <li>Foto profil Google</li>
+            </ul>
+            <p style="margin: 10px 0 0; font-size: 17px; line-height: 1.55">Ketiganya masuk saat Google mengembalikanmu ke sini, sebelum halaman ini muncul. Kami tidak menyembunyikannya darimu.</p>
+          </div>
+          <div style="display: flex; gap: 16px">
+            <button class="btn btn-deld" style="width: 268px">Hapus data saya sekarang</button>
+            <button class="btn btn-pd" style="width: 268px">Kembali &amp; baca lagi</button>
+          </div>
+          <p style="margin: 0; font-size: 17px; line-height: 1.55">Penghapusan diproses maksimal 7&nbsp;hari kerja, lalu kami kirim satu email pemberitahuan. Kamu tetap boleh mendaftar lagi kapan saja.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card cl" style="margin-top: 48px; max-width: 1000px">
+    <h3 class="lex" style="font-size: 20px; font-weight: 600; margin: 0 0 12px">Apa yang tertulis di basis data</h3>
+    <p style="font-size: 16px; line-height: 1.7; margin: 0">Menekan &ldquo;Saya tidak setuju&rdquo; menulis <span class="tok">consent_records</span> dengan <span class="tok">granted = false</span> &mdash; tabel ini append-only, jadi penolakan pun tersimpan sebagai bukti, bukan dihapus. <span class="tok">account_status</span> tetap <span class="tok">pending_consent</span>; tidak ada yang berpindah ke <span class="tok">active</span>. Menekan &ldquo;Hapus data saya sekarang&rdquo; menambah <span class="tok">deletion_requests</span> dengan <span class="tok">trigger = menolak_pdp</span> dan <span class="tok">status = requested</span>. Menekan &ldquo;Kembali &amp; baca lagi&rdquo; tidak menulis apa pun.</p>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

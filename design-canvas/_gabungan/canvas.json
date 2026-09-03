@@ -1,0 +1,492 @@
+{
+  "pages": [
+    {
+      "id": "page-1",
+      "name": "Sistem Komponen"
+    },
+    {
+      "id": "page-2",
+      "name": "Landing"
+    },
+    {
+      "id": "page-3",
+      "name": "Auth"
+    },
+    {
+      "id": "page-4",
+      "name": "Onboarding"
+    },
+    {
+      "id": "page-5",
+      "name": "Lengkapi Profil"
+    },
+    {
+      "id": "page-6",
+      "name": "Kerangka Peta"
+    },
+    {
+      "id": "page-7",
+      "name": "Detail Lowongan"
+    }
+  ],
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "title": "1 · Skala Warna",
+      "x": 0,
+      "y": 0,
+      "w": 1100,
+      "h": 1160,
+      "page": "page-1"
+    },
+    {
+      "file": "KomponenTipografi.dc.html",
+      "title": "2 · Tipografi",
+      "x": 1200,
+      "y": 0,
+      "w": 1000,
+      "h": 1160,
+      "page": "page-1"
+    },
+    {
+      "file": "KomponenTombol.dc.html",
+      "title": "3 · Tombol",
+      "x": 2300,
+      "y": 0,
+      "w": 1400,
+      "h": 1160,
+      "page": "page-1"
+    },
+    {
+      "file": "KomponenForm.dc.html",
+      "title": "4 · Input & Form",
+      "x": 0,
+      "y": 1320,
+      "w": 1100,
+      "h": 1500,
+      "page": "page-1"
+    },
+    {
+      "file": "KomponenKartuLowongan.dc.html",
+      "title": "5 · Kartu Lowongan",
+      "x": 1200,
+      "y": 1320,
+      "w": 1400,
+      "h": 1180,
+      "page": "page-1"
+    },
+    {
+      "file": "KomponenBadge.dc.html",
+      "title": "6 · Badge & Status",
+      "x": 2700,
+      "y": 1320,
+      "w": 1000,
+      "h": 1320,
+      "page": "page-1"
+    },
+    {
+      "file": "KomponenEmptyState.dc.html",
+      "title": "7 · Empty State",
+      "x": 0,
+      "y": 2960,
+      "w": 1400,
+      "h": 1240,
+      "page": "page-1"
+    },
+    {
+      "file": "LandingMobile.dc.html",
+      "title": "1 · Landing 375px — halaman penuh",
+      "x": 0,
+      "y": 0,
+      "w": 560,
+      "h": 3600,
+      "page": "page-2"
+    },
+    {
+      "file": "LandingDesktop.dc.html",
+      "title": "2 · Landing 1440px — halaman penuh",
+      "x": 700,
+      "y": 0,
+      "w": 1600,
+      "h": 3900,
+      "page": "page-2"
+    },
+    {
+      "file": "LandingGelap.dc.html",
+      "title": "3 · Mode gelap — bagian kunci",
+      "x": 2400,
+      "y": 0,
+      "w": 940,
+      "h": 2000,
+      "page": "page-2"
+    },
+    {
+      "file": "AuthMasuk.dc.html",
+      "title": "Masuk — 3 state",
+      "x": 0,
+      "y": 0,
+      "w": 1300,
+      "h": 1150,
+      "page": "page-3"
+    },
+    {
+      "file": "AuthMasukLanjutan.dc.html",
+      "title": "Masuk — state sisa & desktop",
+      "x": 1400,
+      "y": 0,
+      "w": 2360,
+      "h": 1300,
+      "page": "page-3"
+    },
+    {
+      "file": "AuthDaftar.dc.html",
+      "title": "Daftar — form & cek username",
+      "x": 0,
+      "y": 1450,
+      "w": 900,
+      "h": 1330,
+      "page": "page-3"
+    },
+    {
+      "file": "AuthDaftarDialog.dc.html",
+      "title": "Daftar — dialog Opsi B & error",
+      "x": 1000,
+      "y": 1450,
+      "w": 1820,
+      "h": 1150,
+      "page": "page-3"
+    },
+    {
+      "file": "AuthVerifikasiEmail.dc.html",
+      "title": "Verifikasi email pemulihan",
+      "x": 0,
+      "y": 2850,
+      "w": 1700,
+      "h": 1100,
+      "page": "page-3"
+    },
+    {
+      "file": "AuthLupaPassword.dc.html",
+      "title": "Lupa password",
+      "x": 1800,
+      "y": 2850,
+      "w": 1700,
+      "h": 1100,
+      "page": "page-3"
+    },
+    {
+      "file": "AuthAturUlang.dc.html",
+      "title": "Atur ulang password",
+      "x": 0,
+      "y": 4100,
+      "w": 1700,
+      "h": 1100,
+      "page": "page-3"
+    },
+    {
+      "file": "AuthGelap.dc.html",
+      "title": "Mode gelap",
+      "x": 0,
+      "y": 5600,
+      "w": 1300,
+      "h": 1250,
+      "page": "page-3"
+    },
+    {
+      "file": "OnboardingPilihPeran.dc.html",
+      "title": "A · Pilih Peran",
+      "x": 0,
+      "y": 0,
+      "w": 2360,
+      "h": 1250,
+      "page": "page-4"
+    },
+    {
+      "file": "OnboardingLengkapiData.dc.html",
+      "title": "B · Lengkapi Data (2 varian)",
+      "x": 2460,
+      "y": 0,
+      "w": 1300,
+      "h": 1120,
+      "page": "page-4"
+    },
+    {
+      "file": "OnboardingConsent.dc.html",
+      "title": "C · Consent PDP (2 varian)",
+      "x": 0,
+      "y": 1400,
+      "w": 2360,
+      "h": 1300,
+      "page": "page-4"
+    },
+    {
+      "file": "OnboardingMenolak.dc.html",
+      "title": "D · Menolak persetujuan",
+      "x": 2460,
+      "y": 1400,
+      "w": 1300,
+      "h": 1120,
+      "page": "page-4"
+    },
+    {
+      "file": "OnboardingSukses.dc.html",
+      "title": "E · Sukses per peran",
+      "x": 0,
+      "y": 2840,
+      "w": 2360,
+      "h": 1220,
+      "page": "page-4"
+    },
+    {
+      "file": "OnboardingGelap.dc.html",
+      "title": "Mode gelap",
+      "x": 0,
+      "y": 4460,
+      "w": 1300,
+      "h": 1220,
+      "page": "page-4"
+    },
+    {
+      "file": "ProfilMobile.dc.html",
+      "title": "1 · Lengkapi Profil 375px",
+      "x": 0,
+      "y": 0,
+      "w": 1780,
+      "h": 1180,
+      "page": "page-5"
+    },
+    {
+      "file": "ProfilDesktop.dc.html",
+      "title": "2 · Lengkapi Profil 1440px",
+      "x": 1880,
+      "y": 0,
+      "w": 1600,
+      "h": 1400,
+      "page": "page-5"
+    },
+    {
+      "file": "ProfilUnggah.dc.html",
+      "title": "3 · Unggah CV — anatomi & state",
+      "x": 0,
+      "y": 1560,
+      "w": 1780,
+      "h": 1080,
+      "page": "page-5"
+    },
+    {
+      "file": "ProfilLampirkan.dc.html",
+      "title": "4 · Lampirkan CV — just-in-time 🔴",
+      "x": 1880,
+      "y": 1560,
+      "w": 1800,
+      "h": 1230,
+      "page": "page-5"
+    },
+    {
+      "file": "ProfilPengingat.dc.html",
+      "title": "5 · Pengingat setelah dilewati",
+      "x": 0,
+      "y": 2920,
+      "w": 1420,
+      "h": 1000,
+      "page": "page-5"
+    },
+    {
+      "file": "ProfilDialog.dc.html",
+      "title": "6 · Potong foto & belum tersimpan",
+      "x": 1560,
+      "y": 2920,
+      "w": 1980,
+      "h": 1620,
+      "page": "page-5"
+    },
+    {
+      "file": "PetaMobile.dc.html",
+      "title": "1 · Mobile 375px — bottom sheet",
+      "x": 0,
+      "y": 0,
+      "w": 1400,
+      "h": 1180,
+      "page": "page-6"
+    },
+    {
+      "file": "PetaDesktop.dc.html",
+      "title": "2 · Desktop 1440px — split view",
+      "x": 1500,
+      "y": 0,
+      "w": 1560,
+      "h": 1180,
+      "page": "page-6"
+    },
+    {
+      "file": "PetaStates.dc.html",
+      "title": "3 · Empat state wajib",
+      "x": 0,
+      "y": 1340,
+      "w": 1800,
+      "h": 1120,
+      "page": "page-6"
+    },
+    {
+      "file": "DetailMobile.dc.html",
+      "title": "1 · Mobile 375px",
+      "x": 0,
+      "y": 0,
+      "w": 1000,
+      "h": 2320,
+      "page": "page-7"
+    },
+    {
+      "file": "DetailDesktop.dc.html",
+      "title": "2 · Desktop 1440px",
+      "x": 1100,
+      "y": 0,
+      "w": 1560,
+      "h": 1780,
+      "page": "page-7"
+    },
+    {
+      "file": "DetailStates.dc.html",
+      "title": "3 · Lima state tombol + konfirmasi",
+      "x": 1100,
+      "y": 1900,
+      "w": 1560,
+      "h": 1300,
+      "page": "page-7"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "sistemkomponen-fondasi",
+      "x": 0,
+      "y": -170,
+      "w": 900,
+      "text": "JOBARTA — Sistem Komponen\nPalet krem–slate, dikunci 2026-08-28. Fondasi untuk semua halaman lain:\nDESIGN 2 Landing, 3 Onboarding, 3B Lengkapi Profil, 4 Kerangka Peta, 5 Detail Lowongan.\nJangan mendesain ulang komponen di halaman — ambil dari sini.",
+      "page": "page-1"
+    },
+    {
+      "id": "sistemkomponen-gate",
+      "x": 1500,
+      "y": 2960,
+      "w": 900,
+      "text": "Gate sebelum canvas ini dianggap selesai:\n• teks isi < 16px? tidak\n• field tanpa label terlihat? tidak\n• makna dibedakan warna saja? tidak\n• kata \"Barlow\"? nol",
+      "page": "page-1"
+    },
+    {
+      "id": "landing-landing-intro",
+      "x": 0,
+      "y": -230,
+      "w": 1000,
+      "text": "DESIGN 2 — LANDING / HOME\n\nPattern marketplace: SEARCH BAR adalah CTA utama, bukan tombol daftar. Pengguna datang untuk mencari kerja, bukan membaca profil perusahaan kita.\n\nSection Kepercayaan & Keamanan diberi bobot visual paling besar (satu-satunya panel berbingkai hijau) — itu pembeda utama produk melawan lowongan palsu, bukan pelengkap.",
+      "page": "page-2"
+    },
+    {
+      "id": "landing-landing-osm",
+      "x": 2400,
+      "y": 2080,
+      "w": 900,
+      "text": "Atribusi © OpenStreetMap contributors wajib muncul di setiap halaman yang menampilkan peta — termasuk cuplikan produk di hero landing, bukan cuma di halaman peta. Lisensi ODbL.",
+      "page": "page-2"
+    },
+    {
+      "id": "landing-landing-peta-hidup",
+      "x": 700,
+      "y": 3980,
+      "w": 1100,
+      "text": "🗺️ CATATAN UNTUK YANG MENGKODE — cuplikan peta di hero BUKAN gambar mati.\n\nDi kode, ganti dengan peta interaktif sungguhan: react-leaflet + tile OpenStreetMap + supercluster (stack sudah dikunci 2026-08-24). Pin berangka = kluster dari supercluster, bukan angka yang ditulis tangan. Kartu lowongan di bawah muncul saat pin ditekan.\n\nYang digambar di artboard ini cuma BINGKAI dan proporsinya — sama seperti perlakuan di DESIGN 4 Kerangka Peta.\n\n🔴 Tiga syarat yang tidak boleh dilewat:\n1. Atribusi '© OpenStreetMap contributors' WAJIB terlihat di atas peta (lisensi ODbL), bukan cuma di footer.\n2. Tile publik tile.openstreetmap.org punya batas pemakaian — set User-Agent identitas aplikasi, dan siapkan penyedia tile sendiri bila trafik naik.\n3. Peta di landing dimuat MALAS (lazy): pengguna sasaran pakai Android kelas menengah di 4G tidak stabil. Muat gambar statis ringan dulu, jadikan interaktif setelah halaman siap atau saat pengguna menyentuhnya — jangan tahan render halaman demi peta.",
+      "page": "page-2"
+    },
+    {
+      "id": "landing-landing-placeholder",
+      "x": 0,
+      "y": 3700,
+      "w": 1000,
+      "text": "🔴 PLACEHOLDER — enam kategori (Ritel · F&B · Gudang & Logistik · Admin · Kurir · Produksi) dan angka gaji di kartu lowongan masih tebakan.\n\nKeduanya baru bisa dipastikan setelah Fase 3: seed 30–50 lowongan asli di area pilot. Kategori harus DITURUNKAN dari lowongan yang benar-benar terkumpul, bukan ditentukan lebih dulu — kalau ternyata banyak bengkel dan laundry, daftarnya berubah.",
+      "page": "page-2"
+    },
+    {
+      "id": "2bauth-urutan-baca",
+      "page": "page-3",
+      "x": 0,
+      "y": -150,
+      "w": 900,
+      "text": "DESIGN 2B — 5 layar auth JOBARTA\nUrutan baca: Masuk → Daftar → Verifikasi email → Lupa password → Atur ulang.\nSemua copy Bahasa Indonesia sungguhan. Email sintetis internal tidak pernah muncul di layar mana pun."
+    },
+    {
+      "id": "2bauth-aturan-keamanan",
+      "page": "page-3",
+      "x": 1800,
+      "y": 4100,
+      "w": 420,
+      "text": "Tiga aturan yang mengikat semua layar:\n\n1. Pesan salah kredensial digabung — tidak pernah menyebut mana yang salah.\n2. Lupa password menjawab sama persis untuk email terdaftar maupun tidak.\n3. Email pemulihan tidak pernah menggabungkan akun Google dan akun password."
+    },
+    {
+      "id": "2bauth-jalan-buntu",
+      "page": "page-3",
+      "x": 1800,
+      "y": 4420,
+      "w": 420,
+      "text": "Satu jalan buntu memang ada dan sengaja digambar: akun tanpa email pemulihan tidak bisa dibuka lagi. Layar Lupa Password menyatakannya sejak awal, bukan setelah orang menunggu email yang tidak akan datang."
+    },
+    {
+      "id": "3onboarding-alur-utama",
+      "page": "page-4",
+      "x": 0,
+      "y": -170,
+      "w": 1000,
+      "text": "DESIGN 3 — ONBOARDING (revisi 1 September 2026)\nA Pilih Peran → B Lengkapi Data → C Consent PDP → E Sukses.\nD Menolak adalah cabang dari C.\n\nLayar Masuk TIDAK ada di alur ini — sudah pindah ke DESIGN 2B."
+    },
+    {
+      "id": "3onboarding-dua-jalur",
+      "page": "page-4",
+      "x": 2460,
+      "y": 2760,
+      "w": 460,
+      "text": "Kenapa banyak layar punya dua varian:\n\nJalur Google membawa nama, foto, dan email — tapi belum pernah ditanya soal consent.\n\nJalur username+password tidak membawa satu pun dari ketiganya — tapi consent-nya sudah diberikan saat mendaftar.\n\nSatu bentuk layar tidak bisa melayani keduanya dengan jujur."
+    },
+    {
+      "id": "3onboarding-cabang-tolak",
+      "page": "page-4",
+      "x": 2460,
+      "y": 3180,
+      "w": 460,
+      "text": "Cabang menolak consent berubah total.\n\nDulu: “pendaftaran dibatalkan”.\nSekarang: akun Auth sudah terlanjur terbentuk, jadi yang benar adalah account_status = deactivated, lalu tawaran hapus data dengan tenggat 30 hari (UU PDP No. 27/2022)."
+    },
+    {
+      "id": "lengkapiprofil-prinsip",
+      "x": 0,
+      "y": -230,
+      "w": 1000,
+      "text": "DESIGN 3B — Lengkapi Profil\nLayar OPSIONAL setelah onboarding pilih peran (DESIGN 3).\n\nPrinsip pengikat: momen \"aha\" seeker JOBARTA bukan \"punya CV\", melainkan MELIHAT LOWONGAN NYATA DI DEKAT RUMAHNYA. Karena itu tidak ada indikator langkah \"3 dari 3\" di sini, dan unggah CV dipindah jadi just-in-time saat menekan \"Lamar\" pertama kali (artboard 4).\n\nKomponen diturunkan dari DESIGN 1. Palet krem/slate, dikunci 2026-08-28.",
+      "page": "page-5"
+    },
+    {
+      "id": "lengkapiprofil-jit",
+      "x": 1880,
+      "y": 1400,
+      "w": 700,
+      "text": "Artboard 4 adalah yang paling penting di prompt ini: di sinilah motivasi pengguna paling tinggi — dia sudah menemukan lowongan yang dia mau.",
+      "page": "page-5"
+    },
+    {
+      "id": "kerangkapeta-scope",
+      "x": 0,
+      "y": -160,
+      "w": 900,
+      "text": "DESIGN 4 — Kerangka Halaman Peta\nYang didesain: BINGKAI-nya. Peta sungguhan (clustering, pan/zoom, sinkronisasi hover)\nhanya bisa dinilai saat dikode — area peta di sini placeholder bergrid.\nKomponen diturunkan dari DESIGN 1 Sistem Komponen.",
+      "page": "page-6"
+    },
+    {
+      "id": "detaillowongan-trust",
+      "x": 0,
+      "y": -160,
+      "w": 900,
+      "text": "DESIGN 5 — Detail Lowongan\nLayar penentu kepercayaan: di sinilah pengguna memutuskan \"ini asli atau penipuan?\"\nBadge terverifikasi, tombol lapor, dan catatan biaya bukan pelengkap — itu isi utamanya.\nKomponen diturunkan dari DESIGN 1.",
+      "page": "page-7"
+    }
+  ],
+  "launch": {
+    "view": "canvas",
+    "page": "page-1"
+  }
+}

@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 13px; color: #4B6587; }
+    .lbl { font-size: 16px; font-weight: 600; color: #2E3A4D; }
+    .fld { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; color: #2E3A4D; background: #F7F6F2; border: 2px solid #C8C6C6; border-radius: 8px; min-height: 48px; padding: 10px 14px; box-sizing: border-box; width: 100%; }
+    .hint { font-size: 14px; color: #2E3A4D; opacity: .8; line-height: 1.5; }
+    .err { font-size: 14px; color: #8A3232; font-weight: 600; line-height: 1.5; display: flex; gap: 6px; align-items: flex-start; }
+    .grp { display: flex; flex-direction: column; gap: 8px; }
+    .col { display: flex; flex-direction: column; gap: 24px; }
+    .hdr { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .7; }
+    .card { background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 24px; }
+  </style>
+</helmet>
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Input &amp; Form</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 62ch; line-height: 1.6">Label selalu terlihat di atas field. Placeholder hanya contoh isian, tidak pernah menggantikan label.</p>
+  <p style="font-size: 14px; margin: 0 0 32px; color: #8A3232; font-weight: 600">Pesan error selalu berisi cara memperbaiki, bukan cuma menyatakan salah.</p>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-bottom: 16px">
+    <div class="hdr">Kosong</div><div class="hdr">Terisi</div><div class="hdr">Fokus</div><div class="hdr">Error</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-bottom: 32px">
+    <div class="grp">
+      <label class="lbl" for="a1">Alamat tempat kerja</label>
+      <input class="fld" id="a1" placeholder="Jl. Raya Ragunan No. 12">
+      <div class="hint">Ketik alamat, lalu geser pin kalau posisinya meleset.</div>
+    </div>
+    <div class="grp">
+      <label class="lbl" for="a2">Alamat tempat kerja</label>
+      <input class="fld" id="a2" value="Jl. Raya Ragunan No. 12, Pasar Minggu">
+      <div class="hint">Ketik alamat, lalu geser pin kalau posisinya meleset.</div>
+    </div>
+    <div class="grp">
+      <label class="lbl" for="a3">Alamat tempat kerja</label>
+      <input class="fld" id="a3" value="Jl. Raya Ragunan No. 12" style="border-color: #4B6587; outline: 3px solid #4B6587; outline-offset: 2px">
+      <div class="hint">Ketik alamat, lalu geser pin kalau posisinya meleset.</div>
+    </div>
+    <div class="grp">
+      <label class="lbl" for="a4">Alamat tempat kerja</label>
+      <input class="fld" id="a4" value="Ragunan" style="border-color: #9E3B3B; background: #FBF4F1">
+      <div class="err">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A3232" stroke-width="2.5" stroke-linecap="round" style="flex: none; margin-top: 1px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6M12 16.5v.01"></path></svg>
+        <span>Alamat belum lengkap. Tambahkan nama jalan dan nomor, contoh: Jl. Raya Ragunan No. 12.</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+    <div class="card col">
+      <div>
+        <div class="lex" style="font-size: 18px; font-weight: 600; margin-bottom: 4px">Select &mdash; JenisKerja</div>
+        <div class="tok">min-height 48px &middot; padding 10px 14px</div>
+      </div>
+      <div class="grp">
+        <label class="lbl" for="s1">Tipe pekerjaan</label>
+        <div style="position: relative">
+          <select class="fld" id="s1" style="appearance: none; padding-right: 44px">
+            <option>Penuh waktu</option>
+          </select>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 14px; top: 14px; pointer-events: none" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+        </div>
+        <div class="hint">Pilihan: penuh waktu, paruh waktu, kontrak, magang, harian.</div>
+      </div>
+      <div class="grp">
+        <label class="lbl" for="s2">Tipe pekerjaan</label>
+        <div style="position: relative">
+          <select class="fld" id="s2" style="appearance: none; padding-right: 44px; border-color: #9E3B3B; background: #FBF4F1">
+            <option>Pilih tipe pekerjaan</option>
+          </select>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 14px; top: 14px; pointer-events: none" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+        </div>
+        <div class="err">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A3232" stroke-width="2.5" stroke-linecap="round" style="flex: none; margin-top: 1px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6M12 16.5v.01"></path></svg>
+          <span>Pilih salah satu tipe pekerjaan sebelum lanjut.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card col">
+      <div>
+        <div class="lex" style="font-size: 18px; font-weight: 600; margin-bottom: 4px">Tag input &mdash; SkillInput</div>
+        <div class="tok">chip tinggi 36px &middot; gap 8px</div>
+      </div>
+      <div class="grp">
+        <label class="lbl" for="t1">Keahlian kamu</label>
+        <div class="fld" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 48px; height: auto">
+          <span style="display: inline-flex; align-items: center; gap: 6px; background: #E5DFD0; color: #2E3A4D; border: 1px solid #C8C6C6; border-radius: 999px; padding: 6px 10px 6px 12px; font-size: 14px; font-weight: 600; min-height: 36px; box-sizing: border-box">Microsoft Excel
+            <button aria-label="Hapus Microsoft Excel" style="border: none; background: transparent; cursor: pointer; display: flex; padding: 4px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2E3A4D" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+            </button>
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; background: #E5DFD0; color: #2E3A4D; border: 1px solid #C8C6C6; border-radius: 999px; padding: 6px 10px 6px 12px; font-size: 14px; font-weight: 600; min-height: 36px; box-sizing: border-box">Kasir
+            <button aria-label="Hapus Kasir" style="border: none; background: transparent; cursor: pointer; display: flex; padding: 4px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2E3A4D" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+            </button>
+          </span>
+          <input id="t1" placeholder="Tambah keahlian&hellip;" style="border: none; outline: none; font-size: 16px; font-family: inherit; color: #2E3A4D; flex: 1; min-width: 140px">
+        </div>
+        <div class="hint">Tekan Enter untuk menambahkan. Maksimal 10 keahlian.</div>
+      </div>
+      <div class="grp">
+        <div class="lbl">Kondisi terpanjang &mdash; nama keahlian dipotong</div>
+        <div class="fld" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; height: auto">
+          <span style="display: inline-flex; align-items: center; gap: 6px; background: #E5DFD0; color: #2E3A4D; border: 1px solid #C8C6C6; border-radius: 999px; padding: 6px 10px 6px 12px; font-size: 14px; font-weight: 600; min-height: 36px; max-width: 220px; box-sizing: border-box">
+            <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0">Pengoperasian forklift gudang bersertifikat</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2E3A4D" stroke-width="2.5" stroke-linecap="round" style="flex: none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card col">
+      <div>
+        <div class="lex" style="font-size: 18px; font-weight: 600; margin-bottom: 4px">Slider &mdash; RadiusSlider</div>
+        <div class="tok">handle 44&times;44px &middot; rel 8px</div>
+      </div>
+      <div class="grp">
+        <label class="lbl" for="r1">Radius pencarian</label>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <div style="position: relative; flex: 1; height: 44px; display: flex; align-items: center">
+            <div style="height: 8px; background: #E8E3D6; border-radius: 999px; width: 100%"></div>
+            <div style="height: 8px; background: #4B6587; border-radius: 999px; width: 45%; position: absolute; left: 0"></div>
+            <div style="position: absolute; left: 45%; width: 44px; height: 44px; margin-left: -22px; background: #F7F6F2; border: 3px solid #4B6587; border-radius: 999px; box-sizing: border-box"></div>
+          </div>
+          <output for="r1" style="font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; min-width: 76px; text-align: right">4,5&nbsp;km</output>
+        </div>
+        <div class="hint">Nilai selalu tampil sebagai angka &mdash; posisi handle saja tidak cukup.</div>
+      </div>
+      <div class="grp">
+        <div class="lbl">Fokus keyboard</div>
+        <div style="position: relative; height: 44px; display: flex; align-items: center">
+          <div style="height: 8px; background: #E8E3D6; border-radius: 999px; width: 100%"></div>
+          <div style="height: 8px; background: #4B6587; border-radius: 999px; width: 45%; position: absolute; left: 0"></div>
+          <div style="position: absolute; left: 45%; width: 44px; height: 44px; margin-left: -22px; background: #F7F6F2; border: 3px solid #4B6587; border-radius: 999px; box-sizing: border-box; outline: 3px solid #4B6587; outline-offset: 2px"></div>
+        </div>
+        <div class="hint">Panah kiri/kanan menggeser 0,5&nbsp;km.</div>
+      </div>
+    </div>
+
+    <div class="card col">
+      <div>
+        <div class="lex" style="font-size: 18px; font-weight: 600; margin-bottom: 4px">Checkbox &mdash; ConsentCheckbox</div>
+        <div class="tok">kotak 24px &middot; area sentuh 44px</div>
+      </div>
+      <label style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer; padding: 10px 0">
+        <span style="flex: none; width: 24px; height: 24px; border: 2px solid #4B6587; border-radius: 6px; background: #F7F6F2; margin-top: 2px"></span>
+        <span style="font-size: 16px; line-height: 1.6">Saya menyetujui <a href="#">Kebijakan Privasi</a> dan <a href="#">Ketentuan Layanan</a> JOBARTA.</span>
+      </label>
+      <label style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer; padding: 10px 0">
+        <span style="flex: none; width: 24px; height: 24px; border: 2px solid #4B6587; border-radius: 6px; background: #4B6587; margin-top: 2px; display: flex; align-items: center; justify-content: center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+        </span>
+        <span style="font-size: 16px; line-height: 1.6">Saya menyetujui <a href="#">Kebijakan Privasi</a> dan <a href="#">Ketentuan Layanan</a> JOBARTA.</span>
+      </label>
+      <div>
+        <label style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer; padding: 10px 0">
+          <span style="flex: none; width: 24px; height: 24px; border: 2px solid #9E3B3B; border-radius: 6px; background: #FBF4F1; margin-top: 2px"></span>
+          <span style="font-size: 16px; line-height: 1.6">Saya menyetujui <a href="#">Kebijakan Privasi</a> dan <a href="#">Ketentuan Layanan</a> JOBARTA.</span>
+        </label>
+        <div class="err" style="margin-left: 36px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A3232" stroke-width="2.5" stroke-linecap="round" style="flex: none; margin-top: 1px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6M12 16.5v.01"></path></svg>
+          <span>Centang kotak ini dulu supaya akun kamu bisa dibuat.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card col" style="grid-column: span 2">
+      <div>
+        <div class="lex" style="font-size: 18px; font-weight: 600; margin-bottom: 4px">Unggah berkas &mdash; CVUpload</div>
+        <div class="tok">PDF/DOC &middot; maks 5&nbsp;MB &middot; area jatuh min-height 140px</div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+        <div class="grp">
+          <div class="lbl">Kosong</div>
+          <div style="border: 2px dashed #C8C6C6; border-radius: 12px; background: #F7F6F2; min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px; text-align: center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M12 4 7 9M12 4l5 5"></path><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>
+            <button style="font-family: inherit; font-size: 16px; font-weight: 600; color: #4B6587; background: transparent; border: 2px solid #4B6587; border-radius: 8px; min-height: 44px; padding: 10px 20px; cursor: pointer">Pilih Berkas CV</button>
+            <div class="hint">PDF atau DOC, maksimal 5&nbsp;MB.</div>
+          </div>
+        </div>
+        <div class="grp">
+          <div class="lbl">Terisi</div>
+          <div style="border: 2px solid #C8C6C6; border-radius: 12px; background: #F7F6F2; min-height: 140px; padding: 20px; display: flex; flex-direction: column; gap: 12px; justify-content: center">
+            <div style="display: flex; gap: 12px; align-items: center">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg>
+              <div style="min-width: 0">
+                <div style="font-size: 16px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">CV-Rizky-Ghazirah-Himawan-2026.pdf</div>
+                <div class="hint">1,8&nbsp;MB &middot; diunggah baru saja</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px">
+              <button style="font-family: inherit; font-size: 14px; font-weight: 600; color: #4B6587; background: transparent; border: 2px solid #4B6587; border-radius: 8px; min-height: 44px; padding: 8px 16px; cursor: pointer">Ganti Berkas</button>
+              <button style="font-family: inherit; font-size: 14px; font-weight: 600; color: #8A3232; background: transparent; border: 2px solid #9E3B3B; border-radius: 8px; min-height: 44px; padding: 8px 16px; cursor: pointer">Hapus</button>
+            </div>
+          </div>
+        </div>
+        <div class="grp">
+          <div class="lbl">Error</div>
+          <div style="border: 2px solid #9E3B3B; border-radius: 12px; background: #FBF4F1; min-height: 140px; padding: 20px; display: flex; flex-direction: column; gap: 12px; justify-content: center">
+            <div style="display: flex; gap: 12px; align-items: center">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8A3232" stroke-width="2" stroke-linecap="round" style="flex: none" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6M12 16.5v.01"></path></svg>
+              <div style="min-width: 0">
+                <div style="font-size: 16px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Scan-CV-hasil-foto-HP.png</div>
+                <div class="hint">8,4&nbsp;MB</div>
+              </div>
+            </div>
+            <div class="err"><span>Berkas terlalu besar dan formatnya belum didukung. Kirim ulang dalam bentuk PDF berukuran di bawah 5&nbsp;MB.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

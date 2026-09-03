@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Peta Jakarta</title>
+
+    <!-- 1. CSS Leaflet -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+      /* Elemen peta wajib punya tinggi (height) */
+      #map {
+        height: 500px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Peta Interaktif Jakarta</h3>
+
+    <!-- 2. Container tempat peta akan dirender -->
+    <div id="map"></div>
+
+    <!-- 3. JavaScript Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+      // Inisialisasi peta: Set koordinat pusat Jakarta (-6.2088, 106.8456) dan level zoom 12
+      const map = L.map("map").setView([-6.2088, 106.8456], 12);
+
+      // Load gambar peta (tiles) dari server OpenStreetMap
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
+
+      // Tambahkan penanda (marker) di Monas
+      L.marker([-6.1754, 106.8272])
+        .addTo(map)
+        .bindPopup("<b>Monas</b><br>Jakarta Pusat.")
+        .openPopup();
+    </script>
+  </body>
+</html>

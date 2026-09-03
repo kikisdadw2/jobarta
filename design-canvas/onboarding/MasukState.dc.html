@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .dk a { color: #8FA8C8; } .dk a:hover { color: #F0E5CF; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; line-height: 1.6; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .75; margin-bottom: 10px; }
+    .phone { width: 375px; border: 1px solid #C8C6C6; border-radius: 16px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .phone-d { width: 375px; border: 1px solid #4A453D; border-radius: 16px; background: #23211E; flex: none; overflow: hidden; }
+    .desk { width: 1440px; border: 1px solid #C8C6C6; border-radius: 12px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .desk-d { width: 1440px; border: 1px solid #4A453D; border-radius: 12px; background: #23211E; flex: none; overflow: hidden; }
+    .pad { padding: 24px 20px 28px; display: flex; flex-direction: column; gap: 24px; box-sizing: border-box; }
+    .h1 { font-family: 'Lexend', system-ui, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0 0 8px; text-wrap: balance; }
+    .h1d { font-family: 'Lexend', system-ui, sans-serif; font-size: 32px; font-weight: 600; line-height: 1.25; margin: 0 0 12px; text-wrap: balance; }
+    .sub { font-size: 16px; line-height: 1.6; margin: 0; }
+    .hint { font-size: 14px; line-height: 1.5; margin: 6px 0 0; }
+    .field { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; width: 100%; min-height: 48px; box-sizing: border-box; padding: 12px; border-radius: 8px; min-width: 0; }
+    .fl { background: #F7F6F2; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .fd { background: #2E2B26; border: 1px solid #4A453D; color: #F0E5CF; }
+    .ring { outline: 3px solid #4B6587; outline-offset: 2px; }
+    .ring-d { outline: 3px solid #8FA8C8; outline-offset: 2px; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; border: 2px solid transparent; cursor: pointer; transition: transform 180ms ease-out, opacity 180ms ease-out; }
+    .btn-p { background: #4B6587; color: #F7F6F2; }
+    .btn-pd { background: #8FA8C8; color: #23211E; }
+    .btn-off { background: #4B6587; color: #F7F6F2; opacity: .45; cursor: not-allowed; }
+    .btn-offd { background: #8FA8C8; color: #23211E; opacity: .45; cursor: not-allowed; }
+    .btn-out { background: transparent; border: 2px solid #4B6587; color: #4B6587; }
+    .btn-outd { background: transparent; border: 2px solid #8FA8C8; color: #8FA8C8; }
+    .btn-del { background: transparent; border: 2px solid #9E3B3B; color: #9E3B3B; }
+    .btn-deld { background: transparent; border: 2px solid #E08585; color: #E08585; }
+    .goog { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .goog-l { background: #FFFFFF; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .goog-d { background: #131314; border: 1px solid #8E918F; color: #E3E3E3; }
+    .card { border-radius: 12px; padding: 16px; box-sizing: border-box; }
+    .cl { background: #F7F6F2; border: 1px solid #C8C6C6; }
+    .cd { background: #2E2B26; border: 1px solid #4A453D; }
+    .rolecard { border-radius: 12px; padding: 20px; box-sizing: border-box; width: 100%; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 10px; min-height: 44px; font-family: 'Source Sans 3', system-ui, sans-serif; transition: transform 200ms ease-out; }
+    .rc-l { background: #F7F6F2; border: 2px solid #C8C6C6; color: #2E3A4D; }
+    .rc-l-on { background: #F7F6F2; border: 4px solid #4B6587; color: #2E3A4D; }
+    .rc-d { background: #2E2B26; border: 2px solid #4A453D; color: #F0E5CF; }
+    .rc-d-on { background: #2E2B26; border: 4px solid #8FA8C8; color: #F0E5CF; }
+    .rt { font-family: 'Lexend', system-ui, sans-serif; font-size: 20px; font-weight: 600; line-height: 1.3; }
+    .note { font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .cbrow { display: flex; gap: 12px; align-items: flex-start; padding: 8px; margin: -8px; border-radius: 8px; cursor: pointer; }
+    .cb { width: 28px; height: 28px; border-radius: 6px; flex: none; display: flex; align-items: center; justify-content: center; margin: 8px; }
+    .cb-l { background: #F7F6F2; border: 2px solid #4B6587; }
+    .cb-lon { background: #4B6587; border: 2px solid #4B6587; }
+    .cb-d { background: #2E2B26; border: 2px solid #8FA8C8; }
+    .cb-don { background: #8FA8C8; border: 2px solid #8FA8C8; }
+    .ver { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 14px; font-weight: 600; }
+    .errbox { border-radius: 8px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.5; }
+    .err-l { background: #F7F6F2; border: 2px solid #9E3B3B; color: #2E3A4D; }
+    .err-d { background: #2E2B26; border: 2px solid #E08585; color: #F0E5CF; }
+    .scrim { background: rgba(46,58,77,.55); }
+    .scrim-d { background: rgba(10,9,8,.72); }
+    .col { display: flex; flex-direction: column; }
+    .step { display: flex; align-items: center; gap: 8px; }
+    .dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none; }
+    .barline { height: 4px; border-radius: 2px; flex: 1 1 auto; min-width: 24px; }
+    .btn, .goog, .rolecard, .cbrow, .icob { touch-action: manipulation; -webkit-tap-highlight-color: rgba(75,101,135,.18); }
+    .btn-p:hover { background: #3E5573; } .btn-pd:hover { background: #A6BAD5; }
+    .btn-out:hover { background: #E3D5B8; } .btn-outd:hover { background: #3A362F; }
+    .btn-del:hover { background: #F0DDDD; } .btn-deld:hover { background: #3A2C2C; }
+    .goog-l:hover { background: #F2F2F2; } .goog-d:hover { background: #1E1E1F; }
+    .rolecard:hover { border-color: #4B6587; } .rc-d:hover, .rc-d-on:hover { border-color: #8FA8C8; }
+    .cbrow:hover { background: #E3D5B8; } .dk .cbrow:hover { background: #3A362F; }
+    .btn[disabled]:hover { background: #4B6587; } .btn-offd[disabled]:hover { background: #8FA8C8; }
+    .phone-d, .desk-d, .dk { color-scheme: dark; }
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .rolecard { transition: none; }
+    }
+  </style>
+</helmet>
+
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">2 &middot; Layar Masuk &mdash; dua state</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 66ch; line-height: 1.6">Dua keadaan yang paling sering ditemui pengguna nyata di 4G tidak stabil: sedang menunggu Google, dan kembali dari Google tanpa hasil.</p>
+  <p class="tok" style="margin: 0 0 32px; max-width: 100ch">Aturan mengikat: tombol tidak pernah hilang dan tidak pernah berubah lebar &mdash; ia hanya berganti isi. Pesan gagal muncul TEPAT DI ATAS tombol yang harus ditekan ulang, bukan di puncak halaman, supaya sebab dan obatnya terbaca dalam satu pandangan.</p>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap">
+
+    <div>
+      <div class="lbl">2a &middot; Memuat &mdash; 375px terang</div>
+      <div class="phone">
+        <div class="pad" style="min-height: 560px; justify-content: flex-end; gap: 32px">
+          <div>
+            <h2 class="h1" style="font-size: 26px">Lihat lowongan asli di dekat rumahmu, langsung di peta Jakarta.</h2>
+            <p class="sub" style="color: #4B6587">Semua perusahaan diverifikasi dulu sebelum boleh memasang lowongan.</p>
+          </div>
+          <div class="col" style="gap: 16px">
+            <button class="goog goog-l" aria-busy="true" aria-live="polite" style="opacity: .75; cursor: progress">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2.4" stroke-linecap="round" style="flex: none" aria-hidden="true"><path d="M12 3a9 9 0 1 1-6.4 2.7"></path></svg>
+              Menghubungkan&hellip;
+            </button>
+            <p style="font-size: 16px; line-height: 1.6; margin: 0">Dengan masuk, kamu menyetujui <a href="#">Syarat Penggunaan</a> &amp; <a href="#">Kebijakan Privasi</a>.</p>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Kotak tombol identik dengan state normal: lebar penuh, tinggi 48px, jarak sama. Hanya ikon dan label yang berganti, jadi tidak ada satu piksel pun pergeseran layout. Ikon berputar 300ms linear; pada <strong>prefers-reduced-motion</strong> ia berhenti dan status dibaca lewat <span class="tok">aria-busy</span> saja.</p>
+    </div>
+
+    <div>
+      <div class="lbl">2b &middot; Memuat &mdash; 375px gelap</div>
+      <div class="phone-d dk">
+        <div class="pad" style="min-height: 560px; justify-content: flex-end; gap: 32px; color: #F0E5CF">
+          <div>
+            <h2 class="h1" style="font-size: 26px">Lihat lowongan asli di dekat rumahmu, langsung di peta Jakarta.</h2>
+            <p class="sub" style="color: #8FA8C8">Semua perusahaan diverifikasi dulu sebelum boleh memasang lowongan.</p>
+          </div>
+          <div class="col" style="gap: 16px">
+            <button class="goog goog-d" aria-busy="true" aria-live="polite" style="opacity: .75; cursor: progress">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3E3E3" stroke-width="2.4" stroke-linecap="round" style="flex: none" aria-hidden="true"><path d="M12 3a9 9 0 1 1-6.4 2.7"></path></svg>
+              Menghubungkan&hellip;
+            </button>
+            <p style="font-size: 16px; line-height: 1.6; margin: 0">Dengan masuk, kamu menyetujui <a href="#">Syarat Penggunaan</a> &amp; <a href="#">Kebijakan Privasi</a>.</p>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Di mode gelap tombol menunggu tetap <strong>#131314</strong> dengan garis <strong>#8E918F</strong>; opasitas 75% dipakai untuk menandai &ldquo;sedang bekerja&rdquo;, bukan mengabu-abukan teks.</p>
+    </div>
+
+    <div>
+      <div class="lbl">2c &middot; Gagal / dibatalkan &mdash; 375px terang</div>
+      <div class="phone">
+        <div class="pad" style="min-height: 560px; justify-content: flex-end; gap: 32px">
+          <div>
+            <h2 class="h1" style="font-size: 26px">Lihat lowongan asli di dekat rumahmu, langsung di peta Jakarta.</h2>
+            <p class="sub" style="color: #4B6587">Semua perusahaan diverifikasi dulu sebelum boleh memasang lowongan.</p>
+          </div>
+          <div class="col" style="gap: 12px">
+            <div class="errbox err-l" role="status">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9E3B3B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 1px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5"></path><path d="M12 16.4h.01"></path></svg>
+              <span><strong style="color: #9E3B3B">Proses masuk dibatalkan.</strong> Jendela Google ditutup sebelum selesai, jadi kamu belum masuk. Tekan tombol di bawah untuk mencoba lagi.</span>
+            </div>
+            <button class="goog goog-l ring">
+              <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.55 10.78l7.98-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path></svg>
+              Coba lagi dengan Google
+            </button>
+            <p style="font-size: 16px; line-height: 1.6; margin: 4px 0 0">Dengan masuk, kamu menyetujui <a href="#">Syarat Penggunaan</a> &amp; <a href="#">Kebijakan Privasi</a>.</p>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Urutan baca: judul &rarr; kalimat kepercayaan &rarr; <strong>pesan gagal</strong> &rarr; tombol coba lagi &rarr; kalimat persetujuan. Pesan diberi <span class="tok">role="status"</span> supaya diumumkan tanpa merebut fokus &mdash; fokus tetap di tombol. Label tombol ikut berubah jadi &ldquo;Coba lagi&rdquo;, jadi jalan keluarnya tidak perlu ditebak.</p>
+    </div>
+
+    <div>
+      <div class="lbl">2d &middot; Gagal / dibatalkan &mdash; 375px gelap</div>
+      <div class="phone-d dk">
+        <div class="pad" style="min-height: 560px; justify-content: flex-end; gap: 32px; color: #F0E5CF">
+          <div>
+            <h2 class="h1" style="font-size: 26px">Lihat lowongan asli di dekat rumahmu, langsung di peta Jakarta.</h2>
+            <p class="sub" style="color: #8FA8C8">Semua perusahaan diverifikasi dulu sebelum boleh memasang lowongan.</p>
+          </div>
+          <div class="col" style="gap: 12px">
+            <div class="errbox err-d" role="status">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E08585" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 1px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5"></path><path d="M12 16.4h.01"></path></svg>
+              <span><strong style="color: #E08585">Jaringan terputus saat menghubungi Google.</strong> Kamu belum masuk. Periksa koneksi, lalu tekan tombol di bawah.</span>
+            </div>
+            <button class="goog goog-d">
+              <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.55 10.78l7.98-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path></svg>
+              Coba lagi dengan Google
+            </button>
+            <p style="font-size: 16px; line-height: 1.6; margin: 4px 0 0">Dengan masuk, kamu menyetujui <a href="#">Syarat Penggunaan</a> &amp; <a href="#">Kebijakan Privasi</a>.</p>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Kotak pesan gelap digambar sendiri: permukaan <strong>#2E2B26</strong> dengan garis <strong>#E08585</strong> 2px. Teks isi tetap <strong>#F0E5CF</strong> &mdash; hanya kalimat sebabnya yang diberi warna destruktif, supaya kontras isi pesan tidak dikorbankan demi warna.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px" class="card cl">
+    <h3 class="lex" style="font-size: 20px; font-weight: 600; margin: 0 0 12px">Kenapa bukan &ldquo;Login gagal&rdquo;</h3>
+    <p style="font-size: 16px; line-height: 1.65; margin: 0; max-width: 88ch">&ldquo;Login gagal&rdquo; tidak memberi tahu apa pun yang bisa ditindaklanjuti: pengguna tidak tahu apakah salahnya di dia, di Google, atau di JOBARTA. Ketiga varian di atas menyebut <strong>sebab</strong> (jendela ditutup / jaringan terputus / Google menolak) lalu <strong>satu langkah pemulihan</strong>. Untuk pengguna sasaran JOBARTA &mdash; banyak yang cemas soal penipuan &mdash; kalimat &ldquo;kamu belum masuk&rdquo; juga menenangkan: tidak ada yang terjadi diam-diam pada akunnya.</p>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

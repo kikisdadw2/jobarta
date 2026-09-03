@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; line-height: 1.6; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .7; margin-bottom: 10px; }
+    .col { width: 375px; flex: none; }
+    .dz { border-radius: 12px; padding: 24px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+    .dzl { background: #F7F6F2; border: 2px dashed #C8C6C6; color: #2E3A4D; }
+    .dzd { background: #2E2B26; border: 2px dashed #4A453D; color: #F0E5CF; }
+    .ring { outline: 3px solid #4B6587; outline-offset: 3px; }
+    .ring-d { outline: 3px solid #8FA8C8; outline-offset: 3px; }
+    .ghost { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; padding: 0 20px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    .gl { background: #F7F6F2; border: 2px solid #4B6587; color: #4B6587; }
+    .gd { background: #2E2B26; border: 2px solid #8FA8C8; color: #8FA8C8; }
+    .row { border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 12px; }
+    .rl { background: #F7F6F2; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .rd { background: #2E2B26; border: 1px solid #4A453D; color: #F0E5CF; }
+    .fname { font-size: 15px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; }
+    .meta { font-size: 14px; line-height: 1.5; margin: 4px 0 0; }
+    .track { height: 8px; border-radius: 999px; background: #E3D5B8; overflow: hidden; margin-top: 10px; }
+    .track-d { height: 8px; border-radius: 999px; background: #3A362F; overflow: hidden; margin-top: 10px; }
+    .link { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 15px; font-weight: 600; min-height: 44px; padding: 0 10px; background: transparent; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .note { font-size: 14px; line-height: 1.55; }
+    .hd { font-family: 'Lexend', system-ui, sans-serif; font-size: 18px; font-weight: 600; margin: 0 0 12px; }
+  </style>
+</helmet>
+
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Unggah CV &mdash; anatomi &amp; state</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 66ch; line-height: 1.6">Dropzone <strong>tidak pernah hanya area seret-lepas</strong>. Seret-lepas mustahil di HP dan tidak bisa dipakai pengguna keyboard, jadi tombol &ldquo;Pilih berkas&rdquo; adalah jalur setara &mdash; bukan cadangan.</p>
+  <p class="tok" style="margin: 0 0 32px">Batas &amp; format disebut SEBELUM memilih &middot; error muncul TEPAT DI BAWAH dropzone &middot; semua perubahan state diumumkan aria-live=&ldquo;polite&rdquo;</p>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap">
+
+    <div class="col">
+      <div class="lbl">1 &middot; Dropzone &mdash; keadaan awal</div>
+      <div class="dz dzl">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0L8 8m4-4 4 4"></path><path d="M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"></path></svg>
+        <div>
+          <div class="lex" style="font-size: 17px; font-weight: 600; line-height: 1.35">Seret berkas CV ke sini</div>
+          <p class="note" style="color: #4B6587; margin: 6px 0 0">PDF, DOC, atau DOCX &middot; maks 5&nbsp;MB</p>
+        </div>
+        <button class="ghost gl">Pilih berkas</button>
+      </div>
+      <p class="tok" style="margin-top: 12px">Ukuran dan format disebut di sini, bukan muncul sebagai error sesudahnya. Tombol tinggi 48px, jauh di atas ambang 44px.</p>
+    </div>
+
+    <div class="col">
+      <div class="lbl">2 &middot; Fokus keyboard pada dropzone</div>
+      <div class="dz dzl ring">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0L8 8m4-4 4 4"></path><path d="M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"></path></svg>
+        <div>
+          <div class="lex" style="font-size: 17px; font-weight: 600; line-height: 1.35">Seret berkas CV ke sini</div>
+          <p class="note" style="color: #4B6587; margin: 6px 0 0">PDF, DOC, atau DOCX &middot; maks 5&nbsp;MB</p>
+        </div>
+        <button class="ghost gl">Pilih berkas</button>
+      </div>
+      <p class="tok" style="margin-top: 12px">Focus ring 3px <strong>#4B6587</strong> (token --color-ring), offset 3px supaya tidak menempel pada garis putus-putus dropzone.</p>
+    </div>
+
+    <div class="col">
+      <div class="lbl">3 &middot; Dropzone &mdash; mode gelap</div>
+      <div class="dz dzd">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0L8 8m4-4 4 4"></path><path d="M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"></path></svg>
+        <div>
+          <div class="lex" style="font-size: 17px; font-weight: 600; line-height: 1.35">Seret berkas CV ke sini</div>
+          <p class="note" style="color: #8FA8C8; margin: 6px 0 0">PDF, DOC, atau DOCX &middot; maks 5&nbsp;MB</p>
+        </div>
+        <button class="ghost gd">Pilih berkas</button>
+      </div>
+      <p class="tok" style="margin-top: 12px">Garis putus-putus di mode gelap naik ke <strong>#4A453D</strong> &mdash; #C8C6C6 mode terang akan menyilaukan di atas #2E2B26.</p>
+    </div>
+
+    <div class="col">
+      <div class="lbl">4a &middot; Sedang mengunggah</div>
+      <div class="row rl" style="align-items: flex-start">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"></path><path d="M14 3v4h4"></path></svg>
+        <div style="flex: 1; min-width: 0">
+          <div class="fname">CV-Rizky-Ghaz&hellip;-2026.pdf</div>
+          <p class="meta" style="color: #4B6587">Mengunggah&hellip; 62%</p>
+          <div class="track"><div style="width: 62%; height: 100%; background: #4B6587"></div></div>
+        </div>
+        <button class="link" style="color: #4B6587; flex: none">Batalkan</button>
+      </div>
+      <p class="tok" style="margin-top: 12px">Di 4G, 5&nbsp;MB terasa lama. Tanpa angka progres pengguna mengira aplikasi hang lalu menutupnya. Nama berkas dipotong <strong>di tengah</strong> &mdash; ekstensi <strong>.pdf</strong> harus tetap terlihat.</p>
+    </div>
+
+    <div class="col">
+      <div class="lbl">4b &middot; Berhasil</div>
+      <div class="row rl">
+        <span style="width: 32px; height: 32px; border-radius: 50%; background: #3F6B4F; flex: none; display: flex; align-items: center; justify-content: center">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+        </span>
+        <div style="flex: 1; min-width: 0">
+          <div class="fname">CV-Rizky-Ghaz&hellip;-2026.pdf</div>
+          <p class="meta" style="color: #3F6B4F; font-weight: 600">Tersimpan &middot; <span style="color: #4B6587; font-weight: 400">1,8&nbsp;MB</span></p>
+        </div>
+        <div style="display: flex; flex: none">
+          <button class="link" style="color: #4B6587">Ganti</button>
+          <button class="link" style="color: #9E3B3B">Hapus</button>
+        </div>
+      </div>
+      <p class="tok" style="margin-top: 12px">Hijau <strong>bukan satu-satunya penanda</strong>: ada ikon centang <em>dan</em> kata &ldquo;Tersimpan&rdquo;. Pengguna buta warna tetap tahu ini berhasil. &ldquo;Hapus&rdquo; pakai #9E3B3B karena itu aksi merusak.</p>
+    </div>
+
+    <div class="col">
+      <div class="lbl">4c &middot; Gagal</div>
+      <div class="dz dzl" style="border-color: #9E3B3B">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#9E3B3B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0L8 8m4-4 4 4"></path><path d="M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"></path></svg>
+        <div>
+          <div class="lex" style="font-size: 17px; font-weight: 600; line-height: 1.35">Seret berkas CV ke sini</div>
+          <p class="note" style="color: #4B6587; margin: 6px 0 0">PDF, DOC, atau DOCX &middot; maks 5&nbsp;MB</p>
+        </div>
+        <button class="ghost gl">Pilih berkas</button>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 12px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9E3B3B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6M12 16.5v.5"></path></svg>
+        <p class="note" style="color: #9E3B3B; margin: 0; font-weight: 600">Ukuran berkas 7&nbsp;MB, maksimal 5&nbsp;MB. Coba kompres atau unggah versi lain.</p>
+      </div>
+      <p class="tok" style="margin-top: 12px">Pesan menyebut <strong>sebab</strong> dan <strong>cara memperbaiki</strong> &mdash; bukan &ldquo;Upload gagal&rdquo;. Letaknya tepat di bawah dropzone, bukan sebagai banner di puncak halaman yang sudah tergulung keluar layar.</p>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 40px; padding: 20px; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; max-width: 900px">
+    <h2 class="hd">Catatan pembaca layar</h2>
+    <p class="note" style="margin: 0">Ketiga perubahan state di atas diumumkan lewat satu wilayah <strong>aria-live=&ldquo;polite&rdquo;</strong> yang sama, tepat di bawah dropzone: <em>&ldquo;Mengunggah 62 persen&rdquo;</em> &rarr; <em>&ldquo;CV tersimpan, 1,8 megabita&rdquo;</em> &rarr; <em>&ldquo;Gagal. Ukuran berkas 7 megabita, maksimal 5 megabita.&rdquo;</em> Sopan, bukan assertive &mdash; unggahan bukan keadaan darurat dan tidak boleh memotong bacaan pengguna.</p>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

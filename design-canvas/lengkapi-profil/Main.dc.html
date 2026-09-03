@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; line-height: 1.6; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .7; margin-bottom: 10px; }
+    .phone { width: 375px; border: 1px solid #C8C6C6; border-radius: 16px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .phone-d { width: 375px; border: 1px solid #4A453D; border-radius: 16px; background: #23211E; flex: none; overflow: hidden; }
+    .pad { padding: 8px 20px 24px; display: flex; flex-direction: column; gap: 24px; }
+    .h1 { font-family: 'Lexend', system-ui, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0 0 8px; text-wrap: balance; }
+    .sub { font-size: 16px; line-height: 1.6; margin: 0; }
+    .field { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; width: 100%; min-height: 48px; box-sizing: border-box; padding: 12px; border-radius: 8px; }
+    .fl { background: #F7F6F2; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .fd { background: #2E2B26; border: 1px solid #4A453D; color: #F0E5CF; }
+    .ring { outline: 3px solid #4B6587; outline-offset: 2px; }
+    .ring-d { outline: 3px solid #8FA8C8; outline-offset: 2px; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; border: 2px solid transparent; cursor: pointer; }
+    .btn-p { background: #4B6587; color: #F7F6F2; }
+    .btn-pd { background: #8FA8C8; color: #23211E; }
+    .later { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 44px; width: 100%; background: transparent; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .card { border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .cl { background: #F7F6F2; border: 1px solid #C8C6C6; }
+    .cd { background: #2E2B26; border: 1px solid #4A453D; }
+    .hint { font-size: 14px; line-height: 1.5; margin: 6px 0 0; }
+    .ava { width: 104px; height: 104px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .ghost { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 15px; font-weight: 600; min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    .gl { background: #F7F6F2; border: 1px solid #C8C6C6; color: #4B6587; }
+    .gd { background: #2E2B26; border: 1px solid #4A453D; color: #8FA8C8; }
+    .bar { display: flex; align-items: center; padding: 8px 8px 0; }
+    .icob { width: 44px; height: 44px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  </style>
+</helmet>
+
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Lengkapi Profil &mdash; 375px</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 66ch; line-height: 1.6">Layar <strong>opsional</strong> setelah onboarding pilih peran. Momen &ldquo;aha&rdquo; seeker bukan &ldquo;punya CV&rdquo; &mdash; melainkan melihat lowongan nyata di dekat rumahnya. Karena itu layar ini tidak boleh terasa seperti tembok.</p>
+  <p class="tok" style="margin: 0 0 32px">Tidak ada indikator langkah &ldquo;3 dari 3&rdquo; &middot; nama TIDAK ter-autofocus &middot; &ldquo;Nanti saja&rdquo; kontras penuh, bukan abu samar &middot; urutan baca pembaca layar = urutan visual</p>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap">
+
+    <div>
+      <div class="lbl">1 &middot; Seeker &mdash; mode terang</div>
+      <div class="phone">
+        <div class="bar">
+          <button class="icob" aria-label="Kembali">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg>
+          </button>
+        </div>
+        <div class="pad">
+
+          <div>
+            <h2 class="h1">Sedikit lagi, Rizky</h2>
+            <p class="sub">Perusahaan lebih sering membalas pelamar yang profilnya lengkap.</p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px">
+            <div class="ava" style="background: #E3D5B8; border: 1px solid #C8C6C6">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"></circle><path d="M4.5 20c0-3.6 3.4-5.6 7.5-5.6s7.5 2 7.5 5.6"></path></svg>
+            </div>
+            <button class="ghost gl" style="margin-top: -26px">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"></path><circle cx="12" cy="13" r="3.4"></circle></svg>
+              Ganti foto
+            </button>
+          </div>
+
+          <div>
+            <label for="nm1" style="display: block; font-size: 15px; font-weight: 600; margin-bottom: 6px">Nama lengkap</label>
+            <input id="nm1" class="field fl" type="text" value="Rizky Ghazirah Himawan">
+            <p class="hint" style="color: #4B6587">Pakai nama seperti di lamaran kerja.</p>
+          </div>
+
+          <div class="card cl">
+            <div style="display: flex; gap: 12px; align-items: flex-start">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"></path><path d="M14 3v4h4"></path><path d="M9 13h6M9 17h4"></path></svg>
+              <div>
+                <div class="lex" style="font-size: 17px; font-weight: 600; line-height: 1.35">Punya CV? Unggah sekarang (30&nbsp;detik)</div>
+                <p class="hint" style="color: #4B6587">Atau nanti saja, saat kamu melamar.</p>
+              </div>
+            </div>
+            <button class="ghost gl" style="width: 100%; justify-content: center">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0L8 8m4-4 4 4"></path><path d="M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"></path></svg>
+              Unggah CV
+            </button>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <button class="btn btn-p">Simpan &amp; Lihat Lowongan</button>
+            <button class="later" style="color: #4B6587">Nanti saja</button>
+          </div>
+
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Urutan baca: judul &rarr; foto &rarr; ganti foto &rarr; label nama &rarr; field &rarr; hint &rarr; kartu CV &rarr; unggah &rarr; simpan &rarr; nanti saja. Ruang avatar 104&times;104 dipesan sebelum gambar termuat &mdash; tidak ada pergeseran layout.</p>
+    </div>
+
+    <div>
+      <div class="lbl">2 &middot; Seeker &mdash; mode gelap, fokus keyboard di field nama</div>
+      <div class="phone-d">
+        <div class="bar">
+          <button class="icob" aria-label="Kembali">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg>
+          </button>
+        </div>
+        <div class="pad" style="color: #F0E5CF">
+
+          <div>
+            <h2 class="h1">Sedikit lagi, Rizky</h2>
+            <p class="sub">Perusahaan lebih sering membalas pelamar yang profilnya lengkap.</p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px">
+            <div class="ava" style="background: #3A362F; border: 1px solid #4A453D">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"></circle><path d="M4.5 20c0-3.6 3.4-5.6 7.5-5.6s7.5 2 7.5 5.6"></path></svg>
+            </div>
+            <button class="ghost gd" style="margin-top: -26px">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"></path><circle cx="12" cy="13" r="3.4"></circle></svg>
+              Ganti foto
+            </button>
+          </div>
+
+          <div>
+            <label for="nm2" style="display: block; font-size: 15px; font-weight: 600; margin-bottom: 6px">Nama lengkap</label>
+            <input id="nm2" class="field fd ring-d" type="text" value="Rizky Ghazirah Himawan">
+            <p class="hint" style="color: #8FA8C8">Pakai nama seperti di lamaran kerja.</p>
+          </div>
+
+          <div class="card cd">
+            <div style="display: flex; gap: 12px; align-items: flex-start">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"></path><path d="M14 3v4h4"></path><path d="M9 13h6M9 17h4"></path></svg>
+              <div>
+                <div class="lex" style="font-size: 17px; font-weight: 600; line-height: 1.35">Punya CV? Unggah sekarang (30&nbsp;detik)</div>
+                <p class="hint" style="color: #8FA8C8">Atau nanti saja, saat kamu melamar.</p>
+              </div>
+            </div>
+            <button class="ghost gd" style="width: 100%; justify-content: center">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0L8 8m4-4 4 4"></path><path d="M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"></path></svg>
+              Unggah CV
+            </button>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <button class="btn btn-pd">Simpan &amp; Lihat Lowongan</button>
+            <button class="later" style="color: #8FA8C8">Nanti saja</button>
+          </div>
+
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Mode gelap digambar penuh &mdash; latar field <strong>#2E2B26</strong> dan garisnya <strong>#4A453D</strong> tidak disimpulkan dari mode terang. Focus ring 3px <strong>#8FA8C8</strong>, offset 2px.</p>
+    </div>
+
+    <div>
+      <div class="lbl">3 &middot; Employer &mdash; mode terang (tanpa CV)</div>
+      <div class="phone">
+        <div class="bar">
+          <button class="icob" aria-label="Kembali">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg>
+          </button>
+        </div>
+        <div class="pad">
+
+          <div>
+            <h2 class="h1">Sedikit lagi, Rizky</h2>
+            <p class="sub">Pelamar lebih percaya pada perusahaan yang identitasnya jelas.</p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px">
+            <div class="ava" style="background: #E3D5B8; border: 1px solid #C8C6C6">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"></circle><path d="M4.5 20c0-3.6 3.4-5.6 7.5-5.6s7.5 2 7.5 5.6"></path></svg>
+            </div>
+            <button class="ghost gl" style="margin-top: -26px">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"></path><circle cx="12" cy="13" r="3.4"></circle></svg>
+              Ganti foto
+            </button>
+          </div>
+
+          <div>
+            <label for="nm3" style="display: block; font-size: 15px; font-weight: 600; margin-bottom: 6px">Nama lengkap</label>
+            <input id="nm3" class="field fl" type="text" value="Rizky Ghazirah Himawan">
+            <p class="hint" style="color: #4B6587">Nama penanggung jawab, bukan nama perusahaan.</p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <button class="btn btn-p">Simpan &amp; Lanjut ke Verifikasi</button>
+            <button class="later ring" style="color: #4B6587">Nanti saja</button>
+          </div>
+
+          <p class="hint" style="color: #4B6587; margin: 0; text-align: center">Lowongan baru bisa ditayangkan setelah legalitas usaha diperiksa.</p>
+
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Bedanya dengan artboard&nbsp;1 hanya dua: <strong>kartu CV hilang</strong> (employer tidak butuh CV sama sekali) dan CTA mengarah ke verifikasi. Focus ring digambar pada &ldquo;Nanti saja&rdquo; &mdash; jalan keluar wajib bisa dijangkau keyboard.</p>
+    </div>
+
+    <div>
+      <div class="lbl">4 &middot; Uji teks ekstrem &mdash; nama Google sangat panjang</div>
+      <div class="phone">
+        <div class="bar">
+          <button class="icob" aria-label="Kembali">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg>
+          </button>
+        </div>
+        <div class="pad">
+
+          <div>
+            <h2 class="h1" style="overflow-wrap: anywhere">Sedikit lagi, Muhammad&nbsp;Rizky</h2>
+            <p class="sub">Perusahaan lebih sering membalas pelamar yang profilnya lengkap.</p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px">
+            <div class="ava" style="background: #E3D5B8; border: 1px solid #C8C6C6">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"></circle><path d="M4.5 20c0-3.6 3.4-5.6 7.5-5.6s7.5 2 7.5 5.6"></path></svg>
+            </div>
+            <button class="ghost gl" style="margin-top: -26px">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"></path><circle cx="12" cy="13" r="3.4"></circle></svg>
+              Ganti foto
+            </button>
+          </div>
+
+          <div>
+            <label for="nm4" style="display: block; font-size: 15px; font-weight: 600; margin-bottom: 6px">Nama lengkap</label>
+            <textarea id="nm4" class="field fl" rows="2" style="resize: none; line-height: 1.4; overflow-wrap: anywhere">Muhammad Rizky Ghazirah Himawan Prasetyo</textarea>
+            <p class="hint" style="color: #4B6587">Pakai nama seperti di lamaran kerja.</p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <button class="btn btn-p">Simpan &amp; Lihat Lowongan</button>
+            <button class="later" style="color: #4B6587">Nanti saja</button>
+          </div>
+
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Sapaan judul dipotong ke <strong>dua kata pertama</strong> &mdash; menyapa dengan 5 kata nama membuat judul jadi tiga baris dan mendorong isi ke bawah lipatan. Field nama tumbuh ke bawah, tidak pernah scroll horizontal.</p>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

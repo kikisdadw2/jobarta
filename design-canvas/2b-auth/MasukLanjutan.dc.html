@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+  <style>
+    button, a, input, label { touch-action: manipulation; }
+    body { margin: 0; background: #E5D8BD; font-family: "Source Sans 3", system-ui, sans-serif; color: #2E3A4D; }
+    a { color: #4B6587; } a:hover { color: #3B5170; }
+    .sheet { padding: 32px; }
+    .row { display: flex; gap: 32px; align-items: flex-start; }
+    .col { display: flex; flex-direction: column; gap: 12px; }
+    .lbl { font: 600 15px "Lexend", system-ui, sans-serif; }
+    .cap { font: 400 13px "Source Sans 3", system-ui, sans-serif; color: #4B6587; max-width: 375px; }
+    .scr { width: 375px; height: 812px; box-sizing: border-box; background: #F0E5CF; border: 1px solid #C8C6C6; overflow: hidden; display: flex; flex-direction: column; padding: 48px 24px 24px; }
+  </style>
+</helmet>
+
+<div class="sheet">
+  <h1 style="font: 700 26px 'Lexend', system-ui, sans-serif; margin: 0 0 6px">Masuk — dua state sisa &amp; desktop 1440px</h1>
+  <p style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; margin: 0 0 28px; max-width: 820px">State 4 dan 5, lalu susunan 1440px. Perhatikan: desktop bukan versi besar dari mobile — form dibatasi 440px dan diberi panel penjelas di sisi kiri, ruang yang di 375px tidak ada.</p>
+
+  <div class="row">
+
+    <!-- STATE 4: GOOGLE DIBATALKAN -->
+    <div class="col">
+      <div class="lbl">4 · Login Google dibatalkan</div>
+      <div class="scr">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 24px">
+          <svg width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-8-7-12.5A7 7 0 0 1 19 9.5C19 14 12 22 12 22Z" fill="#4B6587"></path><circle cx="12" cy="9.5" r="2.6" fill="#F7F6F2"></circle></svg>
+          <div style="font: 700 24px 'Lexend', system-ui, sans-serif; letter-spacing: .02em">JOBARTA</div>
+        </div>
+
+        <div role="alert" style="display: flex; gap: 10px; background: #F7F6F2; border: 1px solid #C8C6C6; border-left: 4px solid #A08B4A; border-radius: 10px; padding: 12px 14px; margin-bottom: 18px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A08B4A" stroke-width="2.2" stroke-linecap="round" style="flex: none; margin-top: 2px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5"></path><path d="M12 16.2v.2"></path></svg>
+          <div style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.5">Kamu menutup jendela Google sebelum selesai. Belum ada yang berubah di akunmu — coba lagi, atau masuk pakai username.</div>
+        </div>
+
+        <button style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 48px; background: #F7F6F2; color: #2E3A4D; border: 1px solid #C8C6C6; border-radius: 10px; font: 600 16px 'Source Sans 3', system-ui, sans-serif; cursor: pointer; outline: 3px solid #4B6587; outline-offset: 2px">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62Z"></path><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18Z"></path><path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33Z"></path><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58Z"></path></svg>
+          Coba lagi dengan Google
+        </button>
+
+        <div style="display: flex; align-items: center; gap: 12px; margin: 20px 0">
+          <div style="flex: 1; height: 1px; background: #C8C6C6"></div>
+          <div style="font: 400 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">atau</div>
+          <div style="flex: 1; height: 1px; background: #C8C6C6"></div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px">
+          <div>
+            <label style="display: block; font: 600 14px 'Source Sans 3', system-ui, sans-serif; margin-bottom: 6px">Username</label>
+            <input type="text" value="" placeholder="nama pengguna kamu…" style="width: 100%; height: 48px; box-sizing: border-box; padding: 0 14px; font: 400 16px 'Source Sans 3', system-ui, sans-serif; color: #2E3A4D; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 10px">
+          </div>
+          <div>
+            <label style="display: block; font: 600 14px 'Source Sans 3', system-ui, sans-serif; margin-bottom: 6px">Password</label>
+            <input type="password" value="" style="width: 100%; height: 48px; box-sizing: border-box; padding: 0 14px; font: 400 16px 'Source Sans 3', system-ui, sans-serif; color: #2E3A4D; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 10px">
+          </div>
+          <button style="width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 17px 'Lexend', system-ui, sans-serif; cursor: pointer">Masuk</button>
+        </div>
+      </div>
+      <div class="cap">Pesan menenangkan dulu (“belum ada yang berubah”), baru memberi dua jalan keluar.</div>
+    </div>
+
+    <!-- STATE 5: AKUN DINONAKTIFKAN -->
+    <div class="col">
+      <div class="lbl">5 · Akun tidak diaktifkan (menolak PDP)</div>
+      <div class="scr">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 24px">
+          <svg width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-8-7-12.5A7 7 0 0 1 19 9.5C19 14 12 22 12 22Z" fill="#4B6587"></path><circle cx="12" cy="9.5" r="2.6" fill="#F7F6F2"></circle></svg>
+          <div style="font: 700 24px 'Lexend', system-ui, sans-serif; letter-spacing: .02em">JOBARTA</div>
+        </div>
+
+        <div style="background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 20px">
+          <h2 style="font: 600 19px 'Lexend', system-ui, sans-serif; margin: 0 0 10px">Akun kamu belum aktif</h2>
+          <p style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 16px">Dulu kamu menolak persetujuan pengolahan data, jadi akunmu dibuat tapi tidak pernah diaktifkan. Datamu masih tersimpan dan belum dipakai untuk apa pun.</p>
+          <p style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 20px">Kamu bisa memilih salah satu:</p>
+
+          <button style="width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 16px 'Lexend', system-ui, sans-serif; cursor: pointer; margin-bottom: 10px">Baca &amp; setujui, aktifkan akun</button>
+          <button style="width: 100%; height: 48px; background: transparent; color: #9E3B3B; border: 1px solid #9E3B3B; border-radius: 10px; font: 600 16px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">Hapus data saya</button>
+
+          <p style="font: 400 13px 'Source Sans 3', system-ui, sans-serif; color: #4B6587; line-height: 1.5; margin: 16px 0 0">Penghapusan diproses maksimal 30 hari sesuai UU PDP No. 27/2022. Kamu akan dapat konfirmasi kalau sudah selesai.</p>
+        </div>
+
+        <div style="margin-top: auto; font: 400 13px 'Source Sans 3', system-ui, sans-serif; color: #4B6587; line-height: 1.5">Kedua tombol setara — tidak ada yang disamarkan. Menyulitkan penghapusan data adalah dark pattern sekaligus pelanggaran.</div>
+      </div>
+      <div class="cap">Akun Auth terbentuk sebelum consent, jadi menolak PDP tidak bisa berarti “pendaftaran dibatalkan”.</div>
+    </div>
+
+    <!-- DESKTOP 1440 -->
+    <div class="col">
+      <div class="lbl">Desktop 1440 × 900 — susunan berbeda, bukan sekadar diperbesar</div>
+      <div style="width: 1440px; height: 900px; box-sizing: border-box; background: #F0E5CF; border: 1px solid #C8C6C6; overflow: hidden; display: flex">
+
+        <div style="position: relative; flex: 1; padding: 64px 72px; display: flex; flex-direction: column; justify-content: center; gap: 28px; background: #F7F6F2; border-right: 1px solid #C8C6C6; overflow: hidden">
+
+          <!-- Latar: cuplikan peta Jakarta, mengikuti pola hero DESIGN 2.
+               Peta digambar sebagai SVG, bukan foto — produknya memang peta,
+               dan foto stok "orang bekerja" tidak menjelaskan apa pun. -->
+          <svg viewBox="0 0 820 900" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%" aria-hidden="true">
+            <rect width="820" height="900" fill="#EDE2CB"></rect>
+            <g stroke="#DFD3B8" stroke-width="14" stroke-linecap="round">
+              <path d="M-40 190 H860"></path>
+              <path d="M-40 470 H860"></path>
+              <path d="M-40 730 H860"></path>
+              <path d="M150 -40 V940"></path>
+              <path d="M430 -40 V940"></path>
+              <path d="M680 -40 V940"></path>
+            </g>
+            <g stroke="#E4DAC3" stroke-width="7" stroke-linecap="round">
+              <path d="M-40 320 H860"></path>
+              <path d="M-40 600 H860"></path>
+              <path d="M290 -40 V940"></path>
+              <path d="M560 -40 V940"></path>
+              <path d="M60 40 L360 340"></path>
+              <path d="M470 560 L800 890"></path>
+            </g>
+            <g fill="#E7DCC4">
+              <rect x="180" y="230" width="80" height="60" rx="6"></rect>
+              <rect x="470" y="220" width="70" height="80" rx="6"></rect>
+              <rect x="330" y="510" width="70" height="60" rx="6"></rect>
+              <rect x="600" y="640" width="60" height="60" rx="6"></rect>
+              <rect x="60" y="640" width="70" height="55" rx="6"></rect>
+            </g>
+            <path d="M-40 800 C 180 770, 340 850, 560 800 S 820 760, 880 790 L880 940 L-40 940 Z" fill="#DFE6E2"></path>
+            <g>
+              <path d="M232 258s-13-14.6-13-23.2a13 13 0 0 1 26 0c0 8.6-13 23.2-13 23.2Z" fill="#3F6B4F"></path>
+              <circle cx="232" cy="234" r="4.6" fill="#F7F6F2"></circle>
+              <path d="M512 306s-13-14.6-13-23.2a13 13 0 0 1 26 0c0 8.6-13 23.2-13 23.2Z" fill="#3F6B4F"></path>
+              <circle cx="512" cy="282" r="4.6" fill="#F7F6F2"></circle>
+              <path d="M366 566s-13-14.6-13-23.2a13 13 0 0 1 26 0c0 8.6-13 23.2-13 23.2Z" fill="#4B6587"></path>
+              <circle cx="366" cy="542" r="4.6" fill="#F7F6F2"></circle>
+              <path d="M638 700s-13-14.6-13-23.2a13 13 0 0 1 26 0c0 8.6-13 23.2-13 23.2Z" fill="#3F6B4F"></path>
+              <circle cx="638" cy="676" r="4.6" fill="#F7F6F2"></circle>
+              <path d="M104 700s-13-14.6-13-23.2a13 13 0 0 1 26 0c0 8.6-13 23.2-13 23.2Z" fill="#A08B4A"></path>
+              <circle cx="104" cy="676" r="4.6" fill="#F7F6F2"></circle>
+            </g>
+            <g>
+              <circle cx="700" cy="420" r="26" fill="#4B6587"></circle>
+              <text x="700" y="428" text-anchor="middle" font-family="system-ui, sans-serif" font-size="19" font-weight="700" fill="#F7F6F2">12</text>
+            </g>
+          </svg>
+
+          <!-- Selubung: teks di atas peta MUST tetap >= 4,5:1. Selubung 88%
+               menaikkan #2E3A4D di atas peta ke ~9:1, jadi aman. -->
+          <div style="position: absolute; inset: 0; background: rgba(247, 246, 242, .88)"></div>
+
+          <div style="position: relative; display: flex; align-items: center; gap: 12px">
+            <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-8-7-12.5A7 7 0 0 1 19 9.5C19 14 12 22 12 22Z" fill="#4B6587"></path><circle cx="12" cy="9.5" r="2.6" fill="#F7F6F2"></circle></svg>
+            <div style="font: 700 28px 'Lexend', system-ui, sans-serif; letter-spacing: .02em">JOBARTA</div>
+          </div>
+          <h2 style="position: relative; font: 600 40px 'Lexend', system-ui, sans-serif; line-height: 1.2; margin: 0; max-width: 520px; text-wrap: balance">Cari kerja di dekat rumah kamu.</h2>
+          <p style="position: relative; font: 400 18px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0; max-width: 480px">Lihat lowongan di peta, bukan di daftar tanpa ujung. Gratis selamanya buat pencari kerja.</p>
+
+          <div style="position: relative; display: flex; flex-direction: column; gap: 14px; margin-top: 8px">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <span style="display: inline-flex; align-items: center; gap: 6px; background: #3F6B4F; color: #F7F6F2; font: 700 13px 'Source Sans 3', system-ui, sans-serif; padding: 3px 10px; border-radius: 999px">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+                Terverifikasi
+              </span>
+              <span style="font: 400 16px 'Source Sans 3', system-ui, sans-serif">Perusahaan dicek dokumen legalitasnya sebelum boleh posting.</span>
+            </div>
+            <div style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; padding-left: 2px">JOBARTA tidak pernah meminta biaya apa pun ke pencari kerja.</div>
+          </div>
+        </div>
+
+        <div style="flex: none; width: 620px; display: flex; align-items: center; justify-content: center; padding: 48px">
+          <div style="width: 440px">
+            <h2 style="font: 600 30px 'Lexend', system-ui, sans-serif; margin: 0 0 6px">Masuk</h2>
+            <p style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; color: #4B6587; margin: 0 0 28px">Belum punya akun? <a href="#" style="font-weight: 600">Daftar</a></p>
+
+            <button style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 48px; background: #F7F6F2; color: #2E3A4D; border: 1px solid #C8C6C6; border-radius: 10px; font: 600 16px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">
+              <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62Z"></path><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18Z"></path><path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33Z"></path><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58Z"></path></svg>
+              Lanjutkan dengan Google
+            </button>
+
+            <div style="display: flex; align-items: center; gap: 12px; margin: 24px 0">
+              <div style="flex: 1; height: 1px; background: #C8C6C6"></div>
+              <div style="font: 400 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">atau</div>
+              <div style="flex: 1; height: 1px; background: #C8C6C6"></div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 18px">
+              <div>
+                <label style="display: block; font: 600 14px 'Source Sans 3', system-ui, sans-serif; margin-bottom: 6px">Username</label>
+                <input type="text" value="" placeholder="nama pengguna kamu…" style="width: 100%; height: 48px; box-sizing: border-box; padding: 0 14px; font: 400 16px 'Source Sans 3', system-ui, sans-serif; color: #2E3A4D; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 10px">
+              </div>
+              <div>
+                <label style="display: block; font: 600 14px 'Source Sans 3', system-ui, sans-serif; margin-bottom: 6px">Password</label>
+                <div style="display: flex; gap: 8px">
+                  <input type="password" value="" style="flex: 1; min-width: 0; height: 48px; box-sizing: border-box; padding: 0 14px; font: 400 16px 'Source Sans 3', system-ui, sans-serif; color: #2E3A4D; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 10px">
+                  <button style="display: flex; align-items: center; gap: 6px; height: 48px; padding: 0 12px; background: #F7F6F2; color: #4B6587; border: 1px solid #C8C6C6; border-radius: 10px; font: 600 14px 'Source Sans 3', system-ui, sans-serif; cursor: pointer">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    Lihat
+                  </button>
+                </div>
+                <div style="text-align: right; margin-top: 8px"><a href="#" style="font: 600 14px 'Source Sans 3', system-ui, sans-serif; text-decoration: underline">Lupa password?</a></div>
+              </div>
+              <button style="width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 17px 'Lexend', system-ui, sans-serif; cursor: pointer">Masuk</button>
+            </div>
+
+            <p style="font: 400 13px 'Source Sans 3', system-ui, sans-serif; color: #4B6587; line-height: 1.5; margin: 20px 0 0; text-align: center">Dengan masuk, kamu menyetujui <a href="#">Syarat Penggunaan</a> &amp; <a href="#">Kebijakan Privasi</a>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="cap" style="max-width: 900px">Ruang ekstra di desktop dipakai untuk sinyal kepercayaan (badge terverifikasi, janji “tidak pernah minta biaya”) — bukan untuk melebarkan form. Form tetap 440px.</div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

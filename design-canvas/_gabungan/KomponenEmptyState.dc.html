@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 13px; color: #4B6587; }
+    .card { background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 32px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; padding: 12px 24px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; }
+    .hdr { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .7; margin-bottom: 12px; }
+    .h { font-family: 'Lexend', system-ui, sans-serif; font-size: 20px; font-weight: 600; margin: 0; text-wrap: balance; }
+    .p { font-size: 16px; line-height: 1.65; margin: 0; max-width: 34ch; }
+  </style>
+</helmet>
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Empty State</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 64ch; line-height: 1.6">Tiga keadaan kosong yang pasti terjadi. Masing-masing menjelaskan <strong>kenapa</strong> kosong dan menawarkan <strong>satu</strong> langkah lanjutan &mdash; bukan sekadar ilustrasi dan kalimat menghibur.</p>
+  <p class="tok" style="margin: 0 0 32px">ilustrasi 72px &middot; judul 20px &middot; isi 16px &middot; satu tombol saja</p>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-bottom: 32px">
+
+    <div>
+      <div class="hdr">1 &middot; Tidak ada lowongan di area ini</div>
+      <div class="card">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+          <circle cx="36" cy="36" r="26" stroke="#C8C6C6" stroke-width="2.5" stroke-dasharray="6 6"></circle>
+          <path d="M36 26c-4.4 0-8 3.5-8 7.9 0 5.9 8 14.1 8 14.1s8-8.2 8-14.1c0-4.4-3.6-7.9-8-7.9z" stroke="#4B6587" stroke-width="2.5" stroke-linejoin="round"></path>
+          <circle cx="36" cy="33.5" r="2.8" stroke="#4B6587" stroke-width="2.5"></circle>
+        </svg>
+        <h3 class="h">Belum ada lowongan di area ini</h3>
+        <p class="p">Radius pencarian kamu sekarang 2&nbsp;km. Coba perluas jadi 5&nbsp;km &mdash; ada 34 lowongan di sekitar situ.</p>
+        <button class="btn" style="background: #4B6587; color: #F7F6F2">Perluas jadi 5&nbsp;km</button>
+      </div>
+      <p style="font-size: 14px; line-height: 1.6; margin-top: 10px">Menyebut <strong>angka nyata</strong> (34 lowongan) mengubah pesan dari permintaan maaf jadi tawaran. Radius saat ini disebut supaya pengguna tahu apa yang sedang berlaku.</p>
+    </div>
+
+    <div>
+      <div class="hdr">2 &middot; Belum ada lamaran</div>
+      <div class="card">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+          <rect x="18" y="20" width="36" height="32" rx="3" stroke="#C8C6C6" stroke-width="2.5"></rect>
+          <path d="M18 26h36M26 34h20M26 41h13" stroke="#4B6587" stroke-width="2.5" stroke-linecap="round"></path>
+        </svg>
+        <h3 class="h">Kamu belum melamar ke mana pun</h3>
+        <p class="p">Lamaran yang kamu kirim akan muncul di sini, lengkap dengan statusnya &mdash; dari dikirim sampai dibalas perusahaan.</p>
+        <button class="btn" style="background: #4B6587; color: #F7F6F2">Cari Lowongan di Peta</button>
+      </div>
+      <p style="font-size: 14px; line-height: 1.6; margin-top: 10px">Halaman ini kosong karena pengguna baru, bukan karena ada yang salah. Nadanya menjelaskan <strong>apa yang akan muncul</strong>, jadi kekosongannya terasa wajar.</p>
+    </div>
+
+    <div>
+      <div class="hdr">3 &middot; Pencarian tidak menemukan hasil</div>
+      <div class="card">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+          <circle cx="33" cy="33" r="14" stroke="#4B6587" stroke-width="2.5"></circle>
+          <path d="M43.5 43.5 53 53" stroke="#4B6587" stroke-width="2.5" stroke-linecap="round"></path>
+          <path d="M28 33h10" stroke="#C8C6C6" stroke-width="2.5" stroke-linecap="round"></path>
+        </svg>
+        <h3 class="h">Tidak ada hasil untuk &ldquo;barista gudang&rdquo;</h3>
+        <p class="p">Coba satu kata saja, atau lepas filter gaji minimum Rp&nbsp;6.000.000 yang sedang aktif.</p>
+        <button class="btn" style="background: transparent; color: #4B6587; border-color: #4B6587">Hapus Filter Gaji</button>
+      </div>
+      <p style="font-size: 14px; line-height: 1.6; margin-top: 10px">Menyebut <strong>kata kunci dan filter yang sedang aktif</strong>. Penyebab hasil nol paling sering adalah filter yang pengguna sudah lupa pernah dipasang.</p>
+    </div>
+
+  </div>
+
+  <div style="display: grid; grid-template-columns: 375px minmax(0, 1fr); gap: 32px; align-items: start">
+    <div>
+      <div class="hdr">Di lebar 375px</div>
+      <div style="background: #F0E5CF; border: 2px dashed #C8C6C6; border-radius: 12px; padding: 12px">
+        <div class="card" style="padding: 28px 20px">
+          <svg width="64" height="64" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+            <circle cx="36" cy="36" r="26" stroke="#C8C6C6" stroke-width="2.5" stroke-dasharray="6 6"></circle>
+            <path d="M36 26c-4.4 0-8 3.5-8 7.9 0 5.9 8 14.1 8 14.1s8-8.2 8-14.1c0-4.4-3.6-7.9-8-7.9z" stroke="#4B6587" stroke-width="2.5" stroke-linejoin="round"></path>
+            <circle cx="36" cy="33.5" r="2.8" stroke="#4B6587" stroke-width="2.5"></circle>
+          </svg>
+          <h3 class="h" style="font-size: 19px">Belum ada lowongan di area ini</h3>
+          <p class="p" style="font-size: 16px">Radius pencarian kamu sekarang 2&nbsp;km. Coba perluas jadi 5&nbsp;km &mdash; ada 34 lowongan di sekitar situ.</p>
+          <button class="btn" style="background: #4B6587; color: #F7F6F2; width: 100%">Perluas jadi 5&nbsp;km</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="hdr">Aturan empty state</div>
+      <ul style="font-size: 16px; line-height: 1.75; margin: 0; padding-left: 20px">
+        <li>Ilustrasi memakai <span class="tok">#C8C6C6</span> untuk bentuk latar dan <span class="tok">#4B6587</span> untuk bentuk utama &mdash; satu-satunya tempat abu boleh jadi bentuk, karena ia dekoratif dan maknanya tetap ada di teks.</li>
+        <li><strong>Satu tombol saja.</strong> Empty state dengan tiga pilihan mengembalikan pengguna ke kebingungan yang sama.</li>
+        <li>Sebutkan keadaan yang sedang berlaku &mdash; radius, kata kunci, filter aktif. Tanpa itu pengguna tidak tahu apa yang harus diubah.</li>
+        <li>Jangan pakai nada minta maaf (&ldquo;Maaf, tidak ada hasil&rdquo;). Nyatakan keadaan, lalu tawarkan jalan keluar.</li>
+        <li>Empty state BUKAN state error. Gagal memuat peta atau izin lokasi ditolak punya tampilan sendiri dengan <span class="tok">#9E3B3B</span> &mdash; jangan disamakan.</li>
+        <li>Ilustrasi <span class="tok">aria-hidden="true"</span>; seluruh makna hidup di judul dan teks.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

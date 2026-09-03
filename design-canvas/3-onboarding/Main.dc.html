@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+  <style>
+    button, a, input, label { touch-action: manipulation; }
+    body { margin: 0; background: #E5D8BD; font-family: "Source Sans 3", system-ui, sans-serif; color: #2E3A4D; }
+    a { color: #4B6587; } a:hover { color: #3B5170; }
+    .sheet { padding: 32px; }
+    .row { display: flex; gap: 32px; align-items: flex-start; }
+    .col { display: flex; flex-direction: column; gap: 12px; }
+    .lbl { font: 600 15px "Lexend", system-ui, sans-serif; }
+    .cap { font: 400 13px "Source Sans 3", system-ui, sans-serif; color: #4B6587; max-width: 375px; }
+    .scr { width: 375px; height: 812px; box-sizing: border-box; background: #F0E5CF; border: 1px solid #C8C6C6; overflow: hidden; display: flex; flex-direction: column; padding: 40px 24px 24px; }
+  </style>
+</helmet>
+
+<div class="sheet">
+  <h1 style="font: 700 26px 'Lexend', system-ui, sans-serif; margin: 0 0 6px">A · Pilih Peran — langkah 1 dari 3</h1>
+  <p style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; margin: 0 0 28px; max-width: 860px">Layar pertama setelah akun terbentuk — apa pun jalur masuknya. Layar Masuk tidak lagi ada di alur ini; itu sudah pindah ke DESIGN 2B.</p>
+
+  <div class="row">
+
+    <!-- BELUM MEMILIH -->
+    <div class="col">
+      <div class="lbl">1 · Belum memilih</div>
+      <div class="scr">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px">
+          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-8-7-12.5A7 7 0 0 1 19 9.5C19 14 12 22 12 22Z" fill="#4B6587"></path><circle cx="12" cy="9.5" r="2.6" fill="#F7F6F2"></circle></svg>
+          <div style="font: 700 18px 'Lexend', system-ui, sans-serif">JOBARTA</div>
+        </div>
+
+        <div style="margin-bottom: 24px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px">
+            <span style="font: 600 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Langkah 1 dari 3</span>
+            <span style="font: 400 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Pilih peran</span>
+          </div>
+          <div style="display: flex; gap: 6px">
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #4B6587"></div>
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #C8C6C6"></div>
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #C8C6C6"></div>
+          </div>
+        </div>
+
+        <h2 style="font: 600 27px 'Lexend', system-ui, sans-serif; margin: 0 0 10px; text-wrap: balance">Kamu ke sini untuk apa?</h2>
+        <p style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 24px">Pilih salah satu. Nanti bisa diubah lewat halaman profil.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 14px">
+
+          <button style="display: flex; gap: 14px; text-align: left; width: 100%; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 14px; padding: 20px; cursor: pointer; min-height: 44px">
+            <span style="flex: none; width: 48px; height: 48px; border-radius: 12px; background: #EAE3D3; display: flex; align-items: center; justify-content: center">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>
+            </span>
+            <span style="min-width: 0">
+              <span style="display: block; font: 600 19px 'Lexend', system-ui, sans-serif; margin-bottom: 4px">Saya Cari Kerja</span>
+              <span style="display: block; font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.5; margin-bottom: 10px">Lihat lowongan di peta, lamar yang dekat rumah kamu.</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; background: #3F6B4F; color: #F7F6F2; font: 700 13px 'Source Sans 3', system-ui, sans-serif; padding: 3px 10px; border-radius: 999px">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+                Gratis selamanya
+              </span>
+            </span>
+          </button>
+
+          <button style="display: flex; gap: 14px; text-align: left; width: 100%; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 14px; padding: 20px; cursor: pointer; min-height: 44px">
+            <span style="flex: none; width: 48px; height: 48px; border-radius: 12px; background: #EAE3D3; display: flex; align-items: center; justify-content: center">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"></path><path d="M5 21V6l7-3 7 3v15"></path><path d="M9.5 11h1.5M13 11h1.5M9.5 15h1.5M13 15h1.5"></path></svg>
+            </span>
+            <span style="min-width: 0">
+              <span style="display: block; font: 600 19px 'Lexend', system-ui, sans-serif; margin-bottom: 4px">Saya Pasang Lowongan</span>
+              <span style="display: block; font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.5; margin-bottom: 10px">Cari pelamar di sekitar lokasi usaha kamu.</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; border: 1px solid #A08B4A; color: #A08B4A; font: 700 13px 'Source Sans 3', system-ui, sans-serif; padding: 2px 10px; border-radius: 999px">Perlu verifikasi dokumen usaha</span>
+            </span>
+          </button>
+
+        </div>
+
+        <button style="margin-top: auto; width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 17px 'Lexend', system-ui, sans-serif; opacity: .6">Lanjut</button>
+      </div>
+      <div class="cap">Kartu setinggi ±140px — target sentuh jauh di atas 44px, dan seluruh kartu bisa ditekan, bukan cuma judulnya.</div>
+    </div>
+
+    <!-- TERPILIH -->
+    <div class="col">
+      <div class="lbl">2 · “Saya Cari Kerja” terpilih</div>
+      <div class="scr">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px">
+          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-8-7-12.5A7 7 0 0 1 19 9.5C19 14 12 22 12 22Z" fill="#4B6587"></path><circle cx="12" cy="9.5" r="2.6" fill="#F7F6F2"></circle></svg>
+          <div style="font: 700 18px 'Lexend', system-ui, sans-serif">JOBARTA</div>
+        </div>
+
+        <div style="margin-bottom: 24px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px">
+            <span style="font: 600 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Langkah 1 dari 3</span>
+            <span style="font: 400 14px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Pilih peran</span>
+          </div>
+          <div style="display: flex; gap: 6px">
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #4B6587"></div>
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #C8C6C6"></div>
+            <div style="flex: 1; height: 6px; border-radius: 999px; background: #C8C6C6"></div>
+          </div>
+        </div>
+
+        <h2 style="font: 600 27px 'Lexend', system-ui, sans-serif; margin: 0 0 10px; text-wrap: balance">Kamu ke sini untuk apa?</h2>
+        <p style="font: 400 16px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 24px">Pilih salah satu. Nanti bisa diubah lewat halaman profil.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 14px">
+
+          <button aria-pressed="true" style="position: relative; display: flex; gap: 14px; text-align: left; width: 100%; background: #F7F6F2; border: 3px solid #4B6587; border-radius: 14px; padding: 18px; cursor: pointer; outline: 3px solid #4B6587; outline-offset: 3px">
+            <span style="flex: none; width: 48px; height: 48px; border-radius: 12px; background: #4B6587; display: flex; align-items: center; justify-content: center">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>
+            </span>
+            <span style="min-width: 0">
+              <span style="display: flex; align-items: center; gap: 8px; font: 600 19px 'Lexend', system-ui, sans-serif; margin-bottom: 4px">
+                Saya Cari Kerja
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none"></circle><path d="M17 9.5 10.8 16 7 12.4"></path></svg>
+              </span>
+              <span style="display: block; font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.5; margin-bottom: 10px">Lihat lowongan di peta, lamar yang dekat rumah kamu.</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; background: #3F6B4F; color: #F7F6F2; font: 700 13px 'Source Sans 3', system-ui, sans-serif; padding: 3px 10px; border-radius: 999px">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+                Gratis selamanya
+              </span>
+            </span>
+          </button>
+
+          <button style="display: flex; gap: 14px; text-align: left; width: 100%; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 14px; padding: 20px; cursor: pointer">
+            <span style="flex: none; width: 48px; height: 48px; border-radius: 12px; background: #EAE3D3; display: flex; align-items: center; justify-content: center">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"></path><path d="M5 21V6l7-3 7 3v15"></path><path d="M9.5 11h1.5M13 11h1.5M9.5 15h1.5M13 15h1.5"></path></svg>
+            </span>
+            <span style="min-width: 0">
+              <span style="display: block; font: 600 19px 'Lexend', system-ui, sans-serif; margin-bottom: 4px">Saya Pasang Lowongan</span>
+              <span style="display: block; font: 400 15px 'Source Sans 3', system-ui, sans-serif; line-height: 1.5; margin-bottom: 10px">Cari pelamar di sekitar lokasi usaha kamu.</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; border: 1px solid #A08B4A; color: #A08B4A; font: 700 13px 'Source Sans 3', system-ui, sans-serif; padding: 2px 10px; border-radius: 999px">Perlu verifikasi dokumen usaha</span>
+            </span>
+          </button>
+
+        </div>
+
+        <button style="margin-top: auto; width: 100%; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 17px 'Lexend', system-ui, sans-serif; cursor: pointer">Lanjut</button>
+      </div>
+      <div class="cap">Terpilih ditandai tiga hal sekaligus: tepi 3px, kotak ikon terisi, dan ikon centang — bukan warna saja.</div>
+    </div>
+
+    <!-- DESKTOP -->
+    <div class="col">
+      <div class="lbl">Desktop 1440 × 900 — kartu berdampingan</div>
+      <div style="width: 1440px; height: 900px; box-sizing: border-box; background: #F0E5CF; border: 1px solid #C8C6C6; overflow: hidden; display: flex; flex-direction: column; padding: 40px 64px">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 40px">
+          <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-8-7-12.5A7 7 0 0 1 19 9.5C19 14 12 22 12 22Z" fill="#4B6587"></path><circle cx="12" cy="9.5" r="2.6" fill="#F7F6F2"></circle></svg>
+          <div style="font: 700 22px 'Lexend', system-ui, sans-serif">JOBARTA</div>
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto; width: 100%">
+          <div style="margin-bottom: 32px">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px">
+              <span style="font: 600 15px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Langkah 1 dari 3</span>
+              <span style="font: 400 15px 'Source Sans 3', system-ui, sans-serif; color: #4B6587">Pilih peran &middot; Lengkapi data &middot; Persetujuan</span>
+            </div>
+            <div style="display: flex; gap: 8px">
+              <div style="flex: 1; height: 6px; border-radius: 999px; background: #4B6587"></div>
+              <div style="flex: 1; height: 6px; border-radius: 999px; background: #C8C6C6"></div>
+              <div style="flex: 1; height: 6px; border-radius: 999px; background: #C8C6C6"></div>
+            </div>
+          </div>
+
+          <h2 style="font: 600 42px 'Lexend', system-ui, sans-serif; margin: 0 0 12px; text-align: center; text-wrap: balance">Kamu ke sini untuk apa?</h2>
+          <p style="font: 400 18px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6; margin: 0 0 40px; text-align: center">Pilih salah satu. Nanti bisa diubah lewat halaman profil.</p>
+
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+
+            <button style="display: flex; flex-direction: column; align-items: flex-start; gap: 16px; text-align: left; background: #F7F6F2; border: 3px solid #4B6587; border-radius: 16px; padding: 32px; cursor: pointer">
+              <span style="width: 64px; height: 64px; border-radius: 16px; background: #4B6587; display: flex; align-items: center; justify-content: center">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>
+              </span>
+              <span style="display: flex; align-items: center; gap: 10px; font: 600 24px 'Lexend', system-ui, sans-serif">
+                Saya Cari Kerja
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M17 9.5 10.8 16 7 12.4"></path></svg>
+              </span>
+              <span style="font: 400 17px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6">Lihat lowongan di peta, lamar yang dekat rumah kamu. Lamaran dikirim langsung ke perusahaan.</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; background: #3F6B4F; color: #F7F6F2; font: 700 14px 'Source Sans 3', system-ui, sans-serif; padding: 4px 12px; border-radius: 999px">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+                Gratis selamanya
+              </span>
+            </button>
+
+            <button style="display: flex; flex-direction: column; align-items: flex-start; gap: 16px; text-align: left; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 16px; padding: 34px; cursor: pointer">
+              <span style="width: 64px; height: 64px; border-radius: 16px; background: #EAE3D3; display: flex; align-items: center; justify-content: center">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"></path><path d="M5 21V6l7-3 7 3v15"></path><path d="M9.5 11h1.5M13 11h1.5M9.5 15h1.5M13 15h1.5"></path></svg>
+              </span>
+              <span style="font: 600 24px 'Lexend', system-ui, sans-serif">Saya Pasang Lowongan</span>
+              <span style="font: 400 17px 'Source Sans 3', system-ui, sans-serif; line-height: 1.6">Cari pelamar di sekitar lokasi usaha kamu. Lowongan tayang setelah dokumen usaha diverifikasi.</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; border: 1px solid #A08B4A; color: #A08B4A; font: 700 14px 'Source Sans 3', system-ui, sans-serif; padding: 3px 12px; border-radius: 999px">Perlu verifikasi dokumen usaha</span>
+            </button>
+
+          </div>
+
+          <div style="display: flex; justify-content: center; margin-top: 40px">
+            <button style="min-width: 260px; height: 52px; background: #4B6587; color: #F7F6F2; border: 0; border-radius: 10px; font: 600 17px 'Lexend', system-ui, sans-serif; cursor: pointer">Lanjut</button>
+          </div>
+        </div>
+      </div>
+      <div class="cap" style="max-width: 900px">Di 375px kartu bertumpuk dan meringkas; di 1440px kartu berdampingan dan setiap kartu memuat satu kalimat penjelas tambahan — susunan berbeda, bukan skala berbeda.</div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

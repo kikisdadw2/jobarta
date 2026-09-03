@@ -1,0 +1,11 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "Sistem Warna", "x": 0, "y": 0, "w": 900, "h": 700 },
+    { "file": "OpsiA.dc.html", "title": "Opsi A — Krem dominan", "x": 1000, "y": 0, "w": 375, "h": 860 },
+    { "file": "OpsiB.dc.html", "title": "Opsi B — Bersih & aksen hangat", "x": 1475, "y": 0, "w": 375, "h": 860 }
+  ],
+  "annotations": [
+    { "id": "banding", "x": 1000, "y": -130, "w": 850, "text": "Warna, teks, dan komponennya sama persis di kedua opsi.\nYang berbeda hanya: mana yang jadi latar halaman, mana yang jadi kartu." }
+  ],
+  "launch": { "view": "canvas" }
+}

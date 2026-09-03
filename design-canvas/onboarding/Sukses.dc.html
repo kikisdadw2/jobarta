@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .dk a { color: #8FA8C8; } .dk a:hover { color: #F0E5CF; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; line-height: 1.6; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .75; margin-bottom: 10px; }
+    .phone { width: 375px; border: 1px solid #C8C6C6; border-radius: 16px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .phone-d { width: 375px; border: 1px solid #4A453D; border-radius: 16px; background: #23211E; flex: none; overflow: hidden; }
+    .desk { width: 1440px; border: 1px solid #C8C6C6; border-radius: 12px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .desk-d { width: 1440px; border: 1px solid #4A453D; border-radius: 12px; background: #23211E; flex: none; overflow: hidden; }
+    .pad { padding: 24px 20px 28px; display: flex; flex-direction: column; gap: 24px; box-sizing: border-box; }
+    .h1 { font-family: 'Lexend', system-ui, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0 0 8px; text-wrap: balance; }
+    .h1d { font-family: 'Lexend', system-ui, sans-serif; font-size: 32px; font-weight: 600; line-height: 1.25; margin: 0 0 12px; text-wrap: balance; }
+    .sub { font-size: 16px; line-height: 1.6; margin: 0; }
+    .hint { font-size: 14px; line-height: 1.5; margin: 6px 0 0; }
+    .field { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; width: 100%; min-height: 48px; box-sizing: border-box; padding: 12px; border-radius: 8px; min-width: 0; }
+    .fl { background: #F7F6F2; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .fd { background: #2E2B26; border: 1px solid #4A453D; color: #F0E5CF; }
+    .ring { outline: 3px solid #4B6587; outline-offset: 2px; }
+    .ring-d { outline: 3px solid #8FA8C8; outline-offset: 2px; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; border: 2px solid transparent; cursor: pointer; transition: transform 180ms ease-out, opacity 180ms ease-out; }
+    .btn-p { background: #4B6587; color: #F7F6F2; }
+    .btn-pd { background: #8FA8C8; color: #23211E; }
+    .btn-off { background: #4B6587; color: #F7F6F2; opacity: .45; cursor: not-allowed; }
+    .btn-offd { background: #8FA8C8; color: #23211E; opacity: .45; cursor: not-allowed; }
+    .btn-out { background: transparent; border: 2px solid #4B6587; color: #4B6587; }
+    .btn-outd { background: transparent; border: 2px solid #8FA8C8; color: #8FA8C8; }
+    .btn-del { background: transparent; border: 2px solid #9E3B3B; color: #9E3B3B; }
+    .btn-deld { background: transparent; border: 2px solid #E08585; color: #E08585; }
+    .goog { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .goog-l { background: #FFFFFF; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .goog-d { background: #131314; border: 1px solid #8E918F; color: #E3E3E3; }
+    .card { border-radius: 12px; padding: 16px; box-sizing: border-box; }
+    .cl { background: #F7F6F2; border: 1px solid #C8C6C6; }
+    .cd { background: #2E2B26; border: 1px solid #4A453D; }
+    .rolecard { border-radius: 12px; padding: 20px; box-sizing: border-box; width: 100%; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 10px; min-height: 44px; font-family: 'Source Sans 3', system-ui, sans-serif; transition: transform 200ms ease-out; }
+    .rc-l { background: #F7F6F2; border: 2px solid #C8C6C6; color: #2E3A4D; }
+    .rc-l-on { background: #F7F6F2; border: 4px solid #4B6587; color: #2E3A4D; }
+    .rc-d { background: #2E2B26; border: 2px solid #4A453D; color: #F0E5CF; }
+    .rc-d-on { background: #2E2B26; border: 4px solid #8FA8C8; color: #F0E5CF; }
+    .rt { font-family: 'Lexend', system-ui, sans-serif; font-size: 20px; font-weight: 600; line-height: 1.3; }
+    .note { font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .cbrow { display: flex; gap: 12px; align-items: flex-start; padding: 8px; margin: -8px; border-radius: 8px; cursor: pointer; }
+    .cb { width: 28px; height: 28px; border-radius: 6px; flex: none; display: flex; align-items: center; justify-content: center; margin: 8px; }
+    .cb-l { background: #F7F6F2; border: 2px solid #4B6587; }
+    .cb-lon { background: #4B6587; border: 2px solid #4B6587; }
+    .cb-d { background: #2E2B26; border: 2px solid #8FA8C8; }
+    .cb-don { background: #8FA8C8; border: 2px solid #8FA8C8; }
+    .ver { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 14px; font-weight: 600; }
+    .errbox { border-radius: 8px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.5; }
+    .err-l { background: #F7F6F2; border: 2px solid #9E3B3B; color: #2E3A4D; }
+    .err-d { background: #2E2B26; border: 2px solid #E08585; color: #F0E5CF; }
+    .scrim { background: rgba(46,58,77,.55); }
+    .scrim-d { background: rgba(10,9,8,.72); }
+    .col { display: flex; flex-direction: column; }
+    .step { display: flex; align-items: center; gap: 8px; }
+    .dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none; }
+    .barline { height: 4px; border-radius: 2px; flex: 1 1 auto; min-width: 24px; }
+    .btn, .goog, .rolecard, .cbrow, .icob { touch-action: manipulation; -webkit-tap-highlight-color: rgba(75,101,135,.18); }
+    .btn-p:hover { background: #3E5573; } .btn-pd:hover { background: #A6BAD5; }
+    .btn-out:hover { background: #E3D5B8; } .btn-outd:hover { background: #3A362F; }
+    .btn-del:hover { background: #F0DDDD; } .btn-deld:hover { background: #3A2C2C; }
+    .goog-l:hover { background: #F2F2F2; } .goog-d:hover { background: #1E1E1F; }
+    .rolecard:hover { border-color: #4B6587; } .rc-d:hover, .rc-d-on:hover { border-color: #8FA8C8; }
+    .cbrow:hover { background: #E3D5B8; } .dk .cbrow:hover { background: #3A362F; }
+    .btn[disabled]:hover { background: #4B6587; } .btn-offd[disabled]:hover { background: #8FA8C8; }
+    .phone-d, .desk-d, .dk { color-scheme: dark; }
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .rolecard { transition: none; }
+    }
+  </style>
+</helmet>
+
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">7 &middot; Layar Sukses &mdash; dua varian berdampingan</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 72ch; line-height: 1.6">Diletakkan bersebelahan supaya bedanya terlihat: seeker keluar dari onboarding dengan pintu terbuka, employer keluar dengan satu syarat yang belum selesai.</p>
+  <p class="tok" style="margin: 0 0 32px; max-width: 105ch">Indikator progres BERHENTI di sini &mdash; tidak ada &ldquo;3 dari 3&rdquo; di layar sukses, karena onboarding memang sudah selesai. Layar employer menyebut konsekuensinya apa adanya: lowongan belum bisa tayang sebelum verifikasi selesai. Menyembunyikannya sampai dia selesai menulis lowongan pertama akan terasa seperti jebakan.</p>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap">
+
+    <div>
+      <div class="lbl">7a &middot; Seeker &mdash; 375px terang</div>
+      <div class="phone">
+        <div class="pad" style="min-height: 620px; justify-content: center; gap: 28px">
+          <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 20px">
+            <span style="width: 64px; height: 64px; border-radius: 50%; background: #3F6B4F; display: flex; align-items: center; justify-content: center; flex: none">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+            </span>
+            <div>
+              <h2 class="h1">Akunmu sudah aktif, Rizky</h2>
+              <p class="sub" style="color: #4B6587">Kamu sudah bisa langsung melihat lowongan di peta Jakarta sekarang juga.</p>
+            </div>
+          </div>
+
+          <div class="card cl">
+            <p style="margin: 0; font-size: 16px; line-height: 1.6"><strong>Mau lebih sering dibalas perusahaan?</strong> Lengkapi profilmu &mdash; sekitar 2&nbsp;menit. Bisa juga kamu lakukan nanti lewat menu Profil.</p>
+          </div>
+
+          <div class="col" style="gap: 8px">
+            <button class="btn btn-p">Lihat Lowongan di Peta</button>
+            <button class="btn btn-out">Lengkapi profil dulu</button>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Aksi utamanya adalah <strong>melihat lowongan</strong>, bukan melengkapi profil &mdash; sejalan dengan keputusan DESIGN 3B bahwa momen &ldquo;aha&rdquo; seeker adalah melihat lowongan nyata di dekat rumahnya. &ldquo;Lengkapi profil dulu&rdquo; tetap tombol penuh 48px, bukan tautan samar; ia sekadar lebih rendah secara visual.</p>
+    </div>
+
+    <div>
+      <div class="lbl">7b &middot; Employer &mdash; 375px terang &middot; fokus keyboard di aksi utama</div>
+      <div class="phone">
+        <div class="pad" style="min-height: 620px; justify-content: center; gap: 28px">
+          <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 20px">
+            <span style="width: 64px; height: 64px; border-radius: 50%; background: #3F6B4F; display: flex; align-items: center; justify-content: center; flex: none">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+            </span>
+            <div>
+              <h2 class="h1">Akun Bengkel Audi Allroad sudah dibuat</h2>
+              <p class="sub" style="color: #4B6587">Satu langkah lagi sebelum lowonganmu bisa dilihat pencari kerja.</p>
+            </div>
+          </div>
+
+          <div class="card cl" style="border-color: #9E3B3B; border-width: 2px; display: flex; gap: 12px; align-items: flex-start">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9E3B3B" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5"></path><path d="M12 16.4h.01"></path></svg>
+            <p style="margin: 0; font-size: 16px; line-height: 1.6"><strong style="color: #9E3B3B">Lowongan belum bisa tayang.</strong> Kamu boleh menulis dan menyimpannya sekarang, tapi ia baru muncul di peta setelah dokumen usahamu kami verifikasi &mdash; biasanya 1&ndash;2&nbsp;hari kerja.</p>
+          </div>
+
+          <div class="card cl">
+            <p style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Yang perlu kamu siapkan:</p>
+            <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.7">
+              <li>Foto NIB atau akta usaha</li>
+              <li>Alamat tempat usaha</li>
+            </ul>
+          </div>
+
+          <div class="col" style="gap: 8px">
+            <button class="btn btn-p ring">Kirim Dokumen Verifikasi</button>
+            <button class="btn btn-out">Nanti saja, lihat dasbor</button>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Konsekuensi ditempatkan SEBELUM tombol, bukan sesudah &mdash; supaya terbaca sebelum keputusan diambil. Warna <strong>#9E3B3B</strong> boleh dipakai di sini karena ini pemberitahuan hambatan nyata, bukan hiasan. Verifikasi wajib, tapi menundanya tetap diperbolehkan: memaksa upload dokumen di detik ini akan menambah langkah baru ke alur.</p>
+    </div>
+
+    <div>
+      <div class="lbl">7c &middot; Seeker &mdash; 375px gelap</div>
+      <div class="phone-d dk">
+        <div class="pad" style="min-height: 620px; justify-content: center; gap: 28px; color: #F0E5CF">
+          <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 20px">
+            <span style="width: 64px; height: 64px; border-radius: 50%; background: #7FB68C; display: flex; align-items: center; justify-content: center; flex: none">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#23211E" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+            </span>
+            <div>
+              <h2 class="h1">Akunmu sudah aktif, Rizky</h2>
+              <p class="sub" style="color: #8FA8C8">Kamu sudah bisa langsung melihat lowongan di peta Jakarta sekarang juga.</p>
+            </div>
+          </div>
+
+          <div class="card cd">
+            <p style="margin: 0; font-size: 16px; line-height: 1.6"><strong>Mau lebih sering dibalas perusahaan?</strong> Lengkapi profilmu &mdash; sekitar 2&nbsp;menit. Bisa juga kamu lakukan nanti lewat menu Profil.</p>
+          </div>
+
+          <div class="col" style="gap: 8px">
+            <button class="btn btn-pd">Lihat Lowongan di Peta</button>
+            <button class="btn btn-outd">Lengkapi profil dulu</button>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Lingkaran centang gelap memakai <strong>#7FB68C</strong> dengan ikon <strong>#23211E</strong> &mdash; kontras 6,9:1, ditetapkan sendiri. Membalik warna terang (<strong>#3F6B4F</strong> + <strong>#F7F6F2</strong>) di sini akan turun ke kontras yang gagal AA.</p>
+    </div>
+
+    <div>
+      <div class="lbl">7d &middot; Employer &mdash; 375px gelap</div>
+      <div class="phone-d dk">
+        <div class="pad" style="min-height: 620px; justify-content: center; gap: 28px; color: #F0E5CF">
+          <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 20px">
+            <span style="width: 64px; height: 64px; border-radius: 50%; background: #7FB68C; display: flex; align-items: center; justify-content: center; flex: none">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#23211E" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+            </span>
+            <div>
+              <h2 class="h1">Akun Bengkel Audi Allroad sudah dibuat</h2>
+              <p class="sub" style="color: #8FA8C8">Satu langkah lagi sebelum lowonganmu bisa dilihat pencari kerja.</p>
+            </div>
+          </div>
+
+          <div class="card cd" style="border-color: #E08585; border-width: 2px; display: flex; gap: 12px; align-items: flex-start">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E08585" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5"></path><path d="M12 16.4h.01"></path></svg>
+            <p style="margin: 0; font-size: 16px; line-height: 1.6"><strong style="color: #E08585">Lowongan belum bisa tayang.</strong> Kamu boleh menulis dan menyimpannya sekarang, tapi ia baru muncul di peta setelah dokumen usahamu kami verifikasi &mdash; biasanya 1&ndash;2&nbsp;hari kerja.</p>
+          </div>
+
+          <div class="card cd">
+            <p style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Yang perlu kamu siapkan:</p>
+            <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.7">
+              <li>Foto NIB atau akta usaha</li>
+              <li>Alamat tempat usaha</li>
+            </ul>
+          </div>
+
+          <div class="col" style="gap: 8px">
+            <button class="btn btn-pd">Kirim Dokumen Verifikasi</button>
+            <button class="btn btn-outd">Nanti saja, lihat dasbor</button>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Kartu peringatan gelap: permukaan <strong>#2E2B26</strong> dengan garis <strong>#E08585</strong> 2px. Teks isi tetap <strong>#F0E5CF</strong> penuh &mdash; hanya kalimat pembukanya yang berwarna destruktif, jadi isi peringatan tidak pernah jadi teks berkontras rendah.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px">
+    <div class="lbl">7e &middot; 1440px terang &mdash; kedua varian berdampingan untuk perbandingan</div>
+    <div class="desk">
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0">
+        <div style="padding: 56px 48px; min-width: 0; border-right: 1px solid #C8C6C6">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px">
+            <span style="width: 56px; height: 56px; border-radius: 50%; background: #3F6B4F; display: flex; align-items: center; justify-content: center; flex: none">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+            </span>
+            <h2 class="h1d" style="margin: 0; font-size: 28px">Seeker &mdash; akun sudah aktif</h2>
+          </div>
+          <p class="sub" style="font-size: 18px; margin: 0 0 24px; max-width: 46ch">Kamu sudah bisa langsung melihat lowongan di peta Jakarta sekarang juga. Melengkapi profil bersifat opsional dan bisa kapan saja.</p>
+          <div style="display: flex; gap: 12px">
+            <button class="btn btn-p" style="width: 260px">Lihat Lowongan di Peta</button>
+            <button class="btn btn-out" style="width: 220px">Lengkapi profil dulu</button>
+          </div>
+        </div>
+        <div style="padding: 56px 48px; min-width: 0">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px">
+            <span style="width: 56px; height: 56px; border-radius: 50%; background: #3F6B4F; display: flex; align-items: center; justify-content: center; flex: none">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+            </span>
+            <h2 class="h1d" style="margin: 0; font-size: 28px">Employer &mdash; akun sudah dibuat</h2>
+          </div>
+          <div class="card cl" style="border-color: #9E3B3B; border-width: 2px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 24px; max-width: 46ch">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9E3B3B" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5"></path><path d="M12 16.4h.01"></path></svg>
+            <p style="margin: 0; font-size: 17px; line-height: 1.6"><strong style="color: #9E3B3B">Lowongan belum bisa tayang</strong> sebelum dokumen usahamu diverifikasi &mdash; biasanya 1&ndash;2&nbsp;hari kerja.</p>
+          </div>
+          <div style="display: flex; gap: 12px">
+            <button class="btn btn-p" style="width: 260px">Kirim Dokumen Verifikasi</button>
+            <button class="btn btn-out" style="width: 220px">Nanti saja</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="tok" style="max-width: 110ch; margin-top: 12px">Bedanya kentara dalam satu pandangan: panel seeker tidak punya kartu peringatan sama sekali, panel employer punya satu yang tidak bisa dilewati mata. Keduanya tetap punya <strong>satu</strong> aksi utama masing-masing.</p>
+  </div>
+
+  <div style="margin-top: 48px">
+    <div class="lbl">7f &middot; 1440px gelap &mdash; kedua varian berdampingan</div>
+    <div class="desk-d dk">
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; color: #F0E5CF">
+        <div style="padding: 56px 48px; min-width: 0; border-right: 1px solid #4A453D">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px">
+            <span style="width: 56px; height: 56px; border-radius: 50%; background: #7FB68C; display: flex; align-items: center; justify-content: center; flex: none">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#23211E" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+            </span>
+            <h2 class="h1d" style="margin: 0; font-size: 28px">Seeker &mdash; akun sudah aktif</h2>
+          </div>
+          <p class="sub" style="font-size: 18px; margin: 0 0 24px; max-width: 46ch; color: #F0E5CF">Kamu sudah bisa langsung melihat lowongan di peta Jakarta sekarang juga. Melengkapi profil bersifat opsional dan bisa kapan saja.</p>
+          <div style="display: flex; gap: 12px">
+            <button class="btn btn-pd" style="width: 260px">Lihat Lowongan di Peta</button>
+            <button class="btn btn-outd" style="width: 220px">Lengkapi profil dulu</button>
+          </div>
+        </div>
+        <div style="padding: 56px 48px; min-width: 0">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px">
+            <span style="width: 56px; height: 56px; border-radius: 50%; background: #7FB68C; display: flex; align-items: center; justify-content: center; flex: none">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#23211E" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+            </span>
+            <h2 class="h1d" style="margin: 0; font-size: 28px">Employer &mdash; akun sudah dibuat</h2>
+          </div>
+          <div class="card cd" style="border-color: #E08585; border-width: 2px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 24px; max-width: 46ch">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E08585" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5"></path><path d="M12 16.4h.01"></path></svg>
+            <p style="margin: 0; font-size: 17px; line-height: 1.6"><strong style="color: #E08585">Lowongan belum bisa tayang</strong> sebelum dokumen usahamu diverifikasi &mdash; biasanya 1&ndash;2&nbsp;hari kerja.</p>
+          </div>
+          <div style="display: flex; gap: 12px">
+            <button class="btn btn-pd" style="width: 260px">Kirim Dokumen Verifikasi</button>
+            <button class="btn btn-outd" style="width: 220px">Nanti saja</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

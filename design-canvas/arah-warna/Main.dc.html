@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; }
+    .cell { display: flex; flex-direction: column; gap: 6px; }
+    .sw { height: 64px; border-radius: 8px; border: 1px solid rgba(46,58,77,.16); }
+  </style>
+</helmet>
+<div style="background: #F7F6F2; color: #2E3A4D; padding: 36px; box-sizing: border-box">
+  <h1 class="lex" style="font-size: 28px; font-weight: 600; margin: 0 0 4px">Arah Warna &mdash; Palet Krem &amp; Slate</h1>
+  <p style="font-size: 16px; line-height: 1.6; margin: 0 0 28px; max-width: 64ch">Empat warna dari palet kamu, plus tiga warna fungsional yang diusulkan. Rasio kontras dihitung terhadap latar terang <span class="tok">#F7F6F2</span>.</p>
+
+  <div class="lex" style="font-size: 15px; font-weight: 600; margin-bottom: 12px; letter-spacing: .04em; text-transform: uppercase; opacity: .65">Palet kamu</div>
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px">
+    <div class="cell"><div class="sw" style="background: #F7F6F2"></div><div class="tok">#F7F6F2</div><div style="font-size: 14px; font-weight: 600">Latar / permukaan</div></div>
+    <div class="cell"><div class="sw" style="background: #F0E5CF"></div><div class="tok">#F0E5CF</div><div style="font-size: 14px; font-weight: 600">Permukaan hangat</div></div>
+    <div class="cell"><div class="sw" style="background: #C8C6C6"></div><div class="tok">#C8C6C6</div><div style="font-size: 14px; font-weight: 600">Garis &middot; 1,6:1 hanya pemisah</div></div>
+    <div class="cell"><div class="sw" style="background: #4B6587"></div><div class="tok">#4B6587</div><div style="font-size: 14px; font-weight: 600">Aksi &amp; link &middot; 5,5:1</div></div>
+  </div>
+
+  <div class="lex" style="font-size: 15px; font-weight: 600; margin-bottom: 12px; letter-spacing: .04em; text-transform: uppercase; opacity: .65">Usulan tambahan &mdash; tanpa ini status tidak punya warna</div>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px">
+    <div class="cell"><div class="sw" style="background: #2E3A4D"></div><div class="tok">#2E3A4D</div><div style="font-size: 14px; font-weight: 600">Teks isi &middot; 10,6:1 AAA</div></div>
+    <div class="cell"><div class="sw" style="background: #3F6B4F"></div><div class="tok">#3F6B4F</div><div style="font-size: 14px; font-weight: 600">Terverifikasi &middot; 5,7:1</div></div>
+    <div class="cell"><div class="sw" style="background: #9E3B3B"></div><div class="tok">#9E3B3B</div><div style="font-size: 14px; font-weight: 600">Error &amp; lapor &middot; 6,2:1</div></div>
+  </div>
+
+  <div style="background: #F0E5CF; border-radius: 12px; padding: 20px 24px">
+    <div class="lex" style="font-size: 17px; font-weight: 600; margin-bottom: 10px">Yang perlu kamu putuskan</div>
+    <p style="font-size: 16px; line-height: 1.7; margin: 0 0 8px">Dua artboard di sebelah kanan memakai <strong>warna yang sama persis</strong> &mdash; yang berbeda cuma mana yang jadi latar halaman dan mana yang jadi kartu.</p>
+    <p style="font-size: 16px; line-height: 1.7; margin: 0"><strong>A &mdash; Krem dominan:</strong> halaman krem, kartu putih. Hangat, terasa akrab. <br><strong>B &mdash; Bersih &amp; aksen hangat:</strong> halaman off-white, kartu krem. Lebih lega, krem jadi penanda.</p>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .dk a { color: #8FA8C8; } .dk a:hover { color: #F0E5CF; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; line-height: 1.6; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .75; margin-bottom: 10px; }
+    .phone { width: 375px; border: 1px solid #C8C6C6; border-radius: 16px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .phone-d { width: 375px; border: 1px solid #4A453D; border-radius: 16px; background: #23211E; flex: none; overflow: hidden; }
+    .desk { width: 1440px; border: 1px solid #C8C6C6; border-radius: 12px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .desk-d { width: 1440px; border: 1px solid #4A453D; border-radius: 12px; background: #23211E; flex: none; overflow: hidden; }
+    .pad { padding: 24px 20px 28px; display: flex; flex-direction: column; gap: 24px; box-sizing: border-box; }
+    .h1 { font-family: 'Lexend', system-ui, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0 0 8px; text-wrap: balance; }
+    .h1d { font-family: 'Lexend', system-ui, sans-serif; font-size: 32px; font-weight: 600; line-height: 1.25; margin: 0 0 12px; text-wrap: balance; }
+    .sub { font-size: 16px; line-height: 1.6; margin: 0; }
+    .hint { font-size: 14px; line-height: 1.5; margin: 6px 0 0; }
+    .field { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; width: 100%; min-height: 48px; box-sizing: border-box; padding: 12px; border-radius: 8px; min-width: 0; }
+    .fl { background: #F7F6F2; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .fd { background: #2E2B26; border: 1px solid #4A453D; color: #F0E5CF; }
+    .ring { outline: 3px solid #4B6587; outline-offset: 2px; }
+    .ring-d { outline: 3px solid #8FA8C8; outline-offset: 2px; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; border: 2px solid transparent; cursor: pointer; transition: transform 180ms ease-out, opacity 180ms ease-out; }
+    .btn-p { background: #4B6587; color: #F7F6F2; }
+    .btn-pd { background: #8FA8C8; color: #23211E; }
+    .btn-off { background: #4B6587; color: #F7F6F2; opacity: .45; cursor: not-allowed; }
+    .btn-offd { background: #8FA8C8; color: #23211E; opacity: .45; cursor: not-allowed; }
+    .btn-out { background: transparent; border: 2px solid #4B6587; color: #4B6587; }
+    .btn-outd { background: transparent; border: 2px solid #8FA8C8; color: #8FA8C8; }
+    .btn-del { background: transparent; border: 2px solid #9E3B3B; color: #9E3B3B; }
+    .btn-deld { background: transparent; border: 2px solid #E08585; color: #E08585; }
+    .goog { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; width: 100%; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .goog-l { background: #FFFFFF; border: 1px solid #C8C6C6; color: #2E3A4D; }
+    .goog-d { background: #131314; border: 1px solid #8E918F; color: #E3E3E3; }
+    .card { border-radius: 12px; padding: 16px; box-sizing: border-box; }
+    .cl { background: #F7F6F2; border: 1px solid #C8C6C6; }
+    .cd { background: #2E2B26; border: 1px solid #4A453D; }
+    .rolecard { border-radius: 12px; padding: 20px; box-sizing: border-box; width: 100%; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 10px; min-height: 44px; font-family: 'Source Sans 3', system-ui, sans-serif; transition: transform 200ms ease-out; }
+    .rc-l { background: #F7F6F2; border: 2px solid #C8C6C6; color: #2E3A4D; }
+    .rc-l-on { background: #F7F6F2; border: 4px solid #4B6587; color: #2E3A4D; }
+    .rc-d { background: #2E2B26; border: 2px solid #4A453D; color: #F0E5CF; }
+    .rc-d-on { background: #2E2B26; border: 4px solid #8FA8C8; color: #F0E5CF; }
+    .rt { font-family: 'Lexend', system-ui, sans-serif; font-size: 20px; font-weight: 600; line-height: 1.3; }
+    .note { font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .cbrow { display: flex; gap: 12px; align-items: flex-start; padding: 8px; margin: -8px; border-radius: 8px; cursor: pointer; }
+    .cb { width: 28px; height: 28px; border-radius: 6px; flex: none; display: flex; align-items: center; justify-content: center; margin: 8px; }
+    .cb-l { background: #F7F6F2; border: 2px solid #4B6587; }
+    .cb-lon { background: #4B6587; border: 2px solid #4B6587; }
+    .cb-d { background: #2E2B26; border: 2px solid #8FA8C8; }
+    .cb-don { background: #8FA8C8; border: 2px solid #8FA8C8; }
+    .ver { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 14px; font-weight: 600; }
+    .errbox { border-radius: 8px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.5; }
+    .err-l { background: #F7F6F2; border: 2px solid #9E3B3B; color: #2E3A4D; }
+    .err-d { background: #2E2B26; border: 2px solid #E08585; color: #F0E5CF; }
+    .scrim { background: rgba(46,58,77,.55); }
+    .scrim-d { background: rgba(10,9,8,.72); }
+    .col { display: flex; flex-direction: column; }
+    .step { display: flex; align-items: center; gap: 8px; }
+    .dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none; }
+    .barline { height: 4px; border-radius: 2px; flex: 1 1 auto; min-width: 24px; }
+    .btn, .goog, .rolecard, .cbrow, .icob { touch-action: manipulation; -webkit-tap-highlight-color: rgba(75,101,135,.18); }
+    .btn-p:hover { background: #3E5573; } .btn-pd:hover { background: #A6BAD5; }
+    .btn-out:hover { background: #E3D5B8; } .btn-outd:hover { background: #3A362F; }
+    .btn-del:hover { background: #F0DDDD; } .btn-deld:hover { background: #3A2C2C; }
+    .goog-l:hover { background: #F2F2F2; } .goog-d:hover { background: #1E1E1F; }
+    .rolecard:hover { border-color: #4B6587; } .rc-d:hover, .rc-d-on:hover { border-color: #8FA8C8; }
+    .cbrow:hover { background: #E3D5B8; } .dk .cbrow:hover { background: #3A362F; }
+    .btn[disabled]:hover { background: #4B6587; } .btn-offd[disabled]:hover { background: #8FA8C8; }
+    .phone-d, .desk-d, .dk { color-scheme: dark; }
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .rolecard { transition: none; }
+    }
+  </style>
+</helmet>
+
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">8 &middot; Indikator Progres &mdash; potongan komponen</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 74ch; line-height: 1.6">Digambar sebagai anatomi komponen, bukan layar penuh. Ia menghitung langkah <strong>di dalam onboarding saja</strong>, dan panjangnya berbeda per peran.</p>
+  <p class="tok" style="margin: 0 0 32px; max-width: 105ch">Seeker 2 langkah (pilih peran &rarr; consent). Employer 3 langkah (pilih peran &rarr; nama perusahaan &rarr; consent). <strong>DESIGN 3B tidak ikut dihitung</strong>: layar &ldquo;Lengkapi Profil&rdquo; sudah dikunci sebagai opsional, dan memasukkannya ke hitungan akan membuatnya terasa wajib &mdash; itu menaikkan drop-off pada layar yang justru dirancang supaya boleh dilewati. Indikator berhenti di layar sukses.</p>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; max-width: 1280px">
+
+    <div class="card cl" style="display: flex; flex-direction: column; gap: 24px">
+      <h3 class="lex" style="font-size: 20px; font-weight: 600; margin: 0">Seeker &mdash; 2 langkah, mode terang</h3>
+
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #4B6587">Langkah 1: pilih peran</p>
+        <div class="step" style="gap: 8px" role="group" aria-label="Langkah 1 dari 2">
+          <span class="dot" style="background: #4B6587; color: #F7F6F2">1</span>
+          <span class="barline" style="background: #C8C6C6"></span>
+          <span class="dot" style="background: #F7F6F2; border: 2px solid #C8C6C6; color: #4B6587; box-sizing: border-box">2</span>
+          <span style="font-size: 14px; font-weight: 600; color: #4B6587; margin-left: 4px">Langkah 1 dari 2</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #4B6587">Langkah 2: consent PDP</p>
+        <div class="step" style="gap: 8px" role="group" aria-label="Langkah 2 dari 2">
+          <span class="dot" style="background: #F7F6F2; border: 2px solid #4B6587; color: #4B6587; box-sizing: border-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+          </span>
+          <span class="barline" style="background: #4B6587"></span>
+          <span class="dot" style="background: #4B6587; color: #F7F6F2">2</span>
+          <span style="font-size: 14px; font-weight: 600; color: #4B6587; margin-left: 4px">Langkah 2 dari 2</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #4B6587">Layar sukses: indikator TIDAK ditampilkan</p>
+        <div style="border: 1px dashed #C8C6C6; border-radius: 8px; padding: 12px; font-size: 16px; color: #4B6587">Kosong &mdash; onboarding sudah selesai, jadi tidak ada langkah tersisa untuk dihitung.</div>
+      </div>
+    </div>
+
+    <div class="card cl" style="display: flex; flex-direction: column; gap: 24px">
+      <h3 class="lex" style="font-size: 20px; font-weight: 600; margin: 0">Employer &mdash; 3 langkah, mode terang</h3>
+
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #4B6587">Langkah 1: pilih peran</p>
+        <div class="step" style="gap: 8px" role="group" aria-label="Langkah 1 dari 3">
+          <span class="dot" style="background: #4B6587; color: #F7F6F2">1</span>
+          <span class="barline" style="background: #C8C6C6"></span>
+          <span class="dot" style="background: #F7F6F2; border: 2px solid #C8C6C6; color: #4B6587; box-sizing: border-box">2</span>
+          <span class="barline" style="background: #C8C6C6"></span>
+          <span class="dot" style="background: #F7F6F2; border: 2px solid #C8C6C6; color: #4B6587; box-sizing: border-box">3</span>
+          <span style="font-size: 14px; font-weight: 600; color: #4B6587; margin-left: 4px">1 dari 3</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #4B6587">Langkah 2: nama perusahaan</p>
+        <div class="step" style="gap: 8px" role="group" aria-label="Langkah 2 dari 3">
+          <span class="dot" style="background: #F7F6F2; border: 2px solid #4B6587; color: #4B6587; box-sizing: border-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+          </span>
+          <span class="barline" style="background: #4B6587"></span>
+          <span class="dot" style="background: #4B6587; color: #F7F6F2">2</span>
+          <span class="barline" style="background: #C8C6C6"></span>
+          <span class="dot" style="background: #F7F6F2; border: 2px solid #C8C6C6; color: #4B6587; box-sizing: border-box">3</span>
+          <span style="font-size: 14px; font-weight: 600; color: #4B6587; margin-left: 4px">2 dari 3</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #4B6587">Langkah 3: consent PDP</p>
+        <div class="step" style="gap: 8px" role="group" aria-label="Langkah 3 dari 3">
+          <span class="dot" style="background: #F7F6F2; border: 2px solid #4B6587; color: #4B6587; box-sizing: border-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+          </span>
+          <span class="barline" style="background: #4B6587"></span>
+          <span class="dot" style="background: #F7F6F2; border: 2px solid #4B6587; color: #4B6587; box-sizing: border-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+          </span>
+          <span class="barline" style="background: #4B6587"></span>
+          <span class="dot" style="background: #4B6587; color: #F7F6F2">3</span>
+          <span style="font-size: 14px; font-weight: 600; color: #4B6587; margin-left: 4px">3 dari 3</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #4B6587">Layar sukses: indikator TIDAK ditampilkan</p>
+        <div style="border: 1px dashed #C8C6C6; border-radius: 8px; padding: 12px; font-size: 16px; color: #4B6587">Verifikasi dokumen usaha BUKAN langkah ke-4. Ia terjadi setelah onboarding dan punya alurnya sendiri.</div>
+      </div>
+    </div>
+
+    <div class="card cd dk" style="display: flex; flex-direction: column; gap: 24px; color: #F0E5CF; background: #23211E">
+      <h3 class="lex" style="font-size: 20px; font-weight: 600; margin: 0">Seeker &mdash; 2 langkah, mode gelap</h3>
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #8FA8C8">Langkah 1: pilih peran</p>
+        <div class="step" style="gap: 8px" role="group" aria-label="Langkah 1 dari 2">
+          <span class="dot" style="background: #8FA8C8; color: #23211E">1</span>
+          <span class="barline" style="background: #4A453D"></span>
+          <span class="dot" style="background: #2E2B26; border: 2px solid #4A453D; color: #8FA8C8; box-sizing: border-box">2</span>
+          <span style="font-size: 14px; font-weight: 600; color: #8FA8C8; margin-left: 4px">Langkah 1 dari 2</span>
+        </div>
+      </div>
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #8FA8C8">Langkah 2: consent PDP</p>
+        <div class="step" style="gap: 8px" role="group" aria-label="Langkah 2 dari 2">
+          <span class="dot" style="background: #2E2B26; border: 2px solid #8FA8C8; color: #8FA8C8; box-sizing: border-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+          </span>
+          <span class="barline" style="background: #8FA8C8"></span>
+          <span class="dot" style="background: #8FA8C8; color: #23211E">2</span>
+          <span style="font-size: 14px; font-weight: 600; color: #8FA8C8; margin-left: 4px">Langkah 2 dari 2</span>
+        </div>
+      </div>
+      <p class="tok" style="margin: 0; color: #8FA8C8">Garis penghubung yang belum ditempuh memakai <strong>#4A453D</strong> &mdash; nilai garis mode gelap, bukan <strong>#C8C6C6</strong> yang digelapkan.</p>
+    </div>
+
+    <div class="card cd dk" style="display: flex; flex-direction: column; gap: 24px; color: #F0E5CF; background: #23211E">
+      <h3 class="lex" style="font-size: 20px; font-weight: 600; margin: 0">Employer &mdash; 3 langkah, mode gelap</h3>
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #8FA8C8">Langkah 2: nama perusahaan</p>
+        <div class="step" style="gap: 8px" role="group" aria-label="Langkah 2 dari 3">
+          <span class="dot" style="background: #2E2B26; border: 2px solid #8FA8C8; color: #8FA8C8; box-sizing: border-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+          </span>
+          <span class="barline" style="background: #8FA8C8"></span>
+          <span class="dot" style="background: #8FA8C8; color: #23211E">2</span>
+          <span class="barline" style="background: #4A453D"></span>
+          <span class="dot" style="background: #2E2B26; border: 2px solid #4A453D; color: #8FA8C8; box-sizing: border-box">3</span>
+          <span style="font-size: 14px; font-weight: 600; color: #8FA8C8; margin-left: 4px">2 dari 3</span>
+        </div>
+      </div>
+      <div>
+        <p class="hint" style="margin: 0 0 10px; font-size: 16px; color: #8FA8C8">Langkah 3: consent PDP</p>
+        <div class="step" style="gap: 8px" role="group" aria-label="Langkah 3 dari 3">
+          <span class="dot" style="background: #2E2B26; border: 2px solid #8FA8C8; color: #8FA8C8; box-sizing: border-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+          </span>
+          <span class="barline" style="background: #8FA8C8"></span>
+          <span class="dot" style="background: #2E2B26; border: 2px solid #8FA8C8; color: #8FA8C8; box-sizing: border-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>
+          </span>
+          <span class="barline" style="background: #8FA8C8"></span>
+          <span class="dot" style="background: #8FA8C8; color: #23211E">3</span>
+          <span style="font-size: 14px; font-weight: 600; color: #8FA8C8; margin-left: 4px">3 dari 3</span>
+        </div>
+      </div>
+      <p class="tok" style="margin: 0; color: #8FA8C8">Langkah selesai ditandai ikon centang, bukan sekadar warna &mdash; syarat &ldquo;warna tidak boleh jadi satu-satunya penanda makna&rdquo;. Angka pada langkah aktif tetap terbaca sebagai angka.</p>
+    </div>
+  </div>
+
+  <div class="card cl" style="margin-top: 32px; max-width: 1280px">
+    <h3 class="lex" style="font-size: 20px; font-weight: 600; margin: 0 0 12px">Aturan komponen</h3>
+    <ul style="margin: 0; padding-left: 22px; font-size: 16px; line-height: 1.8; max-width: 92ch">
+      <li>Tiga penanda keadaan, tidak bergantung warna: <strong>selesai</strong> = garis penuh + ikon centang, <strong>aktif</strong> = terisi penuh + angka, <strong>belum</strong> = garis tipis + angka.</li>
+      <li>Teks &ldquo;Langkah 2 dari 3&rdquo; selalu ikut &mdash; titik-titik tanpa teks tidak terbaca pembaca layar dan tidak terbaca pengguna yang tidak terbiasa dengan pola ini.</li>
+      <li>Panjang indikator baru berubah SETELAH peran dipilih, tidak sebelum. Menampilkan &ldquo;3 langkah&rdquo; lebih dulu akan membuat jalur employer tampak lebih berat dan diam-diam mengarahkan pilihan.</li>
+      <li>Tinggi indikator tetap 28px di kedua peran, jadi menambah satu langkah tidak menggeser judul di bawahnya.</li>
+      <li>Tidak ada animasi progres yang mengubah lebar; perpindahan langkah memakai <em>opacity</em> 200ms ease-out, dan dimatikan pada <strong>prefers-reduced-motion</strong>.</li>
+    </ul>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

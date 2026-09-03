@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #8FA8C8; } a:hover { color: #F0E5CF; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; line-height: 1.6; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .7; margin-bottom: 10px; color: #2E3A4D; }
+    .phone { width: 375px; border: 1px solid #4A453D; border-radius: 16px; background: #23211E; flex: none; overflow: hidden; color: #F0E5CF; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2E2B26; border-bottom: 1px solid #4A453D; }
+    .brand { font-family: 'Lexend', system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #8FA8C8; letter-spacing: -.01em; }
+    .icob { width: 44px; height: 44px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .hero { position: relative; padding: 28px 16px 24px; overflow: hidden; }
+    .mapbg { position: absolute; inset: 0; background: #35322C; }
+    .road { position: absolute; background: #443F38; }
+    .veil { position: absolute; inset: 0; background: rgba(35, 33, 30, .86); }
+    .h1 { font-family: 'Lexend', system-ui, sans-serif; font-size: 32px; font-weight: 700; line-height: 1.15; margin: 0 0 10px; text-wrap: balance; letter-spacing: -.015em; }
+    .lead { font-size: 17px; line-height: 1.55; margin: 0 0 20px; }
+    .search { background: #2E2B26; border: 1px solid #4A453D; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .inp { display: flex; align-items: center; gap: 10px; border: 1px solid #4A453D; border-radius: 8px; background: #23211E; padding: 0 12px; min-height: 48px; font-size: 16px; color: #F0E5CF; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-p { background: #8FA8C8; color: #23211E; width: 100%; }
+    .chip { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; background: #2E2B26; border: 1px solid #4A453D; font-size: 15px; font-weight: 600; color: #8FA8C8; text-decoration: none; }
+    .sec { padding: 32px 16px; }
+    .h2 { font-family: 'Lexend', system-ui, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.25; margin: 0 0 6px; text-wrap: balance; }
+    .p { font-size: 16px; line-height: 1.6; margin: 0; }
+    .muted { color: #8FA8C8; }
+    .trust { background: #2E2B26; border: 2px solid #7FB68C; border-radius: 16px; padding: 20px 16px; }
+    .titem { display: flex; gap: 12px; align-items: flex-start; }
+    .card { background: #2E2B26; border: 1px solid #4A453D; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .h3 { font-family: 'Lexend', system-ui, sans-serif; font-size: 17px; font-weight: 600; line-height: 1.3; margin: 0; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; background: #7FB68C; color: #23211E; border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 700; flex: none; }
+    .metachip { display: inline-flex; align-items: center; gap: 5px; background: #23211E; border: 1px solid #4A453D; border-radius: 999px; padding: 5px 10px; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .foot { background: #2E2B26; border-top: 1px solid #4A453D; padding: 24px 16px; display: flex; flex-direction: column; gap: 14px; }
+    .flink { font-size: 15px; min-height: 44px; display: flex; align-items: center; text-decoration: none; color: #8FA8C8; font-weight: 600; }
+  </style>
+</helmet>
+
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Landing &mdash; mode gelap</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 66ch; line-height: 1.6">Yang digambar adalah bagian yang <strong>tidak bisa disimpulkan</strong> dari mode terang: cuplikan peta di hero, panel kepercayaan berbingkai hijau, kartu lowongan, dan footer.</p>
+  <p class="tok" style="margin: 0 0 32px">Peta hero jadi #35322C &middot; selubung 86% &middot; badge terverifikasi balik jadi teks gelap di atas hijau terang</p>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap">
+
+    <div>
+      <div class="lbl">1 &middot; Hero + navbar</div>
+      <div class="phone">
+        <div class="nav">
+          <span class="brand">JOBARTA</span>
+          <div style="display: flex; align-items: center; gap: 4px">
+            <a href="#" style="font-size: 15px; font-weight: 600; text-decoration: none; padding: 0 8px; min-height: 44px; display: flex; align-items: center">Untuk Perusahaan</a>
+            <button class="icob" aria-label="Buka menu">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+            </button>
+          </div>
+        </div>
+        <div class="hero">
+          <div class="mapbg">
+            <div class="road" style="left: 0; right: 0; top: 68px; height: 10px"></div>
+            <div class="road" style="left: 0; right: 0; top: 168px; height: 6px"></div>
+            <div class="road" style="top: 0; bottom: 0; left: 96px; width: 8px"></div>
+            <div class="road" style="top: 0; bottom: 0; left: 244px; width: 5px"></div>
+            <div class="road" style="left: 0; right: 0; top: 258px; height: 7px"></div>
+          </div>
+          <div class="veil"></div>
+          <div style="position: relative">
+            <h2 class="h1">Cari kerja di dekat rumah kamu.</h2>
+            <p class="lead">Lihat lowongan yang benar-benar ada di sekitarmu lewat peta &mdash; lengkap dengan jarak dan gaji.</p>
+            <div class="search">
+              <div class="inp">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="2" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+                <span>Kecamatan atau nama tempat</span>
+              </div>
+              <div class="inp">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8FA8C8" stroke-width="2" stroke-linecap="round" style="flex: none" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg>
+                <span>Pekerjaan yang dicari</span>
+              </div>
+              <button class="btn btn-p">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#23211E" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="m3 7 6-3 6 3 6-3v13l-6 3-6-3-6 3z"></path><path d="M9 4v13M15 7v13"></path></svg>
+                Cari di Peta
+              </button>
+            </div>
+            <p class="tok" style="margin: 14px 0 8px; color: #F0E5CF; font-weight: 600">Pencarian populer</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <a href="#" class="chip">Kasir</a>
+              <a href="#" class="chip">Gudang</a>
+              <a href="#" class="chip">Barista</a>
+              <a href="#" class="chip">Driver</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Cuplikan peta di mode gelap <strong>tidak boleh</strong> dipakai apa adanya dari mode terang &mdash; peta krem di balik selubung gelap menghasilkan kabut cokelat kotor. Jalannya digelapkan sendiri ke #35322C / #443F38.</p>
+    </div>
+
+    <div>
+      <div class="lbl">2 &middot; Panel kepercayaan + kartu lowongan</div>
+      <div class="phone">
+        <div class="sec">
+          <div class="trust">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7FB68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg>
+              <h2 class="h2" style="margin: 0">Aman dari lowongan palsu</h2>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px">
+              <div class="titem">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#7FB68C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                <p class="p"><strong>Dokumen usaha diperiksa dulu.</strong> Perusahaan wajib lolos verifikasi legalitas sebelum boleh memasang lowongan.</p>
+              </div>
+              <div class="titem">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#7FB68C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                <p class="p"><strong>JOBARTA tidak pernah meminta biaya</strong> ke pencari kerja. Kalau ada yang minta uang, itu penipuan.</p>
+              </div>
+              <div class="titem">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#7FB68C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                <p class="p"><strong>Tombol lapor ada di setiap lowongan.</strong> Laporanmu ditinjau, dan lowongan bermasalah diturunkan.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sec" style="padding-top: 0">
+          <h2 class="h2" style="margin-bottom: 16px">Lowongan terbaru</h2>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <div class="card">
+              <div>
+                <h3 class="h3">Staf Gudang &mdash; Shift Pagi</h3>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px">
+                  <span style="font-size: 15px; font-weight: 600; color: #8FA8C8">PT Sinar Logistik</span>
+                  <span class="badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#23211E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                    TERVERIFIKASI
+                  </span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <span class="metachip">Rp&nbsp;4.500.000 &ndash; 5.200.000</span>
+                <span class="metachip">2,4&nbsp;km</span>
+              </div>
+            </div>
+            <div class="card">
+              <div>
+                <h3 class="h3">Kasir Toko &mdash; Pasar Minggu</h3>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px">
+                  <span style="font-size: 15px; font-weight: 600; color: #8FA8C8">Toko Berkah Jaya</span>
+                  <span class="badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#23211E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                    TERVERIFIKASI
+                  </span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <span class="metachip">Rp&nbsp;3.200.000</span>
+                <span class="metachip">1,1&nbsp;km</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="foot">
+          <span class="brand">JOBARTA</span>
+          <p class="p muted" style="font-size: 15px">Cari kerja lewat peta, di Jakarta. <strong style="color: #7FB68C">Gratis selamanya untuk pencari kerja.</strong></p>
+          <div style="display: flex; flex-direction: column">
+            <a href="#" class="flink">Kebijakan Privasi</a>
+            <a href="#" class="flink">Syarat Penggunaan</a>
+          </div>
+          <p style="font-size: 14px; line-height: 1.5; margin: 0; color: #8FA8C8; border-top: 1px solid #4A453D; padding-top: 14px">Data peta &copy; <a href="#">OpenStreetMap contributors</a>, lisensi ODbL.</p>
+        </div>
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Badge terverifikasi <strong>membalik</strong> di mode gelap: hijau terang #7FB68C dengan teks gelap. Hijau tua #3F6B4F mode terang cuma 1,9:1 di atas #2E2B26 &mdash; nyaris tak terbaca.</p>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

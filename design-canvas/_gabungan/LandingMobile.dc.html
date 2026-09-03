@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 12px; color: #4B6587; line-height: 1.6; }
+    .lbl { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; opacity: .7; margin-bottom: 10px; }
+    .phone { width: 375px; border: 1px solid #C8C6C6; border-radius: 16px; background: #F0E5CF; flex: none; overflow: hidden; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #F7F6F2; border-bottom: 1px solid #C8C6C6; }
+    .brand { font-family: 'Lexend', system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #4B6587; letter-spacing: -.01em; }
+    .icob { width: 44px; height: 44px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .hero { position: relative; padding: 28px 16px 24px; overflow: hidden; }
+    .mapbg { position: absolute; inset: 0; background: #DCCBA8; }
+    .road { position: absolute; background: #CDB791; }
+    .veil { position: absolute; inset: 0; background: rgba(240, 229, 207, .88); }
+    .h1 { font-family: 'Lexend', system-ui, sans-serif; font-size: 32px; font-weight: 700; line-height: 1.15; margin: 0 0 10px; text-wrap: balance; letter-spacing: -.015em; }
+    .lead { font-size: 17px; line-height: 1.55; margin: 0 0 20px; }
+    .search { background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .inp { display: flex; align-items: center; gap: 10px; border: 1px solid #C8C6C6; border-radius: 8px; background: #F0E5CF; padding: 0 12px; min-height: 48px; font-size: 16px; color: #2E3A4D; }
+    .btn { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 16px; font-weight: 600; min-height: 48px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-p { background: #4B6587; color: #F7F6F2; width: 100%; }
+    .btn-o { background: #F7F6F2; border-color: #4B6587; color: #4B6587; }
+    .chip { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; background: #F7F6F2; border: 1px solid #C8C6C6; font-size: 15px; font-weight: 600; color: #4B6587; text-decoration: none; }
+    .sec { padding: 32px 16px; }
+    .h2 { font-family: 'Lexend', system-ui, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.25; margin: 0 0 6px; text-wrap: balance; }
+    .h3 { font-family: 'Lexend', system-ui, sans-serif; font-size: 17px; font-weight: 600; line-height: 1.3; margin: 0 0 4px; }
+    .p { font-size: 16px; line-height: 1.6; margin: 0; }
+    .muted { color: #4B6587; }
+    .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .kat { background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 16px 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; font-size: 15px; font-weight: 600; min-height: 96px; justify-content: center; text-decoration: none; color: #2E3A4D; }
+    .step { display: flex; gap: 14px; align-items: flex-start; }
+    .num { width: 36px; height: 36px; border-radius: 50%; background: #4B6587; color: #F7F6F2; font-family: 'Lexend', system-ui, sans-serif; font-weight: 700; font-size: 17px; display: flex; align-items: center; justify-content: center; flex: none; }
+    .trust { background: #F7F6F2; border: 2px solid #3F6B4F; border-radius: 16px; padding: 20px 16px; }
+    .titem { display: flex; gap: 12px; align-items: flex-start; }
+    .card { background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; background: #3F6B4F; color: #F7F6F2; border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 700; flex: none; }
+    .metachip { display: inline-flex; align-items: center; gap: 5px; background: #F0E5CF; border: 1px solid #C8C6C6; border-radius: 999px; padding: 5px 10px; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .foot { background: #F7F6F2; border-top: 1px solid #C8C6C6; padding: 24px 16px; display: flex; flex-direction: column; gap: 14px; }
+    .flink { font-size: 15px; min-height: 44px; display: flex; align-items: center; text-decoration: none; color: #4B6587; font-weight: 600; }
+    .skip { position: absolute; left: 12px; top: 8px; background: #4B6587; color: #F7F6F2; padding: 10px 14px; border-radius: 8px; font-size: 15px; font-weight: 600; outline: 3px solid #2E3A4D; outline-offset: 2px; z-index: 5; }
+    .prev { position: relative; border: 1px solid #C8C6C6; border-radius: 14px; overflow: hidden; background: #DCCBA8; height: 260px; box-shadow: 0 8px 24px rgba(46, 58, 77, .14); }
+    .pin { position: absolute; width: 30px; height: 30px; border-radius: 50% 50% 50% 4px; transform: rotate(-45deg); border: 2px solid #F7F6F2; display: flex; align-items: center; justify-content: center; }
+    .pinlbl { transform: rotate(45deg); font-size: 11px; font-weight: 700; color: #F7F6F2; font-variant-numeric: tabular-nums; }
+    .prevcard { position: absolute; left: 10px; right: 10px; bottom: 10px; background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 10px; padding: 10px 12px; }
+    .osm { position: absolute; right: 6px; top: 6px; background: rgba(247, 246, 242, .92); border-radius: 4px; padding: 2px 6px; font-size: 11px; color: #2E3A4D; }
+  </style>
+</helmet>
+
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Landing &mdash; 375px</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 66ch; line-height: 1.6">Pattern marketplace: <strong>search bar adalah CTA utama</strong>, bukan tombol daftar. Pengguna datang untuk mencari kerja, bukan untuk membaca profil perusahaan kita.</p>
+  <p class="tok" style="margin: 0 0 32px">8 section &middot; skip link digambar dalam keadaan fokus &middot; gratis untuk pencari kerja dinyatakan eksplisit &middot; atribusi OSM di footer</p>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap">
+
+    <div>
+      <div class="lbl">1 &middot; Halaman penuh &mdash; mode terang</div>
+      <div class="phone">
+
+        <div style="position: relative">
+          <a href="#isi" class="skip">Lewati ke konten utama</a>
+          <div class="nav">
+            <span class="brand">JOBARTA</span>
+            <div style="display: flex; align-items: center; gap: 4px">
+              <a href="#" style="font-size: 15px; font-weight: 600; text-decoration: none; padding: 0 8px; min-height: 44px; display: flex; align-items: center">Untuk Perusahaan</a>
+              <button class="icob" aria-label="Buka menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero" id="isi">
+          <div class="mapbg">
+            <div class="road" style="left: 0; right: 0; top: 68px; height: 10px"></div>
+            <div class="road" style="left: 0; right: 0; top: 168px; height: 6px"></div>
+            <div class="road" style="top: 0; bottom: 0; left: 96px; width: 8px"></div>
+            <div class="road" style="top: 0; bottom: 0; left: 244px; width: 5px"></div>
+            <div class="road" style="left: 0; right: 0; top: 258px; height: 7px"></div>
+          </div>
+          <div class="veil"></div>
+          <div style="position: relative">
+            <h2 class="h1">Cari kerja di dekat rumah kamu.</h2>
+            <p class="lead">Lihat lowongan yang benar-benar ada di sekitarmu lewat peta &mdash; lengkap dengan jarak dan gaji.</p>
+
+            <div class="search">
+              <div class="inp">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+                <span>Kecamatan atau nama tempat</span>
+              </div>
+              <div class="inp">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="2" stroke-linecap="round" style="flex: none" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg>
+                <span>Pekerjaan yang dicari</span>
+              </div>
+              <button class="btn btn-p">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="m3 7 6-3 6 3 6-3v13l-6 3-6-3-6 3z"></path><path d="M9 4v13M15 7v13"></path></svg>
+                Cari di Peta
+              </button>
+            </div>
+
+            <p class="tok" style="margin: 14px 0 8px; color: #2E3A4D; font-weight: 600">Pencarian populer</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <a href="#" class="chip">Kasir</a>
+              <a href="#" class="chip">Gudang</a>
+              <a href="#" class="chip">Barista</a>
+              <a href="#" class="chip">Driver</a>
+              <a href="#" class="chip">Admin</a>
+            </div>
+
+            <div class="prev" style="margin-top: 24px">
+              <div class="road" style="left: 0; right: 0; top: 74px; height: 12px"></div>
+              <div class="road" style="left: 0; right: 0; top: 158px; height: 7px"></div>
+              <div class="road" style="top: 0; bottom: 0; left: 88px; width: 10px"></div>
+              <div class="road" style="top: 0; bottom: 0; left: 232px; width: 6px"></div>
+              <span class="pin" style="left: 44px; top: 34px; background: #3F6B4F"><span class="pinlbl">12</span></span>
+              <span class="pin" style="left: 136px; top: 96px; background: #3F6B4F"><span class="pinlbl">7</span></span>
+              <span class="pin" style="left: 248px; top: 52px; background: #3F6B4F"><span class="pinlbl">4</span></span>
+              <span class="pin" style="left: 196px; top: 148px; background: #4B6587"><span class="pinlbl">1</span></span>
+              <span class="pin" style="left: 66px; top: 132px; background: #4B6587"><span class="pinlbl">1</span></span>
+              <span class="osm">&copy; OpenStreetMap</span>
+              <div class="prevcard">
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                  <strong style="font-size: 15px">Staf Gudang &mdash; Shift Pagi</strong>
+                  <span class="badge">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                    TERVERIFIKASI
+                  </span>
+                </div>
+                <p style="font-size: 14px; margin: 4px 0 0; color: #4B6587">PT Sinar Logistik &middot; Rp&nbsp;4.500.000 &middot; 2,4&nbsp;km dari kamu</p>
+              </div>
+            </div>
+            <p style="font-size: 14px; line-height: 1.5; margin: 10px 0 0; color: #4B6587; text-align: center">Begini tampilan lowongan di sekitar Pasar Minggu.</p>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="h2">Kategori pekerjaan</h2>
+          <p class="p muted" style="margin-bottom: 18px">Bidang yang paling banyak dicari di Jakarta.</p>
+          <div class="grid2">
+            <a href="#" class="kat">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16l-1.5 11H5.5z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg>
+              Ritel
+            </a>
+            <a href="#" class="kat">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4v7a3 3 0 0 0 6 0V4M8 11v9"></path><path d="M17 4c-1.5 2-2 4-2 7h4c0-3-.5-5-2-7zM17 11v9"></path></svg>
+              F&amp;B
+            </a>
+            <a href="#" class="kat">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18v11H3z"></path><path d="M3 9l3-5h12l3 5M9 20v-7h6v7"></path></svg>
+              Gudang &amp; Logistik
+            </a>
+            <a href="#" class="kat">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"></path><path d="M8 9h8M8 13h5"></path></svg>
+              Admin
+            </a>
+            <a href="#" class="kat">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.5" cy="17" r="2.5"></circle><circle cx="17.5" cy="17" r="2.5"></circle><path d="M9 17h6M6.5 14.5 9 7h5l3 5.5"></path></svg>
+              Kurir
+            </a>
+            <a href="#" class="kat">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4B6587" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V9l6 4V9l6 4V6l6 4v10z"></path></svg>
+              Produksi
+            </a>
+          </div>
+        </div>
+
+        <div class="sec" style="background: #F7F6F2; border-top: 1px solid #C8C6C6; border-bottom: 1px solid #C8C6C6">
+          <h2 class="h2">Cara kerjanya</h2>
+          <p class="p muted" style="margin-bottom: 20px">Tiga langkah, tanpa biaya.</p>
+          <div style="display: flex; flex-direction: column; gap: 20px">
+            <div class="step">
+              <span class="num">1</span>
+              <div>
+                <h3 class="h3">Cari di peta</h3>
+                <p class="p muted">Geser peta ke sekitar rumahmu. Lowongan muncul lengkap dengan jaraknya.</p>
+              </div>
+            </div>
+            <div class="step">
+              <span class="num">2</span>
+              <div>
+                <h3 class="h3">Lamar</h3>
+                <p class="p muted">Kirim lamaran langsung dari HP. Belum punya CV? Bisa isi data singkat.</p>
+              </div>
+            </div>
+            <div class="step">
+              <span class="num">3</span>
+              <div>
+                <h3 class="h3">Dihubungi perusahaan</h3>
+                <p class="p muted">Pantau status lamaranmu, dari terkirim sampai dipanggil.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="trust">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3F6B4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg>
+              <h2 class="h2" style="margin: 0">Aman dari lowongan palsu</h2>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px">
+              <div class="titem">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#3F6B4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                <p class="p"><strong>Dokumen usaha diperiksa dulu.</strong> Perusahaan wajib lolos verifikasi legalitas sebelum boleh memasang lowongan.</p>
+              </div>
+              <div class="titem">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#3F6B4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                <p class="p"><strong>JOBARTA tidak pernah meminta biaya</strong> ke pencari kerja. Kalau ada yang minta uang, itu penipuan.</p>
+              </div>
+              <div class="titem">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#3F6B4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                <p class="p"><strong>Tombol lapor ada di setiap lowongan.</strong> Laporanmu ditinjau, dan lowongan bermasalah diturunkan.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec" style="padding-top: 0">
+          <h2 class="h2">Lowongan terbaru</h2>
+          <p class="p muted" style="margin-bottom: 16px">Baru dipasang di sekitar Jakarta Selatan.</p>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+
+            <div class="card">
+              <div>
+                <h3 class="h3">Staf Gudang &mdash; Shift Pagi</h3>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px">
+                  <span style="font-size: 15px; font-weight: 600; color: #4B6587">PT Sinar Logistik</span>
+                  <span class="badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                    TERVERIFIKASI
+                  </span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <span class="metachip">Rp&nbsp;4.500.000 &ndash; 5.200.000</span>
+                <span class="metachip">2,4&nbsp;km</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div>
+                <h3 class="h3">Kasir Toko &mdash; Pasar Minggu</h3>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px">
+                  <span style="font-size: 15px; font-weight: 600; color: #4B6587">Toko Berkah Jaya</span>
+                  <span class="badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                    TERVERIFIKASI
+                  </span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <span class="metachip">Rp&nbsp;3.200.000</span>
+                <span class="metachip">1,1&nbsp;km</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div>
+                <h3 class="h3">Barista &mdash; Kedai Kopi</h3>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px">
+                  <span style="font-size: 15px; font-weight: 600; color: #4B6587">Kopi Ruang Tengah</span>
+                  <span class="badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+                    TERVERIFIKASI
+                  </span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <span class="metachip">Rp&nbsp;3.500.000 &ndash; 4.000.000</span>
+                <span class="metachip">3,8&nbsp;km</span>
+              </div>
+            </div>
+
+            <button class="btn btn-o" style="width: 100%">Lihat semua di peta</button>
+          </div>
+        </div>
+
+        <div style="margin: 0 16px 32px; background: #4B6587; border-radius: 16px; padding: 24px 20px; color: #F7F6F2">
+          <h2 class="h2" style="color: #F7F6F2; margin-bottom: 8px">Punya usaha dan butuh orang?</h2>
+          <p class="p" style="margin-bottom: 18px">Pasang lowongan dan jangkau pelamar yang tinggal di sekitar lokasi usahamu.</p>
+          <button class="btn" style="width: 100%; background: #F7F6F2; color: #4B6587">Pasang Lowongan</button>
+          <p style="font-size: 14px; line-height: 1.5; margin: 12px 0 0; opacity: .9">Perlu verifikasi dokumen usaha sebelum lowongan tayang.</p>
+        </div>
+
+        <div class="foot">
+          <span class="brand">JOBARTA</span>
+          <p class="p muted" style="font-size: 15px">Cari kerja lewat peta, di Jakarta. <strong style="color: #3F6B4F">Gratis selamanya untuk pencari kerja.</strong></p>
+          <div style="display: flex; flex-direction: column">
+            <a href="#" class="flink">Kebijakan Privasi</a>
+            <a href="#" class="flink">Syarat Penggunaan</a>
+            <a href="#" class="flink">Hubungi kami</a>
+          </div>
+          <p style="font-size: 14px; line-height: 1.5; margin: 0; color: #4B6587; border-top: 1px solid #C8C6C6; padding-top: 14px">Data peta &copy; <a href="#">OpenStreetMap contributors</a>, lisensi ODbL.</p>
+        </div>
+
+      </div>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">🗺️ Cuplikan peta di hero <strong>bukan gambar mati</strong> &mdash; di kode ia peta interaktif (react-leaflet + tile OpenStreetMap + supercluster). Pin berangka = kluster dari supercluster. Muat malas: gambar statis ringan dulu, jadi interaktif setelah halaman siap.</p>
+      <p class="tok" style="max-width: 375px; margin-top: 12px">Skip link digambar dalam keadaan <strong>fokus</strong> supaya jelas ia memang ada &mdash; di keadaan normal ia tersembunyi. Hero memakai cuplikan peta yang ditutup selubung krem 88%: teks di atasnya tetap 10,6:1, jauh di atas ambang 4,5:1.</p>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

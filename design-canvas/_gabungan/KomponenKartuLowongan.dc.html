@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    a { color: #4B6587; } a:hover { color: #2E3A4D; }
+    .lex { font-family: 'Lexend', system-ui, sans-serif; }
+    .tok { font-family: ui-monospace, 'Cascadia Mono', monospace; font-size: 13px; color: #4B6587; }
+    .card { background: #F7F6F2; border: 1px solid #C8C6C6; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .title { font-family: 'Lexend', system-ui, sans-serif; font-size: 18px; font-weight: 500; line-height: 1.4; margin: 0; text-wrap: balance; }
+    .meta { font-size: 14px; color: #4B6587; font-variant-numeric: tabular-nums; line-height: 1.5; }
+    .salary { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; background: #3F6B4F; color: #F7F6F2; border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 700; flex: none; }
+    .hdr { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .7; margin-bottom: 10px; }
+    .note { font-size: 14px; line-height: 1.6; margin-top: 10px; }
+  </style>
+</helmet>
+<div style="background: #F0E5CF; color: #2E3A4D; padding: 40px; box-sizing: border-box">
+  <h1 class="lex" style="font-weight: 600; font-size: 32px; margin: 0 0 4px; text-wrap: balance">Kartu Lowongan &mdash; JobCard</h1>
+  <p style="font-size: 16px; margin: 0 0 8px; max-width: 64ch; line-height: 1.6">Komponen paling penting di produk ini &mdash; muncul di peta, landing, hasil pencarian, dan &ldquo;Lamaran Saya&rdquo;. Empat varian di bawah adalah kondisi yang benar-benar terjadi di data.</p>
+  <p class="tok" style="margin: 0 0 32px">padding 16px &middot; gap 10px &middot; radius 12px &middot; border 1px #C8C6C6</p>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px">
+
+    <div>
+      <div class="hdr">(a) Normal</div>
+      <div class="card">
+        <h3 class="title">Kurir Motor Area Cilandak</h3>
+        <div style="font-size: 15px; font-weight: 600">CV Tunas Mandiri</div>
+        <div class="salary">Rp&nbsp;3.100.000 &ndash; Rp&nbsp;3.800.000</div>
+        <div class="meta">3,7&nbsp;km dari kamu &middot; Penuh waktu &middot; 5 hari lalu</div>
+      </div>
+      <div class="note">Perusahaan belum terverifikasi &mdash; tidak ada badge sama sekali. Ketiadaan badge itu sendiri adalah informasi.</div>
+    </div>
+
+    <div>
+      <div class="hdr">(b) Terverifikasi</div>
+      <div class="card">
+        <h3 class="title">Staf Gudang &mdash; Shift Pagi</h3>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+          <span style="font-size: 15px; font-weight: 600">PT Sinar Logistik</span>
+          <span class="badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+            TERVERIFIKASI
+          </span>
+        </div>
+        <div class="salary">Rp&nbsp;4.500.000 &ndash; Rp&nbsp;5.200.000</div>
+        <div class="meta">2,4&nbsp;km dari kamu &middot; Penuh waktu &middot; 3 hari lalu</div>
+      </div>
+      <div class="note">Badge memakai <strong>ikon + teks</strong>, bukan warna saja &mdash; pengguna buta warna tetap membacanya.</div>
+    </div>
+
+    <div>
+      <div class="hdr">(c) Gaji disembunyikan</div>
+      <div class="card">
+        <h3 class="title">Admin Toko Sembako</h3>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+          <span style="font-size: 15px; font-weight: 600">Toko Berkah Jaya</span>
+          <span class="badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+            TERVERIFIKASI
+          </span>
+        </div>
+        <div style="font-size: 16px; font-weight: 600; color: #4B6587">Gaji dirundingkan</div>
+        <div class="meta">1,1&nbsp;km dari kamu &middot; Paruh waktu &middot; 1 hari lalu</div>
+      </div>
+      <div class="note"><span class="tok">salary_visible = false</span> tidak boleh meninggalkan ruang kosong menggantung &mdash; barisnya tetap terisi.</div>
+    </div>
+
+    <div>
+      <div class="hdr">(d) Uji teks terpanjang</div>
+      <div class="card">
+        <h3 class="title" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">Asisten Supervisor Operasional Gudang Logistik Wilayah Jakarta Selatan dan Sekitarnya</h3>
+        <div style="display: flex; align-items: center; gap: 8px; min-width: 0">
+          <span style="font-size: 15px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0">PT Karya Bersama Sentosa Abadi Nusantara</span>
+          <span class="badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+            TERVERIFIKASI
+          </span>
+        </div>
+        <div class="salary">Rp&nbsp;12.000.000 &ndash; Rp&nbsp;18.000.000</div>
+        <div class="meta">10,2&nbsp;km dari kamu &middot; Penuh waktu &middot; 2 minggu lalu</div>
+      </div>
+      <div class="note">Judul <span class="tok">line-clamp: 2</span>, nama perusahaan elipsis satu baris. Badge <span class="tok">flex: none</span> supaya tidak ikut terpotong &mdash; sinyal kepercayaan tidak boleh jadi korban truncation.</div>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 32px; display: grid; grid-template-columns: 375px minmax(0, 1fr); gap: 32px; align-items: start">
+    <div>
+      <div class="hdr">Di lebar 375px</div>
+      <div style="background: #F0E5CF; border: 2px dashed #C8C6C6; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 12px">
+        <div class="card">
+          <h3 class="title">Staf Gudang &mdash; Shift Pagi</h3>
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+            <span style="font-size: 15px; font-weight: 600">PT Sinar Logistik</span>
+            <span class="badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F7F6F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4 10-10"></path></svg>
+              TERVERIFIKASI
+            </span>
+          </div>
+          <div class="salary">Rp&nbsp;4.500.000 &ndash; Rp&nbsp;5.200.000</div>
+          <div class="meta">2,4&nbsp;km dari kamu &middot; Penuh waktu &middot; 3 hari lalu</div>
+          <button style="font-family: inherit; font-size: 16px; font-weight: 600; background: #3F6B4F; color: #F7F6F2; border: none; border-radius: 8px; min-height: 48px; width: 100%; cursor: pointer">Lamar Sekarang</button>
+        </div>
+        <div class="card" style="outline: 3px solid #4B6587; outline-offset: 2px">
+          <h3 class="title">Barista Kopi Kenangan Jagakarsa</h3>
+          <div style="font-size: 15px; font-weight: 600">PT Kopi Nusantara</div>
+          <div class="salary">Rp&nbsp;3.500.000</div>
+          <div class="meta">0,8&nbsp;km dari kamu &middot; Paruh waktu &middot; hari ini</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="hdr">Catatan penerapan</div>
+      <ul style="font-size: 16px; line-height: 1.75; margin: 0; padding-left: 20px">
+        <li>Seluruh kartu adalah satu target klik. Kalau ada tombol di dalamnya, tombol itu <span class="tok">stopPropagation</span> &mdash; jangan sampai menekan &ldquo;Lamar&rdquo; malah membuka detail.</li>
+        <li>Kartu terfokus keyboard memakai cincin <span class="tok">#4B6587</span> 3px di luar kartu (contoh kartu kedua di kiri).</li>
+        <li>Jarak antar kartu 12px di 375px, 24px di 1440px.</li>
+        <li>Jarak selalu pakai koma desimal Indonesia dan <span class="tok">&amp;nbsp;</span> sebelum satuan: <strong>2,4&nbsp;km</strong> &mdash; supaya angka dan satuan tidak pernah terpisah baris.</li>
+        <li>Gaji dan jarak memakai <span class="tok">tabular-nums</span> supaya digit sejajar saat kartu ditumpuk.</li>
+        <li>Kartu memakai garis <span class="tok">#C8C6C6</span>, bukan mengandalkan beda warna dengan latar &mdash; bedanya cuma 1,16:1.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
