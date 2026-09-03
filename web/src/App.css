@@ -1,0 +1,815 @@
+/* Tata letak JOBARTA.
+   Aturan yang mengikat (BLOK-DESIGN-SYSTEM.md):
+   - 100dvh, NEVER 100vh — bilah alamat Chrome Android mengubah tinggi viewport.
+   - 375px BUKAN versi kecil 1440px: desktop = split view, mobile = peta + sheet.
+   - Kartu wajib punya garis atau bayangan; beda warna latar/permukaan cuma 1,16:1. */
+
+/* `overflow: hidden` WAJIB, bukan sekadar rapi.
+   Tinggi `.app` sudah dikunci 100dvh dan daftar lowongan menggulir di dalam
+   panelnya sendiri — tapi tanpa ini area gulir DOKUMEN tetap terbentuk setinggi
+   isi daftar (>6000px). Roda tetikus tidak memperlihatkannya karena peta dan
+   panel menelan gulirannya, jadi yang terjadi: scrollbar halaman muncul, dan
+   siapa pun yang menyeretnya menjatuhkan seluruh aplikasi ke atas dan
+   menyisakan bidang kosong di bawahnya. */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ---------- Bilah saring (1440px) ---------- */
+/* Di 375px bilah ini disembunyikan sama sekali dan digantikan pil mengambang
+   di atas peta — lihat .pil-baris. Bukan bilah yang sama dikecilkan. */
+.saring {
+  display: none;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--sp-3);
+  padding: 14px 20px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.saring__merek {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--color-primary);
+  text-decoration: none;
+  align-self: center;
+}
+
+.saring__grup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.saring__grup label {
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+}
+
+.saring__grup input,
+.saring__grup select {
+  height: 44px;
+  min-width: 0;
+  padding: 0 var(--sp-2);
+  font-size: 16px;
+  font-family: var(--font-body);
+  color: var(--color-foreground);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.saring__grup--lebar { flex: 1 1 200px; }
+.saring__grup--radius { flex: 0 0 210px; }
+.saring__grup--radius input[type="range"] {
+  height: 44px; /* target sentuh 44px walau batangnya tipis */
+  padding: 0;
+  border: 0;
+  background: none;
+  accent-color: var(--color-primary);
+}
+.saring__grup--radius input:disabled { opacity: 0.5; }
+
+/* Angka disamakan lebarnya supaya jumlah hasil tidak "melompat" saat berubah. */
+.angka { font-variant-numeric: tabular-nums; }
+
+.saring__lokasi { flex: none; }
+
+.saring__akun {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-left: auto;
+  align-self: center;
+}
+
+.saring__akun a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-foreground);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.saring__akun a:hover,
+.saring__akun a:focus-visible {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Di dalam sheet filter (layar sempit) kontrolnya bertumpuk satu kolom. */
+.saring--sheet {
+  display: grid;
+  gap: var(--sp-3);
+  padding: 0;
+  background: none;
+  border: 0;
+}
+.saring--sheet .saring__grup--lebar,
+.saring--sheet .saring__grup--radius { flex: none; }
+
+/* ---------- Pil mengambang & FAB (375px) ---------- */
+.pil-baris {
+  /* Hanya tampil di bawah 900px — lihat media query di bawah. */
+  display: none;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 1000;
+  gap: var(--sp-2);
+}
+
+.pil {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  min-height: 44px;
+  padding: 0 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  box-shadow: var(--shadow-card);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pil--lebar { flex: 1; min-width: 0; }
+.pil--ikon { padding: 0; width: 44px; justify-content: center; color: var(--color-primary); }
+.pil__teks { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pil__badge {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 1px 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.fab {
+  position: absolute;
+  right: 12px;
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  box-shadow: var(--shadow-card);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+.fab:disabled { opacity: 0.6; }
+
+/* ---------- Isi: peta + daftar ---------- */
+.isi {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.peta-wadah {
+  flex: 1;
+  min-width: 0;
+}
+
+.peta {
+  height: 100%;
+  width: 100%;
+  background: var(--color-background);
+}
+
+.leaflet-container {
+  font-family: var(--font-body);
+}
+
+/* ---------- Panel daftar ---------- */
+.panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-background);
+  border-right: 1px solid var(--color-border);
+  width: 100%;
+  max-width: 420px;
+  overflow-y: auto;
+}
+
+.panel__pegangan {
+  display: none;
+}
+
+.daftar__kepala {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 15px;
+}
+.daftar__kepala p { margin: 0; }
+
+.daftar__urut {
+  background: none;
+  border: 0;
+  padding: 0;
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.daftar {
+  list-style: none;
+  margin: 0;
+  padding: var(--sp-3);
+  display: grid;
+  gap: var(--sp-3);
+}
+
+/* ---------- Kartu ---------- */
+.kartu {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-3);
+  transition: border-color 150ms ease-out, transform 150ms ease-out;
+}
+
+.kartu:hover {
+  border-color: var(--color-primary);
+}
+
+.kartu--terpilih {
+  border-color: var(--color-primary);
+  border-width: 2px;
+}
+
+.kartu__tombol {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 0;
+  min-height: 0;
+}
+
+.kartu__posisi {
+  font-size: 18px;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-1);
+}
+
+.kartu__perusahaan {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0 0 var(--sp-2);
+  font-size: 15px;
+}
+
+.kartu__gaji {
+  margin: 0 0 var(--sp-1);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.kartu__alamat {
+  margin: 0 0 var(--sp-2);
+  font-size: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.kartu__meta {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.chip {
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 2px var(--sp-2);
+}
+
+.chip--jarak {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.kartu__waktu {
+  margin-left: auto;
+  color: var(--color-primary);
+}
+
+/* ---------- Badge ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px var(--sp-2);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badge--terverifikasi {
+  background: var(--color-accent);
+  color: #f7f6f2;
+}
+
+.badge--menunggu {
+  background: transparent;
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+}
+
+/* ---------- Empty state & peringatan ---------- */
+.kosong {
+  padding: var(--sp-5) var(--sp-3);
+  text-align: center;
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: center;
+}
+
+.kosong h2 {
+  font-size: 18px;
+}
+
+.peringatan {
+  background: color-mix(in srgb, var(--color-destructive) 12%, var(--color-surface));
+  border: 1px solid var(--color-destructive);
+  border-radius: var(--radius);
+  padding: var(--sp-2) var(--sp-3);
+  margin: 0 0 var(--sp-3);
+  font-size: 15px;
+}
+
+.peringatan--bar {
+  margin: var(--sp-2) var(--sp-3) 0;
+}
+
+.sukses {
+  background: color-mix(in srgb, var(--color-accent) 14%, var(--color-surface));
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: var(--sp-2) var(--sp-3);
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ---------- Detail lowongan ---------- */
+/* Susunan dari artboard detail-lowongan: bilah sticky di atas, isi menggulir,
+   CTA sticky di bawah yang menghormati safe-area-inset-bottom. */
+/* SELURUH panel yang menggulir, bukan `.detail__isi` saja: panel aksi berdiri
+   di luar `.detail__isi`, dan kalau yang menggulir cuma isi maka catatan
+   keamanan serta tombol lapor terjebak di bawah area gulir dan tak pernah
+   terlihat di layar sempit. */
+.detail {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  overflow-y: auto;
+  background: var(--color-background);
+}
+
+.detail__bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detail__bar-judul {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail__isi {
+  overflow: visible;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  /* 84px supaya baris terakhir tidak tertutup CTA sticky. */
+  padding: var(--sp-3) 12px 84px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.detail__posisi {
+  font-size: 23px;
+  line-height: 1.25;
+  margin: 0 0 10px;
+  text-wrap: balance;
+}
+
+.detail__perusahaan {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.detail__verifikasi {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-primary);
+}
+
+/* Ketiadaan badge tidak cukup — ini dinyatakan terang-terangan. */
+.detail__belum {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--color-destructive);
+}
+
+.detail__chip {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+}
+/* salary_visible = false jadi chip bergaris primary, bukan ruang kosong. */
+.chip--rundingan { border-color: var(--color-primary); color: var(--color-primary); }
+
+.detail__seksi { margin: 0; }
+.detail__seksi p { margin: 0 0 10px; line-height: 1.7; }
+.detail__seksi p:last-child { margin-bottom: 0; }
+
+.detail__subjudul {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 var(--sp-2);
+}
+
+.detail__syarat { margin: 0; padding-left: 20px; line-height: 1.7; }
+.detail__jarak { font-size: 14px; color: var(--color-primary); }
+
+.peta-kecil {
+  height: 130px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid var(--color-border);
+}
+/* Peta ini tidak bisa digeser, jadi kursornya tidak boleh menjanjikan bisa. */
+.peta-kecil .leaflet-container { cursor: default; }
+
+/* Panel curiga: deskripsi terlalu pendek adalah pola lowongan palsu tersering. */
+.panel-curiga {
+  background: color-mix(in srgb, var(--color-border) 40%, var(--color-background));
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Janji perlindungan — HIJAU, bukan merah. Ini bukan peringatan bahaya. */
+.janji-aman {
+  background: var(--color-surface);
+  border: 1px solid var(--color-accent);
+  border-left-width: 4px;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.perusahaan { display: flex; gap: 12px; align-items: flex-start; }
+.perusahaan__inisial {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-border) 40%, var(--color-background));
+  border: 1px solid var(--color-border);
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 17px;
+}
+.perusahaan__nama { margin: 0; font-size: 16px; font-weight: 600; }
+.perusahaan__lain { display: inline-block; margin-top: 6px; font-weight: 600; font-size: 15px; }
+
+/* Jejak navigasi & label tombol kembali hanya muncul di 1440px. */
+.detail__jejak,
+.detail__kembali-teks { display: none; }
+
+/* ---------- Panel aksi ----------
+   375px: panelnya PECAH — gaji disembunyikan (sudah jadi chip di atas), janji
+   & tombol lapor duduk di akhir isi, dan tombolnya jadi bar sticky di dasar
+   layar. 1440px: ketiganya menyatu jadi kolom kanan yang sticky. */
+.detail__samping {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* 96px menyediakan ruang untuk bar aksi tetap di dasar layar. */
+  padding: 0 12px 96px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.detail__gaji { display: none; }
+.detail__samping .janji-aman { order: 1; }
+.detail__samping .tombol--bahaya { order: 2; }
+
+/* `fixed`, BUKAN `sticky`. Sticky terkurung kotak induknya, dan induk barunya
+   (`.detail__samping`) pendek serta duduk di akhir halaman — akibatnya tombol
+   Lamar berhenti menempel di dasar layar dan ikut terkubur di bawah. Ditangkap
+   tes "CTA sticky tetap terlihat setelah menggulir". */
+.detail__aksi {
+  order: 3;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 12px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -4px 14px rgb(46 58 77 / 10%);
+}
+
+/* ---------- 1440px: dua kolom, panel aksi sticky di kanan ----------
+   Susunannya BERUBAH, bukan diperbesar: di 375px semuanya satu tumpukan. */
+@media (min-width: 900px) {
+  .detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    grid-template-rows: auto 1fr;
+    align-content: start;
+    column-gap: var(--sp-5);
+    padding-inline: max(var(--sp-4), calc((100% - 1160px) / 2));
+  }
+  .detail__bar { grid-column: 1 / -1; margin-inline: calc(-1 * var(--sp-4)); }
+  .detail__jejak {
+    display: flex; align-items: center; gap: var(--sp-2);
+    font-size: 14px; color: var(--color-primary);
+  }
+  .detail__jejak a { color: inherit; }
+  /* Judul lowongan sudah jadi H1 tepat di bawah bilah ini; mengulangnya di
+     bilah membuat namanya muncul tiga kali dalam satu layar. */
+  .detail__bar-judul { display: none; }
+  .detail__kembali-teks { display: inline; font-size: 15px; font-weight: 600; }
+  .tombol-ikon:has(.detail__kembali-teks) { width: auto; gap: 6px; padding: 0 var(--sp-2); border-radius: var(--radius); }
+
+  .detail__isi { max-width: none; margin: 0; padding: var(--sp-4) 0 var(--sp-6); gap: var(--sp-3); }
+
+  .detail__samping {
+    position: sticky;
+    top: var(--sp-4);
+    align-self: start;
+    max-width: none;
+    margin: var(--sp-4) 0 0;
+    padding: 0 0 var(--sp-6);
+  }
+  /* Gaji diulang di panel supaya angkanya selalu terlihat bersama tombolnya:
+     deskripsi lowongan bisa panjang, dan menggulir balik ke atas untuk
+     mengingat bayaran terjadi tepat saat orang sedang menimbang keputusan. */
+  .detail__gaji {
+    display: block;
+    padding: var(--sp-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0;
+  }
+  .detail__gaji-label { margin: 0; font-size: 14px; color: var(--color-primary); }
+  .detail__gaji-angka {
+    margin: var(--sp-1) 0 0;
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .detail__samping .janji-aman,
+  .detail__samping .tombol--bahaya { order: 0; }
+  .detail__aksi {
+    order: 0;
+    position: static;
+    z-index: auto;
+    border: 1px solid var(--color-border);
+    border-top: 0;
+    border-radius: 0 0 12px 12px;
+    box-shadow: none;
+    margin-bottom: var(--sp-2);
+    padding-bottom: 12px;
+  }
+}
+
+.konfirmasi p { margin: 0 0 var(--sp-2); }
+.konfirmasi__tombol { display: flex; gap: var(--sp-2); }
+.konfirmasi__tombol .tombol { flex: 1; }
+
+/* ---------- Pin peta ---------- */
+.pin {
+  background: none;
+  border: 0;
+}
+
+/* ---------- MOBILE 375px: peta penuh + bottom sheet ---------- */
+/* Ini BUKAN versi kecil dari 1440px. Peta memenuhi layar, kontrol jadi pil
+   mengambang, dan daftar hidup di bottom sheet tiga tahap. */
+@media (max-width: 899px) {
+  .isi { display: block; }
+
+  .peta-wadah { position: absolute; inset: 0; }
+
+  .pil-baris { display: flex; }
+  .fab { display: flex; }
+
+  .panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    max-width: none;
+    border-right: 0;
+    border-top: 1px solid var(--color-border);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 16px rgb(46 58 77 / 14%);
+    transition: height 200ms ease-out;
+  }
+
+  /* Peek menampilkan SATU KARTU UTUH, bukan potongan kartu: potongan cuma
+     mengajak menarik sheet untuk tahu isinya, kartu utuh langsung menjawab.
+     Di artboard peek 120px memuat kartu versi RINGKAS — posisi + satu baris
+     meta. Jadi yang diringkas kartunya, bukan aturannya: di peek, alamat,
+     nama perusahaan, dan chip disembunyikan. Diuji di tes/layar.spec.js. */
+  .panel--peek { height: 240px; }
+  .panel--peek .kartu__perusahaan,
+  .panel--peek .kartu__alamat,
+  .panel--peek .kartu__meta .chip { display: none; }
+  .panel--peek .kartu { padding: var(--sp-2) var(--sp-3); }
+  /* Di peek, 240px itu milik hasil pencarian. Pengingat kelengkapan profil
+     penting, tapi ia bukan alasan orang membuka peta — ia kembali muncul di
+     paling atas begitu sheet dinaikkan. */
+  .panel--peek .pengingat { display: none; }
+  .panel--peek .daftar { padding: var(--sp-2) var(--sp-3); }
+  .panel--peek .kartu__posisi {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .panel--setengah { height: 50%; }
+  .panel--penuh { height: 88%; }
+
+  .panel__pegangan {
+    display: block;
+    padding: var(--sp-2) var(--sp-3) 0;
+    text-align: center;
+  }
+
+  /* Target sentuh 44px, tapi yang terlihat cuma garis kecil seperti di artboard. */
+  .panel__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .panel__garis {
+    width: 40px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--color-border);
+  }
+
+  /* Kontrol zoom Leaflet default menempel di kiri-atas, tepat di bawah pil.
+     Digeser turun, BUKAN disembunyikan: pinch-zoom tidak tersedia untuk
+     pengguna keyboard, jadi tombolnya harus tetap ada. */
+  .leaflet-top.leaflet-left { top: 64px; }
+
+  /* Atribusi ODbL wajib TERLIHAT (syarat lisensi OpenStreetMap), jadi ia
+     dinaikkan ke atas sheet alih-alih tertimbun di baliknya. */
+  .leaflet-bottom.leaflet-right { bottom: 0; }
+  .panel--peek ~ .peta-wadah .leaflet-bottom.leaflet-right { bottom: 240px; }
+  .panel--setengah ~ .peta-wadah .leaflet-bottom.leaflet-right { bottom: 50%; }
+  .panel--penuh ~ .peta-wadah .leaflet-bottom.leaflet-right { bottom: 88%; }
+
+  /* FAB naik-turun mengikuti tinggi sheet — tidak pernah tertutup olehnya. */
+  .fab--peek { bottom: 252px; }
+  .fab--setengah { bottom: calc(50% + 12px); }
+  .fab--penuh { bottom: calc(88% + 12px); }
+  .detail__isi { padding: var(--sp-3); }
+}
+
+/* ---------- DESKTOP 1440px: split view ---------- */
+@media (min-width: 900px) {
+  .saring { display: flex; }
+  .panel { flex: none; }
+  .panel__pegangan { display: none; }
+}
+
+/* Pengingat profil di dalam bottom sheet.
+   Di `peek` ia disembunyikan (lihat aturan di atas). Di `setengah` ia DIRINGKAS
+   jadi cincin + judul + tautan: bentuk penuhnya setinggi ~230px dan akan
+   menelan seluruh ruang sheet, membuat halaman peta tidak menampilkan satu
+   lowongan pun — padahal itu alasan orang membukanya. Bentuk penuhnya kembali
+   di `penuh`, tempat ruangnya memang ada. */
+@media (max-width: 899px) {
+  .panel--setengah .pengingat__item,
+  .panel--setengah .pengingat .bantu { display: none; }
+  .panel--setengah .pengingat { gap: var(--sp-2); }
+  .panel--setengah .cincin { width: 52px; height: 52px; }
+}
+
+/* ---------- Seksi detail sebagai kartu ----------
+   Artboard membungkus Deskripsi, Lokasi, dan Tentang perusahaan masing-masing
+   dalam kartu di atas permukaan terang. Tanpa itu ketiganya luruh jadi satu
+   dinding teks di atas krem, dan mata tidak punya pegangan untuk melompat
+   antar bagian. Kartu WAJIB punya garis: latar dan permukaan cuma beda 1,16:1. */
+.kartu-seksi {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--sp-3) var(--sp-4);
+}
+.kartu-seksi .detail__subjudul { margin-top: 0; }
+
+/* Lokasi: peta kiri, alamat kanan di 1440px; bertumpuk di 375px. */
+.lokasi { display: grid; gap: var(--sp-3); }
+.lokasi__teks p { margin: 0 0 var(--sp-1); }
+.lokasi__buka {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-weight: 600; color: var(--color-primary);
+}
+
+.detail__simpan { justify-content: center; gap: var(--sp-2); }
+/* Tersimpan ditandai DUA hal: ikon penanda terisi dan katanya berubah —
+   warna tidak pernah jadi satu-satunya pembeda. */
+.detail__simpan--aktif { border-color: var(--color-primary); color: var(--color-primary); }
+
+@media (min-width: 900px) {
+  .lokasi { grid-template-columns: 300px 1fr; align-items: start; gap: var(--sp-4); }
+  .peta-kecil { height: 180px; margin-bottom: 0; }
+}

@@ -1,0 +1,457 @@
+import { useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { KATEGORI, TIPE_KERJA } from "../data/lowongan";
+import { semuaLowongan } from "../lib/lowonganku";
+import PetaLowongan from "../components/PetaLowongan";
+import KartuLowongan from "../components/KartuLowongan";
+import PanelDetail from "../components/PanelDetail";
+import SheetLampirkanCv from "../components/SheetLampirkanCv";
+import KartuPengingat from "../components/KartuPengingat";
+import { jarakKm } from "../lib/format";
+import { idLamaran, tambahLamaran, bacaLamaran } from "../lib/lamaran";
+import { bacaProfil, simpanProfil } from "../lib/profil";
+import { bacaSesi } from "../lib/sesi";
+
+/* Halaman peta — artboard design-canvas/kerangka-peta.
+ *
+ * 375px dan 1440px BUKAN versi besar-kecil dari satu susunan:
+ *   1440px = split view, bilah saring penuh di atas, daftar 420px + peta
+ *   375px  = peta penuh layar, pil mengambang, bottom sheet tiga tahap
+ */
+
+const SEMUA = "Semua";
+
+/* Gaji minimum sebagai pilihan, bukan ketikan bebas: mengetik "3000000" di
+ * papan ketik HP lambat dan gampang salah jumlah nol. */
+const GAJI_MIN = [
+  { nilai: 0, label: "Berapa pun" },
+  { nilai: 2000000, label: "Rp 2 juta" },
+  { nilai: 3000000, label: "Rp 3 juta" },
+  { nilai: 4000000, label: "Rp 4 juta" },
+  { nilai: 5000000, label: "Rp 5 juta" },
+];
+
+const SNAP = ["peek", "setengah", "penuh"];
+
+export default function Peta() {
+  const [param] = useSearchParams();
+  /* Dibaca SEKALI per kunjungan, bukan setiap render: `semuaLowongan()`
+   * menyentuh localStorage dan membuat array baru, jadi memanggilnya di badan
+   * komponen akan membatalkan setiap useMemo di bawahnya pada tiap ketikan di
+   * kotak cari. */
+  const [lowongan] = useState(semuaLowongan);
+  const [kategori, setKategori] = useState(param.get("kategori") || SEMUA);
+  const [tipe, setTipe] = useState(SEMUA);
+  const [gajiMin, setGajiMin] = useState(0);
+  const [radius, setRadius] = useState(5);
+  // Sinkron dua arah dengan peta: kartu di-hover menyalakan pin pasangannya.
+  const [disorot, setDisorot] = useState(null);
+  const [cari, setCari] = useState(param.get("cari") || "");
+  const [urut, setUrut] = useState("terdekat"); // terdekat | terbaru
+  const [terpilih, setTerpilih] = useState(
+    () => lowongan.find((l) => l.id === param.get("lowongan")) || null
+  );
+  const [dilamar, setDilamar] = useState(idLamaran);
+  const [posisiSaya, setPosisiSaya] = useState(null);
+  const [statusLokasi, setStatusLokasi] = useState("diam"); // diam | memuat | ditolak
+  const [snap, setSnap] = useState("setengah");
+  const [filterTerbuka, setFilterTerbuka] = useState(false);
+  const [profil, setProfil] = useState(bacaProfil);
+  // Lowongan yang menunggu CV. Diisi saat "Lamar Sekarang" ditekan tanpa CV.
+  const [mintaCv, setMintaCv] = useState(null);
+  const [mengirim, setMengirim] = useState(null); // id lowongan yang sedang dikirim
+
+  const hasil = useMemo(() => {
+    const kata = cari.trim().toLowerCase();
+    let daftar = lowongan.filter((l) => {
+      const cocokKategori = kategori === SEMUA || l.kategori === kategori;
+      const cocokTipe = tipe === SEMUA || l.tipe === tipe;
+      const cocokGaji = !gajiMin || (l.gajiMin != null && l.gajiMin >= gajiMin);
+      const cocokKata =
+        !kata ||
+        l.posisi.toLowerCase().includes(kata) ||
+        l.perusahaan.toLowerCase().includes(kata) ||
+        l.alamat.toLowerCase().includes(kata);
+      return cocokKategori && cocokTipe && cocokGaji && cocokKata;
+    });
+
+    if (posisiSaya) {
+      // Radius baru punya arti kalau kita tahu pengguna ada di mana.
+      daftar = daftar
+        .map((l) => ({ ...l, jarakKm: jarakKm(posisiSaya, l) }))
+        .filter((l) => l.jarakKm <= radius);
+    }
+
+    return daftar.sort((a, b) =>
+      urut === "terdekat" && posisiSaya
+        ? a.jarakKm - b.jarakKm
+        : a.dipostingHari - b.dipostingHari
+    );
+  }, [lowongan, kategori, tipe, gajiMin, cari, posisiSaya, radius, urut]);
+
+  const jumlahFilter =
+    (kategori !== SEMUA ? 1 : 0) +
+    (tipe !== SEMUA ? 1 : 0) +
+    (gajiMin ? 1 : 0) +
+    (cari.trim() ? 1 : 0);
+
+  function mintaLokasi() {
+    if (!navigator.geolocation) {
+      setStatusLokasi("ditolak");
+      return;
+    }
+    setStatusLokasi("memuat");
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setPosisiSaya({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setStatusLokasi("diam");
+      },
+      () => setStatusLokasi("ditolak"),
+      { timeout: 8000 }
+    );
+  }
+
+  function lamar(id) {
+    // Just-in-time: CV diminta di sini, saat orang sudah menemukan lowongan
+    // yang dia mau — bukan sebagai tembok sebelum peta terbuka.
+    if (!profil.cv) {
+      setMintaCv(lowongan.find((l) => l.id === id) || null);
+      return;
+    }
+    kirim(id);
+  }
+
+  function kirim(id) {
+    // Lamaran dicatat SEKETIKA, sebelum state "Mengirim…" ditampilkan.
+    // Versi sebelumnya menunda pencatatan di balik setTimeout: kalau pengguna
+    // menutup panel atau berpindah halaman dalam jeda itu, timeoutnya ikut mati
+    // dan lamarannya hilang tanpa jejak. Jeda di bawah murni untuk tampilan —
+    // begitu ada backend, ia digantikan lama panggilan jaringan sungguhan.
+    tambahLamaran(id);
+    setDilamar(idLamaran());
+    setMintaCv(null);
+    setMengirim(id);
+    setTimeout(() => setMengirim(null), 500);
+  }
+
+  function hapusSaringan() {
+    setKategori(SEMUA);
+    setTipe(SEMUA);
+    setGajiMin(0);
+    setCari("");
+  }
+
+  /* Kontrol saring dipakai dua kali: langsung di bilah desktop, dan di dalam
+   * sheet filter pada layar sempit. Satu sumber supaya keduanya tidak
+   * menyimpang saat salah satunya diubah.
+   *
+   * `awalan` WAJIB berbeda di tiap pemakaian: dua kontrol dengan id yang sama
+   * membuat <label for> menunjuk ke elemen pertama — yang di layar sempit
+   * justru yang tersembunyi, sehingga labelnya menjadi bohong bagi pembaca
+   * layar dan tidak bisa diklik. */
+  const kontrol = (awalan) => (
+    <>
+      <div className="saring__grup saring__grup--lebar">
+        <label htmlFor={`${awalan}-lokasi`}>Lokasi</label>
+        <input
+          id={`${awalan}-lokasi`}
+          type="search"
+          value={cari}
+          onChange={(e) => setCari(e.target.value)}
+          placeholder="Kasir, gudang, Tebet…"
+          autoComplete="off"
+        />
+      </div>
+
+      <div className="saring__grup">
+        <label htmlFor={`${awalan}-kategori`}>Kategori</label>
+        <select id={`${awalan}-kategori`} value={kategori} onChange={(e) => setKategori(e.target.value)}>
+          <option>{SEMUA}</option>
+          {KATEGORI.map((k) => (
+            <option key={k}>{k}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="saring__grup">
+        <label htmlFor={`${awalan}-gaji`}>Gaji minimum</label>
+        <select
+          id={`${awalan}-gaji`}
+          value={gajiMin}
+          onChange={(e) => setGajiMin(Number(e.target.value))}
+        >
+          {GAJI_MIN.map((g) => (
+            <option key={g.nilai} value={g.nilai}>
+              {g.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="saring__grup">
+        <label htmlFor={`${awalan}-tipe`}>Tipe kerja</label>
+        <select id={`${awalan}-tipe`} value={tipe} onChange={(e) => setTipe(e.target.value)}>
+          <option>{SEMUA}</option>
+          {TIPE_KERJA.map((t) => (
+            <option key={t}>{t}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="saring__grup saring__grup--radius">
+        <label htmlFor={`${awalan}-radius`}>
+          Radius{" "}
+          <span className="angka">
+            {posisiSaya ? `${radius.toFixed(1).replace(".", ",")} km` : "—"}
+          </span>
+        </label>
+        <input
+          id={`${awalan}-radius`}
+          type="range"
+          min="1"
+          max="20"
+          step="0.5"
+          value={radius}
+          disabled={!posisiSaya}
+          onChange={(e) => setRadius(Number(e.target.value))}
+        />
+        {/* Kontrol mati tanpa penjelasan membuat orang mengira aplikasinya
+            rusak. Alasannya ditulis — tapi hanya di sheet, karena satu baris
+            teks tambahan akan memaksa bilah desktop tumbuh jadi dua baris. */}
+        {awalan === "sheet" && !posisiSaya && (
+          <p className="bantu">
+            Ketuk &ldquo;Lokasi Saya&rdquo; di bawah dulu supaya jaraknya bisa dihitung.
+          </p>
+        )}
+      </div>
+
+      <button
+        type="button"
+        className="tombol tombol--sekunder saring__lokasi"
+        onClick={mintaLokasi}
+        disabled={statusLokasi === "memuat"}
+      >
+        {statusLokasi === "memuat" ? "Mencari lokasi…" : "Lokasi Saya"}
+      </button>
+    </>
+  );
+
+  return (
+    <div className="app">
+      <a className="skip-link" href="#daftar">
+        Lompat ke daftar lowongan
+      </a>
+
+      {/* Bilah saring desktop. Di layar sempit ia disembunyikan dan digantikan
+          pil mengambang di atas peta. */}
+      <div className="saring" role="group" aria-label="Saringan lowongan">
+        <Link to="/" className="saring__merek">
+          JOBARTA
+        </Link>
+        {kontrol("bar")}
+        <nav className="saring__akun" aria-label="Menu akun">
+          <Link to="/lamaran">Lamaran Saya</Link>
+          <Link to="/profil">Profil</Link>
+        </nav>
+      </div>
+
+      {statusLokasi === "ditolak" && (
+        <p className="peringatan peringatan--bar" role="status">
+          Kami tidak bisa membaca lokasimu. Kamu tetap bisa mencari dengan mengetik nama
+          daerah di kotak lokasi, misalnya &ldquo;Tebet&rdquo; atau &ldquo;Cengkareng&rdquo;.
+        </p>
+      )}
+
+      <main className="isi">
+        {/* Pil mengambang — hanya tampak di layar sempit. */}
+        <div className="pil-baris">
+          <button
+            type="button"
+            className="pil pil--lebar"
+            onClick={() => setFilterTerbuka(true)}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 22s-7-8-7-12.5A7 7 0 0 1 19 9.5C19 14 12 22 12 22Z" />
+            </svg>
+            <span className="pil__teks">{cari.trim() || "Seluruh Jakarta"}</span>
+          </button>
+          <button type="button" className="pil" onClick={() => setFilterTerbuka(true)}>
+            Filter
+            {jumlahFilter > 0 && <span className="pil__badge">{jumlahFilter}</span>}
+          </button>
+          {/* Bukan dari artboard: jalan ke profil di layar sempit. Tanpa ini
+              tidak ada pintu ke /profil sama sekali begitu bilah desktop
+              disembunyikan. */}
+          <Link to="/profil" className="pil pil--ikon" aria-label="Profil kamu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8.5" r="3.4" />
+              <path d="M5 20c0-3.4 3.2-5.3 7-5.3s7 1.9 7 5.3" />
+            </svg>
+          </Link>
+        </div>
+
+        <button
+          type="button"
+          className={`fab fab--${snap}`}
+          onClick={mintaLokasi}
+          aria-label="Lokasi saya"
+          disabled={statusLokasi === "memuat"}
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3.2" />
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+          </svg>
+        </button>
+
+        <section
+          id="daftar"
+          className={`panel panel--${snap}`}
+          aria-label="Daftar lowongan"
+        >
+          {/* Pegangan menaikkan sheet setahap: peek → setengah → penuh → peek.
+              Peek menampilkan SATU KARTU UTUH, bukan potongan kartu — potongan
+              cuma mengajak menarik; kartu utuh langsung memberi hasil pertama. */}
+          <div className="panel__pegangan">
+            <button
+              type="button"
+              className="panel__toggle"
+              onClick={() => setSnap((s) => SNAP[(SNAP.indexOf(s) + 1) % SNAP.length])}
+              aria-label={`Daftar lowongan, tinggi ${snap}. Ketuk untuk mengubah.`}
+            >
+              <span className="panel__garis" aria-hidden="true" />
+            </button>
+          </div>
+
+          <div className="daftar__kepala">
+            <p className="angka" role="status" aria-live="polite">
+              <strong>{hasil.length} lowongan</strong> di area ini
+            </p>
+            <button
+              type="button"
+              className="daftar__urut"
+              onClick={() => setUrut((u) => (u === "terdekat" ? "terbaru" : "terdekat"))}
+            >
+              {urut === "terdekat" && posisiSaya ? "Terdekat" : "Terbaru"} ▾
+            </button>
+          </div>
+
+          {/* Pengingat duduk di ATAS daftar: kelengkapan profil menentukan
+              apakah lamaran bisa dikirim sama sekali, jadi ia mendahului
+              hasil pencarian — bukan mengekor di bawahnya. */}
+          {!profil.pengingatDitutup && (
+            <KartuPengingat
+              profil={profil}
+              onTutup={() => setProfil(simpanProfil({ pengingatDitutup: true }))}
+            />
+          )}
+
+          {hasil.length === 0 ? (
+            <div className="kosong">
+              <h2>Belum ada lowongan yang cocok</h2>
+              <p>
+                Coba hapus salah satu saringan{posisiSaya ? ", perlebar radius," : ""} atau
+                cari dengan kata yang lebih umum seperti &ldquo;kasir&rdquo; atau
+                &ldquo;gudang&rdquo;.
+              </p>
+              {jumlahFilter > 0 && (
+                <button type="button" className="tombol tombol--primary" onClick={hapusSaringan}>
+                  Hapus semua saringan
+                </button>
+              )}
+            </div>
+          ) : (
+            <ul className="daftar">
+              {hasil.map((l) => (
+                <KartuLowongan
+                  key={l.id}
+                  data={l}
+                  aktif={{ jarakKm: l.jarakKm }}
+                  terpilih={terpilih?.id === l.id}
+                  onPilih={setTerpilih}
+                  onHover={setDisorot}
+                />
+              ))}
+            </ul>
+          )}
+
+        </section>
+
+        <section className="peta-wadah" aria-label="Peta lowongan">
+          <PetaLowongan
+            daftar={hasil}
+            terpilih={terpilih}
+            disorot={disorot}
+            onPilih={setTerpilih}
+          />
+        </section>
+      </main>
+
+      {filterTerbuka && (
+        <div className="scrim" onClick={() => setFilterTerbuka(false)}>
+          <div
+            className="sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Saringan lowongan"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="sheet__pegangan" aria-hidden="true" />
+            <div className="sheet__kepala">
+              <h2 className="sheet__judul">Saring lowongan</h2>
+              <button
+                type="button"
+                className="tombol-ikon"
+                aria-label="Tutup"
+                onClick={() => setFilterTerbuka(false)}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6 6 18" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="saring saring--sheet">{kontrol("sheet")}</div>
+
+            <button
+              type="button"
+              className="tombol tombol--primary tombol--penuh tombol--besar"
+              onClick={() => setFilterTerbuka(false)}
+            >
+              Lihat {hasil.length} lowongan
+            </button>
+            {jumlahFilter > 0 && (
+              <button type="button" className="tombol-nanti" onClick={hapusSaringan}>
+                Hapus semua saringan
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {terpilih && (
+        <PanelDetail
+          data={terpilih}
+          sudahDilamar={dilamar.has(terpilih.id)}
+          dilamarPada={bacaLamaran().find((l) => l.lowonganId === terpilih.id)?.dilamarPada}
+          mengirim={mengirim === terpilih.id}
+          sudahMasuk={Boolean(bacaSesi().username)}
+          jarakKm={posisiSaya ? jarakKm(posisiSaya, terpilih) : null}
+          onLamar={lamar}
+          onTutup={() => setTerpilih(null)}
+        />
+      )}
+
+      {mintaCv && (
+        <SheetLampirkanCv
+          perusahaan={mintaCv.perusahaan}
+          onSimpan={(cv) => {
+            setProfil(simpanProfil({ cv }));
+            kirim(mintaCv.id);
+          }}
+          onLewati={() => kirim(mintaCv.id)}
+          onTutup={() => setMintaCv(null)}
+        />
+      )}
+    </div>
+  );
+}

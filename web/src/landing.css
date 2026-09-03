@@ -1,0 +1,213 @@
+/* Landing — mengikuti artboard design-canvas/landing/.
+   Aturan artboard: lebar isi dikunci 1160px, judul hero dibatasi 16ch supaya
+   tidak jadi pita panjang, satu CTA primary per layar, dan susunan BERUBAH di
+   1440px (bukan diperbesar). */
+
+.navbar__masuk { display: inline-flex; align-items: center; gap: var(--sp-2); }
+
+/* ---------- Hero: satu kolom di 375px, dua kolom di desktop ---------- */
+.hero {
+  display: grid; gap: var(--sp-5);
+  max-width: 1160px; width: 100%; margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4);
+}
+.hero__judul { font-size: clamp(30px, 6vw, 44px); max-width: 16ch; margin-bottom: var(--sp-3); }
+.hero__sub { font-size: 18px; margin: 0 0 var(--sp-4); max-width: 52ch; }
+
+.cari { display: grid; gap: var(--sp-2); }
+.cari__field { display: grid; gap: var(--sp-1); min-width: 0; }
+.cari__field label { font-size: 14px; font-weight: 600; }
+.cari__field input {
+  width: 100%; box-sizing: border-box; height: 52px; padding: 0 var(--sp-3); font-size: 16px;
+  font-family: var(--font-body); color: var(--color-foreground); background: var(--color-surface);
+  border: 1px solid var(--color-border); border-radius: var(--radius);
+}
+.cari__tombol { height: 52px; gap: var(--sp-2); }
+
+.populer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); margin-top: var(--sp-3); }
+.populer__label { font-size: 14px; color: var(--color-primary); font-weight: 600; }
+.chip-baris { list-style: none; display: flex; flex-wrap: wrap; gap: var(--sp-2); margin: 0; padding: 0; }
+
+/* ---------- Cuplikan peta di hero ---------- */
+.hero__peta { position: relative; display: grid; gap: var(--sp-2); }
+.mini-peta {
+  height: 320px; border-radius: var(--radius);
+  border: 1px solid var(--color-border); background: var(--color-background);
+}
+/* Atribusi ODbL wajib terlihat DI ATAS peta, bukan cuma di footer. */
+.mini-peta .leaflet-control-attribution { font-size: 11px; }
+
+.sorot {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius); box-shadow: var(--shadow-card); padding: var(--sp-3);
+}
+.sorot__posisi {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2);
+  font-size: 17px; margin-bottom: var(--sp-1);
+}
+.sorot__meta { margin: 0; font-size: 15px; font-variant-numeric: tabular-nums; }
+.hero__ket { margin: 0; font-size: 14px; color: var(--color-primary); text-align: center; }
+
+/* ---------- Seksi ---------- */
+.seksi__sub { margin: -20px 0 var(--sp-4); font-size: 16px; }
+.seksi__kepala { align-items: flex-start; }
+.seksi__kepala .seksi__sub { margin-bottom: 0; }
+.seksi__kepala .tombol { text-decoration: none; }
+
+/* ---------- Aman dari lowongan palsu ---------- */
+.aman {
+  border: 2px solid var(--color-accent); border-radius: 16px;
+  background: var(--color-surface); padding: var(--sp-5) var(--sp-4);
+}
+.aman__judul {
+  display: flex; align-items: center; gap: var(--sp-2);
+  font-size: 26px; color: var(--color-accent); margin-bottom: var(--sp-4);
+}
+.aman__daftar { list-style: none; display: grid; gap: var(--sp-4); margin: 0; padding: 0; }
+.aman__daftar li { display: flex; gap: var(--sp-2); align-items: flex-start; }
+.aman__daftar svg { flex: none; margin-top: 3px; color: var(--color-accent); }
+.aman__daftar p { margin: 0; }
+
+/* ---------- Lowongan terbaru ---------- */
+.unggulan__chip { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin: var(--sp-2) 0 0; }
+.unggulan__chip .chip { font-variant-numeric: tabular-nums; }
+
+/* ---------- CTA perusahaan: panel slate penuh ---------- */
+.cta-perusahaan {
+  background: var(--color-primary); color: var(--color-on-primary);
+  border: 0; border-radius: 16px; margin: 0;
+  padding: var(--sp-5) var(--sp-4);
+}
+.cta-perusahaan h2 { color: var(--color-on-primary); }
+.tombol--terang {
+  background: var(--color-surface); color: var(--color-primary);
+  border: 1px solid var(--color-surface); text-decoration: none;
+}
+
+/* ---------- Footer 3 kolom ---------- */
+.footer { grid-template-columns: 1fr; }
+.footer__kolom { display: grid; gap: var(--sp-2); align-content: start; }
+.footer__kolom p { margin: 0; max-width: 40ch; }
+.footer__kolom a { width: fit-content; }
+
+@media (min-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+  /* Search jadi SATU BARIS horizontal di lebar besar — susunan berubah,
+     bukan sekadar melebar. */
+  .cari { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; align-items: end; gap: var(--sp-2); }
+  .cari__tombol { align-self: end; }
+  .mini-peta { height: 380px; }
+  .aman__daftar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .footer { grid-template-columns: 2fr 1fr 1fr; column-gap: var(--sp-5); }
+  .footer__atribusi { grid-column: 1 / -1; padding-top: var(--sp-3); border-top: 1px solid var(--color-border); }
+  .cta-perusahaan { padding: var(--sp-6) var(--sp-5); }
+}
+
+@media (min-width: 1100px) {
+  .kategori { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .langkah { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Tombol "Lihat semua di peta" punya DUA posisi yang digambar artboard:
+   sebaris dengan judul di 1440px, di bawah daftar di 375px. Keduanya ada di
+   DOM lalu salah satunya disembunyikan — bukan dipindah lewat `order`, supaya
+   urutan baca pembaca layar tetap sama dengan urutan visual di tiap lebar. */
+.seksi__aksi-atas { display: none; }
+.seksi__aksi-bawah { margin-top: var(--sp-4); text-decoration: none; }
+@media (min-width: 900px) {
+  .seksi__aksi-atas { display: inline-flex; }
+  .seksi__aksi-bawah { display: none; }
+}
+
+/* ---------- Header landing: hamburger di bawah 900px ---------- */
+.navbar--landing { flex-wrap: nowrap; gap: var(--sp-2); padding-inline: var(--sp-3); }
+
+.navbar__employer {
+  margin-left: auto; color: var(--color-foreground); font-weight: 600;
+  text-decoration: none; font-size: 14px; white-space: nowrap;
+}
+.navbar__employer:hover { color: var(--color-primary); text-decoration: underline; }
+
+.navbar__hamburger {
+  display: inline-flex; align-items: center; gap: 6px; flex: none;
+  min-height: 44px; padding: 0 var(--sp-2);
+  background: transparent; border: 1px solid var(--color-border);
+  border-radius: var(--radius); color: var(--color-primary);
+  font-family: var(--font-body); font-size: 15px; font-weight: 600; cursor: pointer;
+}
+
+/* Menu tertutup: benar-benar tidak ada di alur fokus, bukan cuma tak terlihat. */
+.navbar--landing .navbar__nav { display: none; }
+.navbar--landing .navbar__nav--buka {
+  display: flex; flex-direction: column; align-items: stretch;
+  flex-basis: 100%; gap: var(--sp-3); padding-top: var(--sp-3);
+  border-top: 1px solid var(--color-border); margin-top: var(--sp-2);
+}
+.navbar--landing .navbar__nav a { min-height: 44px; display: inline-flex; align-items: center; }
+.navbar--landing .navbar__masuk { justify-content: center; }
+
+@media (min-width: 900px) {
+  .navbar--landing { flex-wrap: wrap; }
+  /* Di desktop menunya terbentang; salinan "Untuk Perusahaan" di bilah utama
+     disembunyikan supaya tautannya tidak muncul dua kali. */
+  .navbar__employer,
+  .navbar__hamburger { display: none; }
+  .navbar--landing .navbar__nav {
+    display: flex; flex-direction: row; align-items: center;
+    flex-basis: auto; margin-left: auto; padding-top: 0;
+    border-top: 0; margin-top: 0;
+  }
+}
+
+/* ---------- Blok merek ----------
+   Menggantikan seksi "Aman dari lowongan palsu". Satu pernyataan, bukan daftar
+   janji: logo besar, nama, dan dua baris yang keduanya bisa dipegang. */
+.merek-blok {
+  display: flex; flex-direction: column; align-items: center; gap: var(--sp-2);
+  text-align: center; padding-block: var(--sp-6);
+}
+.merek-blok__logo { line-height: 0; }
+.merek-blok__nama {
+  font-family: var(--font-heading); font-weight: 700;
+  font-size: clamp(40px, 9vw, 64px); letter-spacing: .04em;
+  line-height: 1; margin: var(--sp-2) 0 0; color: var(--color-primary);
+}
+.merek-blok__tagline {
+  font-family: var(--font-heading); font-size: clamp(18px, 3.5vw, 24px);
+  /* 34ch supaya kalimatnya utuh satu baris di 1440px; di 375px ia tetap
+     membungkus, dan `balance` menjaga dua barisnya seimbang. */
+  font-weight: 500; margin: 0; max-width: 34ch; text-wrap: balance;
+}
+.merek-blok__ket { margin: var(--sp-1) 0 0; color: var(--color-primary); font-weight: 600; }
+
+/* Kartu sorot adalah TAUTAN, bukan sekadar kotak: ia jalan pintas dari
+   cuplikan peta ke lowongannya. */
+.sorot { display: block; color: inherit; text-decoration: none; }
+.sorot:hover { border-color: var(--color-primary); }
+.sorot:hover .sorot__ajak { text-decoration: underline; }
+.sorot__ajak {
+  display: inline-block; margin-top: var(--sp-2);
+  color: var(--color-primary); font-weight: 600; font-size: 15px;
+}
+/* Pin di cuplikan bisa ditekan, jadi kursornya harus menjanjikan itu. */
+.mini-peta .leaflet-marker-icon { cursor: pointer; }
+
+/* Seluruh area peta juga bisa ditekan untuk membuka peta penuh. */
+.mini-peta--bisa-klik,
+.mini-peta--bisa-klik .leaflet-container { cursor: pointer; }
+.hero__peta { position: relative; }
+/* Petunjuk yang muncul saat kursor di atas peta — di layar sentuh ia tidak
+   pernah tampil, dan di sana keterangan di bawah peta yang menjelaskannya. */
+.mini-peta__petunjuk {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  z-index: 500; pointer-events: none; opacity: 0;
+  transition: opacity 160ms ease-out;
+  padding: var(--sp-2) var(--sp-3); border-radius: 999px;
+  background: var(--color-surface); border: 1px solid var(--color-primary);
+  color: var(--color-primary); font-weight: 600; font-size: 15px;
+  box-shadow: var(--shadow-card);
+}
+.hero__peta:hover .mini-peta__petunjuk { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .mini-peta__petunjuk { transition: none; }
+}

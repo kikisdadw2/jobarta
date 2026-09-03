@@ -1,0 +1,134 @@
+/* Sisi perusahaan — dasbor, verifikasi usaha, dan form pasang lowongan.
+   Semua warna lewat token di tokens.css; jangan tulis hex mentah di sini.
+
+   Berkas ini SENGAJA tipis. Sebagian besar tampilannya memakai kelas yang
+   sudah ada (.seksi, .field, .riwayat, .kosong, .status, .tombol) supaya sisi
+   employer tidak pelan-pelan tumbuh jadi design system kedua. Yang ditambah di
+   sini cuma yang memang belum pernah ada di sisi seeker. */
+
+.perusahaan { max-width: 760px; }
+
+/* ---------- Kartu status verifikasi ---------- */
+/* Garis tebal di tepi kiri, bukan seluruh latar berwarna: kartu ini duduk di
+   atas latar krem yang sudah hangat, dan blok warna penuh membuatnya berteriak
+   lebih keras daripada isinya. */
+.kartu-status {
+  display: grid;
+  gap: var(--sp-2);
+  justify-items: start;
+  margin: 0 0 var(--sp-5);
+  padding: var(--sp-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+.kartu-status--sukses { border-left-color: var(--color-accent); }
+.kartu-status--info { border-left-color: var(--color-primary); }
+.kartu-status--error { border-left-color: var(--color-destructive); }
+.kartu-status--netral { border-left-color: var(--color-border); }
+
+.kartu-status__kepala {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.kartu-status__tanggal { font-size: 14px; color: var(--color-primary); }
+.kartu-status__isi { margin: 0; max-width: 60ch; }
+
+/* ---------- Form pasang lowongan ---------- */
+.form-pasang { display: grid; gap: var(--sp-4); }
+
+/* Dua kolom baru di 720px ke atas. Di HP semuanya bertumpuk: dua kolom di
+   375px membuat label terpotong dan target sentuhnya di bawah 44px. */
+.form-pasang__dua { display: grid; gap: var(--sp-3); }
+@media (min-width: 720px) {
+  .form-pasang__dua { grid-template-columns: 1fr 1fr; }
+}
+
+.form-pasang__gaji {
+  display: grid;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: var(--sp-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+.form-pasang__gaji legend { font-weight: 600; font-size: 14px; padding: 0 var(--sp-1); }
+
+/* select dan textarea belum pernah dipakai di sisi seeker — disamakan dengan
+   .field input supaya tinggi dan borde-nya tidak menyimpang. */
+.field select,
+.field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--sp-2) var(--sp-3);
+  font-size: 16px; /* di bawah 16px, Safari iOS memperbesar layar saat difokus */
+  font-family: var(--font-body);
+  color: var(--color-foreground);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+.field select { height: 48px; }
+.field textarea { line-height: 1.6; resize: vertical; min-height: 96px; }
+.field select.salah,
+.field textarea.salah { border: 2px solid var(--color-destructive); }
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* ---------- Pemilih titik di peta ---------- */
+.peta-pilih {
+  position: relative;
+  height: 280px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.peta-pilih .leaflet-container { cursor: crosshair; }
+
+/* Ajakan mengambang, bukan teks di bawah peta: pada peta kosong tanpa pin,
+   orang menatap petanya dan tidak pernah menemukan petunjuk yang ditaruh di
+   luar bingkai. */
+.peta-pilih__ajak {
+  position: absolute;
+  z-index: 500; /* di atas tile Leaflet (400), di bawah popup (700) */
+  inset-inline: var(--sp-3);
+  bottom: var(--sp-3);
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-on-primary);
+  background: color-mix(in srgb, var(--color-foreground) 88%, transparent);
+  border-radius: var(--radius);
+  pointer-events: none; /* jangan pernah menghalangi ketukan ke petanya */
+}
+
+/* ---------- Konfirmasi hapus di tempat ---------- */
+.riwayat__konfirmasi {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  font-size: 14px;
+  color: var(--color-destructive);
+}
+
+/* ---------- Keadaan memuat penjaga rute ---------- */
+/* Ruangnya dipesan setinggi layar supaya halaman tidak melompat saat sesi
+   selesai dibaca dan isi yang sebenarnya menggantikannya. */
+.memuat {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  color: var(--color-primary);
+}
