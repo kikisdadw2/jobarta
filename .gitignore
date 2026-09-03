@@ -1,2 +1,54 @@
+# ── Rahasia & env ───────────────────────────────────────────
 .env
-.env.local
+.env.*
+!.env.example
+
+# ── Dependensi & hasil build ────────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+build/
+.vite/
+*.local
+
+# ── Hosting / tooling ───────────────────────────────────────
+.vercel
+.netlify
+.supabase/
+
+# ── Uji coba (Playwright) ───────────────────────────────────
+test-results/
+playwright-report/
+tes/hasil/
+
+# ── Log ─────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── Editor & OS ─────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.sw?
+
+# ── Berkas sementara / cadangan ─────────────────────────────
+*.tmp
+*.bak
+*~
+*.orig
+* - Copy.*
+*.rej
+
+# ── Ekspor desain yang bisa dibuat ulang ────────────────────
+design-canvas/_export/
+
+# ── Berkas prompt (draf kerja) ──────────────────────────────
+PROMPT-*
