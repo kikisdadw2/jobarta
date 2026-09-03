@@ -110,7 +110,20 @@ export function PenyediaAuth({ children }) {
       provider: "google",
       options: { redirectTo: `${window.location.origin}/onboarding` },
     });
-    if (error) throw new Error("Tidak bisa membuka layar Google. Coba lagi sebentar.");
+    if (error) {
+      /* Pesan dibedakan: provider yang belum dinyalakan di dashboard adalah
+       * masalah konfigurasi yang permanen sampai admin memperbaikinya, bukan
+       * gangguan sesaat. Menyuruh orang "coba lagi sebentar" untuk kasus itu
+       * membuat mereka mengulang sesuatu yang tidak akan pernah berhasil. */
+      const belumAktif = /provider is not enabled|unsupported provider/i.test(
+        error.message || ""
+      );
+      throw new Error(
+        belumAktif
+          ? "Masuk lewat Google belum tersedia. Pakai username dan password dulu."
+          : "Tidak bisa membuka layar Google. Coba lagi sebentar."
+      );
+    }
     return null; // halaman berpindah ke Google; hasilnya masuk lewat onAuthStateChange
   }, []);
 

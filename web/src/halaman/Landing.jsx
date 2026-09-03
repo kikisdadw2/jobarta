@@ -5,6 +5,7 @@ import L from "leaflet";
 import lowongan, { KATEGORI } from "../data/lowongan";
 import { formatGaji, jarakKm, formatJarak } from "../lib/format";
 import { Logo, Merek, IkonGoogle, Terverifikasi } from "../komponen-ui/Dasar";
+import { useGoogleAktif } from "../lib/penyedia";
 
 /* DESIGN 2 — Landing, mengikuti artboard design-canvas/landing/.
  *
@@ -67,6 +68,7 @@ function KlikBukaPeta({ onBuka }) {
 }
 
 export default function Landing() {
+  const googleAktif = useGoogleAktif();
   const [menuTerbuka, setMenuTerbuka] = useState(false);
 
   // Escape menutup menu: tombol hamburger membuka lapisan yang menutupi
@@ -148,9 +150,12 @@ export default function Landing() {
           {/* Logo Google resmi berwarna — satu-satunya tempat di seluruh produk
               yang boleh keluar dari palet; brand guideline Google melarang
               logonya diwarnai ulang. */}
+          {/* Menyebut "Google" di sini hanya jujur bila providernya hidup;
+              kalau mati, tautannya tetap berfungsi tapi tidak menjanjikan
+              jalur masuk yang tak tersedia di layar berikutnya. */}
           <Link to="/masuk" className="tombol tombol--sekunder navbar__masuk">
-            <IkonGoogle />
-            Masuk dengan Google
+            {googleAktif && <IkonGoogle />}
+            {googleAktif ? "Masuk dengan Google" : "Masuk"}
           </Link>
         </nav>
       </header>

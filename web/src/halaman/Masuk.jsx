@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IkonGoogle, Pemisah, Peringatan } from "../komponen-ui/Dasar";
+import { useGoogleAktif } from "../lib/penyedia";
 import PanelAuth from "../komponen-ui/PanelAuth";
 import { useAuth } from "../konteks/useAuth";
 
@@ -18,6 +19,9 @@ export default function Masuk() {
   const [galat, setGalat] = useState("");
   const navigate = useNavigate();
   const { masukPassword, masukGoogle: masukLewatGoogle, modeSupabase } = useAuth();
+  /* Tombol Google hanya tampil bila providernya benar-benar hidup di backend.
+   * Lihat alasannya di src/lib/penyedia.js. */
+  const googleAktif = useGoogleAktif();
 
   function masuk(e) {
     e.preventDefault();
@@ -69,17 +73,21 @@ export default function Masuk() {
             Belum punya akun? <Link to="/daftar">Daftar</Link>
           </p>
 
-          <button
-            type="button"
-            className="tombol tombol--sekunder tombol--penuh"
-            onClick={masukGoogle}
-            disabled={proses}
-          >
-            <IkonGoogle />
-            Lanjutkan dengan Google
-          </button>
+          {googleAktif && (
+            <>
+              <button
+                type="button"
+                className="tombol tombol--sekunder tombol--penuh"
+                onClick={masukGoogle}
+                disabled={proses}
+              >
+                <IkonGoogle />
+                Lanjutkan dengan Google
+              </button>
 
-          <Pemisah />
+              <Pemisah />
+            </>
+          )}
 
           {galat && <Peringatan>{galat}</Peringatan>}
 

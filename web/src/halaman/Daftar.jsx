@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PanelAuth from "../komponen-ui/PanelAuth";
 import { Logo, IkonGoogle, Pemisah, Peringatan } from "../komponen-ui/Dasar";
+import { useGoogleAktif } from "../lib/penyedia";
 import { useAuth } from "../konteks/useAuth";
 import { passwordLolos } from "../lib/password";
 import DaftarSyarat from "../komponen-ui/DaftarSyarat";
@@ -27,7 +28,20 @@ export default function Daftar() {
   const [galatDaftar, setGalatDaftar] = useState("");
   const emailRef = useRef(null);
   const navigate = useNavigate();
-  const { daftarPassword } = useAuth();
+  const { daftarPassword, masukGoogle, modeSupabase } = useAuth();
+  const googleAktif = useGoogleAktif();
+  const [proses, setProses] = useState(false);
+
+  function daftarGoogle() {
+    setProses(true);
+    masukGoogle()
+      .then(() => {
+        // Mode Supabase memindahkan halaman ke Google; yang sampai ke baris
+        // ini cuma mode lokal.
+        if (!modeSupabase) navigate("/onboarding");
+      })
+      .catch(() => setProses(false));
+  }
 
   // Validasi dijalankan saat field DITINGGALKAN, bukan tiap ketukan —
   // mengetik sambil terus-menerus dimarahi membuat orang berhenti.
@@ -80,12 +94,24 @@ export default function Daftar() {
             Sudah punya akun? <Link to="/masuk">Masuk</Link>
           </p>
 
-          <button type="button" className="tombol tombol--sekunder tombol--penuh">
-            <IkonGoogle />
-            Daftar dengan Google
-          </button>
+          {/* Tombol Google hanya tampil bila providernya hidup di backend —
+              lihat src/lib/penyedia.js. Sebelumnya tombol ini bahkan tidak
+              punya onClick sama sekali, jadi mengkliknya diam saja. */}
+          {googleAktif && (
+            <>
+              <button
+                type="button"
+                className="tombol tombol--sekunder tombol--penuh"
+                onClick={daftarGoogle}
+                disabled={proses}
+              >
+                <IkonGoogle />
+                Daftar dengan Google
+              </button>
 
-          <Pemisah />
+              <Pemisah />
+            </>
+          )}
 
           <form onSubmit={daftar} noValidate>
             <div className="field">
