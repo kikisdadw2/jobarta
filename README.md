@@ -9,7 +9,7 @@
 
 **Submission for ITECHNO CUP 2026 - Web Development**
 
-**By [Nama Tim]**
+**By Curisous Cats**
 
 </div>
 
@@ -17,16 +17,17 @@
 
 ## 📋 Daftar Isi
 
+- [Tim Developer](#-tim-developer)
 - [Tentang Proyek](#-tentang-proyek)
 - [Fitur Unggulan](#-fitur-unggulan)
+- [Batasan yang Disadari](#️-batasan-yang-disadari)
 - [Demo & Screenshot](#-demo--screenshot)
-- [Teknologi](#-teknologi)
-- [Arsitektur Sistem](#-arsitektur-sistem)
-- [Instalasi & Setup](#-instalasi--setup)
+- [Teknologi](#️-teknologi)
+- [Arsitektur Sistem](#️-arsitektur-sistem)
+- [Model Data & Keamanan](#-model-data--keamanan)
+- [Instalasi & Setup](#️-instalasi--setup)
 - [Penggunaan](#-penggunaan)
-- [API Documentation](#-api-documentation)
 - [Testing](#-testing)
-- [Tim Developer](#-tim-developer)
 - [Lisensi](#-lisensi)
 
 ---
@@ -35,9 +36,9 @@
 
 | Nama | Peran | GitHub |
 |------|-------|--------|
-| **[Nama Lengkap 1]** | Project Lead & Backend / Data (DB + PostGIS, API, auth & RBAC, query geo, keamanan) | [@username1](https://github.com/[username1]) |
-| **[Nama Lengkap 2]** | Frontend & Peta (React, Leaflet, UI responsif, integrasi API) | [@username2](https://github.com/[username2]) |
-| **[Nama Lengkap 3]** | Support / QA / Docs (seeding lowongan, testing, deploy, riset user) | [@username3](https://github.com/[username3]) |
+| **Nicky Oliver Constantine** | Project Lead & Backend / Data (skema PostGIS, RLS, auth, query geo, keamanan) | [@username1](https://github.com/username1) |
+| **Rizky Ghazirah Himawan** | Frontend & Peta (React, Leaflet, UI responsif, integrasi data) | [@username2](https://github.com/username2) |
+| **Imam I'tisham** | Support / QA / Docs (seeding lowongan, testing, deploy, riset user) | [@IkamWorkshop](https://github.com/IkamWorkshop) |
 
 > Aturan tim: saat terjadi beda pendapat, satu orang ditetapkan sebagai *pemilik keputusan*.
 
@@ -53,15 +54,15 @@ Di sisi lain, UMKM, ritel, F&B, dan gudang di Jakarta merekrut secara hiperlokal
 
 ### Solusi yang Ditawarkan
 
-JOBARTA membalik urutannya: **peta lebih dulu, daftar kemudian.** Perusahaan yang sudah terverifikasi memasang lowongan lengkap dengan pin lokasi presisi; pencari kerja membuka peta, menetapkan titik dan radius pencarian, lalu melihat lowongan yang benar-benar berada dalam jangkauan hariannya, dan melamar langsung dari sana.
+JOBARTA membalik urutannya: **peta lebih dulu, daftar kemudian.** Perusahaan memasang lowongan lengkap dengan pin lokasi presisi; pencari kerja membuka peta, menetapkan titik dan radius pencarian, lalu melihat lowongan yang benar-benar berada dalam jangkauan hariannya, dan melamar langsung dari sana.
 
-Pencarian berbasis jarak dijalankan di level database dengan **PostgreSQL + PostGIS** (`geography(Point,4326)` + index GiST) dan dibatasi ke *bounding box* viewport, sehingga tetap ringan di HP kelas menengah.
+Pencarian berbasis jarak dijalankan **di level database** dengan PostgreSQL + PostGIS — kolom `geography(Point,4326)` yang diturunkan otomatis dari lat/lng, index GiST, dan fungsi `lowongan_dekat()` yang memakai `ST_DWithin`. Perhitungan jarak tidak pernah dibebankan ke HP pengguna.
 
 ### Tujuan Proyek
 
-- 🎯 **Tujuan Utama**: Menjalankan alur nilai inti secara penuh — perusahaan terverifikasi posting lowongan dengan pin lokasi → pencari kerja menemukannya lewat peta + radius search → melamar → perusahaan mengelola status lamaran.
+- 🎯 **Tujuan Utama**: Menjalankan alur nilai inti secara penuh — perusahaan memasang lowongan dengan pin lokasi → pencari kerja menemukannya lewat peta + radius → melamar → perusahaan melihat pelamarnya dan mengelola status lamaran.
 - 📊 **Target Pengguna**: Pencari kerja entry-level/harian di Jakarta yang sensitif terhadap jarak & ongkos, serta pemilik UMKM, ritel, F&B, dan gudang yang merekrut secara hiperlokal.
-- 💡 **Value Proposition**: Satu-satunya cara mencari kerja di mana **jarak jadi filter utama, bukan catatan kaki** — ditambah verifikasi legalitas perusahaan wajib sebelum boleh memasang lowongan, sebagai tameng terhadap lowongan palsu.
+- 💡 **Value Proposition**: Satu-satunya cara mencari kerja di mana **jarak jadi filter utama, bukan catatan kaki**, ditambah penanda verifikasi legalitas perusahaan sebagai pembeda kepercayaan.
 
 > **Batas ruang lingkup v1 (eksplisit BUKAN v1):** chat real-time, matching otomatis, dan notifikasi email. Fitur-fitur ini baru dibangun setelah terbukti ada lamaran yang benar-benar direspons.
 
@@ -69,23 +70,39 @@ Pencarian berbasis jarak dijalankan di level database dengan **PostgreSQL + Post
 
 ## ✨ Fitur Unggulan
 
+Semua yang tercantum di bawah **sudah berjalan** dan tersimpan di database, bukan rencana. Yang belum selesai dikumpulkan terpisah di [Batasan yang Disadari](#️-batasan-yang-disadari).
+
 ### Fitur Utama
 
 | Fitur | Deskripsi | Keunggulan |
 |-------|-----------|------------|
-| **Peta Lowongan Interaktif** | Split view daftar + peta yang tersinkron: hover pin menyorot job card, dan sebaliknya. Tombol "lokasi saya" untuk memusatkan peta. | Pencari kerja langsung melihat konteks geografis lowongan, bukan menebak dari teks alamat. |
-| **Radius Search Berbasis PostGIS** | Filter lowongan berdasarkan titik + radius, dieksekusi sebagai query spasial di database dan dibatasi ke bounding box viewport. | Akurat sampai level meter dan tetap cepat karena data yang dikirim hanya sebatas layar yang terlihat. |
-| **Verifikasi Legalitas Perusahaan** | Status `pending / verified / rejected`; perusahaan yang belum terverifikasi **tidak bisa** memasang lowongan. Ada panel admin untuk approve/reject. | Menutup celah utama lowongan penipuan yang jadi masalah kronis portal kerja. |
-| **Sistem Lamaran Terlacak** | Apply sekali klik dengan pencegahan lamaran ganda, status tracking, halaman "Lamaran Saya" bagi seeker, dan daftar pelamar bagi perusahaan. | Kedua sisi tahu posisi lamaran tanpa perlu saling mengejar lewat kanal luar. |
+| **Peta Lowongan Interaktif** | Daftar dan peta yang tersinkron: memilih pin membuka panel detail, dan saringan kategori/tipe/gaji bekerja pada keduanya. Tombol "Lokasi Saya" memusatkan peta. | Pencari kerja langsung melihat konteks geografis lowongan, bukan menebak dari teks alamat. |
+| **Radius Search Berbasis PostGIS** | Fungsi `lowongan_dekat(lat, lng, radius)` menjalankan `ST_DWithin` pada kolom `geography` beracuan index GiST, mengembalikan lowongan aktif beserta jaraknya dalam meter, terurut dari yang terdekat. | Akurasi geodesik sampai level meter, dan query tidak memindai seluruh tabel. |
+| **Sistem Lamaran Terlacak Dua Arah** | Pencari kerja melamar sekali klik; employer melihat **nama pelamar** di dasbornya dan mengubah status (Terkirim → Dilihat → Diproses → Diterima/Belum cocok); perubahan itu langsung terbaca pelamar di halaman "Lamaran Saya". | Kedua sisi tahu posisi lamaran tanpa saling mengejar lewat kanal luar. |
+| **Keamanan Baris demi Baris (RLS)** | Setiap tabel dijaga Row Level Security PostgreSQL: pelamar hanya melihat lamarannya sendiri, employer hanya melihat lamaran ke lowongan miliknya, dan status hanya bisa diubah pemilik lowongan. | Aturan akses ditegakkan database, sehingga tetap berlaku walau seseorang memanggil API langsung tanpa lewat antarmuka. |
 
 ### Fitur Tambahan
 
-- **Marker Clustering** - Pin digabung otomatis saat zoom-out agar peta tetap terbaca di area padat.
-- **Map Picker + Geocoding Otomatis** - Perusahaan mengetik alamat, sistem menaruh pin lewat Nominatim, dan pin bisa dikoreksi manual untuk alamat gang/jalan kecil.
-- **Profil & CV Terstruktur** - Unggah CV tervalidasi, disimpan di object storage privat dan diakses lewat *signed URL* berumur pendek.
-- **Mobile-First** - Peta full-screen + bottom sheet di layar kecil; dikerjakan bersamaan dengan versi desktop, bukan sebagai polish belakangan.
-- **Login Google (OAuth)** - Pendaftaran tanpa password, dilanjutkan onboarding pemilihan peran dan persetujuan PDP.
-- **Desain Aksesibel** - Design system *Accessible & Ethical*, kontras WCAG AA+, ritme spasi 8pt, `100dvh` untuk viewport mobile.
+- **Marker Clustering** — pin digabung otomatis saat zoom-out (supercluster) agar peta tetap terbaca di area padat.
+- **Dua Jalur Masuk** — username + password, serta Google OAuth. Tombol Google **muncul sendiri** begitu providernya dinyalakan di backend, karena aplikasi menanyakan penyedia aktif saat dimuat.
+- **Peta Tidak Pernah Kosong** — 30 lowongan contoh disertakan dari sisi klien dan digabung dengan lowongan sungguhan dari database, sehingga peta tetap terisi bahkan bila backend bermasalah.
+- **Penanda Verifikasi Perusahaan** — lowongan dari perusahaan terverifikasi diberi penanda; lowongan yang belum terverifikasi **tetap tayang** dengan pin bergaris putus dan peringatan. Verifikasi di JOBARTA adalah pembeda kepercayaan, bukan gerbang tayang — kalau ia jadi gerbang, employer baru melihat kerjanya menghilang dan tidak pernah kembali.
+- **Mobile-First** — peta full-screen + bottom sheet di layar kecil, dikerjakan bersamaan dengan versi desktop.
+- **Desain Aksesibel** — design system kustom, kontras WCAG AA+, ritme spasi 8pt, `100dvh` untuk viewport mobile.
+
+---
+
+## ⚠️ Batasan yang Disadari
+
+Bagian ini sengaja ditulis. Untuk tenggat yang pendek, kami memilih menyelesaikan alur inti sampai benar-benar berjalan daripada menyebar usaha ke banyak fitur setengah jadi.
+
+| Batasan | Keadaan sekarang | Kenapa ditunda |
+|---|---|---|
+| **Berkas CV** | Hanya metadata (nama berkas, ukuran) yang disimpan; berkasnya sendiri tidak diunggah | Butuh object storage + signed URL. Alur lamaran sudah bisa dibuktikan tanpa itu |
+| **Profil & verifikasi perusahaan** | Masih tersimpan di perangkat masing-masing; tombol verifikasi bersifat simulasi | Menaikkan penanda terverifikasi untuk semua orang butuh peran admin, di luar cakupan v1 |
+| **Google OAuth** | Provider belum dikonfigurasi; tombolnya otomatis disembunyikan | Jalur username + password sudah menutup kebutuhan masuk |
+| **Geocoding alamat** | Lokasi ditentukan dengan menaruh pin di peta, bukan dari mengetik alamat | Nominatim membatasi ±1 permintaan/detik dan melarang pemakaian produksi tanpa penyesuaian |
+| **Sebagian tes E2E** | 12 dari 41 tes merah | Tes-tes itu menanam sesi palsu di `localStorage`, cara yang berhenti berlaku setelah autentikasi jadi sungguhan. Semuanya hijau saat dijalankan tanpa backend |
 
 ---
 
@@ -98,52 +115,51 @@ Pencarian berbasis jarak dijalankan di level database dengan **PostgreSQL + Post
 ### Screenshot Aplikasi
 
 <div align="center">
-  <img src="[URL_SCREENSHOT_1]" alt="Homepage" width="800"/>
-  <p><em>Homepage - Landing dan entry point pencarian</em></p>
+  <img src="[URL_SCREENSHOT_1]" alt="Halaman Peta" width="800"/>
+  <p><em>Halaman Peta — daftar lowongan + peta dengan radius search</em></p>
 
-  <img src="[URL_SCREENSHOT_2]" alt="Halaman Peta" width="800"/>
-  <p><em>Halaman Peta - Split view daftar lowongan + peta dengan radius search</em></p>
+  <img src="[URL_SCREENSHOT_2]" alt="Pasang Lowongan" width="800"/>
+  <p><em>Pasang Lowongan — form dengan pemilih titik di peta</em></p>
 
-  <img src="[URL_SCREENSHOT_3]" alt="Posting Lowongan" width="800"/>
-  <p><em>Posting Lowongan - Form dengan map picker dan geocoding otomatis</em></p>
+  <img src="[URL_SCREENSHOT_3]" alt="Dasbor Perusahaan" width="800"/>
+  <p><em>Dasbor Perusahaan — daftar pelamar dan pengelolaan status lamaran</em></p>
 </div>
-
-### Video Demo
-
-📹 **[Link Video Demo](https://[URL_VIDEO])** _(opsional)_
 
 ---
 
 ## 🛠️ Teknologi
 
+Arsitektur JOBARTA sengaja **tanpa server aplikasi sendiri**. Frontend berbicara langsung ke PostgreSQL lewat API otomatis Supabase, dan seluruh aturan akses ditegakkan Row Level Security di database.
+
 ### Tech Stack
 
 #### Frontend
+
 ```
-Framework    : React.js (Vite)
-UI Library   : CSS (design system kustom, ritme 8pt, WCAG AA+)
-Peta         : react-leaflet + supercluster (clustering)
+Framework    : React 19 + Vite
+Routing      : react-router-dom 7
+UI           : CSS kustom (design system, ritme 8pt, WCAG AA+)
+Peta         : react-leaflet 5 + leaflet 1.9 + supercluster 9
 Font         : Lexend (heading) / Source Sans 3 (body)
 ```
 
-#### Backend
+#### Backend (Supabase)
+
 ```
-Runtime      : Node.js
-Arsitektur   : Modular monolith (auth, jobs, geo, users, chat)
 Database     : PostgreSQL + PostGIS - geography(Point,4326) + index GiST
-Auth         : OAuth Google via Supabase Auth (RBAC lewat RLS Postgres)
-Storage      : Supabase Storage - bucket privat + signed URL
-Cache/Queue  : Redis
-Real-time    : Socket.io (Fase 4)
+Akses data   : PostgREST (API otomatis Supabase) + RPC untuk query spasial
+Autentikasi  : Supabase Auth - username/password, dan Google OAuth (belum aktif)
+Otorisasi    : Row Level Security PostgreSQL, bukan pengecekan di sisi klien
+Klien        : @supabase/supabase-js 2
 ```
 
 #### DevOps & Tools
+
 ```
-Deployment   : Vercel (staging + production)
-CI/CD        : GitHub Actions
-Monitoring   : Sentry
-Backup       : Backup database harian otomatis (diuji restore)
-Peta/Geocode : OpenStreetMap tiles + Nominatim
+Deployment   : Vercel
+Testing      : Playwright (E2E)
+Linting      : Oxlint
+Peta         : OpenStreetMap tiles
 ```
 
 ### Alasan Pemilihan Teknologi
@@ -151,88 +167,106 @@ Peta/Geocode : OpenStreetMap tiles + Nominatim
 | Teknologi | Alasan Pemilihan |
 |-----------|------------------|
 | **PostgreSQL + PostGIS** | Inti produk adalah pencarian berbasis jarak. PostGIS memberi tipe `geography` dan index GiST sehingga query radius berjalan di database dengan akurasi geodesik — jauh lebih cepat dan benar dibanding menghitung jarak di sisi aplikasi. |
-| **OpenStreetMap + Nominatim** | Bebas biaya lisensi dan bebas vendor lock-in, penting untuk proyek yang harus bisa berjalan tanpa anggaran API peta. Konsekuensinya (rate limit ±1 req/detik) ditangani lewat debounce, cache Redis, dan opsi koreksi pin manual. |
+| **Supabase tanpa server aplikasi sendiri** | Tim tiga orang dengan tenggat pendek. Menghapus satu lapisan yang harus ditulis, di-deploy, dan diamankan berarti seluruh waktu bisa dipakai untuk alur produk. Konsekuensinya aturan akses **wajib** ditulis sebagai RLS — dan itu justru lebih aman: aturannya tetap berlaku walau seseorang memanggil API langsung. |
 | **React + react-leaflet** | Peta interaktif dengan ratusan pin butuh rendering deklaratif dan kontrol state yang ketat; react-leaflet memberi jembatan langsung ke Leaflet tanpa membungkusnya berlebihan, dan supercluster menjaga performa saat zoom-out. |
-| **Modular monolith (Node.js)** | Tim kecil (3 orang). Batas modul yang jelas memberi kerapian microservice tanpa ongkos operasional deployment terpisah. |
-| **Supabase (Auth + Storage)** | OAuth Google, Row Level Security, dan bucket privat dengan signed URL tersedia langsung — melindungi data CV (kewajiban UU PDP No. 27/2022) tanpa membangun layanan auth dan storage sendiri. |
-
-### Dependencies Utama
-
-```json
-{
-  "dependencies": {
-    "react": "^18.x",
-    "react-leaflet": "^4.x",
-    "leaflet": "^1.9.x",
-    "supercluster": "^8.x",
-    "express": "^4.x",
-    "pg": "^8.x",
-    "@supabase/supabase-js": "^2.x",
-    "ioredis": "^5.x",
-    "zod": "^3.x"
-  }
-}
-```
+| **OpenStreetMap** | Bebas biaya lisensi dan bebas vendor lock-in, penting untuk proyek yang harus bisa berjalan tanpa anggaran API peta. |
 
 ---
 
 ## 🏗️ Arsitektur Sistem
 
-### System Architecture
-
 ```mermaid
 flowchart TD
-    U["Pencari Kerja / Perusahaan<br/>(Browser - Mobile-first)"]
-    FE["Frontend - React + Vite<br/>react-leaflet + supercluster"]
-    OSM["OpenStreetMap<br/>tiles + Nominatim geocoding"]
-    API["Backend - Node.js<br/>modular monolith: auth, jobs, geo, users"]
-    SB["Supabase<br/>Auth (OAuth Google) + Storage (CV, bucket privat)"]
-    DB[("PostgreSQL + PostGIS<br/>geography(Point,4326) + GiST")]
-    RD[("Redis<br/>cache geocoding, rate limit, queue")]
+    U["👤 Pencari Kerja / Perusahaan<br/>(Browser · Mobile-first)"]
+    FE["Frontend — React 19 + Vite<br/>react-leaflet · supercluster"]
+    OSM["🗺️ OpenStreetMap<br/>tiles"]
+    AUTH["Supabase Auth<br/>username/password · Google OAuth"]
+    REST["PostgREST + RPC<br/>API otomatis Supabase"]
+    RLS{{"Row Level Security<br/>penjaga tiap baris"}}
+    DB[("PostgreSQL + PostGIS<br/>profiles · lowongan · lamaran<br/>geography(Point,4326) · GiST")]
 
     U --> FE
-    FE -->|tiles + geocode| OSM
-    FE -->|REST API| API
-    FE -->|login| SB
-    API --> DB
-    API --> RD
-    API --> SB
+    FE -->|tiles| OSM
+    FE -->|login / sesi| AUTH
+    FE -->|baca / tulis data| REST
+    AUTH -.->|JWT: auth.uid| RLS
+    REST --> RLS
+    RLS --> DB
 ```
 
-### Database Schema
-
-> ⚠️ ERD saat ini sedang diregenerasi — versi lama masih menggambarkan auth email + password, sedangkan stack sudah pindah ke OAuth Google.
-
-```
-[ERD final menyusul — entitas inti: users, seeker_profiles, companies,
- company_members, jobs, applications, regions, conversations, messages]
-```
+Perhatikan posisi RLS: **setiap** permintaan data melewatinya, dan identitas yang dipakainya berasal dari JWT terbitan Supabase Auth — bukan dari nilai yang dikirim frontend. Itulah sebabnya tidak adanya server aplikasi tidak membuat data terbuka.
 
 ### Folder Structure
 
 ```
-project-root/
-├── apps/
-│   ├── web/                # Frontend React + Vite
-│   │   ├── src/
-│   │   │   ├── components/ # Komponen reusable (MapView, JobCard, dll)
-│   │   │   ├── pages/      # Halaman
-│   │   │   ├── hooks/      # Custom hooks
-│   │   │   ├── services/   # Klien API
-│   │   │   └── styles/     # Design system & token
-│   │   └── public/
-│   └── api/                # Backend Node.js (modular monolith)
-│       └── src/modules/
-│           ├── auth/       # OAuth, sesi, RBAC
-│           ├── jobs/       # Lowongan & lamaran
-│           ├── geo/        # Query PostGIS, geocoding, cache
-│           ├── users/      # Profil seeker & perusahaan
-│           └── chat/       # Socket.io (Fase 4)
-├── db/
-│   ├── migrations/         # Migrasi skema + PostGIS
-│   └── seeds/              # Data wilayah DKI & lowongan pilot
-├── tests/
-└── docs/
+JOBARTA/
+├── web/                        # Aplikasi (Vite + React)
+│   ├── src/
+│   │   ├── halaman/            # 13 layar: Landing, Masuk, Daftar, Peta,
+│   │   │                       #   Profil, LamaranSaya, Perusahaan, dll
+│   │   ├── components/         # PetaLowongan, KartuLowongan, PanelDetail
+│   │   ├── komponen-ui/        # Komponen dasar & navigasi
+│   │   ├── konteks/            # Auth.jsx - seluruh logika sesi
+│   │   ├── lib/                # Akses data & aturan bisnis
+│   │   │   ├── supabase.js     #   klien + deteksi mode lokal
+│   │   │   ├── lowongan-db.js  #   akses tabel lowongan
+│   │   │   ├── lowonganku.js   #   aturan bisnis lowongan
+│   │   │   ├── lamaran.js      #   lamaran, dua sisi
+│   │   │   └── penyedia.js     #   deteksi provider login aktif
+│   │   └── data/lowongan.js    # 30 lowongan contoh DKI Jakarta
+│   ├── supabase/               # Skema database - jalankan berurutan
+│   │   ├── schema.sql          #   profiles, trigger, RLS, RPC username
+│   │   ├── schema-lowongan.sql #   lowongan, PostGIS, RLS, lowongan_dekat()
+│   │   ├── schema-lamaran.sql  #   lamaran, RLS dua sisi
+│   │   └── schema-perbaikan-01.sql
+│   └── tes/                    # Spesifikasi Playwright
+└── README.md
+```
+
+---
+
+## 🔐 Model Data & Keamanan
+
+JOBARTA tidak punya endpoint REST buatan sendiri; tabel diakses lewat PostgREST dan query spasial lewat RPC. Karena itu **kebijakan RLS adalah dokumentasi API yang sesungguhnya** — ia yang menentukan siapa boleh melihat dan mengubah apa.
+
+### Tabel
+
+| Tabel | Isi | Catatan desain |
+|---|---|---|
+| `profiles` | Identitas pengguna, peran (`seeker`/`employer`), jejak persetujuan PDP | Baris dibuat **otomatis oleh trigger** saat akun auth lahir, bukan oleh klien — klien bisa gagal di tengah jalan dan meninggalkan akun tanpa identitas |
+| `lowongan` | Lowongan beserta titik lokasinya | Kolom `geog` **generated always** dari lat/lng, sehingga tidak mungkin tidak sinkron dengan alamat yang ditampilkan |
+| `lamaran` | Lamaran yang menghubungkan pelamar dan lowongan | `unique (pelamar, lowongan_id)` menegakkan "sekali lamar" di database, karena pemeriksaan di klien kalah oleh dua ketukan cepat |
+
+### Kebijakan RLS
+
+| Aturan | Ditegakkan sebagai |
+|---|---|
+| Lowongan aktif boleh dibaca **siapa saja**, termasuk pengunjung belum login | `using (aktif or auth.uid() = pemilik)` — peta harus terisi sebelum orang mendaftar, dan pemilik tetap melihat lowongannya yang sudah ditutup |
+| Hanya pemilik yang boleh mengubah/menghapus lowongannya | `auth.uid() = pemilik` pada update & delete |
+| Melamar hanya untuk diri sendiri, dan hanya ke lowongan yang masih tayang | Syarat kedua mencegah lamaran lewat API ke lowongan tertutup — hal yang mustahil lewat antarmuka |
+| Pelamar melihat lamarannya; employer melihat lamaran ke lowongannya | Satu policy dengan `exists (...)` ke tabel `lowongan` |
+| **Status lamaran hanya boleh diubah pemilik lowongan** | Kalau pelamar boleh, siapa pun bisa menandai dirinya sendiri "diterima" |
+| Employer boleh membaca profil orang yang melamar kepadanya | Policy sempit di `profiles`. Alternatifnya — menyalin nama ke baris lamaran — ditolak karena salinan dari klien bisa dipalsukan. Bonusnya: akses berakhir sendiri saat lamaran dibatalkan |
+
+### Pencarian Spasial
+
+```sql
+-- Lowongan aktif dalam radius, beserta jaraknya, terurut terdekat.
+-- ST_DWithin pada kolom geography memakai index GiST, jadi tidak memindai
+-- seluruh tabel.
+select * from public.lowongan_dekat(
+  p_lat      => -6.1754,   -- titik acuan pengguna
+  p_lng      => 106.8272,
+  p_radius_m => 5000
+);
+```
+
+```javascript
+// Dari sisi klien
+const { data } = await supabase.rpc('lowongan_dekat', {
+  p_lat: -6.1754, p_lng: 106.8272, p_radius_m: 5000,
+});
+// -> [{ posisi: 'Barista', jarak_m: 1301.08, ... }]
 ```
 
 ---
@@ -241,226 +275,126 @@ project-root/
 
 ### Prerequisites
 
-Pastikan Anda telah menginstall:
-- **Node.js** (v18.x atau lebih tinggi)
-- **npm** / **yarn** / **pnpm**
-- **PostgreSQL** (v15 atau lebih tinggi) dengan ekstensi **PostGIS**
-- **Redis**
+- **Node.js** v18 atau lebih tinggi
+- **npm**
+- Akun **Supabase** (gratis) — PostgreSQL dan PostGIS sudah tersedia di dalamnya, tidak perlu memasang database sendiri
 - **Git**
 
-### Langkah Instalasi
-
-#### 1️⃣ Clone Repository
+### 1️⃣ Clone Repository
 
 ```bash
 git clone https://github.com/kikisdadw2/jobarta.git
-cd jobarta
+cd jobarta/web
 ```
 
-#### 2️⃣ Install Dependencies
+### 2️⃣ Install Dependencies
 
 ```bash
 npm install
 ```
 
-#### 3️⃣ Setup Environment Variables
+### 3️⃣ Siapkan Database
 
-Buat file `.env` di root directory:
+Buka project Supabase → **SQL Editor** → jalankan berkas berikut **berurutan**:
 
-```env
-# Database
-DATABASE_URL="[connection_string]"
-
-# Supabase (Auth + Storage)
-SUPABASE_URL="[supabase_project_url]"
-SUPABASE_ANON_KEY="[supabase_anon_key]"
-SUPABASE_SERVICE_ROLE_KEY="[supabase_service_role_key]"
-
-# Redis
-REDIS_URL="[redis_connection_string]"
-
-# Geocoding (Nominatim mewajibkan User-Agent identitas aplikasi)
-NOMINATIM_BASE_URL="https://nominatim.openstreetmap.org"
-NOMINATIM_USER_AGENT="JOBARTA/1.0 ([email_kontak])"
-
-# Other configs
-NODE_ENV="development"
-PORT=3000
+```
+web/supabase/schema.sql              # profiles, trigger, RLS
+web/supabase/schema-lowongan.sql     # lowongan + PostGIS + RPC
+web/supabase/schema-lamaran.sql      # lamaran + RLS dua sisi
+web/supabase/schema-perbaikan-01.sql # perbaikan trigger
 ```
 
-> Semua nilai di atas adalah placeholder. Simpan kredensial asli sebagai environment variable, jangan di-commit ke repository.
+Semuanya aman dijalankan berulang. Lalu buka **Authentication → Sign In / Providers → Email** dan **matikan "Confirm email"**.
 
-#### 4️⃣ Setup Database
+> Login lewat username memakai email sintetis internal `<username>@pengguna.jobarta.local` yang tidak dapat menerima surat. Bila konfirmasi email aktif, setiap akun akan tersangkut permanen — dan gejalanya menyesatkan, karena pesan yang muncul adalah "Username atau password salah".
+
+### 4️⃣ Environment Variables
 
 ```bash
-# Aktifkan ekstensi PostGIS lalu jalankan migrasi
-npm run db:migrate
-
-# Seed data wilayah DKI + lowongan area pilot
-npm run db:seed
+cp .env.example .env.local
 ```
 
-#### 5️⃣ Run Development Server
+Isi dari dashboard Supabase (tombol **Connect** → App Frameworks → React/Vite):
+
+```env
+VITE_SUPABASE_URL="https://[project].supabase.co"
+VITE_SUPABASE_PUBLISHABLE_KEY="[publishable_key]"
+```
+
+> 🔴 Hanya kunci **publishable** (atau `anon` pada project lama). Kunci `secret`/`service_role` melewati seluruh RLS dan tidak boleh masuk ke kode klien — apa pun yang berprefix `VITE_` berakhir sebagai teks polos di dalam bundle JavaScript.
+>
+> Vite membaca variabel ini **saat build**, bukan saat halaman dibuka: setelah mengubahnya, dev server harus di-restart dan hosting harus di-redeploy.
+
+### 5️⃣ Jalankan
 
 ```bash
 npm run dev
 ```
 
-Aplikasi akan berjalan di `http://localhost:3000`
+Aplikasi berjalan di `http://localhost:5173`.
+
+> Tanpa kredensial Supabase, aplikasi **tetap berjalan** dalam mode lokal: sesi ditandai di `localStorage` dan password tidak diperiksa. Berguna untuk meninjau antarmuka tanpa backend, tapi bukan autentikasi sungguhan.
 
 ---
 
 ## 🚀 Penggunaan
 
-### Menjalankan Aplikasi
-
 ```bash
-# Development mode
-npm run dev
-
-# Production build
-npm run build
-npm run start
-
-# Run tests
-npm run test
-
-# Linting
-npm run lint
+npm run dev        # Development server
+npm run build      # Build produksi ke dist/
+npm run preview    # Meninjau hasil build
+npm run test       # Tes E2E Playwright
+npm run lint       # Oxlint
 ```
 
-### User Guide
+### Untuk Pencari Kerja
 
-#### Untuk Pencari Kerja
+1. **Daftar / Masuk** — buat akun dengan username dan password, lalu pilih peran "Pencari Kerja" dan setujui kebijakan privasi di onboarding.
+2. **Atur Lokasi & Radius** — tekan "Lokasi Saya" atau tetapkan titik acuan, lalu atur radius sesuai jangkauan harian.
+3. **Jelajahi Peta** — telusuri pin, buka panel detail, atau saring berdasarkan kategori, tipe kerja, dan gaji minimum.
+4. **Melamar** — tekan "Lamar" pada lowongan yang cocok, lalu pantau statusnya di halaman **Lamaran Saya**.
 
-1. **Login**: Masuk dengan akun Google, lalu pilih peran "Pencari Kerja" dan setujui kebijakan privasi di halaman onboarding.
-2. **Atur Lokasi & Radius**: Tetapkan titik acuan (atau tekan "lokasi saya") dan atur radius pencarian sesuai jangkauan harian Anda.
-3. **Jelajahi Peta**: Telusuri pin lowongan; hover pin untuk menyorot detailnya di daftar, atau gunakan filter kategori.
-4. **Melamar**: Buka lowongan, tekan "Lamar", unggah CV saat diminta pertama kali. Pantau statusnya di halaman "Lamaran Saya".
+### Untuk Perusahaan
 
-#### Untuk Perusahaan
-
-1. **Login & Buat Profil Perusahaan**: Masuk dengan Google, pilih peran "Perusahaan", lengkapi profil, dan ajukan dokumen legalitas untuk verifikasi.
-2. **Menunggu Verifikasi**: Posting lowongan baru terbuka setelah status berubah menjadi `verified`.
-3. **Posting Lowongan**: Isi form, ketik alamat untuk geocoding otomatis, lalu **koreksi pin secara manual** bila lokasi berada di gang atau jalan kecil.
-4. **Kelola Pelamar**: Tinjau daftar pelamar dan perbarui status lamaran.
-
-#### Untuk Admin
-
-1. **Akses Admin Panel**: Login dengan akun berperan admin.
-2. **Verifikasi Perusahaan**: Tinjau dokumen legalitas, lalu approve atau reject pengajuan.
-3. **Moderasi**: Tindaklanjuti laporan lowongan mencurigakan.
-
----
-
-## 📚 API Documentation
-
-### Base URL
-
-```
-Development: http://localhost:3000/api
-Production:  https://[domain]/api
-```
-
-### Endpoints
-
-#### Authentication
-
-```http
-GET  /api/auth/google        # Mulai OAuth Google
-GET  /api/auth/callback      # Callback OAuth
-POST /api/auth/onboarding    # Pilih peran + consent PDP
-POST /api/auth/logout
-GET  /api/auth/me
-```
-
-#### Jobs
-
-```http
-GET    /api/jobs                # Daftar lowongan (mendukung filter)
-GET    /api/jobs/nearby         # Radius search - params: lat, lng, radius, bbox
-GET    /api/jobs/:id
-POST   /api/jobs                # Buat lowongan (perusahaan verified saja)
-PUT    /api/jobs/:id
-DELETE /api/jobs/:id
-```
-
-#### Applications
-
-```http
-GET    /api/applications/me     # Lamaran milik seeker
-GET    /api/jobs/:id/applicants # Daftar pelamar (pemilik lowongan)
-POST   /api/jobs/:id/apply      # Melamar (dicegah bila sudah pernah)
-PATCH  /api/applications/:id    # Perbarui status lamaran
-```
-
-#### Geo
-
-```http
-GET /api/geo/geocode?q=[alamat] # Geocoding via Nominatim (debounce + cache Redis)
-GET /api/geo/regions            # Wilayah DKI (kecamatan/kelurahan)
-```
-
-### Example Request
-
-```javascript
-// Radius search - cari lowongan dalam 5 km dari titik pengguna
-const params = new URLSearchParams({
-  lat: '-6.2846',
-  lng: '106.8451',
-  radius: '5000', // meter
-  bbox: '106.80,-6.32,106.89,-6.25'
-});
-
-const response = await fetch(`/api/jobs/nearby?${params}`, {
-  headers: { 'Content-Type': 'application/json' }
-});
-const jobs = await response.json();
-```
-
-📖 **[Dokumentasi API Lengkap](./docs/API.md)** _(opsional)_
+1. **Daftar / Masuk**, pilih peran "Perusahaan", lengkapi profil.
+2. **Pasang Lowongan** — isi form dan **taruh pin lokasi di peta**. Titik itulah yang dipakai pencari kerja menghitung jarak.
+3. **Kelola Pelamar** — dasbor menampilkan setiap lowongan beserta nama pelamarnya. Ubah status lamaran lewat menu di sebelah nama; perubahan langsung terlihat oleh pelamar.
+4. **Tutup Lowongan** — lowongan yang ditutup hilang dari peta publik tapi tetap ada di dasbor Anda beserta riwayat pelamarnya.
 
 ---
 
 ## 🧪 Testing
 
-### Running Tests
-
 ```bash
-# Unit tests
-npm run test
-
-# Integration tests
-npm run test:integration
-
-# E2E tests
-npm run test:e2e
-
-# Test coverage
-npm run test:coverage
+npm run test       # Seluruh suite
+npm run test:ui    # Mode interaktif Playwright
 ```
 
-### Pengujian Tambahan
+Pengujian memakai **Playwright** (end-to-end, Chromium), mencakup alur autentikasi, peta dan saringan, alur melamar, sisi perusahaan, serta responsivitas pada 375px dan 1440px.
 
-- **Black box testing** terhadap alur inti (posting → temukan → lamar → kelola status).
-- **Kuesioner kepuasan pengguna** (Likert/SUS) dari peserta closed beta.
-- **Uji performa perangkat rendah**: dijalankan di HP Android kelas menengah-bawah dengan koneksi lambat.
-- **Uji akurasi geocoding**: 40–50 alamat asli di area pilot; bila deviasi >200 m terjadi pada >20% sampel, koreksi pin manual diwajibkan.
+**Hasil terakhir: 29 lolos, 12 gagal dari 41 tes.**
 
-### Test Coverage
+Kedua belas kegagalan itu berasal dari satu sebab yang sama: tes ditulis saat data masih tersimpan di `localStorage`, sehingga ia menanam sesi dan lamaran palsu ke sana. Cara itu berhenti berlaku setelah autentikasi dan penyimpanan menjadi sungguhan. Dijalankan tanpa kredensial Supabase — yaitu pada mode lokal yang diasumsikan tes-tes itu — **39 dari 41 lolos**. Memperbaikinya berarti menulis ulang helper login agar benar-benar mendaftar ke Supabase; pekerjaan itu dijadwalkan setelah tenggat.
 
-```
-Statements   : XX%
-Branches     : XX%
-Functions    : XX%
-Lines        : XX%
-```
+### Verifikasi Keamanan
+
+Kebijakan RLS diuji langsung terhadap API dengan dua akun sungguhan, bukan lewat antarmuka:
+
+| Skenario | Hasil yang diharapkan | Hasil |
+|---|---|---|
+| Employer melihat pelamar lowongannya | Nama pelamar terbaca | ✅ |
+| Employer mengubah status lamaran | Tersimpan, terlihat pelamar | ✅ |
+| Pelamar menandai dirinya sendiri "diterima" | Ditolak | ✅ |
+| Pengunjung anonim membaca tabel lamaran | Nol baris | ✅ |
+| Pelamar membaca profil employer | Nol baris | ✅ |
+| Melamar dua kali ke lowongan sama | Ditolak duplikat | ✅ |
+| Lowongan ditutup | Hilang dari peta publik, tetap di dasbor pemilik | ✅ |
 
 ---
 
 ## 📄 Lisensi
 
-Proyek ini dilisensikan di bawah [MIT License](LICENSE) - lihat file LICENSE untuk detail lebih lanjut.
+Proyek ini dilisensikan di bawah [MIT License](LICENSE) — lihat file LICENSE untuk detail lebih lanjut.
 
 Data peta © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), tersedia di bawah lisensi ODbL.
 
@@ -468,6 +402,6 @@ Data peta © [OpenStreetMap contributors](https://www.openstreetmap.org/copyrigh
 
 <div align="center">
 
-  **Made with ❤️ by [Nama Tim] for ITECHNO CUP 2026**
+  **Made with ❤️ by Curisous Cats for ITECHNO CUP 2026**
 
 </div>
