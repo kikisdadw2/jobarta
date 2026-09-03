@@ -4,7 +4,7 @@ import NavPerusahaan from "../komponen-ui/NavPerusahaan";
 import { Terverifikasi } from "../komponen-ui/Dasar";
 import { bacaLowonganku, perbaruiLowongan, hapusLowongan } from "../lib/lowonganku";
 import { bacaPerusahaan, STATUS_VERIFIKASI } from "../lib/perusahaan";
-import { bacaLamaran } from "../lib/lamaran";
+import { lamaranMasuk, ubahStatusLamaran, STATUS_LAMARAN } from "../lib/lamaran";
 import { formatGaji } from "../lib/format";
 
 /* Dasbor perusahaan — halaman pertama yang dilihat employer setiap kali masuk.
@@ -52,10 +52,34 @@ export default function Perusahaan() {
   const perusahaan = bacaPerusahaan();
   const status = STATUS_VERIFIKASI[perusahaan.status] ?? STATUS_VERIFIKASI.belum;
 
-  /* Jumlah pelamar dihitung dari lamaran yang tersimpan di perangkat ini.
-   * Di produksi angkanya datang dari `applications` milik server; bentuk yang
-   * dibaca komponen tidak berubah. */
-  const lamaran = bacaLamaran();
+  /* Lamaran yang MASUK ke lowongan milik employer ini, dari server.
+   * Sebelumnya angka ini dihitung dari localStorage perangkat yang sedang
+   * dipakai — artinya employer selalu melihat nol pelamar, berapa pun orang
+   * yang melamar. RLS di schema-lamaran.sql yang membatasi agar hanya lamaran
+   * ke lowongan miliknya yang terbaca. */
+  const [lamaran, setLamaran] = useState([]);
+  useEffect(() => {
+    let batal = false;
+    lamaranMasuk()
+      .then((d) => !batal && setLamaran(d))
+      .catch(() => {}); // daftar pelamar gagal dimuat: dasbor tetap tampil
+    return () => { batal = true; };
+  }, []);
+
+  /* Status diubah OPTIMIS di layar lalu dikirim ke server. Kalau gagal, ia
+   * dikembalikan — employer tidak boleh mengira sudah menandai "diterima"
+   * padahal pelamar tak pernah melihat perubahannya. */
+  async function gantiStatus(idLamaran, status) {
+    const sebelum = lamaran;
+    setLamaran((d) => d.map((la) => (la.id === idLamaran ? { ...la, status } : la)));
+    try {
+      await ubahStatusLamaran(idLamaran, status);
+    } catch {
+      setLamaran(sebelum);
+      setGalat("Status pelamar belum tersimpan. Periksa koneksi lalu coba lagi.");
+    }
+  }
+
   function pelamar(idLowongan) {
     return lamaran.filter((l) => l.lowonganId === idLowongan).length;
   }
@@ -163,6 +187,48 @@ export default function Perusahaan() {
                             sebenarnya terjadi biasanya cuma "masih baru". */}
                         {jumlah === 0 ? "Belum ada pelamar" : `${jumlah} pelamar`}
                       </p>
+
+                      {/* Daftar pelamar ditampilkan LANGSUNG, tanpa perlu masuk
+                          ke halaman lain: employer UMKM membuka dasbor ini untuk
+                          satu pertanyaan saja — "ada yang melamar tidak?" —
+                          dan jawabannya tidak layak disembunyikan di balik klik.
+
+                          Nama bisa kosong bila pelamar belum mengisi profil;
+                          username selalu ada, jadi ia yang jadi cadangan. */}
+                      {jumlah > 0 && (
+                        <ul className="pelamar">
+                          {lamaran
+                            .filter((la) => la.lowonganId === l.id)
+                            .map((la) => (
+                              <li key={la.id} className="pelamar__baris">
+                                <span className="pelamar__nama">
+                                  {la.pelamar.nama || la.pelamar.username || "Pelamar"}
+                                  {la.pelamar.domisili && (
+                                    <span className="pelamar__domisili">
+                                      {" "}&middot; {la.pelamar.domisili}
+                                    </span>
+                                  )}
+                                </span>
+                                <label className="pelamar__status">
+                                  <span className="sr-only">
+                                    Status lamaran{" "}
+                                    {la.pelamar.nama || la.pelamar.username}
+                                  </span>
+                                  <select
+                                    value={la.status}
+                                    onChange={(e) => gantiStatus(la.id, e.target.value)}
+                                  >
+                                    {Object.entries(STATUS_LAMARAN).map(([k, v]) => (
+                                      <option key={k} value={k}>
+                                        {v.label}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </label>
+                              </li>
+                            ))}
+                        </ul>
+                      )}
                     </div>
 
                     <div className="riwayat__aksi">

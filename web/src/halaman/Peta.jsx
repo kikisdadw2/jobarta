@@ -64,7 +64,16 @@ export default function Peta() {
   const [terpilih, setTerpilih] = useState(
     () => lowongan.find((l) => l.id === param.get("lowongan")) || null
   );
-  const [dilamar, setDilamar] = useState(idLamaran);
+  const [dilamar, setDilamar] = useState(() => new Set());
+  const [lamaranku, setLamaranku] = useState([]);
+  useEffect(() => {
+    let batal = false;
+    idLamaran().then((s2) => !batal && setDilamar(s2));
+    bacaLamaran()
+      .then((d) => !batal && setLamaranku(d))
+      .catch(() => {}); // belum masuk: tidak ada riwayat untuk ditampilkan
+    return () => { batal = true; };
+  }, []);
   const [posisiSaya, setPosisiSaya] = useState(null);
   const [statusLokasi, setStatusLokasi] = useState("diam"); // diam | memuat | ditolak
   const [snap, setSnap] = useState("setengah");
@@ -73,6 +82,7 @@ export default function Peta() {
   // Lowongan yang menunggu CV. Diisi saat "Lamar Sekarang" ditekan tanpa CV.
   const [mintaCv, setMintaCv] = useState(null);
   const [mengirim, setMengirim] = useState(null); // id lowongan yang sedang dikirim
+  const [galatLamar, setGalatLamar] = useState(null);
 
   const hasil = useMemo(() => {
     const kata = cari.trim().toLowerCase();
@@ -140,11 +150,19 @@ export default function Peta() {
     // menutup panel atau berpindah halaman dalam jeda itu, timeoutnya ikut mati
     // dan lamarannya hilang tanpa jejak. Jeda di bawah murni untuk tampilan —
     // begitu ada backend, ia digantikan lama panggilan jaringan sungguhan.
-    tambahLamaran(id);
-    setDilamar(idLamaran());
     setMintaCv(null);
     setMengirim(id);
-    setTimeout(() => setMengirim(null), 500);
+    setGalatLamar(null);
+    /* Panggilan jaringan sungguhan menggantikan jeda tampilan yang dulu ada di
+     * sini. Penanda "sudah dilamar" baru dipasang setelah server menerima —
+     * memasangnya lebih dulu akan menampilkan lamaran yang sebenarnya gagal. */
+    tambahLamaran(id)
+      .then((d) => {
+        setLamaranku(d);
+        setDilamar(new Set(d.map((l) => l.lowonganId)));
+      })
+      .catch(() => setGalatLamar("Lamaran belum terkirim. Periksa koneksi lalu coba lagi."))
+      .finally(() => setMengirim(null));
   }
 
   function hapusSaringan() {
@@ -237,6 +255,12 @@ export default function Peta() {
           </p>
         )}
       </div>
+
+      {galatLamar && (
+        <p className="catatan catatan--rusak" role="alert">
+          {galatLamar}
+        </p>
+      )}
 
       <button
         type="button"
@@ -445,7 +469,7 @@ export default function Peta() {
         <PanelDetail
           data={terpilih}
           sudahDilamar={dilamar.has(terpilih.id)}
-          dilamarPada={bacaLamaran().find((l) => l.lowonganId === terpilih.id)?.dilamarPada}
+          dilamarPada={lamaranku.find((l) => l.lowonganId === terpilih.id)?.dilamarPada}
           mengirim={mengirim === terpilih.id}
           sudahMasuk={Boolean(bacaSesi().username)}
           jarakKm={posisiSaya ? jarakKm(posisiSaya, terpilih) : null}

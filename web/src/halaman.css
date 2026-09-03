@@ -408,3 +408,49 @@
   .auth--tunggal .auth__kotak:has(.peran) { text-align: center; }
   .auth--tunggal .peran { grid-template-columns: 1fr 1fr; align-items: start; }
 }
+
+/* Daftar pelamar di dasbor perusahaan.
+   Disarangkan di dalam baris lowongan, jadi ia sengaja dibuat lebih tenang
+   daripada judul lowongannya: garis kiri tipis, bukan kartu tersendiri —
+   kartu di dalam kartu membuat dasbor terbaca berlapis-lapis. */
+.pelamar {
+  list-style: none;
+  margin: var(--sp-2) 0 0;
+  padding: 0 0 0 var(--sp-3);
+  border-left: 2px solid var(--color-border);
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.pelamar__baris {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+
+.pelamar__nama {
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.pelamar__domisili {
+  font-weight: 400;
+  color: var(--color-foreground);
+  opacity: 0.7;
+}
+
+.pelamar__status select {
+  font: inherit;
+  padding: var(--sp-1) var(--sp-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-foreground);
+}
+
+.pelamar__status select:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}

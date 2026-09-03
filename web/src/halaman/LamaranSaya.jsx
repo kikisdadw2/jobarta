@@ -23,7 +23,16 @@ function tanggal(iso) {
 /* Riwayat lamaran. Terbaru di atas: yang paling sering dicek orang adalah
  * lamaran yang baru saja dikirim. */
 export default function LamaranSaya() {
-  const [daftar, setDaftar] = useState(bacaLamaran);
+  const [daftar, setDaftar] = useState([]);
+  const [memuat, setMemuat] = useState(true);
+  useEffect(() => {
+    let batal = false;
+    bacaLamaran()
+      .then((d) => !batal && setDaftar(d))
+      .catch(() => {}) // belum masuk: riwayat kosong, bukan galat
+      .finally(() => !batal && setMemuat(false));
+    return () => { batal = true; };
+  }, []);
   const [petaLowongan, setPetaLowongan] = useState(() => new Map());
   useEffect(() => {
     let batal = false;
@@ -42,7 +51,13 @@ export default function LamaranSaya() {
       <main className="seksi akun">
         <h1 className="seksi__judul">Lamaran Saya</h1>
 
-        {urut.length === 0 ? (
+        {/* Memuat dibedakan dari kosong: pelamar berkoneksi lambat tak boleh
+            membaca "belum ada lamaran" lalu mengira lamarannya hilang. */}
+        {memuat ? (
+          <p className="catatan" role="status">
+            Memuat lamaran kamu…
+          </p>
+        ) : urut.length === 0 ? (
           <div className="kosong">
             <h2>Kamu belum melamar ke mana pun</h2>
             <p>
@@ -92,7 +107,9 @@ export default function LamaranSaya() {
                       <button
                         type="button"
                         className="tautan-aksi tautan-aksi--rusak"
-                        onClick={() => setDaftar(batalkanLamaran(l.lowonganId))}
+                        onClick={() =>
+                          batalkanLamaran(l.lowonganId).then(setDaftar)
+                        }
                       >
                         Batalkan lamaran
                       </button>
