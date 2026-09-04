@@ -6,7 +6,12 @@
    employer tidak pelan-pelan tumbuh jadi design system kedua. Yang ditambah di
    sini cuma yang memang belum pernah ada di sisi seeker. */
 
-.perusahaan { max-width: 760px; }
+/* 🔴 Namanya BUKAN `.perusahaan`. Nama itu sudah dipakai App.css untuk baris
+   logo+nama di panel detail lowongan (`display:flex`), dan ketiga halaman sisi
+   perusahaan memakainya sebagai pembungkus halaman — sehingga seluruh isi
+   halaman ikut jadi flex row dan tiap blok terjepit jadi kolom selebar ~90px.
+   Satu nama kelas untuk dua maksud yang berbeda selalu berakhir begini. */
+.halaman-perusahaan { max-width: 760px; }
 
 /* ---------- Kartu status verifikasi ---------- */
 /* Garis tebal di tepi kiri, bukan seluruh latar berwarna: kartu ini duduk di

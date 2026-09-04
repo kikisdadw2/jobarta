@@ -78,7 +78,7 @@ export default function VerifikasiUsaha() {
     <div className="halaman">
       <NavPerusahaan />
 
-      <main className="seksi perusahaan">
+      <main className="seksi halaman-perusahaan">
         <Link to="/perusahaan" className="tautan-kembali">
           &larr; Kembali ke dasbor
         </Link>

@@ -12,6 +12,13 @@
   --color-accent: #3f6b4f;
   --color-destructive: #9e3b3b;
   --color-warning: #a08b4a;
+  /* Versi gelap KHUSUS TEKS. `--color-warning` di atas hanya mencapai 3.09:1 di
+     atas --color-surface: cukup untuk garis dan isian pin (WCAG minta 3:1 untuk
+     elemen non-teks), tapi gagal untuk teks 13px yang butuh 4.5:1. Badge
+     "Menunggu Verifikasi" memakai ukuran itu. Rona olive-nya dipertahankan
+     supaya identitas palet tidak berubah; yang berubah cuma kegelapannya.
+     Diukur 4.81:1 — lihat tes/audit-ux.spec.js. */
+  --color-warning-teks: #7d6b3a;
   --color-ring: #4b6587;
 
   /* Ritme 8pt */

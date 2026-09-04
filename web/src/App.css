@@ -253,6 +253,8 @@
 
 /* ---------- Kartu ---------- */
 .kartu {
+  /* Jangkar untuk ::after di .kartu__tombol — lihat alasannya di sana. */
+  position: relative;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
@@ -270,6 +272,12 @@
   border-width: 2px;
 }
 
+/* Tombol ini membungkus JUDULNYA saja, jadi sasaran tekannya cuma 309×27px —
+   di bawah minimum 44px, dan menekan nama perusahaan, gaji, atau alamat tidak
+   melakukan apa pun. Di HP orang menekan kartunya, bukan barisan judulnya.
+   ::after di bawah membentangkan area tekan ke seluruh kartu tanpa menyarangkan
+   elemen interaktif di dalam <button> (yang tidak sah). Tidak ada kontrol lain
+   di dalam kartu, jadi tidak ada yang tertutupi. */
 .kartu__tombol {
   display: block;
   width: 100%;
@@ -278,6 +286,24 @@
   border: 0;
   padding: 0;
   min-height: 0;
+}
+
+.kartu__tombol::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+/* Cincin fokus harus melingkari KARTU, bukan barisan judul — kalau tidak,
+   pengguna papan ketik melihat sorotan yang tidak cocok dengan area tekannya. */
+.kartu__tombol:focus-visible {
+  outline: none;
+}
+
+.kartu__tombol:focus-visible::after {
+  outline: 3px solid var(--color-ring);
+  outline-offset: 2px;
 }
 
 .kartu__posisi {
@@ -358,7 +384,7 @@
 
 .badge--menunggu {
   background: transparent;
-  color: var(--color-warning);
+  color: var(--color-warning-teks); /* teks butuh 4.5:1, garis cukup 3:1 */
   border: 1px solid var(--color-warning);
 }
 
@@ -812,4 +838,53 @@
 @media (min-width: 900px) {
   .lokasi { grid-template-columns: 300px 1fr; align-items: start; gap: var(--sp-4); }
   .peta-kecil { height: 180px; margin-bottom: 0; }
+}
+
+/* ---------- Titik "kamu di sini" ---------- */
+/* Lingkaran kecil polos: bentuknya berbeda dari pin tetesan (lowongan) dan dari
+   lingkaran berangka (kluster), jadi maknanya terbaca tanpa membedakan warna.
+   Halo menyatakan "ini bacaan langsung, bukan pin yang dipasang seseorang". */
+.titik-saya {
+  display: grid;
+  place-items: center;
+  /* Leaflet memberi divIcon latar & border bawaan; keduanya harus dicabut. */
+  background: none;
+  border: 0;
+}
+
+.titik-saya__inti {
+  grid-area: 1 / 1;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid #f7f6f2;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+}
+
+.titik-saya__halo {
+  grid-area: 1 / 1;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.28;
+  animation: titik-saya-denyut 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes titik-saya-denyut {
+  0%   { transform: scale(1);   opacity: 0.32; }
+  70%  { transform: scale(2.9); opacity: 0; }
+  100% { transform: scale(2.9); opacity: 0; }
+}
+
+/* Denyut menyampaikan "bacaan langsung", bukan hiasan — tapi ia tidak boleh
+   jadi satu-satunya cara titik ini terbaca. Tanpa gerak, halo tetap ada
+   sebagai cincin diam. */
+@media (prefers-reduced-motion: reduce) {
+  .titik-saya__halo {
+    animation: none;
+    transform: scale(2.1);
+    opacity: 0.18;
+  }
 }

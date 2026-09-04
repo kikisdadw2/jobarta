@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UnggahCv from "../components/UnggahCv";
-import { bacaProfil, simpanProfil, kecilkanFoto, sapaan } from "../lib/profil";
-import { bacaSesi } from "../lib/sesi";
+import { kecilkanFoto, sapaan } from "../lib/profil";
+import { useProfil } from "../lib/useProfil";
+import { useAuth } from "../konteks/useAuth";
 
 /* "Lengkapi Profil" — artboard design-canvas/lengkapi-profil.
  *
@@ -16,15 +17,31 @@ import { bacaSesi } from "../lib/sesi";
  */
 export default function Profil() {
   const navigate = useNavigate();
-  const sesi = bacaSesi();
-  const [profil, setProfil] = useState(bacaProfil);
+  /* Sesi dibaca dari konteks Auth, bukan localStorage: di mode Supabase
+     `bacaSesi()` selalu kosong, jadi sapaan namanya ikut kosong. */
+  const { sesi } = useAuth();
+  const [profil, perbaruiProfil] = useProfil();
   const [galatFoto, setGalatFoto] = useState(null);
   const fotoRef = useRef(null);
 
-  const nama = sapaan(profil.namaLengkap || sesi.fullName);
+  /* Draf terpisah dari profil tersimpan. Kalau setiap ketukan langsung dikirim
+     ke Supabase, mengetik nama jadi belasan permintaan jaringan — dan di 4G
+     yang tersendat urutan datangnya tidak dijamin. Simpan sekali, saat selesai. */
+  const [draf, setDraf] = useState(profil);
+  const disentuh = useRef(false);
+
+  /* Profil dari server datang belakangan. Ia boleh menimpa draf HANYA selama
+     pengguna belum mengetik apa pun; kalau tidak, jawaban server yang telat
+     akan menghapus yang sedang diketik orang. */
+  useEffect(() => {
+    if (!disentuh.current) setDraf(profil);
+  }, [profil]);
+
+  const nama = sapaan(draf.namaLengkap || sesi.fullName);
 
   function ubah(patch) {
-    setProfil((p) => ({ ...p, ...patch }));
+    disentuh.current = true;
+    setDraf((p) => ({ ...p, ...patch }));
   }
 
   async function pilihFoto(e) {
@@ -41,13 +58,13 @@ export default function Profil() {
 
   function simpan(e) {
     e.preventDefault();
-    simpanProfil(profil);
+    perbaruiProfil(draf);
     navigate("/peta");
   }
 
   function nantiSaja() {
     // Yang sudah diisi tetap disimpan — "Nanti saja" bukan "Batal".
-    simpanProfil(profil);
+    perbaruiProfil(draf);
     navigate("/peta");
   }
 
@@ -81,8 +98,8 @@ export default function Profil() {
           <div className="foto">
             {/* Ruang 104×104 dipesan sebelum gambar termuat — tidak ada pergeseran layout. */}
             <div className="foto__bingkai">
-              {profil.foto ? (
-                <img src={profil.foto} alt="Foto profil kamu" />
+              {draf.foto ? (
+                <img src={draf.foto} alt="Foto profil kamu" />
               ) : (
                 <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="12" cy="8.5" r="3.6" />
@@ -126,7 +143,7 @@ export default function Profil() {
             <input
               id="nama"
               type="text"
-              value={profil.namaLengkap}
+              value={draf.namaLengkap}
               onChange={(e) => ubah({ namaLengkap: e.target.value })}
               autoComplete="name"
             />
@@ -138,7 +155,7 @@ export default function Profil() {
             <input
               id="domisili"
               type="text"
-              value={profil.domisili}
+              value={draf.domisili}
               onChange={(e) => ubah({ domisili: e.target.value })}
               placeholder="Kecamatan, mis. Tebet"
             />
@@ -158,7 +175,7 @@ export default function Profil() {
               </div>
             </div>
             <UnggahCv
-              cv={profil.cv}
+              cv={draf.cv}
               onSimpan={(cv) => ubah({ cv })}
               onHapus={() => ubah({ cv: null })}
             />

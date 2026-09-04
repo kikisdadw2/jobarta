@@ -226,7 +226,7 @@
   align-items: center; justify-content: center; margin: var(--sp-3) auto 0;
 }
 .lingkaran--sukses { background: var(--color-accent); color: var(--color-on-primary); }
-.lingkaran--tunggu { background: var(--color-surface); border: 2px solid var(--color-warning); color: var(--color-warning); }
+.lingkaran--tunggu { background: var(--color-surface); border: 2px solid var(--color-warning); color: var(--color-warning-teks); }
 
 /* ---------- Pilih peran ---------- */
 .peran { display: grid; gap: var(--sp-3); }
@@ -453,4 +453,19 @@
 .pelamar__status select:focus-visible {
   outline: 2px solid var(--color-ring);
   outline-offset: 2px;
+}
+
+/* ---------- Sasaran tekan tautan tunggal ---------- */
+/* Tautan yang berdiri sendiri (bukan di tengah kalimat) tunduk pada minimum
+   44px yang sama dengan tombol. Diperiksa tes/audit-ux.spec.js. */
+.merek {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.field__kanan a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }

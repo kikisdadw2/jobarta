@@ -35,6 +35,14 @@ create table if not exists public.profiles (
   recovery_email text,
   recovery_email_verified boolean not null default false,
 
+  -- Metadata berkas CV: { nama, ukuran, tipe, diunggahPada }.
+  -- 🔴 BERKASNYA TIDAK ADA DI SINI, dan memang tidak ada di mana pun untuk
+  -- sekarang — yang disimpan hanya keterangannya. Sebelum kolom ini ada,
+  -- keterangan itu tinggal di localStorage, sehingga profil yang diisi di
+  -- laptop terbaca "0 dari 3 lengkap" begitu dibuka di HP. Saat unggahan
+  -- sungguhan masuk ke Supabase Storage, path berkasnya menyusul di sini.
+  cv_meta jsonb,
+
   -- Menandai bahwa email di auth.users adalah sintetis, bukan alamat sungguhan.
   is_synthetic_email boolean not null default false,
 
@@ -124,6 +132,14 @@ as $$
 $$;
 
 grant execute on function public.username_tersedia(text) to anon, authenticated;
+
+-- ---------------------------------------------------------------------------
+-- 4b. Kolom susulan untuk database yang sudah terlanjur dibuat
+-- ---------------------------------------------------------------------------
+-- `create table if not exists` di atas TIDAK menambah kolom pada tabel yang
+-- sudah ada, jadi kolom yang datang belakangan harus disebut lagi di sini.
+-- Aman dijalankan berulang.
+alter table public.profiles add column if not exists cv_meta jsonb;
 
 -- ---------------------------------------------------------------------------
 -- 5. updated_at ikut bergerak

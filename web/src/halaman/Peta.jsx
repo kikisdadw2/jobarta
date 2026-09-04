@@ -9,7 +9,7 @@ import SheetLampirkanCv from "../components/SheetLampirkanCv";
 import KartuPengingat from "../components/KartuPengingat";
 import { jarakKm } from "../lib/format";
 import { idLamaran, tambahLamaran, bacaLamaran } from "../lib/lamaran";
-import { bacaProfil, simpanProfil } from "../lib/profil";
+import { useProfil } from "../lib/useProfil";
 import { bacaSesi } from "../lib/sesi";
 
 /* Halaman peta — artboard design-canvas/kerangka-peta.
@@ -78,7 +78,7 @@ export default function Peta() {
   const [statusLokasi, setStatusLokasi] = useState("diam"); // diam | memuat | ditolak
   const [snap, setSnap] = useState("setengah");
   const [filterTerbuka, setFilterTerbuka] = useState(false);
-  const [profil, setProfil] = useState(bacaProfil);
+  const [profil, perbaruiProfil] = useProfil();
   // Lowongan yang menunggu CV. Diisi saat "Lamar Sekarang" ditekan tanpa CV.
   const [mintaCv, setMintaCv] = useState(null);
   const [mengirim, setMengirim] = useState(null); // id lowongan yang sedang dikirim
@@ -378,7 +378,7 @@ export default function Peta() {
           {!profil.pengingatDitutup && (
             <KartuPengingat
               profil={profil}
-              onTutup={() => setProfil(simpanProfil({ pengingatDitutup: true }))}
+              onTutup={() => perbaruiProfil({ pengingatDitutup: true })}
             />
           )}
 
@@ -419,6 +419,7 @@ export default function Peta() {
             terpilih={terpilih}
             disorot={disorot}
             onPilih={setTerpilih}
+            posisiSaya={posisiSaya}
           />
         </section>
       </main>
@@ -482,7 +483,7 @@ export default function Peta() {
         <SheetLampirkanCv
           perusahaan={mintaCv.perusahaan}
           onSimpan={(cv) => {
-            setProfil(simpanProfil({ cv }));
+            perbaruiProfil({ cv });
             kirim(mintaCv.id);
           }}
           onLewati={() => kirim(mintaCv.id)}

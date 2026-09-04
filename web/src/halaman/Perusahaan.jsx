@@ -93,7 +93,7 @@ export default function Perusahaan() {
     <div className="halaman">
       <NavPerusahaan />
 
-      <main className="seksi perusahaan">
+      <main className="seksi halaman-perusahaan">
         <h1 className="seksi__judul">
           {perusahaan.nama ? perusahaan.nama : "Dasbor perusahaan"}
         </h1>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import Supercluster from "supercluster";
@@ -165,7 +165,84 @@ function LapisanPin({ daftar, terpilih, disorot, onPilih }) {
   });
 }
 
-export default function PetaLowongan({ daftar, terpilih, disorot, onPilih }) {
+/** Titik "kamu di sini".
+ *
+ * Bentuknya SENGAJA berbeda dari dua penanda lain supaya tidak perlu
+ * membedakan warna: lowongan memakai pin tetesan, kluster memakai lingkaran
+ * BERANGKA, dan titik ini lingkaran kecil polos bercincin putih dengan halo.
+ * Ia juga satu-satunya penanda yang tidak bisa diklik — ia menyatakan posisi,
+ * bukan menawarkan aksi.
+ */
+function ikonSaya() {
+  return L.divIcon({
+    className: "titik-saya",
+    html: `<span class="titik-saya__halo" aria-hidden="true"></span>
+           <span class="titik-saya__inti" aria-hidden="true"></span>`,
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
+  });
+}
+
+/** Menaruh titik posisi pengguna dan menggeser peta ke sana saat pertama didapat. */
+function TitikSaya({ posisi }) {
+  const map = useMap();
+  const sudahPindah = useRef(false);
+
+  useEffect(() => {
+    if (!posisi) {
+      // Lokasi dicabut: izinkan geseran otomatis lagi kalau nanti diminta ulang.
+      sudahPindah.current = false;
+      return;
+    }
+    if (sudahPindah.current) return;
+    sudahPindah.current = true;
+
+    /* Hanya sekali. Menggeser peta tiap kali koordinat diperbarui akan
+       merebut kembali peta dari tangan orang yang sedang menggesernya. */
+    const diam = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    const zoom = Math.max(map.getZoom(), 14);
+
+    /* 🔴 Di bawah 900px bottom sheet MENUTUPI separuh bawah peta, sedangkan
+       peta sendiri setinggi layar penuh di belakangnya. Menaruh titik di pusat
+       peta berarti menaruhnya persis di balik sheet — pengguna menekan "Lokasi
+       saya", peta bergerak, dan tidak ada apa pun yang terlihat berubah.
+       Jadi pusatnya digeser ke selatan sebanyak separuh tinggi sheet, supaya
+       titiknya mendarat di tengah bagian peta yang BENAR-BENAR terlihat. */
+    const panel = document.querySelector(".panel");
+    const petaKotak = map.getContainer().getBoundingClientRect();
+    const panelKotak = panel?.getBoundingClientRect();
+    const tertutup =
+      panelKotak && panelKotak.top < petaKotak.bottom && panelKotak.left < petaKotak.right
+        ? Math.max(0, petaKotak.bottom - panelKotak.top)
+        : 0;
+
+    let tujuan = L.latLng(posisi.lat, posisi.lng);
+    if (tertutup > 0) {
+      const titik = map.project(tujuan, zoom);
+      titik.y += tertutup / 2;
+      tujuan = map.unproject(titik, zoom);
+    }
+
+    if (diam) map.setView(tujuan, zoom);
+    else map.flyTo(tujuan, zoom, { duration: 0.8 });
+  }, [posisi, map]);
+
+  if (!posisi) return null;
+
+  return (
+    <Marker
+      position={[posisi.lat, posisi.lng]}
+      icon={ikonSaya()}
+      interactive={false}
+      keyboard={false}
+      alt="Lokasi kamu sekarang"
+      title="Lokasi kamu sekarang"
+      zIndexOffset={1000}
+    />
+  );
+}
+
+export default function PetaLowongan({ daftar, terpilih, disorot, onPilih, posisiSaya }) {
   return (
     <MapContainer
       center={PUSAT_JAKARTA}
@@ -183,6 +260,7 @@ export default function PetaLowongan({ daftar, terpilih, disorot, onPilih }) {
 
       <LapisanPin daftar={daftar} terpilih={terpilih} disorot={disorot} onPilih={onPilih} />
       <IkutiPilihan terpilih={terpilih} />
+      <TitikSaya posisi={posisiSaya} />
     </MapContainer>
   );
 }

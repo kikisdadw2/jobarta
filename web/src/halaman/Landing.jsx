@@ -119,7 +119,7 @@ export default function Landing() {
           "Untuk Perusahaan" saja. Alasannya bukan estetika: tiga item yang
           ditumpuk mendorong hero turun ~90px, dan hero itulah yang menjelaskan
           apa ini. Di 1440px menunya kembali terbentang penuh. */}
-      <header className="navbar navbar--landing">
+      <header className={`navbar navbar--landing${menuTerbuka ? " navbar--menu-buka" : ""}`}>
         <Merek />
 
         <Link to="/masuk?peran=employer" className="navbar__employer">

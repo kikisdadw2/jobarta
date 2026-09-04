@@ -88,7 +88,16 @@
 .footer { grid-template-columns: 1fr; }
 .footer__kolom { display: grid; gap: var(--sp-2); align-content: start; }
 .footer__kolom p { margin: 0; max-width: 40ch; }
-.footer__kolom a { width: fit-content; }
+/* Tautan footer berdiri sendiri, bukan bagian kalimat — jadi aturan 44px
+   berlaku penuh (WCAG 2.5.5 hanya mengecualikan tautan DI DALAM kalimat).
+   Sebelumnya tingginya 26px. Audiens JOBARTA memakai HP satu tangan di jalan;
+   selisih 18px itu bedanya antara sekali tekan dan tiga kali coba. */
+.footer__kolom a {
+  width: fit-content;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
 
 @media (min-width: 900px) {
   .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
@@ -120,13 +129,25 @@
 }
 
 /* ---------- Header landing: hamburger di bawah 900px ---------- */
-.navbar--landing { flex-wrap: nowrap; gap: var(--sp-2); padding-inline: var(--sp-3); }
+/* 🔴 WAJIB `wrap`, bukan `nowrap`. Menu yang terbuka memakai `flex-basis: 100%`
+   supaya turun ke barisnya sendiri; dengan `nowrap` ia tidak bisa turun, tetap
+   di baris header, dan mendorong halaman 79px ke luar layar kanan di 375px.
+   Gejalanya: seluruh halaman tergeser dan teks terpotong di tepi kiri. */
+.navbar--landing { flex-wrap: wrap; gap: var(--sp-2); padding-inline: var(--sp-3); }
 
 .navbar__employer {
   margin-left: auto; color: var(--color-foreground); font-weight: 600;
   text-decoration: none; font-size: 14px; white-space: nowrap;
+  /* Tautan tunggal di header: 22px terlalu tipis untuk jempol. */
+  min-height: 44px; display: inline-flex; align-items: center;
 }
 .navbar__employer:hover { color: var(--color-primary); text-decoration: underline; }
+
+/* Saat menu terbuka, tautan ini sudah ada DI DALAM menu. Membiarkan salinan di
+   bilah atas membuat "Untuk Perusahaan" tampil dua kali sekaligus mendorong
+   tombol Tutup turun ke baris sendiri, karena bertiga tidak muat di 375px.
+   Aturannya sama dengan yang sudah berlaku di desktop, cuma pemicunya beda. */
+.navbar--menu-buka .navbar__employer { display: none; }
 
 .navbar__hamburger {
   display: inline-flex; align-items: center; gap: 6px; flex: none;
@@ -147,7 +168,6 @@
 .navbar--landing .navbar__masuk { justify-content: center; }
 
 @media (min-width: 900px) {
-  .navbar--landing { flex-wrap: wrap; }
   /* Di desktop menunya terbentang; salinan "Untuk Perusahaan" di bilah utama
      disembunyikan supaya tautannya tidak muncul dua kali. */
   .navbar__employer,
