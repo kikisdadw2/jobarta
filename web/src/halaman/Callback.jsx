@@ -27,6 +27,7 @@ const BATAS_MS = 12000;
 export default function Callback() {
   const navigate = useNavigate();
   const [galat, setGalat] = useState(null);
+  const [teknis, setTeknis] = useState("");
 
   useEffect(() => {
     if (!adaSupabase) {
@@ -43,6 +44,14 @@ export default function Callback() {
     const cari = new URLSearchParams(window.location.search);
     const galatOAuth = frag.get("error_description") || cari.get("error_description") || frag.get("error") || cari.get("error");
     if (galatOAuth) {
+      /* Sebab teknisnya DISIMPAN, tidak dibuang. Versi pertama halaman ini
+         hanya menampilkan kalimat umum, dan akibatnya kegagalan pertama di
+         lapangan tidak bisa didiagnosis sama sekali — kode galatnya sudah
+         terlanjur hilang bersama URL. Kalimat ramah untuk pengguna, kode
+         mentah di balik "Detail teknis" untuk yang memperbaiki. */
+      const kode = frag.get("error") || cari.get("error") || "";
+      const rinci = frag.get("error_description") || cari.get("error_description") || "";
+      setTeknis([kode, rinci].filter(Boolean).join(" — ") || galatOAuth);
       setGalat(
         /access_denied|cancel/i.test(galatOAuth)
           ? "Kamu membatalkan masuk lewat Google. Tidak ada yang berubah."
@@ -88,6 +97,12 @@ export default function Callback() {
           <>
             <h1 className="auth__judul">Belum berhasil masuk</h1>
             <p className="auth__sub">{galat}</p>
+            {teknis && (
+              <details className="galat-teknis">
+                <summary>Detail teknis</summary>
+                <code>{teknis}</code>
+              </details>
+            )}
             <button
               type="button"
               className="tombol tombol--primary tombol--penuh tombol--besar"

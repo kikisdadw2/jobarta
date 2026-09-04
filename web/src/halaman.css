@@ -581,3 +581,80 @@
 @media (max-width: 560px) {
   .akun__nama { display: none; }
 }
+
+/* Sebab teknis kegagalan OAuth — untuk yang memperbaiki, bukan untuk dipamerkan. */
+.galat-teknis { width: 100%; text-align: left; }
+.galat-teknis summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; color: var(--color-primary); font-weight: 600; }
+.galat-teknis code { display: block; padding: var(--sp-2); background: var(--color-background); border: 1px solid var(--color-border); border-radius: 6px; font-size: 13px; word-break: break-word; }
+
+/* ---------- Gambar tidak pernah melebihi wadahnya ---------- */
+/* Tidak ada aturan ini sebelumnya. Selama belum ada gambar besar, tidak ada
+   yang terlihat salah — dan itu justru bahaya: satu foto profil atau logo
+   perusahaan berukuran asli sudah cukup mendorong seluruh halaman melebar. */
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- Hamburger + laci navigasi ---------- */
+.navbar__sempit { display: none; }
+.navbar__lebar { display: contents; }
+
+.hamburger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 var(--sp-2);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.laci__tirai {
+  position: fixed;
+  inset: 0;
+  z-index: 1190;
+  background: rgb(0 0 0 / 0.45);
+}
+
+.laci {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1200;
+  width: min(84vw, 320px);
+  padding: var(--sp-4) var(--sp-3);
+  padding-top: calc(var(--sp-4) + env(safe-area-inset-top));
+  padding-bottom: calc(var(--sp-4) + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  box-shadow: -8px 0 24px rgb(0 0 0 / 0.18);
+}
+
+.laci .navbar__nav--laci {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sp-2);
+}
+
+.laci .navbar__nav--laci a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 899px) {
+  .navbar__lebar { display: none; }
+  .navbar__sempit { display: block; margin-left: auto; }
+}
