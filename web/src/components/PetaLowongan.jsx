@@ -1,9 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Circle, useMap, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import Supercluster from "supercluster";
 
-const PUSAT_JAKARTA = [-6.1944, 106.8229];
+import { PUSAT_JAKARTA } from "../lib/lokasi";
+
+/* Pusat awal = fallback sadar, bukan angka sembarang: inilah yang dilihat
+   pengguna ketika lokasinya tidak bisa dibaca. Satu sumber di lib/lokasi.js. */
+const PUSAT_AWAL = [PUSAT_JAKARTA.lat, PUSAT_JAKARTA.lng];
 
 /**
  * Pin dibedakan BENTUK + IKON, bukan warna saja — syarat aksesibilitas:
@@ -183,31 +187,29 @@ function ikonSaya() {
   });
 }
 
-/** Menaruh titik posisi pengguna dan menggeser peta ke sana saat pertama didapat. */
-function TitikSaya({ posisi }) {
+/** Menaruh titik posisi pengguna, cincin akurasinya, dan menggeser peta ke sana.
+ *
+ * `pusatUlang` adalah penghitung: setiap kali ia naik, peta terbang lagi ke
+ * titik itu. Sebelumnya ada ref `sudahPindah` yang hanya mengizinkan satu kali
+ * geseran seumur halaman, sehingga tombol "Lokasi saya" mati setelah dipakai
+ * sekali — persis kebalikan dari gunanya.
+ */
+function TitikSaya({ posisi, pusatUlang }) {
   const map = useMap();
-  const sudahPindah = useRef(false);
+  const terakhir = useRef(-1);
 
   useEffect(() => {
-    if (!posisi) {
-      // Lokasi dicabut: izinkan geseran otomatis lagi kalau nanti diminta ulang.
-      sudahPindah.current = false;
-      return;
-    }
-    if (sudahPindah.current) return;
-    sudahPindah.current = true;
+    if (!posisi) return;
+    if (terakhir.current === pusatUlang) return;
+    terakhir.current = pusatUlang;
 
-    /* Hanya sekali. Menggeser peta tiap kali koordinat diperbarui akan
-       merebut kembali peta dari tangan orang yang sedang menggesernya. */
-    const diam = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     const zoom = Math.max(map.getZoom(), 14);
 
     /* 🔴 Di bawah 900px bottom sheet MENUTUPI separuh bawah peta, sedangkan
        peta sendiri setinggi layar penuh di belakangnya. Menaruh titik di pusat
        peta berarti menaruhnya persis di balik sheet — pengguna menekan "Lokasi
        saya", peta bergerak, dan tidak ada apa pun yang terlihat berubah.
-       Jadi pusatnya digeser ke selatan sebanyak separuh tinggi sheet, supaya
-       titiknya mendarat di tengah bagian peta yang BENAR-BENAR terlihat. */
+       Jadi pusatnya digeser ke selatan sebanyak separuh tinggi sheet. */
     const panel = document.querySelector(".panel");
     const petaKotak = map.getContainer().getBoundingClientRect();
     const panelKotak = panel?.getBoundingClientRect();
@@ -223,29 +225,84 @@ function TitikSaya({ posisi }) {
       tujuan = map.unproject(titik, zoom);
     }
 
+    const diam = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (diam) map.setView(tujuan, zoom);
     else map.flyTo(tujuan, zoom, { duration: 0.8 });
-  }, [posisi, map]);
+  }, [posisi, pusatUlang, map]);
 
   if (!posisi) return null;
 
   return (
-    <Marker
-      position={[posisi.lat, posisi.lng]}
-      icon={ikonSaya()}
-      interactive={false}
-      keyboard={false}
-      alt="Lokasi kamu sekarang"
-      title="Lokasi kamu sekarang"
-      zIndexOffset={1000}
-    />
+    <>
+      {/* Cincin akurasi: seberapa yakin perangkat pada bacaannya. Di dalam
+          gedung radiusnya bisa ratusan meter, dan pengguna berhak tahu itu
+          alih-alih melihat satu titik pasti yang sebenarnya tebakan kasar.
+          Disembunyikan kalau akurasinya lebih kecil dari titiknya sendiri. */}
+      {posisi.akurasi > 25 && (
+        <Circle
+          center={[posisi.lat, posisi.lng]}
+          radius={posisi.akurasi}
+          interactive={false}
+          /* Warnanya lewat CSS, bukan pathOptions: Leaflet menulis warna
+             sebagai ATRIBUT SVG (stroke/fill), dan `var(--color-primary)`
+             tidak pernah resolve di sana. Lihat .cincin-akurasi di App.css. */
+          className="cincin-akurasi"
+        />
+      )}
+      <Marker
+        position={[posisi.lat, posisi.lng]}
+        icon={ikonSaya()}
+        interactive={false}
+        keyboard={false}
+        alt="Lokasi kamu sekarang"
+        title={
+          posisi.akurasi
+            ? `Lokasi kamu sekarang (akurasi sekitar ${Math.round(posisi.akurasi)} m)`
+            : "Lokasi kamu sekarang"
+        }
+        zIndexOffset={1000}
+      />
+    </>
   );
 }
 
-export default function PetaLowongan({ daftar, terpilih, disorot, onPilih, posisiSaya }) {
+/** Memberi tahu Leaflet setiap kali kotak petanya berubah ukuran.
+ *
+ * 🔴 Leaflet menghitung ukuran container SEKALI saat dibuat dan tidak pernah
+ *    memeriksanya lagi. Begitu ada yang mengubah tinggi kotak itu — bilah galat
+ *    lokasi muncul, bottom sheet berpindah tahap, papan ketik terbuka — peta
+ *    tetap memakai ukuran lama: ubinnya meleset dan pusatnya bergeser. Gejala
+ *    yang terlihat waktu bilah "Izin lokasi ditolak" muncul: peta menampilkan
+ *    LAUT, bukan Jakarta.
+ *
+ *    ResizeObserver dipilih daripada memasang efek di setiap pemicu, supaya
+ *    penyebab baru di kemudian hari ikut tertangani tanpa diingat-ingat.
+ */
+function PantauUkuran() {
+  const map = useMap();
+  useEffect(() => {
+    const kotak = map.getContainer();
+    if (typeof ResizeObserver === "undefined") return;
+    let rafId = 0;
+    const pengamat = new ResizeObserver(() => {
+      /* Ditunda satu frame: invalidateSize di tengah pass layout memicu
+         pembacaan ulang yang dianggap "loop" oleh ResizeObserver. */
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => map.invalidateSize({ animate: false }));
+    });
+    pengamat.observe(kotak);
+    return () => {
+      cancelAnimationFrame(rafId);
+      pengamat.disconnect();
+    };
+  }, [map]);
+  return null;
+}
+
+export default function PetaLowongan({ daftar, terpilih, disorot, onPilih, posisiSaya, pusatUlang = 0 }) {
   return (
     <MapContainer
-      center={PUSAT_JAKARTA}
+      center={PUSAT_AWAL}
       zoom={11}
       className="peta"
       zoomControl={true}
@@ -259,8 +316,9 @@ export default function PetaLowongan({ daftar, terpilih, disorot, onPilih, posis
       />
 
       <LapisanPin daftar={daftar} terpilih={terpilih} disorot={disorot} onPilih={onPilih} />
+      <PantauUkuran />
       <IkutiPilihan terpilih={terpilih} />
-      <TitikSaya posisi={posisiSaya} />
+      <TitikSaya posisi={posisiSaya} pusatUlang={pusatUlang} />
     </MapContainer>
   );
 }

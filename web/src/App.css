@@ -786,6 +786,15 @@
   .fab--peek { bottom: 252px; }
   .fab--setengah { bottom: calc(50% + 12px); }
   .fab--penuh { bottom: calc(88% + 12px); }
+
+  /* Tombol "ikuti saya" duduk 56px di atas FAB "Lokasi saya", mengikuti posisi
+     sheet yang sama. 🔴 Harus dua kelas (.fab--ikuti.fab--peek), bukan
+     .fab--ikuti sendirian: dengan satu kelas ia hanya menang karena urutan
+     berkas, lalu menimpa posisi per-snap dan mendarat DI BALIK bottom sheet —
+     terlihat, tapi tidak bisa ditekan sama sekali. */
+  .fab--ikuti.fab--peek { bottom: calc(252px + 56px); }
+  .fab--ikuti.fab--setengah { bottom: calc(50% + 12px + 56px); }
+  .fab--ikuti.fab--penuh { bottom: calc(88% + 12px + 56px); }
   .detail__isi { padding: var(--sp-3); }
 }
 
@@ -887,4 +896,76 @@
     transform: scale(2.1);
     opacity: 0.18;
   }
+}
+
+/* ---------- Cincin akurasi lokasi ---------- */
+/* Radius = coords.accuracy dalam meter, jadi lingkaran ini menyusut sendiri
+   saat bacaan membaik. Warnanya di sini, bukan di pathOptions: Leaflet menulis
+   warna sebagai atribut SVG dan var() tidak resolve di atribut. */
+.cincin-akurasi {
+  stroke: var(--color-primary);
+  stroke-width: 1;
+  stroke-opacity: 0.45;
+  fill: var(--color-primary);
+  fill-opacity: 0.12;
+}
+
+/* ---------- Sheet izin lokasi & galatnya ---------- */
+/* Pembungkus yang TIDAK menangkap tekanan: peta di belakangnya tetap bisa
+   digeser dan diketuk. Hanya sheet-nya sendiri yang menerima pointer. */
+/* 🔴 Ditempatkan di ATAS, mengambang di area peta — bukan di bawah.
+   Versi bawah menutupi daftar lowongan dan pegangan bottom sheet, sehingga
+   tetap menyandera halaman walau scrim-nya sudah dilepas: masih ada 7 tes
+   yang tidak bisa menyentuh kartu. Di sini ia duduk di potongan peta yang
+   memang kosong, di bawah pil pencarian, dan tidak menutupi apa pun yang
+   bisa ditekan. */
+.lapis-izin {
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 68px);
+  left: 12px;
+  right: 12px;
+  z-index: 1150;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.lapis-izin > .sheet--izin { pointer-events: auto; }
+
+.sheet--izin {
+  width: 100%;
+  max-width: 460px;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.22);
+  padding: var(--sp-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+.sheet--izin .sheet__pegangan { display: none; }
+.sheet--izin .sheet__judul { font-size: 18px; margin-top: 0; }
+.sheet--izin .sheet__isi { font-size: 15px; margin-bottom: var(--sp-2); }
+.sheet__isi { margin: 0 0 var(--sp-3); line-height: 1.6; color: var(--color-foreground); }
+.sheet__isi--kecil { font-size: 15px; }
+.sheet__aksi { display: grid; gap: var(--sp-2); }
+/* Dua tombol berdampingan di kartu izin: menumpuknya menambah ~56px tinggi,
+   dan tinggi itulah yang tadi menutupi pegangan bottom sheet. */
+.sheet--izin .sheet__aksi { grid-template-columns: 1fr 1fr; }
+
+.lokasi-galat { display: grid; gap: var(--sp-2); text-align: left; }
+.lokasi-galat__judul { margin: 0; font-weight: 700; }
+.lokasi-galat__isi { margin: 0; line-height: 1.55; }
+.lokasi-galat__cara summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.lokasi-galat__cara ol { margin: 0 0 var(--sp-2); padding-inline-start: 1.3em; line-height: 1.7; }
+.lokasi-galat__aksi { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+
+.fab--aktif {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-primary);
 }

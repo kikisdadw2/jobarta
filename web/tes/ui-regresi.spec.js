@@ -79,8 +79,14 @@ test("FIX 4 — titik lokasi muncul di peta setelah izin diberikan", async ({ pa
   await page.goto("/peta");
   await page.waitForTimeout(2000);
 
-  await expect(page.locator(".titik-saya")).toHaveCount(0);   // belum diminta
-  await page.click("[aria-label='Lokasi saya']");
+  /* DIPERBARUI 2026-09-04 (blok B1). Dulu tes ini menuntut titiknya BELUM ada
+     sebelum tombol ditekan. Asumsi itu gugur: B1 mensyaratkan lokasi diminta
+     saat halaman peta dibuka, jadi ketika izin sudah diberikan titiknya sudah
+     terpasang lebih dulu. Yang tetap diuji — dan itu inti FIX 4 — adalah
+     titiknya BENAR-BENAR TERGAMBAR di peta dan tidak tertutup bottom sheet. */
+  await page.waitForTimeout(2500);
+  const tombol = page.locator("[aria-label='Lokasi saya'], [aria-label='Kembali ke lokasi saya']");
+  if (await tombol.count()) await tombol.first().click();
   await page.waitForTimeout(2500);
 
   const titik = page.locator(".titik-saya");
