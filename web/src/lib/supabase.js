@@ -52,3 +52,61 @@ export const DOMAIN_SINTETIS = "pengguna.jobarta.local";
 export function emailSintetis(username) {
   return `${String(username).trim().toLowerCase()}@${DOMAIN_SINTETIS}`;
 }
+
+/** true = alamat ini cuma penampung internal, tidak bisa dikirimi apa pun. */
+export function emailItuSintetis(email) {
+  return String(email || "").toLowerCase().endsWith("@" + DOMAIN_SINTETIS);
+}
+
+/**
+ * Email yang dipakai untuk MASUK dengan sebuah username.
+ *
+ * 🔴 Sejak 2026-09-04 ini tidak bisa lagi ditebak dari usernamenya. Pendaftar
+ *    yang mengisi email pemulihan memakai alamat ITU sebagai email auth, supaya
+ *    `resetPasswordForEmail` punya kotak surat sungguhan untuk dituju — domain
+ *    sintetis `.local` tidak bisa menerima apa pun. Jadi jawabannya harus
+ *    ditanyakan ke basis data lewat RPC `email_login`.
+ *
+ * Kalau RPC gagal atau tidak menemukan apa-apa, jatuh ke alamat sintetis:
+ * itu bentuk lama, dan akun yang mendaftar tanpa email pemulihan memang
+ * memakainya. Login akan gagal dengan pesan yang sama seperti password salah,
+ * yang memang benar — dan tetap tidak membocorkan mana yang keliru.
+ */
+/* Apakah RPC `email_login` sudah ada di database ini?
+ *
+ * 🔴 Ini pengaman urutan deploy, bukan kehati-hatian berlebihan. Kalau kode
+ *    baru tayang SEBELUM schema.sql dijalankan, akun yang mendaftar dengan
+ *    email pemulihan akan dibuat memakai alamat asli sebagai email auth —
+ *    sementara layar Masuk tidak punya cara menemukannya, karena RPC-nya belum
+ *    ada. Hasilnya: pengguna terkunci dari akun yang baru saja ia buat, dan
+ *    tidak ada pesan yang bisa menjelaskannya.
+ *
+ *    Selama RPC belum ada, pendaftaran kembali memakai alamat sintetis: fitur
+ *    lupa-password belum jalan, tapi tidak ada yang terkunci. Kehilangan fitur
+ *    jauh lebih murah daripada kehilangan akun.
+ */
+let rpcAda = null;
+
+export async function emailLoginTersedia() {
+  if (!adaSupabase) return false;
+  if (rpcAda !== null) return rpcAda;
+  try {
+    const { error } = await supabase.rpc("email_login", { nama: "__periksa__" });
+    rpcAda = !(error && (error.code === "PGRST202" || /not.*found|does not exist/i.test(error.message || "")));
+  } catch {
+    rpcAda = false;
+  }
+  return rpcAda;
+}
+
+export async function emailUntukMasuk(username) {
+  const u = String(username).trim().toLowerCase();
+  if (!adaSupabase) return emailSintetis(u);
+  try {
+    const { data, error } = await supabase.rpc("email_login", { nama: u });
+    if (!error && data) return data;
+  } catch {
+    /* jaringan gagal: pakai bentuk lama, biarkan login yang memutuskan */
+  }
+  return emailSintetis(u);
+}

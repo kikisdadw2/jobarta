@@ -134,6 +134,48 @@ $$;
 grant execute on function public.username_tersedia(text) to anon, authenticated;
 
 -- ---------------------------------------------------------------------------
+-- 4c. Mencari email login dari username
+-- ---------------------------------------------------------------------------
+-- Sejak 2026-09-04 email auth TIDAK selalu sintetis: kalau pendaftar mengisi
+-- email pemulihan, alamat ITU yang dipakai sebagai email auth, supaya
+-- `resetPasswordForEmail` punya kotak surat sungguhan untuk dituju. Domain
+-- sintetis `.local` tidak bisa menerima apa pun, jadi tanpa perubahan ini
+-- fitur lupa-password mustahil.
+--
+-- Konsekuensinya: layar Masuk tidak lagi bisa menebak email dari username,
+-- jadi ia harus bertanya. Fungsi inilah yang menjawab.
+--
+-- 🔴 UTANG KEAMANAN YANG DISADARI. Fungsi ini mengembalikan ALAMAT EMAIL ASLI
+--    kepada pemanggil anonim. Siapa pun yang menebak username dengan benar
+--    mendapatkan emailnya. Ini lebih berat daripada `username_tersedia` yang
+--    hanya menjawab boolean, dan bertentangan dengan sikap anti-enumerasi di
+--    layar Masuk dan Lupa Password.
+--
+--    Mitigasi yang ADA sekarang: hanya melayani akun ber-auth_method
+--    'password' (akun Google tidak pernah terbuka), dan hanya cocok persis —
+--    tidak ada pencarian sebagian.
+--
+--    Mitigasi yang BELUM ada dan harus menyusul sebelum rilis publik:
+--    pindahkan ke Edge Function yang melakukan login di sisi server, sehingga
+--    email tidak pernah meninggalkan basis data. Selama itu belum ada,
+--    nyalakan rate limiting di Supabase.
+create or replace function public.email_login(nama text)
+returns text
+language sql
+security definer set search_path = public
+stable
+as $$
+  select u.email
+  from public.profiles p
+  join auth.users u on u.id = p.id
+  where p.username = lower(nama)
+    and p.auth_method = 'password'
+  limit 1;
+$$;
+
+grant execute on function public.email_login(text) to anon, authenticated;
+
+-- ---------------------------------------------------------------------------
 -- 4b. Kolom susulan untuk database yang sudah terlanjur dibuat
 -- ---------------------------------------------------------------------------
 -- `create table if not exists` di atas TIDAK menambah kolom pada tabel yang

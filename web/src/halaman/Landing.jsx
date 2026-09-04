@@ -6,6 +6,7 @@ import lowongan, { KATEGORI } from "../data/lowongan";
 import { formatGaji, jarakKm, formatJarak } from "../lib/format";
 import { Logo, Merek, IkonGoogle, Terverifikasi } from "../komponen-ui/Dasar";
 import { useGoogleAktif } from "../lib/penyedia";
+import MenuAkun from "../komponen-ui/MenuAkun";
 
 /* DESIGN 2 — Landing, mengikuti artboard design-canvas/landing/.
  *
@@ -153,10 +154,11 @@ export default function Landing() {
           {/* Menyebut "Google" di sini hanya jujur bila providernya hidup;
               kalau mati, tautannya tetap berfungsi tapi tidak menjanjikan
               jalur masuk yang tak tersedia di layar berikutnya. */}
-          <Link to="/masuk" className="tombol tombol--sekunder navbar__masuk">
-            {googleAktif && <IkonGoogle />}
-            {googleAktif ? "Masuk dengan Google" : "Masuk"}
-          </Link>
+          {/* Dulu di sini ada tombol "Masuk" mati yang tampil ke SEMUA orang,
+              termasuk yang sudah login — Landing tidak pernah membaca sesi.
+              MenuAkun membaca konteks Auth yang sama dengan header lain, dan
+              menahan diri selama `memuat` supaya tidak berkedip. */}
+          <MenuAkun />
         </nav>
       </header>
 

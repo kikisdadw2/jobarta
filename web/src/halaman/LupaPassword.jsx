@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import PanelAuth from "../komponen-ui/PanelAuth";
 import { Logo, IkonGoogle } from "../komponen-ui/Dasar";
+import { supabase, adaSupabase } from "../lib/supabase";
 
 /* "Lupa password" — artboard 2b-auth/LupaPassword.
  *
@@ -48,12 +49,35 @@ export default function LupaPassword() {
     return () => clearTimeout(t);
   }, [detik]);
 
-  function kirim(e) {
+  async function kirim(e) {
     e.preventDefault();
-    // Seragam untuk SEMUA alamat: terdaftar, tidak terdaftar, atau milik akun
-    // Google — ketiganya melihat layar yang sama persis.
+
+    /* Layar berpindah LEBIH DULU, dan tidak pernah menunggu hasil.
+     *
+     * 🔴 Ini disengaja, bukan kelalaian. Kalau layar ini menunggu jawaban lalu
+     *    menampilkan hasil yang berbeda untuk alamat terdaftar dan tidak
+     *    terdaftar, ia jadi oracle: siapa pun bisa menguji ribuan alamat dan
+     *    memetakan siapa punya akun di JOBARTA. Bahkan SELISIH WAKTU respons
+     *    sudah cukup jadi petunjuk. Jadi responsnya seragam dan seketika.
+     *
+     * Galatnya tetap ditelan diam-diam — pengguna tidak bisa berbuat apa pun
+     * dengannya, dan menampilkannya justru membocorkan apa yang disembunyikan. */
     setLayar("terkirim");
     setDetik(JEDA_KIRIM_ULANG);
+
+    if (!adaSupabase) return;
+    const alamat = email.trim().toLowerCase();
+    if (!alamat) return;
+    try {
+      await supabase.auth.resetPasswordForEmail(alamat, {
+        /* Tautan di email memulangkan orang ke sini. Supabase menyertakan token
+           pemulihan di fragment URL, dan AturUlang menukarnya jadi sesi
+           sementara sebelum mengizinkan penggantian password. */
+        redirectTo: `${window.location.origin}/atur-ulang`,
+      });
+    } catch {
+      /* jaringan gagal: layar tetap sama, tombol "kirim ulang" jadi jalan keluar */
+    }
   }
 
   return (

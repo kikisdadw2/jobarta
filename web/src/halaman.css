@@ -469,3 +469,115 @@
   display: inline-flex;
   align-items: center;
 }
+
+/* ---------- Layar tunggu callback OAuth ---------- */
+.kotak-tunggu { text-align: center; display: grid; justify-items: center; gap: var(--sp-3); }
+
+.pemuat {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: pemuat-putar 900ms linear infinite;
+}
+
+@keyframes pemuat-putar { to { transform: rotate(360deg); } }
+
+/* Gerak berputar TIDAK boleh jadi satu-satunya penanda "sedang bekerja":
+   tanpa animasi ia harus tetap terbaca sebagai sesuatu yang sedang berjalan. */
+@media (prefers-reduced-motion: reduce) {
+  .pemuat { animation: none; border-top-color: var(--color-primary); opacity: 0.7; }
+}
+
+/* ---------- Menu akun di header ---------- */
+.akun-tamu { display: inline-flex; gap: var(--sp-2); align-items: center; }
+
+/* Kerangka saat sesi masih dibaca. Sengaja BUKAN menu tamu: menampilkan
+   tombol "Masuk" lalu menggantinya membuat orang yang sudah login melihat
+   kedipan yang terbaca sebagai "aku ter-logout". */
+.akun-kerangka { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; }
+.akun-kerangka__bulat,
+.akun-kerangka__garis {
+  background: var(--color-border);
+  border-radius: 999px;
+  opacity: 0.55;
+  animation: kerangka-denyut 1.4s ease-in-out infinite;
+}
+.akun-kerangka__bulat { width: 32px; height: 32px; }
+.akun-kerangka__garis { width: 72px; height: 12px; }
+
+@keyframes kerangka-denyut { 50% { opacity: 0.28; } }
+@media (prefers-reduced-motion: reduce) {
+  .akun-kerangka__bulat,
+  .akun-kerangka__garis { animation: none; }
+}
+
+.akun { position: relative; display: inline-block; }
+
+.akun__pemicu {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding: 0 var(--sp-2);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.akun__pemicu:hover { border-color: var(--color-primary); }
+
+.akun__foto { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+.akun__inisial {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 13px; font-weight: 700;
+}
+.akun__nama { max-width: 12ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* position: absolute di dalam header yang tidak memotong — aman dari kliping.
+   z-index di atas peta (1000) dan FAB, di bawah panel detail (1200). */
+.akun__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 1100;
+  min-width: 200px;
+  display: grid;
+  padding: var(--sp-1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+}
+.akun__menu a,
+.akun__menu button {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--sp-3);
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.akun__menu a:hover,
+.akun__menu button:hover { background: var(--color-background); }
+.akun__keluar { color: var(--color-destructive); }
+
+@media (max-width: 560px) {
+  .akun__nama { display: none; }
+}

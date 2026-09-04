@@ -3,6 +3,7 @@ import { PenyediaAuth } from "./konteks/Auth";
 import RuteTerlindungi from "./komponen-ui/RuteTerlindungi";
 import Landing from "./halaman/Landing";
 import Masuk from "./halaman/Masuk";
+import Callback from "./halaman/Callback";
 import Daftar from "./halaman/Daftar";
 import Onboarding from "./halaman/Onboarding";
 import Peta from "./halaman/Peta";
@@ -38,6 +39,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/masuk" element={<Masuk />} />
+        {/* Pendaratan dari Google. Menunggu sesi benar-benar jadi sebelum
+            meneruskan — lihat alasannya di halaman/Callback.jsx. */}
+        <Route path="/auth/callback" element={<Callback />} />
         <Route path="/daftar" element={<Daftar />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/peta" element={<Peta />} />

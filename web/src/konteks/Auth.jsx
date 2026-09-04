@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { KonteksAuth } from "./konteks";
-import { supabase, adaSupabase, emailSintetis } from "../lib/supabase";
+import { supabase, adaSupabase, emailSintetis, emailUntukMasuk, emailLoginTersedia } from "../lib/supabase";
 import { bacaSesi, simpanSesi, hapusSesi, KOSONG } from "../lib/sesi";
+import { hapusProfil } from "../lib/profil";
 
 /* Sumber tunggal keadaan "siapa yang sedang masuk".
  *
@@ -108,7 +109,12 @@ export function PenyediaAuth({ children }) {
     }
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/onboarding` },
+      /* Menunjuk rute callback, BUKAN /onboarding. Penukaran token Google jadi
+         sesi berlangsung asinkron; halaman terlindungi yang dirender sebelum
+         sesinya jadi akan melempar balik orang yang baru saja berhasil masuk.
+         `window.location.origin` membuatnya benar di lokal maupun Vercel tanpa
+         variabel lingkungan tambahan. */
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
     if (error) {
       /* Pesan dibedakan: provider yang belum dinyalakan di dashboard adalah
@@ -131,8 +137,10 @@ export function PenyediaAuth({ children }) {
     if (!adaSupabase) {
       return simpanSesi({ username, authMethod: "password", accountStatus: "active" });
     }
+    /* Emailnya DICARI, tidak ditebak: akun yang mendaftar dengan email
+       pemulihan memakai alamat asli sebagai email auth. Lihat emailUntukMasuk. */
     const { error } = await supabase.auth.signInWithPassword({
-      email: emailSintetis(username),
+      email: await emailUntukMasuk(username),
       password,
     });
     /* Pesannya SENGAJA tidak menyebut mana yang salah. Kalau dipisah
@@ -151,14 +159,30 @@ export function PenyediaAuth({ children }) {
         recoveryEmail: recoveryEmail || null,
       });
     }
+    /* 🔴 Email pemulihan yang diisi jadi EMAIL AUTH-nya, bukan sekadar catatan
+       di profiles. Alasannya keras: `resetPasswordForEmail` mengirim ke email
+       auth.users, dan Supabase tidak bisa melihat `profiles.recovery_email`.
+       Selama email auth-nya sintetis `.local`, fitur lupa-password mustahil —
+       suratnya tidak punya tujuan.
+
+       Yang mendaftar TANPA email tetap memakai alamat sintetis dan memang
+       tidak bisa dipulihkan. Layar Daftar sudah menyatakan itu terang-terangan
+       sebelum akunnya dibuat, jadi ini konsekuensi yang dipilih pengguna,
+       bukan kejutan. */
+    /* Hanya pakai email asli kalau layar Masuk BISA menemukannya nanti.
+       Tanpa syarat ini, deploy yang mendahului schema.sql akan mengunci
+       pendaftar dari akunnya sendiri — lihat emailLoginTersedia(). */
+    const pakaiEmailAsli = Boolean(recoveryEmail) && (await emailLoginTersedia());
+    const emailAuth = pakaiEmailAsli ? recoveryEmail.trim().toLowerCase() : emailSintetis(username);
+
     const { error } = await supabase.auth.signUp({
-      email: emailSintetis(username),
+      email: emailAuth,
       password,
       options: {
         data: {
           username: username.toLowerCase(),
           auth_method: "password",
-          is_synthetic_email: true,
+          is_synthetic_email: !pakaiEmailAsli,
           recovery_email: recoveryEmail || null,
         },
       },
@@ -209,6 +233,10 @@ export function PenyediaAuth({ children }) {
   const keluar = useCallback(async () => {
     if (adaSupabase) await supabase.auth.signOut();
     hapusSesi();
+    /* Cache profil ikut dibuang. Tanpa ini foto, nama, dan domisili pemilik
+       akun sebelumnya tetap tertinggal di perangkat dan tampil ke orang
+       berikutnya — di HP yang dipakai bergantian itu kebocoran data pribadi. */
+    hapusProfil();
     setSesi({ ...KOSONG });
   }, []);
 

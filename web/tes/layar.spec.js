@@ -17,6 +17,26 @@ const DESKTOP = { width: 1440, height: 900 };
  * pengguna yang sudah punya profil lengkap plus CV menurut definisinya sudah
  * melewati onboarding. Fixture tanpa sesi menggambarkan keadaan yang tidak bisa
  * terjadi di produk. */
+/* Membuat akun sungguhan lalu meninggalkannya dalam keadaan MASUK.
+ *
+ * Dipakai layar Atur Ulang sejak blok B2. Sebelumnya layar itu menampilkan
+ * form ganti password kepada siapa pun yang mengetik /atur-ulang; sekarang ia
+ * menuntut sesi, karena mengganti password tanpa membuktikan kepemilikan akun
+ * adalah lubang yang cukup besar untuk dilewati siapa saja. Sesi hasil tautan
+ * pemulihan dan sesi hasil login sama-sama sah untuk `updateUser`. */
+async function masukDulu(page) {
+  const u = "lr" + Date.now().toString(36) + Math.floor(Math.random() * 900 + 100);
+  await page.goto("/daftar");
+  await page.fill("#d-username", u);
+  await page.fill("#d-password", "jobarta2026");
+  await page.locator(".consent input[type=checkbox]").check();
+  await page.click("button[type=submit]");
+  const dlg = page.locator("text=Ya, lanjut tanpa email");
+  if (await dlg.count()) await dlg.click();
+  await expect(page).toHaveURL(/\/onboarding/, { timeout: 20000 });
+  return u;
+}
+
 async function pasangProfil(page, { denganCv }) {
   // addInitScript jalan di SETIAP navigasi, termasuk reload — kalau ia menulis
   // tanpa syarat, ia menghapus perubahan yang justru sedang diuji bertahan.
@@ -357,7 +377,10 @@ test.describe("Pemulihan akun", () => {
     await page.goto("/daftar");
     const syaratDaftar = await page.locator(".syarat li").allInnerTexts();
 
+    // B2: form ganti password hanya muncul bila ada sesi.
+    await masukDulu(page);
     await page.goto("/atur-ulang");
+    await page.waitForTimeout(1500);
     const syaratAturUlang = await page.locator(".syarat li").allInnerTexts();
 
     expect(syaratAturUlang).toEqual(syaratDaftar);
@@ -366,7 +389,10 @@ test.describe("Pemulihan akun", () => {
 
   test("atur ulang: pencabutan sesi diberitahu sebelum tombol ditekan", async ({ page }) => {
     await page.setViewportSize(HP);
+    // B2: form ganti password hanya muncul bila ada sesi.
+    await masukDulu(page);
     await page.goto("/atur-ulang");
+    await page.waitForTimeout(1500);
 
     const pemberitahuan = page.getByText(/keluar otomatis dari semua perangkat lain/);
     await expect(pemberitahuan).toBeVisible();

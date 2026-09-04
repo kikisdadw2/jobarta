@@ -44,6 +44,22 @@ export function simpanProfil(patch) {
   return baru;
 }
 
+/** Buang cache profil dari perangkat ini.
+ *
+ * 🔴 WAJIB dipanggil saat keluar. Tanpa ini, orang berikutnya yang memakai HP
+ *    yang sama membuka JOBARTA dan melihat foto, nama, serta domisili pemilik
+ *    sebelumnya — cache-nya tidak tahu siapa yang sedang masuk. Di warnet dan
+ *    HP yang dipakai bergantian, itu kebocoran data pribadi, bukan sekadar
+ *    tampilan yang keliru.
+ */
+export function hapusProfil() {
+  try {
+    localStorage.removeItem(KUNCI);
+  } catch {
+    /* mode privat: memang tidak pernah tersimpan */
+  }
+}
+
 /* ---------- Profil di Supabase ---------- */
 /* 🔴 localStorage di atas bukan lagi sumber kebenaran, ia CACHE.
  *

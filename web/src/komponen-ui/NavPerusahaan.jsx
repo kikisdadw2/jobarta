@@ -1,6 +1,6 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Merek } from "./Dasar";
-import { useAuth } from "../konteks/useAuth";
+import MenuAkun from "./MenuAkun";
 
 /* Navbar sisi perusahaan.
  *
@@ -10,8 +10,6 @@ import { useAuth } from "../konteks/useAuth";
  * itu persis cara menu jadi menyimpang diam-diam.
  */
 export default function NavPerusahaan() {
-  const { sudahMasuk, keluar } = useAuth();
-
   return (
     <header className="navbar">
       <Merek ke="/perusahaan" />
@@ -20,21 +18,7 @@ export default function NavPerusahaan() {
         <NavLink to="/perusahaan/pasang">Pasang lowongan</NavLink>
         <NavLink to="/perusahaan/verifikasi">Verifikasi</NavLink>
         <NavLink to="/peta">Lihat peta</NavLink>
-        {sudahMasuk ? (
-          <button
-            type="button"
-            className="tombol tombol--sekunder"
-            onClick={() => {
-              keluar().then(() => window.location.assign("/"));
-            }}
-          >
-            Keluar
-          </button>
-        ) : (
-          <Link to="/masuk?peran=employer" className="tombol tombol--primary navbar__masuk">
-            Masuk
-          </Link>
-        )}
+        <MenuAkun ke="/masuk?peran=employer" peran="employer" />
       </nav>
     </header>
   );
