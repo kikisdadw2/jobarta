@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Logo, Progres, Terverifikasi } from "../komponen-ui/Dasar";
 import { bacaSesi, simpanSesi } from "../lib/sesi";
 import { useAuth } from "../konteks/useAuth";
+import Umpan from "../komponen-ui/Umpan";
 
 /* DESIGN 3 (revisi 2026-09-01) — onboarding setelah akun terbentuk,
  * apa pun jalur masuknya.
@@ -29,6 +30,7 @@ export default function Onboarding() {
   const [konfirmasiTolak, setKonfirmasiTolak] = useState(false);
   const [dihapus, setDihapus] = useState(false);
   const navigate = useNavigate();
+  const [param] = useSearchParams();
 
   if (!sesi.username) {
     return (
@@ -186,6 +188,16 @@ export default function Onboarding() {
             <Logo />
             <span className="merek__nama">JOBARTA</span>
           </Link>
+
+          {/* Sapaan sekali jalan sesudah pendaftaran. Ditaruh di sini, bukan di
+              Daftar.jsx: layar itu langsung ditinggalkan, jadi pesannya tidak
+              akan sempat terbaca. Hilang sendiri — kabar baik yang sudah
+              dibaca tidak perlu menetap. */}
+          {param.get("baru") === "1" && langkah === 1 && (
+            <Umpan nada="berhasil" judul="Akun kamu sudah jadi" hilangSetelah={8000}>
+              Tinggal tiga langkah singkat sebelum kamu bisa melamar.
+            </Umpan>
+          )}
 
           {langkah <= 3 && (
             <Progres

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IkonGoogle, Pemisah, Peringatan } from "../komponen-ui/Dasar";
+import { IkonGoogle, Pemisah } from "../komponen-ui/Dasar";
+import Umpan from "../komponen-ui/Umpan";
 import { useGoogleAktif } from "../lib/penyedia";
 import PanelAuth from "../komponen-ui/PanelAuth";
 import { useAuth } from "../konteks/useAuth";
@@ -89,7 +90,7 @@ export default function Masuk() {
             </>
           )}
 
-          {galat && <Peringatan>{galat}</Peringatan>}
+          {galat && <Umpan nada="gagal">{galat}</Umpan>}
 
           <form id="form-masuk" onSubmit={masuk} noValidate>
             <div className="field">

@@ -11,6 +11,7 @@ import Onboarding from "./halaman/Onboarding";
 import Peta from "./halaman/Peta";
 import Profil from "./halaman/Profil";
 import LamaranSaya from "./halaman/LamaranSaya";
+import Tersimpan from "./halaman/Tersimpan";
 import LupaPassword from "./halaman/LupaPassword";
 import AturUlang from "./halaman/AturUlang";
 import VerifikasiEmail from "./halaman/VerifikasiEmail";
@@ -65,6 +66,14 @@ export default function App() {
           element={
             <RuteTerlindungi>
               <LamaranSaya />
+            </RuteTerlindungi>
+          }
+        />
+        <Route
+          path="/tersimpan"
+          element={
+            <RuteTerlindungi>
+              <Tersimpan />
             </RuteTerlindungi>
           }
         />

@@ -16,6 +16,7 @@ export default function NavAkun() {
       <nav className="navbar__nav" aria-label="Menu akun">
         <NavLink to="/peta">Peta lowongan</NavLink>
         <NavLink to="/lamaran">Lamaran Saya</NavLink>
+        <NavLink to="/tersimpan">Tersimpan</NavLink>
         <NavLink to="/profil">Profil</NavLink>
         <MenuAkun />
       </nav>
@@ -26,6 +27,7 @@ export default function NavAkun() {
       <nav className="navbar__nav navbar__nav--laci" aria-label="Menu akun">
         <NavLink to="/peta">Peta lowongan</NavLink>
         <NavLink to="/lamaran">Lamaran Saya</NavLink>
+        <NavLink to="/tersimpan">Tersimpan</NavLink>
         <NavLink to="/profil">Profil</NavLink>
         <MenuAkun />
       </nav>

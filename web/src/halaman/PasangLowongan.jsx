@@ -5,6 +5,7 @@ import PetaPilih from "../components/PetaPilih";
 import { KATEGORI, TIPE_KERJA } from "../data/lowongan";
 import { tambahLowongan, perbaruiLowongan, cariLowonganku } from "../lib/lowonganku";
 import { bacaPerusahaan } from "../lib/perusahaan";
+import Umpan from "../komponen-ui/Umpan";
 
 /* Form pasang lowongan — layar inti sisi employer.
  *
@@ -310,11 +311,7 @@ export default function PasangLowongan() {
             />
           </div>
 
-          {galatKirim && (
-            <p className="catatan catatan--rusak" role="alert">
-              {galatKirim}
-            </p>
-          )}
+          {galatKirim && <Umpan nada="gagal">{galatKirim}</Umpan>}
 
           <div className="tumpuk">
             {/* Dinonaktifkan selama pengiriman: tanpa ini, ketukan ganda di

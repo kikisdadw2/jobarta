@@ -6,6 +6,7 @@ import { bacaLowonganku, perbaruiLowongan, hapusLowongan } from "../lib/lowongan
 import { bacaPerusahaan, STATUS_VERIFIKASI } from "../lib/perusahaan";
 import { lamaranMasuk, ubahStatusLamaran, STATUS_LAMARAN } from "../lib/lamaran";
 import { formatGaji } from "../lib/format";
+import Umpan from "../komponen-ui/Umpan";
 
 /* Dasbor perusahaan — halaman pertama yang dilihat employer setiap kali masuk.
  *
@@ -99,10 +100,10 @@ export default function Perusahaan() {
         </h1>
 
         {param.get("baru") === "1" && (
-          <p className="catatan catatan--sukses" role="status">
-            Lowongan kamu sudah tayang di peta.{" "}
+          <Umpan nada="berhasil" judul="Lowongan kamu sudah tayang">
+            Pencari kerja di sekitarnya sudah bisa melihatnya.{" "}
             <Link to="/peta">Lihat dari sisi pencari kerja</Link>
-          </p>
+          </Umpan>
         )}
 
         {/* ---------- Kartu status verifikasi ---------- */}

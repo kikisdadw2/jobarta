@@ -77,13 +77,12 @@ export function Pemisah({ teks = "atau" }) {
   );
 }
 
-export function Peringatan({ nada = "error", children }) {
-  return (
-    <p className={`peringatan peringatan--${nada}`} role="alert">
-      {children}
-    </p>
-  );
-}
+/* `Peringatan` dihapus 2026-09-05. Ia hanya teks berwarna dan memakai
+ * role="alert" untuk SEMUA nada — termasuk kabar baik, yang berarti pembaca
+ * layar disela demi ucapan selamat. Penggantinya `komponen-ui/Umpan`: ikon,
+ * kata pembuka, dan role yang dipilih per nada. Kelas `.peringatan--bar` di
+ * CSS tetap dipakai bilah galat lokasi di Peta.jsx dan sengaja dibiarkan.
+ */
 
 /** Ikon untuk keadaan kosong: kotak terbuka, bukan tanda silang.
  *  Kosong bukan galat — bentuknya tidak boleh meminjam bahasa kegagalan. */

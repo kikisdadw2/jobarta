@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import PanelAuth from "../komponen-ui/PanelAuth";
 import { Logo } from "../komponen-ui/Dasar";
 import { passwordLolos } from "../lib/password";
-import { Peringatan } from "../komponen-ui/Dasar";
+import Umpan from "../komponen-ui/Umpan";
 import { supabase, adaSupabase } from "../lib/supabase";
 import DaftarSyarat from "../komponen-ui/DaftarSyarat";
 import { simpanSesi } from "../lib/sesi";
@@ -270,7 +270,7 @@ export default function AturUlang() {
 
                 {/* Galat duduk TEPAT di atas tombolnya: di puncak halaman ia
                     sudah tergulung keluar layar saat form ini panjang. */}
-                {galat && <Peringatan>{galat}</Peringatan>}
+                {galat && <Umpan nada="gagal">{galat}</Umpan>}
 
                 <button
                   type="submit"

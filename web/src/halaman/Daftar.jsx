@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PanelAuth from "../komponen-ui/PanelAuth";
-import { Logo, IkonGoogle, Pemisah, Peringatan } from "../komponen-ui/Dasar";
+import { Logo, IkonGoogle, Pemisah } from "../komponen-ui/Dasar";
+import Umpan from "../komponen-ui/Umpan";
 import { useGoogleAktif } from "../lib/penyedia";
 import { useAuth } from "../konteks/useAuth";
 import { passwordLolos } from "../lib/password";
@@ -78,7 +79,7 @@ export default function Daftar() {
       password,
       recoveryEmail: email.trim() || null,
     })
-      .then(() => navigate("/onboarding"))
+      .then(() => navigate("/onboarding?baru=1"))
       .catch((err) => {
         setGalatDaftar(err.message);
         setKirim(false);
@@ -263,7 +264,7 @@ export default function Daftar() {
 
             {/* Galat pendaftaran duduk TEPAT di atas tombolnya, bukan di puncak
                 halaman yang sudah tergulung keluar layar saat form ini panjang. */}
-            {galatDaftar && <Peringatan>{galatDaftar}</Peringatan>}
+            {galatDaftar && <Umpan nada="gagal">{galatDaftar}</Umpan>}
 
             <button
               type="submit"

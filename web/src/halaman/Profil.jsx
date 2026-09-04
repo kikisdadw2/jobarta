@@ -59,7 +59,10 @@ export default function Profil() {
   function simpan(e) {
     e.preventDefault();
     perbaruiProfil(draf);
-    navigate("/peta");
+    /* Penanda sukses ikut di URL, bukan di state — halaman ini langsung
+       ditinggalkan, jadi state apa pun di sini mati sebelum sempat terbaca.
+       Pola yang sama dipakai PasangLowongan -> /perusahaan?baru=1. */
+    navigate("/peta?profil=1");
   }
 
   function nantiSaja() {

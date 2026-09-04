@@ -20,6 +20,7 @@ import {
   penjelasanSudahDilihat,
   tandaiPenjelasanDilihat,
 } from "../lib/lokasi";
+import Umpan from "../komponen-ui/Umpan";
 
 /* Halaman peta — artboard design-canvas/kerangka-peta.
  *
@@ -99,6 +100,10 @@ export default function Peta() {
   const [mintaCv, setMintaCv] = useState(null);
   const [mengirim, setMengirim] = useState(null); // id lowongan yang sedang dikirim
   const [galatLamar, setGalatLamar] = useState(null);
+  /* Kabar baik butuh tempat sendiri. Sebelum ini "lamaran terkirim" hanya
+     terlihat dari tombol yang berubah jadi "Sudah dilamar" — perubahan halus
+     yang mudah terlewat kalau tombolnya sudah tergulung keluar layar. */
+  const [suksesLamar, setSuksesLamar] = useState(null);
 
   const hasil = useMemo(() => {
     const kata = cari.trim().toLowerCase();
@@ -278,6 +283,7 @@ export default function Peta() {
       .then((d) => {
         setLamaranku(d);
         setDilamar(new Set(d.map((l) => l.lowonganId)));
+        setSuksesLamar("Lamaran kamu sudah masuk. Pantau balasannya di Lamaran Saya.");
       })
       .catch(() => setGalatLamar("Lamaran belum terkirim. Periksa koneksi lalu coba lagi."))
       .finally(() => setMengirim(null));
@@ -374,10 +380,23 @@ export default function Peta() {
         )}
       </div>
 
-      {galatLamar && (
-        <p className="catatan catatan--rusak" role="alert">
-          {galatLamar}
-        </p>
+      {galatLamar && <Umpan nada="gagal">{galatLamar}</Umpan>}
+
+      {suksesLamar && (
+        <Umpan
+          nada="berhasil"
+          judul="Lamaran terkirim"
+          onTutup={() => setSuksesLamar(null)}
+          hilangSetelah={7000}
+        >
+          {suksesLamar}
+        </Umpan>
+      )}
+
+      {param.get("profil") === "1" && (
+        <Umpan nada="berhasil" judul="Profil tersimpan" hilangSetelah={6000}>
+          Perubahanmu sudah dipakai untuk lamaran berikutnya.
+        </Umpan>
       )}
 
       <button
