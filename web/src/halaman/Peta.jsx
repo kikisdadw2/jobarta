@@ -11,6 +11,7 @@ import { jarakKm } from "../lib/format";
 import { idLamaran, tambahLamaran, bacaLamaran } from "../lib/lamaran";
 import { useProfil } from "../lib/useProfil";
 import { bacaSesi } from "../lib/sesi";
+import { IkonKosong } from "../komponen-ui/Dasar";
 import {
   mintaPosisi,
   pantauPosisi,
@@ -571,6 +572,7 @@ export default function Peta() {
 
           {hasil.length === 0 ? (
             <div className="kosong">
+            <IkonKosong />
               <h2>Belum ada lowongan yang cocok</h2>
               <p>
                 Coba hapus salah satu saringan{posisiSaya ? ", perlebar radius," : ""} atau

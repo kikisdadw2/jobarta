@@ -146,6 +146,13 @@ export default function Daftar() {
                 onChange={(e) => setUsername(e.target.value)}
                 onBlur={cekKetersediaan}
                 placeholder="nama pengguna kamu…"
+                aria-invalid={cekUsername === "dipakai" || cekUsername === "format" ? "true" : undefined}
+                /* Menautkan pesan ke inputnya: tanpa ini pembaca layar
+                   membacakan field tanpa menyebut apa yang salah dengannya,
+                   dan orang mendengar "Username, kotak isian" lalu diam. */
+                aria-describedby={
+                  cekUsername === "format" ? "galat-username" : cekUsername === "dipakai" ? "dipakai-username" : undefined
+                }
                 className={
                   cekUsername === "dipakai" || cekUsername === "format"
                     ? "salah"
@@ -156,7 +163,7 @@ export default function Daftar() {
               />
               <div aria-live="polite">
                 {cekUsername === "format" && (
-                  <p className="field__bantu field__bantu--salah">{pesanFormat}</p>
+                  <p id="galat-username" className="field__bantu field__bantu--salah">{pesanFormat}</p>
                 )}
                 {cekUsername === "cek" && <p className="field__bantu">Mengecek ketersediaan…</p>}
                 {cekUsername === "ada" && (
@@ -164,7 +171,7 @@ export default function Daftar() {
                 )}
                 {cekUsername === "dipakai" && (
                   <>
-                    <p className="field__bantu field__bantu--salah">
+                    <p id="dipakai-username" className="field__bantu field__bantu--salah">
                       Username “{username}” sudah dipakai. Coba yang lain.
                     </p>
                     <ul className="saran">

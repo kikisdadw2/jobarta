@@ -162,10 +162,12 @@ export default function PasangLowongan() {
               id="posisi"
               value={form.posisi}
               className={galat.posisi ? "salah" : ""}
+              aria-invalid={galat.posisi ? "true" : undefined}
+              aria-describedby={galat.posisi ? "galat-posisi" : undefined}
               placeholder="Kasir Minimarket"
               onChange={(e) => ubah({ posisi: e.target.value })}
             />
-            {galat.posisi && <p className="field__bantu field__bantu--salah">{galat.posisi}</p>}
+            {galat.posisi && <p id="galat-posisi" className="field__bantu field__bantu--salah">{galat.posisi}</p>}
           </div>
 
           <div className="form-pasang__dua">
@@ -175,6 +177,8 @@ export default function PasangLowongan() {
                 id="kategori"
                 value={form.kategori}
                 className={galat.kategori ? "salah" : ""}
+              aria-invalid={galat.kategori ? "true" : undefined}
+              aria-describedby={galat.kategori ? "galat-kategori" : undefined}
                 onChange={(e) => ubah({ kategori: e.target.value })}
               >
                 <option value="">Pilih kategori&hellip;</option>
@@ -182,7 +186,7 @@ export default function PasangLowongan() {
                   <option key={k} value={k}>{k}</option>
                 ))}
               </select>
-              {galat.kategori && <p className="field__bantu field__bantu--salah">{galat.kategori}</p>}
+              {galat.kategori && <p id="galat-kategori" className="field__bantu field__bantu--salah">{galat.kategori}</p>}
             </div>
 
             <div className="field">
@@ -191,6 +195,8 @@ export default function PasangLowongan() {
                 id="tipe"
                 value={form.tipe}
                 className={galat.tipe ? "salah" : ""}
+              aria-invalid={galat.tipe ? "true" : undefined}
+              aria-describedby={galat.tipe ? "galat-tipe" : undefined}
                 onChange={(e) => ubah({ tipe: e.target.value })}
               >
                 <option value="">Pilih tipe&hellip;</option>
@@ -198,7 +204,7 @@ export default function PasangLowongan() {
                   <option key={t} value={t}>{t}</option>
                 ))}
               </select>
-              {galat.tipe && <p className="field__bantu field__bantu--salah">{galat.tipe}</p>}
+              {galat.tipe && <p id="galat-tipe" className="field__bantu field__bantu--salah">{galat.tipe}</p>}
             </div>
           </div>
 
@@ -217,10 +223,12 @@ export default function PasangLowongan() {
                   inputMode="numeric"
                   value={form.gajiMin}
                   className={galat.gajiMin ? "salah" : ""}
+              aria-invalid={galat.gajiMin ? "true" : undefined}
+              aria-describedby={galat.gajiMin ? "galat-gajiMin" : undefined}
                   placeholder="4500000"
                   onChange={(e) => ubah({ gajiMin: e.target.value })}
                 />
-                {galat.gajiMin && <p className="field__bantu field__bantu--salah">{galat.gajiMin}</p>}
+                {galat.gajiMin && <p id="galat-gajiMin" className="field__bantu field__bantu--salah">{galat.gajiMin}</p>}
               </div>
               <div className="field">
                 <label htmlFor="gajiMax">
@@ -232,10 +240,12 @@ export default function PasangLowongan() {
                   inputMode="numeric"
                   value={form.gajiMax}
                   className={galat.gajiMax ? "salah" : ""}
+              aria-invalid={galat.gajiMax ? "true" : undefined}
+              aria-describedby={galat.gajiMax ? "galat-gajiMax" : undefined}
                   placeholder="5200000"
                   onChange={(e) => ubah({ gajiMax: e.target.value })}
                 />
-                {galat.gajiMax && <p className="field__bantu field__bantu--salah">{galat.gajiMax}</p>}
+                {galat.gajiMax && <p id="galat-gajiMax" className="field__bantu field__bantu--salah">{galat.gajiMax}</p>}
               </div>
             </div>
           </fieldset>
@@ -246,10 +256,12 @@ export default function PasangLowongan() {
               id="alamat"
               value={form.alamat}
               className={galat.alamat ? "salah" : ""}
+              aria-invalid={galat.alamat ? "true" : undefined}
+              aria-describedby={galat.alamat ? "galat-alamat" : undefined}
               placeholder="Jl. Kemayoran Gempol, Kemayoran, Jakarta Pusat"
               onChange={(e) => ubah({ alamat: e.target.value })}
             />
-            {galat.alamat && <p className="field__bantu field__bantu--salah">{galat.alamat}</p>}
+            {galat.alamat && <p id="galat-alamat" className="field__bantu field__bantu--salah">{galat.alamat}</p>}
           </div>
 
           <div className="field">
@@ -267,7 +279,7 @@ export default function PasangLowongan() {
                 Lokasi ditandai. Pencari kerja akan melihat lowongan ini muncul di sana.
               </p>
             )}
-            {galat.lokasi && <p className="field__bantu field__bantu--salah">{galat.lokasi}</p>}
+            {galat.lokasi && <p id="galat-lokasi" className="field__bantu field__bantu--salah">{galat.lokasi}</p>}
           </div>
 
           <div className="field">
@@ -277,10 +289,12 @@ export default function PasangLowongan() {
               rows={4}
               value={form.deskripsi}
               className={galat.deskripsi ? "salah" : ""}
+              aria-invalid={galat.deskripsi ? "true" : undefined}
+              aria-describedby={galat.deskripsi ? "galat-deskripsi" : undefined}
               placeholder="Melayani pembayaran pelanggan, menjaga kerapian rak, dan mencatat stok harian. Shift pagi atau sore."
               onChange={(e) => ubah({ deskripsi: e.target.value })}
             />
-            {galat.deskripsi && <p className="field__bantu field__bantu--salah">{galat.deskripsi}</p>}
+            {galat.deskripsi && <p id="galat-deskripsi" className="field__bantu field__bantu--salah">{galat.deskripsi}</p>}
           </div>
 
           <div className="field">

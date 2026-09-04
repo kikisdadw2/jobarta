@@ -658,3 +658,65 @@ video {
   .navbar__lebar { display: none; }
   .navbar__sempit { display: block; margin-left: auto; }
 }
+
+/* ---------- Umpan balik: galat & keberhasilan ---------- */
+/* Warna TIDAK PERNAH sendirian: setiap pesan membawa ikon berbentuk beda dan
+   kata pembuka, supaya terbaca oleh yang tidak membedakan merah dan hijau. */
+.umpan {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: flex-start;
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid;
+  border-radius: var(--radius);
+  line-height: 1.55;
+  margin: 0 0 var(--sp-3);
+}
+
+.umpan--gagal {
+  color: var(--color-destructive);
+  border-color: var(--color-destructive);
+  background: color-mix(in srgb, var(--color-destructive) 7%, var(--color-surface));
+}
+
+.umpan--berhasil {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-surface));
+}
+
+.umpan__ikon { flex: none; line-height: 0; padding-top: 2px; }
+.umpan__isi { display: grid; gap: 2px; min-width: 0; }
+.umpan__judul { font-weight: 700; }
+.umpan__teks { color: var(--color-foreground); }
+
+.umpan__tutup {
+  flex: none;
+  margin-inline-start: auto;
+  min-width: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: inherit;
+  cursor: pointer;
+}
+.umpan__tutup:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
+
+/* ---------- 404 ---------- */
+.tidak-ada__alamat { margin: 0; }
+.tidak-ada__alamat code {
+  display: inline-block;
+  padding: 4px var(--sp-2);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 14px;
+  word-break: break-all;
+}
+
+/* Ikon keadaan kosong: memberi bobot visual supaya blok itu terbaca sebagai
+   keadaan yang disengaja, bukan halaman yang gagal memuat. */
+.kosong__ikon { margin: 0 auto var(--sp-2); display: block; }

@@ -84,3 +84,27 @@ export function Peringatan({ nada = "error", children }) {
     </p>
   );
 }
+
+/** Ikon untuk keadaan kosong: kotak terbuka, bukan tanda silang.
+ *  Kosong bukan galat — bentuknya tidak boleh meminjam bahasa kegagalan. */
+export function IkonKosong({ ukuran = 48 }) {
+  return (
+    <svg
+      width={ukuran}
+      height={ukuran}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="var(--color-primary)"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="kosong__ikon"
+    >
+      <path d="M3 9.5 12 4l9 5.5v9L12 24l-9-5.5Z" opacity="0.28" />
+      <path d="M3 9.5 12 15l9-5.5" />
+      <path d="M12 15v9" />
+      <path d="M3 9.5v9L12 24l9-5.5v-9L12 4Z" />
+    </svg>
+  );
+}

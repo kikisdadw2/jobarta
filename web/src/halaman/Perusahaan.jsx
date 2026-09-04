@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import NavPerusahaan from "../komponen-ui/NavPerusahaan";
-import { Terverifikasi } from "../komponen-ui/Dasar";
+import { Terverifikasi, IkonKosong } from "../komponen-ui/Dasar";
 import { bacaLowonganku, perbaruiLowongan, hapusLowongan } from "../lib/lowonganku";
 import { bacaPerusahaan, STATUS_VERIFIKASI } from "../lib/perusahaan";
 import { lamaranMasuk, ubahStatusLamaran, STATUS_LAMARAN } from "../lib/lamaran";
@@ -152,6 +152,7 @@ export default function Perusahaan() {
           </p>
         ) : urut.length === 0 ? (
           <div className="kosong">
+            <IkonKosong />
             <h3>Belum ada lowongan yang kamu pasang</h3>
             <p>
               Pasang satu lowongan dan ia langsung muncul sebagai pin di peta

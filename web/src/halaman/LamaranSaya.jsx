@@ -4,6 +4,7 @@ import NavAkun from "../komponen-ui/NavAkun";
 import { katalogLengkap } from "../lib/lowonganku";
 import { bacaLamaran, batalkanLamaran, STATUS_LAMARAN } from "../lib/lamaran";
 import { formatGaji } from "../lib/format";
+import { IkonKosong } from "../komponen-ui/Dasar";
 
 /* Dibangun di dalam komponen, bukan sebagai konstanta modul: lowongan buatan
  * employer tersimpan di database dan bisa berubah selama sesi berjalan.
@@ -59,6 +60,7 @@ export default function LamaranSaya() {
           </p>
         ) : urut.length === 0 ? (
           <div className="kosong">
+            <IkonKosong />
             <h2>Kamu belum melamar ke mana pun</h2>
             <p>
               Buka peta, pilih lowongan yang dekat rumahmu, lalu tekan &ldquo;Lamar

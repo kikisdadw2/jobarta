@@ -1,9 +1,11 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PenyediaAuth } from "./konteks/Auth";
 import RuteTerlindungi from "./komponen-ui/RuteTerlindungi";
 import Landing from "./halaman/Landing";
 import Masuk from "./halaman/Masuk";
 import Callback from "./halaman/Callback";
+import TidakDitemukan from "./halaman/TidakDitemukan";
+import BatasGalat from "./komponen-ui/BatasGalat";
 import Daftar from "./halaman/Daftar";
 import Onboarding from "./halaman/Onboarding";
 import Peta from "./halaman/Peta";
@@ -34,7 +36,8 @@ import "./perusahaan.css";
  */
 export default function App() {
   return (
-    <PenyediaAuth>
+    <BatasGalat>
+      <PenyediaAuth>
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -101,9 +104,13 @@ export default function App() {
           }
         />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* 404 sungguhan, bukan pengalihan diam-diam ke beranda: orang yang
+            salah ketik satu huruf berhak tahu tautannya gagal, bukan mengira
+            berhasil lalu bingung isinya bukan yang dicari. */}
+        <Route path="*" element={<TidakDitemukan />} />
       </Routes>
       </BrowserRouter>
-    </PenyediaAuth>
+      </PenyediaAuth>
+    </BatasGalat>
   );
 }

@@ -257,10 +257,12 @@ export default function AturUlang() {
                     type={lihat ? "text" : "password"}
                     autoComplete="new-password"
                     value={ulangi}
+                    aria-invalid={ulangi && !cocok ? "true" : undefined}
+                    aria-describedby={ulangi && !cocok ? "galat-ulangi" : undefined}
                     onChange={(e) => setUlangi(e.target.value)}
                   />
                   {ulangi && !cocok && (
-                    <p className="field__bantu field__bantu--salah">
+                    <p id="galat-ulangi" className="field__bantu field__bantu--salah">
                       Dua password ini belum sama.
                     </p>
                   )}
