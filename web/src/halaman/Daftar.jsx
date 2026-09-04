@@ -5,6 +5,7 @@ import { Logo, IkonGoogle, Pemisah, Peringatan } from "../komponen-ui/Dasar";
 import { useGoogleAktif } from "../lib/penyedia";
 import { useAuth } from "../konteks/useAuth";
 import { passwordLolos } from "../lib/password";
+import { galatFormat, formatLolos, cekTersedia } from "../lib/username";
 import DaftarSyarat from "../komponen-ui/DaftarSyarat";
 
 /* DESIGN 2B — Daftar, jalur username + password.
@@ -12,13 +13,12 @@ import DaftarSyarat from "../komponen-ui/DaftarSyarat";
  * Urutan field dari yang paling murah ke paling mahal secara kognitif:
  * username -> password -> email pemulihan -> consent. */
 
-// Username yang dianggap sudah terpakai selama backend belum ada.
-const TERPAKAI = new Set(["rizky", "admin", "jobarta", "kasir"]);
-
 
 export default function Daftar() {
   const [username, setUsername] = useState("");
-  const [cekUsername, setCekUsername] = useState(null); // null | "cek" | "ada" | "dipakai"
+  // null | "cek" | "ada" | "dipakai" | "format"
+  const [cekUsername, setCekUsername] = useState(null);
+  const [pesanFormat, setPesanFormat] = useState("");
   const [password, setPassword] = useState("");
   const [lihat, setLihat] = useState(false);
   const [email, setEmail] = useState("");
@@ -45,11 +45,30 @@ export default function Daftar() {
 
   // Validasi dijalankan saat field DITINGGALKAN, bukan tiap ketukan —
   // mengetik sambil terus-menerus dimarahi membuat orang berhenti.
-  function cekKetersediaan() {
+  async function cekKetersediaan() {
     const u = username.trim().toLowerCase();
-    if (!u) return setCekUsername(null);
+    if (!u) {
+      setPesanFormat("");
+      return setCekUsername(null);
+    }
+
+    /* Format diperiksa DULU, di perangkat. Menanyakan ketersediaan
+     * "Budi Santoso" ke server tidak ada gunanya: username itu tidak akan
+     * pernah bisa dipakai apa pun jawabannya. */
+    const galat = galatFormat(u);
+    if (galat) {
+      setPesanFormat(galat);
+      return setCekUsername("format");
+    }
+    setPesanFormat("");
+
     setCekUsername("cek");
-    setTimeout(() => setCekUsername(TERPAKAI.has(u) ? "dipakai" : "ada"), 500);
+    // RPC `username_tersedia` — lihat supabase/schema.sql bagian 4.
+    const bebas = await cekTersedia(u);
+    /* null = tidak bisa memastikan (mode lokal atau jaringan gagal). Jangan
+     * mengarang jawaban; diamkan saja dan biarkan pendaftaran yang memutuskan. */
+    if (bebas === null) return setCekUsername(null);
+    setCekUsername(bebas ? "ada" : "dipakai");
   }
 
   function lanjutkan() {
@@ -77,7 +96,8 @@ export default function Daftar() {
     lanjutkan();
   }
 
-  const saran = [`${username}.jkt`, `${username}_g`, `${username}2026`];
+  const dasar = username.trim().toLowerCase();
+  const saran = [`${dasar}.jkt`, `${dasar}_g`, `${dasar}2026`];
 
   return (
     <div className="auth">
@@ -126,9 +146,18 @@ export default function Daftar() {
                 onChange={(e) => setUsername(e.target.value)}
                 onBlur={cekKetersediaan}
                 placeholder="nama pengguna kamu…"
-                className={cekUsername === "dipakai" ? "salah" : cekUsername === "ada" ? "benar" : ""}
+                className={
+                  cekUsername === "dipakai" || cekUsername === "format"
+                    ? "salah"
+                    : cekUsername === "ada"
+                      ? "benar"
+                      : ""
+                }
               />
               <div aria-live="polite">
+                {cekUsername === "format" && (
+                  <p className="field__bantu field__bantu--salah">{pesanFormat}</p>
+                )}
                 {cekUsername === "cek" && <p className="field__bantu">Mengecek ketersediaan…</p>}
                 {cekUsername === "ada" && (
                   <p className="field__bantu field__bantu--benar">✓ Username ini bisa dipakai</p>
@@ -144,9 +173,15 @@ export default function Daftar() {
                           <button
                             type="button"
                             className="chip chip--tombol"
-                            onClick={() => {
+                            /* Saran tidak boleh langsung ditandai "ada": ia
+                               cuma tebakan, dan `.jkt` bisa saja sudah dipakai
+                               orang lain juga. Tanyakan ulang ke backend. */
+                            onClick={async () => {
                               setUsername(s);
-                              setCekUsername("ada");
+                              setCekUsername("cek");
+                              const bebas = await cekTersedia(s);
+                              if (bebas === null) return setCekUsername(null);
+                              setCekUsername(bebas ? "ada" : "dipakai");
                             }}
                           >
                             {s}
@@ -229,7 +264,9 @@ export default function Daftar() {
               /* Gerbangnya harus menguji password, bukan cuma consent: tanpa
                  `passwordLolos` daftar syarat di atas cuma hiasan, dan password
                  yang diterima di sini akan ditolak di layar AturUlang. */
-              disabled={!setuju || kirim || !passwordLolos(password)}
+              disabled={
+                !setuju || kirim || !passwordLolos(password) || !formatLolos(username)
+              }
             >
               {kirim ? "Membuat akun…" : "Daftar"}
             </button>

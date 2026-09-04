@@ -164,11 +164,27 @@ export function PenyediaAuth({ children }) {
       },
     });
     if (error) {
-      throw new Error(
-        error.message.includes("already")
-          ? "Username itu sudah dipakai. Coba yang lain."
-          : "Pendaftaran gagal. Periksa koneksi lalu coba lagi."
-      );
+      /* 🔴 Pesan dipilah per SEBAB, bukan disamaratakan jadi "periksa koneksi".
+       * Menyuruh orang memeriksa koneksi saat yang salah adalah isian formnya
+       * membuat mereka mengulang sesuatu yang tidak akan pernah berhasil —
+       * dan username "Budi Santoso" persis jatuh ke situ sebelum ini.
+       *
+       * `validation_failed` di sini hampir selalu berarti email SINTETIS-nya
+       * yang ditolak, jadi yang salah adalah usernamenya. Istilah "email" tidak
+       * boleh bocor: pengguna merasa sedang mengisi username, dan memang benar. */
+      const pesan = error.message || "";
+      if (/already/i.test(pesan)) {
+        throw new Error("Username itu sudah dipakai. Coba yang lain.");
+      }
+      if (error.code === "validation_failed" || /validate email|invalid format/i.test(pesan)) {
+        throw new Error(
+          "Username itu tidak bisa dipakai. Gunakan huruf, angka, titik, dan garis bawah saja — tanpa spasi."
+        );
+      }
+      if (/password/i.test(pesan)) {
+        throw new Error("Password belum memenuhi syarat di atas.");
+      }
+      throw new Error("Pendaftaran gagal. Periksa koneksi lalu coba lagi.");
     }
     return null;
   }, []);
