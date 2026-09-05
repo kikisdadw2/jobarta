@@ -69,3 +69,6 @@ AUDIT-2026-09.md
 # ── Folder kerja desain & diagram ────────────────────────────
 Design skills and scope form/
 Diagram Jobarta/
+
+.vercel
+.env*

@@ -13,6 +13,8 @@ import Peta from "./halaman/Peta";
 import Profil from "./halaman/Profil";
 import LamaranSaya from "./halaman/LamaranSaya";
 import Tersimpan from "./halaman/Tersimpan";
+import KebijakanPrivasi from "./halaman/KebijakanPrivasi";
+import SyaratPenggunaan from "./halaman/SyaratPenggunaan";
 import LupaPassword from "./halaman/LupaPassword";
 import AturUlang from "./halaman/AturUlang";
 import VerifikasiEmail from "./halaman/VerifikasiEmail";
@@ -59,6 +61,8 @@ export default function App() {
         <Route path="/daftar" element={<Daftar />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/peta" element={<Peta />} />
+        <Route path="/kebijakan-privasi" element={<KebijakanPrivasi />} />
+        <Route path="/syarat-penggunaan" element={<SyaratPenggunaan />} />
         <Route path="/lupa-password" element={<LupaPassword />} />
         <Route path="/atur-ulang" element={<AturUlang />} />
         <Route path="/verifikasi-email" element={<VerifikasiEmail />} />

@@ -144,8 +144,8 @@ export default function Masuk() {
           </form>
 
           <p className="auth__legal">
-            Dengan masuk, kamu menyetujui <a href="#syarat">Syarat Penggunaan</a> &amp;{" "}
-            <a href="#kebijakan">Kebijakan Privasi</a>.
+            Dengan masuk, kamu menyetujui <Link to="/syarat-penggunaan">Syarat Penggunaan</Link> &amp;{" "}
+            <Link to="/kebijakan-privasi">Kebijakan Privasi</Link>.
           </p>
         </div>
       </main>

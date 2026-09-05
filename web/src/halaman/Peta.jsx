@@ -677,6 +677,13 @@ export default function Peta() {
                 Nanti saja
               </button>
             </div>
+            {/* Satu baris kecil, bukan paragraf: sheet ini sengaja dijaga
+                pendek (lihat catatan di atas), tapi izin lokasi tanpa jalan
+                menuju penjelasan lengkapnya tidak memenuhi syarat "persetujuan
+                yang diberitahukan" di UU PDP. */}
+            <p className="sheet__legal">
+              <Link to="/kebijakan-privasi">Selengkapnya di Kebijakan Privasi</Link>
+            </p>
           </div>
         </div>
       )}

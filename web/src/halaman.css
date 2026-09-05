@@ -720,3 +720,42 @@ video {
 /* Ikon keadaan kosong: memberi bobot visual supaya blok itu terbaca sebagai
    keadaan yang disengaja, bukan halaman yang gagal memuat. */
 .kosong__ikon { margin: 0 auto var(--sp-2); display: block; }
+
+/* ---------- Halaman legal: Kebijakan Privasi & Syarat Penggunaan ---------- */
+/* Lebar baca dikunci ~68ch. Teks hukum yang membentang selebar layar 1440px
+   adalah alasan orang berhenti membacanya di paragraf kedua — mata kehilangan
+   awal baris berikutnya. */
+.legal { max-width: 72ch; }
+.legal__tanggal { margin: calc(var(--sp-2) * -1) 0 var(--sp-4); font-size: 14px; color: var(--color-muted, #5b6470); }
+
+/* Ringkasan diberi bobot visual lebih besar dari isi lengkapnya — bagian
+   inilah yang benar-benar dibaca orang, jadi ia tidak boleh terlihat seperti
+   pengantar yang bisa dilewati. */
+.legal__ringkas {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 10px; padding: var(--sp-3) var(--sp-4); margin-bottom: var(--sp-5);
+}
+.legal__ringkas h2 { margin: 0 0 var(--sp-2); font-size: 18px; }
+.legal__ringkas ul { margin: 0; padding-left: 1.15em; }
+.legal__ringkas li { margin-bottom: var(--sp-2); line-height: 1.6; }
+.legal__ringkas li:last-child { margin-bottom: 0; }
+
+.legal__isi h2 { font-size: 20px; margin: var(--sp-5) 0 var(--sp-2); }
+.legal__isi h3 { font-size: 16px; margin: var(--sp-4) 0 var(--sp-2); }
+.legal__isi p, .legal__isi li { line-height: 1.75; }
+.legal__isi ul { padding-left: 1.15em; }
+.legal__isi li { margin-bottom: var(--sp-2); }
+
+.legal__kontak {
+  display: flex; align-items: center; gap: var(--sp-3);
+  margin-top: var(--sp-5); padding: var(--sp-3) var(--sp-4);
+  background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px;
+}
+.legal__kontak p { margin: 0; line-height: 1.6; }
+.legal__silang { margin-top: var(--sp-4); font-size: 14px; }
+
+/* Tautan legal di sheet izin lokasi: kecil, tapi target sentuhnya tetap
+   memenuhi 44px lewat padding vertikal. */
+.sheet__legal { margin: var(--sp-2) 0 0; text-align: center; font-size: 14px; }
+.sheet__legal a { display: inline-block; padding: 10px var(--sp-2); }

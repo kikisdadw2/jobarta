@@ -407,8 +407,8 @@ export default function Landing() {
           </p>
         </div>
         <nav className="footer__kolom" aria-label="Dokumen">
-          <a href="#kebijakan">Kebijakan Privasi</a>
-          <a href="#syarat">Syarat Penggunaan</a>
+          <Link to="/kebijakan-privasi">Kebijakan Privasi</Link>
+          <Link to="/syarat-penggunaan">Syarat Penggunaan</Link>
         </nav>
         <nav className="footer__kolom" aria-label="Tautan lain">
           <Link to="/masuk?peran=employer">Untuk Perusahaan</Link>

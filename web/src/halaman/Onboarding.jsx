@@ -356,8 +356,8 @@ export default function Onboarding() {
                     <input type="checkbox" checked={setuju} onChange={(e) => setSetuju(e.target.checked)} />
                     <span>
                       Saya sudah membaca dan setuju JOBARTA mengolah data di atas untuk keperluan
-                      yang disebutkan. <a href="#kebijakan">Kebijakan Privasi</a> ·{" "}
-                      <a href="#syarat">Syarat Penggunaan</a>
+                      yang disebutkan. <Link to="/kebijakan-privasi">Kebijakan Privasi</Link> ·{" "}
+                      <Link to="/syarat-penggunaan">Syarat Penggunaan</Link>
                     </span>
                   </label>
                   <button

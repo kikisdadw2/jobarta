@@ -24,6 +24,31 @@
   overflow-wrap: anywhere;
 }
 
+/* ---------- Tautan: warna palet, bukan biru bawaan peramban ----------
+   Sampai 2026-09-05 tidak ada SATU PUN aturan `a` global di repo ini, jadi
+   setiap tautan tanpa kelas dirender `rgb(0, 0, 238)` — biru bawaan peramban.
+   Nyaris tidak terlihat selama semua tautan kebetulan berupa tombol; langsung
+   kentara begitu halaman legal yang penuh tautan teks muncul.
+
+   Catatan jujur: biru bawaan itu justru LEBIH kontras (7,52:1 di atas
+   #F0E5CF) daripada warna aksi kita (4,79:1). Jadi perubahan ini soal
+   kepatuhan palet, bukan aksesibilitas — keduanya lolos WCAG AA. */
+:where(a) {
+  color: var(--color-primary);
+  text-underline-offset: 2px;
+}
+:where(a):hover { text-decoration-thickness: 2px; }
+
+/* Fokus terlihat di SEMUA elemen interaktif. `:focus-visible`, bukan `:focus`:
+   cincin fokus yang muncul saat diklik tetikus terbaca sebagai kerusakan,
+   sedangkan yang muncul saat Tab adalah satu-satunya petunjuk posisi bagi
+   orang yang tidak memakai tetikus. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* `overflow: hidden` WAJIB, bukan sekadar rapi.
    Tinggi `.app` sudah dikunci 100dvh dan daftar lowongan menggulir di dalam
    panelnya sendiri — tapi tanpa ini area gulir DOKUMEN tetap terbentuk setinggi

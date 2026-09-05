@@ -34,6 +34,8 @@ export const META_RUTE = [
   ["/profil", "Profil", "Lengkapi profil dan CV kamu. Perusahaan lebih sering membalas pelamar yang profilnya lengkap."],
   ["/lamaran", "Lamaran Saya", "Riwayat lamaran kamu di JOBARTA beserta status balasannya."],
   ["/tersimpan", "Lowongan Tersimpan", "Lowongan di Jakarta yang kamu simpan untuk dilamar nanti."],
+  ["/kebijakan-privasi", "Kebijakan Privasi", "Data apa yang JOBARTA kumpulkan, dasar pemrosesannya, berapa lama disimpan, dan cara mencabut persetujuan. Sesuai UU PDP No. 27/2022."],
+  ["/syarat-penggunaan", "Syarat Penggunaan", "Aturan memakai JOBARTA: gratis untuk pencari kerja, larangan memungut biaya melamar, dan batas tanggung jawab kami."],
   ["/lupa-password", "Lupa password", "Atur ulang password akun JOBARTA kamu lewat email pemulihan."],
   ["/atur-ulang", "Atur ulang password", "Buat password baru untuk akun JOBARTA kamu."],
   ["/verifikasi-email", "Verifikasi email", "Verifikasi alamat email pemulihan akun JOBARTA kamu."],

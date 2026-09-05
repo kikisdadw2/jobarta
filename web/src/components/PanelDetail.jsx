@@ -10,6 +10,7 @@ import {
   formatTanggal,
   inisial,
 } from "../lib/format";
+import { mailto } from "../lib/kontak";
 
 /* Detail lowongan — artboard design-canvas/detail-lowongan.
  *
@@ -352,9 +353,34 @@ export default function PanelDetail({
           perusahaan meminta uang, laporkan lowongan ini.
         </div>
 
-        <button type="button" className="tombol tombol--bahaya tombol--penuh">
+        {/* 🔴 Sebelum ini tombolnya TIDAK melakukan apa pun. Tombol laporan
+            yang diam lebih berbahaya daripada tidak ada tombol sama sekali:
+            orang menekannya, mengira laporannya sampai, lalu berhenti mencari
+            cara lain — persis pada lowongan yang paling perlu dilaporkan.
+
+            <a>, bukan <button>: ini navigasi keluar aplikasi, jadi harus bisa
+            dibuka di tab baru dan disalin alamatnya seperti tautan biasa. */}
+        <a
+          className="tombol tombol--bahaya tombol--penuh"
+          href={mailto(
+            `Laporan lowongan: ${data.posisi} - ${data.perusahaan}`,
+            [
+              "Halo JOBARTA,",
+              "",
+              "Saya ingin melaporkan lowongan ini:",
+              "",
+              `Posisi      : ${data.posisi}`,
+              `Perusahaan  : ${data.perusahaan}`,
+              `Alamat      : ${data.alamat}`,
+              `Tautan      : ${window.location.origin}/peta?lowongan=${data.id}`,
+              "",
+              "Alasan saya melaporkan (mis. diminta uang, lowongan tidak ada, data pribadi berlebihan):",
+              "",
+            ].join("\n")
+          )}
+        >
           Laporkan Lowongan Ini
-        </button>
+        </a>
       </aside>
     </aside>
   );

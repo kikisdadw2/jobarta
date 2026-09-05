@@ -258,7 +258,7 @@ export default function Daftar() {
               <span>
                 Saya setuju JOBARTA mengolah <strong>CV, lokasi domisili, dan email</strong> saya
                 untuk mencocokkan lowongan dan meneruskan lamaran ke perusahaan.{" "}
-                <a href="#kebijakan">Kebijakan Privasi</a> · <a href="#syarat">Syarat Penggunaan</a>
+                <Link to="/kebijakan-privasi">Kebijakan Privasi</Link> · <Link to="/syarat-penggunaan">Syarat Penggunaan</Link>
               </span>
             </label>
 
