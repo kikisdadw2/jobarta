@@ -68,7 +68,13 @@ export default function MenuAkun({ ke = "/masuk", peran = "seeker" }) {
           Masuk
         </Link>
         {peran === "seeker" && (
-          <Link to="/daftar" className="tombol tombol--primary">
+          /* 🔴 Sekunder, bukan primer. Di landing 1440px tombol ini bertarung
+             dengan "Cari di Peta" di hero — dua CTA primer di satu layar, dan
+             yang kalah justru yang lebih penting. App.jsx menyatakan peta
+             adalah momen "aha" produk ini dan sengaja TIDAK dikunci di balik
+             login; menyorot "Daftar" lebih terang melawan keputusan itu.
+             Tombolnya tetap ada, tetap 44px, cuma tidak lagi berteriak. */
+          <Link to="/daftar" className="tombol tombol--sekunder">
             Daftar
           </Link>
         )}

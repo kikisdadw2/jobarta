@@ -5,6 +5,7 @@ import { katalogLengkap } from "../lib/lowonganku";
 import { bacaSimpanan, togglSimpanan } from "../lib/simpanan";
 import { formatGaji } from "../lib/format";
 import { IkonKosong } from "../komponen-ui/Dasar";
+import KerangkaDaftar from "../komponen-ui/KerangkaDaftar";
 
 /* Lowongan tersimpan.
  *
@@ -86,9 +87,7 @@ export default function Tersimpan() {
         {/* Memuat dibedakan dari kosong, alasannya sama dengan LamaranSaya:
             koneksi lambat tidak boleh terbaca sebagai data yang hilang. */}
         {memuat ? (
-          <p className="catatan" role="status">
-            Memuat lowongan tersimpan…
-          </p>
+          <KerangkaDaftar label="Memuat lowongan tersimpan" />
         ) : tampil.length === 0 ? (
           /* Dua sebab kosong, dua kalimat berbeda. Orang yang simpanannya
              kedaluwarsa semua tidak boleh dibilang "belum pernah menyimpan" —

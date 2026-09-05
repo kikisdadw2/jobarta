@@ -12,20 +12,20 @@
   padding: var(--sp-6) var(--sp-4);
 }
 .hero__judul { font-size: clamp(30px, 6vw, 44px); max-width: 16ch; margin-bottom: var(--sp-3); }
-.hero__sub { font-size: 18px; margin: 0 0 var(--sp-4); max-width: 52ch; }
+.hero__sub { font-size: var(--fs-md); margin: 0 0 var(--sp-4); max-width: 52ch; }
 
 .cari { display: grid; gap: var(--sp-2); }
 .cari__field { display: grid; gap: var(--sp-1); min-width: 0; }
-.cari__field label { font-size: 14px; font-weight: 600; }
+.cari__field label { font-size: var(--fs-sm); font-weight: 600; }
 .cari__field input {
-  width: 100%; box-sizing: border-box; height: 52px; padding: 0 var(--sp-3); font-size: 16px;
+  width: 100%; box-sizing: border-box; height: 52px; padding: 0 var(--sp-3); font-size: var(--fs-base);
   font-family: var(--font-body); color: var(--color-foreground); background: var(--color-surface);
   border: 1px solid var(--color-border); border-radius: var(--radius);
 }
 .cari__tombol { height: 52px; gap: var(--sp-2); }
 
 .populer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); margin-top: var(--sp-3); }
-.populer__label { font-size: 14px; color: var(--color-primary); font-weight: 600; }
+.populer__label { font-size: var(--fs-sm); color: var(--color-primary); font-weight: 600; }
 .chip-baris { list-style: none; display: flex; flex-wrap: wrap; gap: var(--sp-2); margin: 0; padding: 0; }
 
 /* ---------- Cuplikan peta di hero ---------- */
@@ -35,7 +35,7 @@
   border: 1px solid var(--color-border); background: var(--color-background);
 }
 /* Atribusi ODbL wajib terlihat DI ATAS peta, bukan cuma di footer. */
-.mini-peta .leaflet-control-attribution { font-size: 11px; }
+.mini-peta .leaflet-control-attribution { font-size: var(--fs-xs); }
 
 .sorot {
   background: var(--color-surface); border: 1px solid var(--color-border);
@@ -43,13 +43,13 @@
 }
 .sorot__posisi {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2);
-  font-size: 17px; margin-bottom: var(--sp-1);
+  font-size: var(--fs-md); margin-bottom: var(--sp-1);
 }
-.sorot__meta { margin: 0; font-size: 15px; font-variant-numeric: tabular-nums; }
-.hero__ket { margin: 0; font-size: 14px; color: var(--color-primary); text-align: center; }
+.sorot__meta { margin: 0; font-size: var(--fs-base); font-variant-numeric: tabular-nums; }
+.hero__ket { margin: 0; font-size: var(--fs-sm); color: var(--color-primary); text-align: center; }
 
 /* ---------- Seksi ---------- */
-.seksi__sub { margin: -20px 0 var(--sp-4); font-size: 16px; }
+.seksi__sub { margin: -20px 0 var(--sp-4); font-size: var(--fs-base); }
 .seksi__kepala { align-items: flex-start; }
 .seksi__kepala .seksi__sub { margin-bottom: 0; }
 .seksi__kepala .tombol { text-decoration: none; }
@@ -61,7 +61,7 @@
 }
 .aman__judul {
   display: flex; align-items: center; gap: var(--sp-2);
-  font-size: 26px; color: var(--color-accent); margin-bottom: var(--sp-4);
+  font-size: var(--fs-xl); color: var(--color-accent); margin-bottom: var(--sp-4);
 }
 .aman__daftar { list-style: none; display: grid; gap: var(--sp-4); margin: 0; padding: 0; }
 .aman__daftar li { display: flex; gap: var(--sp-2); align-items: flex-start; }
@@ -137,7 +137,7 @@
 
 .navbar__employer {
   margin-left: auto; color: var(--color-foreground); font-weight: 600;
-  text-decoration: none; font-size: 14px; white-space: nowrap;
+  text-decoration: none; font-size: var(--fs-sm); white-space: nowrap;
   /* Tautan tunggal di header: 22px terlalu tipis untuk jempol. */
   min-height: 44px; display: inline-flex; align-items: center;
 }
@@ -154,7 +154,7 @@
   min-height: 44px; padding: 0 var(--sp-2);
   background: transparent; border: 1px solid var(--color-border);
   border-radius: var(--radius); color: var(--color-primary);
-  font-family: var(--font-body); font-size: 15px; font-weight: 600; cursor: pointer;
+  font-family: var(--font-body); font-size: var(--fs-base); font-weight: 600; cursor: pointer;
 }
 
 /* Menu tertutup: benar-benar tidak ada di alur fokus, bukan cuma tak terlihat. */
@@ -207,7 +207,7 @@
 .sorot:hover .sorot__ajak { text-decoration: underline; }
 .sorot__ajak {
   display: inline-block; margin-top: var(--sp-2);
-  color: var(--color-primary); font-weight: 600; font-size: 15px;
+  color: var(--color-primary); font-weight: 600; font-size: var(--fs-base);
 }
 /* Pin di cuplikan bisa ditekan, jadi kursornya harus menjanjikan itu. */
 .mini-peta .leaflet-marker-icon { cursor: pointer; }
@@ -224,7 +224,7 @@
   transition: opacity 160ms ease-out;
   padding: var(--sp-2) var(--sp-3); border-radius: 999px;
   background: var(--color-surface); border: 1px solid var(--color-primary);
-  color: var(--color-primary); font-weight: 600; font-size: 15px;
+  color: var(--color-primary); font-weight: 600; font-size: var(--fs-base);
   box-shadow: var(--shadow-card);
 }
 .hero__peta:hover .mini-peta__petunjuk { opacity: 1; }

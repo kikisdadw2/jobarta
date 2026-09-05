@@ -18,16 +18,49 @@
      "Menunggu Verifikasi" memakai ukuran itu. Rona olive-nya dipertahankan
      supaya identitas palet tidak berubah; yang berubah cuma kegelapannya.
      Diukur 4.81:1 — lihat tes/audit-ux.spec.js. */
-  --color-warning-teks: #7d6b3a;
+  /* Digelapkan dari #7D6B3A jadi #726030 pada 2026-09-05. Nilai lama diuji
+     hanya di atas `--color-surface` (4,81:1) dan LOLOS di sana — tapi
+     `.badge--menunggu` berlatar transparan, jadi ia sering mendarat di atas
+     `--color-background` krem, dan di sana rasionya cuma 4,17:1. Menguji satu
+     latar saja adalah cara paling mudah meloloskan kegagalan aksesibilitas. */
+  --color-warning-teks: #726030;
+
+  /* Teks sekunder. Bukan abu-abu netral: campuran 75% `--color-foreground`
+     dengan latar, supaya tetap satu keluarga dengan palet. 75% adalah langkah
+     TERTERANG yang masih lolos WCAG AA di kedua permukaan — 70% jatuh ke
+     4,17:1 di atas #F0E5CF. Angka itu diverifikasi, bukan dikira-kira. */
+  --color-teks-redup: #5e656e;
   --color-ring: #4b6587;
 
-  /* Ritme 8pt */
+  /* Ritme 8pt. `--sp-2x` (12px) adalah setengah langkah yang memang sudah
+     dipakai 14 kali di seluruh CSS sebelum ditokenkan — dinyatakan sebagai
+     langkah sah, bukan dibiarkan jadi angka lepas yang menyamar. */
   --sp-1: 4px;
   --sp-2: 8px;
+  --sp-2x: 12px;
   --sp-3: 16px;
   --sp-4: 24px;
   --sp-5: 32px;
   --sp-6: 48px;
+
+  /* ---------- Skala tipografi ----------
+     Sebelum 2026-09-05 tidak ada token tipografi sama sekali dan CSS memuat
+     17 ukuran font berbeda (11–36px). Itu bukan skala, itu tumpukan keputusan
+     lepas: 15px dan 16px berdampingan tanpa alasan, begitu juga 17 dan 18.
+
+     Sembilan langkah di bawah menggantikannya. Ukuran ganjil di-snap ke
+     langkah terdekat — kecuali 15px yang naik ke 16px, bukan turun ke 14px:
+     JOBARTA dipakai pekerja harian di layar HP, dan 16px juga ambang di mana
+     iOS BERHENTI melakukan zoom otomatis saat input difokuskan. */
+  --fs-xs: 12px;    /* label mikro, atribusi peta */
+  --fs-sm: 14px;    /* meta, teks bantu */
+  --fs-base: 16px;  /* teks isi — nilai baku */
+  --fs-md: 18px;    /* penekanan, judul kartu */
+  --fs-lg: 20px;    /* subjudul seksi */
+  --fs-xl: 24px;    /* judul seksi */
+  --fs-2xl: 28px;   /* judul halaman auth */
+  --fs-3xl: 32px;   /* judul halaman */
+  --fs-4xl: 36px;   /* hero */
 
   --radius: 10px;
   --shadow-card: 0 1px 2px rgb(46 58 77 / 8%), 0 2px 8px rgb(46 58 77 / 6%);
@@ -61,7 +94,7 @@ body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-body);
-  font-size: 16px; /* isi NEVER di bawah 16px */
+  font-size: var(--fs-base); /* isi NEVER di bawah 16px */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -88,7 +121,7 @@ button,
 .tombol {
   min-height: 44px;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: var(--fs-base);
   cursor: pointer;
 }
 

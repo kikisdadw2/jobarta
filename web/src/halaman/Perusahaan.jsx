@@ -7,6 +7,7 @@ import { bacaPerusahaan, STATUS_VERIFIKASI } from "../lib/perusahaan";
 import { lamaranMasuk, ubahStatusLamaran, STATUS_LAMARAN } from "../lib/lamaran";
 import { formatGaji } from "../lib/format";
 import Umpan from "../komponen-ui/Umpan";
+import KerangkaDaftar from "../komponen-ui/KerangkaDaftar";
 
 /* Dasbor perusahaan — halaman pertama yang dilihat employer setiap kali masuk.
  *
@@ -148,9 +149,7 @@ export default function Perusahaan() {
             employer yang koneksinya lambat akan membaca "Belum ada lowongan
             yang kamu pasang" — dan mengira kerjanya hilang. */}
         {memuat ? (
-          <p className="catatan" role="status">
-            Memuat lowongan kamu…
-          </p>
+          <KerangkaDaftar label="Memuat lowongan kamu" />
         ) : urut.length === 0 ? (
           <div className="kosong">
             <IkonKosong />

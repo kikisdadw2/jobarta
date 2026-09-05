@@ -5,6 +5,7 @@ import { katalogLengkap } from "../lib/lowonganku";
 import { bacaLamaran, batalkanLamaran, STATUS_LAMARAN } from "../lib/lamaran";
 import { formatGaji } from "../lib/format";
 import { IkonKosong } from "../komponen-ui/Dasar";
+import KerangkaDaftar from "../komponen-ui/KerangkaDaftar";
 
 /* Dibangun di dalam komponen, bukan sebagai konstanta modul: lowongan buatan
  * employer tersimpan di database dan bisa berubah selama sesi berjalan.
@@ -55,9 +56,7 @@ export default function LamaranSaya() {
         {/* Memuat dibedakan dari kosong: pelamar berkoneksi lambat tak boleh
             membaca "belum ada lamaran" lalu mengira lamarannya hilang. */}
         {memuat ? (
-          <p className="catatan" role="status">
-            Memuat lamaran kamu…
-          </p>
+          <KerangkaDaftar label="Memuat lamaran kamu" />
         ) : urut.length === 0 ? (
           <div className="kosong">
             <IkonKosong />

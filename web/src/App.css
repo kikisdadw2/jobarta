@@ -72,7 +72,7 @@
   flex-wrap: wrap;
   align-items: end;
   gap: var(--sp-3);
-  padding: 14px 20px;
+  padding: var(--sp-2x) 20px;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
@@ -80,7 +80,7 @@
 .saring__merek {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 20px;
+  font-size: var(--fs-lg);
   color: var(--color-primary);
   text-decoration: none;
   align-self: center;
@@ -95,7 +95,7 @@
 
 .saring__grup label {
   white-space: nowrap;
-  font-size: 13px;
+  font-size: var(--fs-sm);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -107,7 +107,7 @@
   height: 44px;
   min-width: 0;
   padding: 0 var(--sp-2);
-  font-size: 16px;
+  font-size: var(--fs-base);
   font-family: var(--font-body);
   color: var(--color-foreground);
   background: var(--color-background);
@@ -145,7 +145,7 @@
   min-height: 44px;
   color: var(--color-foreground);
   font-weight: 600;
-  font-size: 15px;
+  font-size: var(--fs-base);
   text-decoration: none;
 }
 
@@ -191,7 +191,7 @@
   box-shadow: var(--shadow-card);
   color: var(--color-foreground);
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: var(--fs-base);
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
@@ -204,7 +204,7 @@
   background: var(--color-primary);
   color: var(--color-on-primary);
   border-radius: 999px;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   padding: 1px 6px;
   font-variant-numeric: tabular-nums;
 }
@@ -270,9 +270,9 @@
   align-items: baseline;
   justify-content: space-between;
   gap: var(--sp-3);
-  padding: 14px 16px;
+  padding: var(--sp-2x) 16px;
   border-bottom: 1px solid var(--color-border);
-  font-size: 15px;
+  font-size: var(--fs-base);
 }
 .daftar__kepala p { margin: 0; }
 
@@ -282,7 +282,7 @@
   padding: 0;
   min-height: 44px;
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--color-primary);
   cursor: pointer;
@@ -352,7 +352,7 @@
 }
 
 .kartu__posisi {
-  font-size: 18px;
+  font-size: var(--fs-md);
   color: var(--color-primary);
   margin-bottom: var(--sp-1);
 }
@@ -363,7 +363,7 @@
   align-items: center;
   gap: var(--sp-2);
   margin: 0 0 var(--sp-2);
-  font-size: 15px;
+  font-size: var(--fs-base);
 }
 
 .kartu__gaji {
@@ -374,7 +374,7 @@
 
 .kartu__alamat {
   margin: 0 0 var(--sp-2);
-  font-size: 15px;
+  font-size: var(--fs-base);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -390,7 +390,7 @@
   gap: var(--sp-2);
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  font-size: var(--fs-sm);
 }
 
 .chip {
@@ -415,7 +415,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--sp-1);
-  font-size: 13px;
+  font-size: var(--fs-sm);
   font-weight: 700;
   padding: 2px var(--sp-2);
   border-radius: 999px;
@@ -443,7 +443,7 @@
 }
 
 .kosong h2 {
-  font-size: 18px;
+  font-size: var(--fs-md);
 }
 
 .peringatan {
@@ -452,7 +452,7 @@
   border-radius: var(--radius);
   padding: var(--sp-2) var(--sp-3);
   margin: 0 0 var(--sp-3);
-  font-size: 15px;
+  font-size: var(--fs-base);
 }
 
 .peringatan--bar {
@@ -489,8 +489,8 @@
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: var(--sp-2x);
+  padding: var(--sp-2x) 12px;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
@@ -499,7 +499,7 @@
   flex: 1;
   min-width: 0;
   margin: 0;
-  font-size: 15px;
+  font-size: var(--fs-base);
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -515,11 +515,11 @@
   padding: var(--sp-3) 12px 84px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--sp-2x);
 }
 
 .detail__posisi {
-  font-size: 23px;
+  font-size: var(--fs-xl);
   line-height: 1.25;
   margin: 0 0 10px;
   text-wrap: balance;
@@ -531,13 +531,13 @@
   align-items: center;
   gap: var(--sp-2);
   margin: 0 0 4px;
-  font-size: 16px;
+  font-size: var(--fs-base);
   font-weight: 600;
 }
 
 .detail__verifikasi {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   line-height: 1.5;
   color: var(--color-primary);
 }
@@ -545,7 +545,7 @@
 /* Ketiadaan badge tidak cukup — ini dinyatakan terang-terangan. */
 .detail__belum {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   line-height: 1.5;
   font-weight: 600;
   color: var(--color-destructive);
@@ -568,19 +568,19 @@
 
 .detail__subjudul {
   font-family: var(--font-heading);
-  font-size: 17px;
+  font-size: var(--fs-md);
   font-weight: 600;
   margin: 0 0 var(--sp-2);
 }
 
 .detail__syarat { margin: 0; padding-left: 20px; line-height: 1.7; }
-.detail__jarak { font-size: 14px; color: var(--color-primary); }
+.detail__jarak { font-size: var(--fs-sm); color: var(--color-primary); }
 
 .peta-kecil {
   height: 130px;
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: var(--sp-2x);
   border: 1px solid var(--color-border);
 }
 /* Peta ini tidak bisa digeser, jadi kursornya tidak boleh menjanjikan bisa. */
@@ -590,8 +590,8 @@
 .panel-curiga {
   background: color-mix(in srgb, var(--color-border) 40%, var(--color-background));
   border-radius: 12px;
-  padding: 14px 16px;
-  font-size: 15px;
+  padding: var(--sp-2x) 16px;
+  font-size: var(--fs-base);
   line-height: 1.6;
 }
 
@@ -601,12 +601,12 @@
   border: 1px solid var(--color-accent);
   border-left-width: 4px;
   border-radius: 0 8px 8px 0;
-  padding: 12px 14px;
-  font-size: 14px;
+  padding: var(--sp-2x) 14px;
+  font-size: var(--fs-sm);
   line-height: 1.55;
 }
 
-.perusahaan { display: flex; gap: 12px; align-items: flex-start; }
+.perusahaan { display: flex; gap: var(--sp-2x); align-items: flex-start; }
 .perusahaan__inisial {
   width: 48px;
   height: 48px;
@@ -619,10 +619,10 @@
   border: 1px solid var(--color-border);
   color: var(--color-primary);
   font-weight: 700;
-  font-size: 17px;
+  font-size: var(--fs-md);
 }
-.perusahaan__nama { margin: 0; font-size: 16px; font-weight: 600; }
-.perusahaan__lain { display: inline-block; margin-top: 6px; font-weight: 600; font-size: 15px; }
+.perusahaan__nama { margin: 0; font-size: var(--fs-base); font-weight: 600; }
+.perusahaan__lain { display: inline-block; margin-top: 6px; font-weight: 600; font-size: var(--fs-base); }
 
 /* Jejak navigasi & label tombol kembali hanya muncul di 1440px. */
 .detail__jejak,
@@ -635,7 +635,7 @@
 .detail__samping {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--sp-2x);
   /* 96px menyediakan ruang untuk bar aksi tetap di dasar layar. */
   padding: 0 12px 96px;
   max-width: 720px;
@@ -656,7 +656,7 @@
   right: 0;
   bottom: 0;
   z-index: 2;
-  padding: 12px;
+  padding: var(--sp-2x);
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
   background: var(--color-surface);
   border-top: 1px solid var(--color-border);
@@ -677,13 +677,13 @@
   .detail__bar { grid-column: 1 / -1; margin-inline: calc(-1 * var(--sp-4)); }
   .detail__jejak {
     display: flex; align-items: center; gap: var(--sp-2);
-    font-size: 14px; color: var(--color-primary);
+    font-size: var(--fs-sm); color: var(--color-primary);
   }
   .detail__jejak a { color: inherit; }
   /* Judul lowongan sudah jadi H1 tepat di bawah bilah ini; mengulangnya di
      bilah membuat namanya muncul tiga kali dalam satu layar. */
   .detail__bar-judul { display: none; }
-  .detail__kembali-teks { display: inline; font-size: 15px; font-weight: 600; }
+  .detail__kembali-teks { display: inline; font-size: var(--fs-base); font-weight: 600; }
   .tombol-ikon:has(.detail__kembali-teks) { width: auto; gap: 6px; padding: 0 var(--sp-2); border-radius: var(--radius); }
 
   .detail__isi { max-width: none; margin: 0; padding: var(--sp-4) 0 var(--sp-6); gap: var(--sp-3); }
@@ -709,11 +709,11 @@
     border-bottom-right-radius: 0;
     border-bottom: 0;
   }
-  .detail__gaji-label { margin: 0; font-size: 14px; color: var(--color-primary); }
+  .detail__gaji-label { margin: 0; font-size: var(--fs-sm); color: var(--color-primary); }
   .detail__gaji-angka {
     margin: var(--sp-1) 0 0;
     font-family: var(--font-heading);
-    font-size: 20px;
+    font-size: var(--fs-lg);
     font-weight: 700;
     font-variant-numeric: tabular-nums;
   }
@@ -729,7 +729,7 @@
     border-radius: 0 0 12px 12px;
     box-shadow: none;
     margin-bottom: var(--sp-2);
-    padding-bottom: 12px;
+    padding-bottom: var(--sp-2x);
   }
 }
 
@@ -986,10 +986,10 @@
   border: 1px solid var(--color-border);
 }
 .sheet--izin .sheet__pegangan { display: none; }
-.sheet--izin .sheet__judul { font-size: 18px; margin-top: 0; }
-.sheet--izin .sheet__isi { font-size: 15px; margin-bottom: var(--sp-2); }
+.sheet--izin .sheet__judul { font-size: var(--fs-md); margin-top: 0; }
+.sheet--izin .sheet__isi { font-size: var(--fs-base); margin-bottom: var(--sp-2); }
 .sheet__isi { margin: 0 0 var(--sp-3); line-height: 1.6; color: var(--color-foreground); }
-.sheet__isi--kecil { font-size: 15px; }
+.sheet__isi--kecil { font-size: var(--fs-base); }
 .sheet__aksi { display: grid; gap: var(--sp-2); }
 /* Dua tombol berdampingan di kartu izin: menumpuknya menambah ~56px tinggi,
    dan tinggi itulah yang tadi menutupi pegangan bottom sheet. */
