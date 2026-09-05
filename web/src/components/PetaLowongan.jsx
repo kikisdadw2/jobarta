@@ -9,6 +9,17 @@ import { PUSAT_JAKARTA } from "../lib/lokasi";
    pengguna ketika lokasinya tidak bisa dibaca. Satu sumber di lib/lokasi.js. */
 const PUSAT_AWAL = [PUSAT_JAKARTA.lat, PUSAT_JAKARTA.lng];
 
+/* Kotak DKI Jakarta daratan: dari Cilincing/Marunda di timur laut sampai
+   Jagakarsa di selatan, Kalideres di barat sampai Cakung di timur.
+   Kepulauan Seribu SENGAJA tidak dimasukkan meski secara administratif bagian
+   DKI — pulau terjauhnya ~100 km ke utara, dan memasukkannya memaksa peta
+   membuka sangat jauh sampai daratan Jakarta menciut jadi seujung kuku.
+   Tidak ada lowongan di sana. */
+const BATAS_DKI = [
+  [-6.3705, 106.6890], // barat daya — Jagakarsa / Kalideres
+  [-6.0890, 106.9720], // timur laut — Marunda / Cakung
+];
+
 /**
  * Pin dibedakan BENTUK + IKON, bukan warna saja — syarat aksesibilitas:
  * warna NEVER jadi satu-satunya penanda makna.
@@ -316,15 +327,75 @@ function PantauUkuran() {
   return null;
 }
 
+/* Menentukan tampilan awal peta.
+ *
+ * 🔴 Acuannya SEBARAN LOWONGAN, bukan batas administratif DKI.
+ *
+ *    Mengunci ke kotak DKI terdengar benar tapi tidak menyelesaikan apa pun:
+ *    kotak itu hampir persegi (0,283° × 0,282°), sedangkan kanvas peta di
+ *    desktop jauh lebih lebar daripada tinggi. Leaflet memilih zoom terbesar
+ *    yang muat di KEDUA sisi, jadi tingginya yang membatasi — DKI penuh secara
+ *    vertikal, dan ~600px sisa horizontal terisi Tangerang dan Bekasi.
+ *
+ *    Yang ingin dilihat pengguna bukan wilayah DKI, melainkan lowongannya.
+ *    Memasang batas ke titik-titik lowongan membuat pin mengisi layar di
+ *    rasio kanvas mana pun.
+ *
+ * 🔴 `invalidateSize()` lebih dulu: saat peta dipasang, kanvasnya masih
+ *    berukuran nol karena panel daftar di kirinya belum menata. Tanpa ini
+ *    Leaflet menghitung zoom untuk kotak mungil itu.
+ *
+ * Dipasang SEKALI, saat daftar pertama kali terisi — bukan setiap kali daftar
+ * berubah. Memasang ulang tiap perubahan akan merenggut peta dari tangan
+ * pengguna yang sedang menggeser saat data menyusul dari jaringan.
+ */
+function PasBatasAwal({ daftar }) {
+  const map = useMap();
+  const sudah = useRef(false);
+
+  useEffect(() => {
+    if (sudah.current) return;
+
+    const titik = daftar
+      .filter((l) => Number.isFinite(l.lat) && Number.isFinite(l.lng))
+      .map((l) => [l.lat, l.lng]);
+
+    const id = requestAnimationFrame(() => {
+      map.invalidateSize();
+      // Tanpa lowongan sama sekali, kotak DKI mencegah peta membuka di
+      // tengah samudra — lebih baik daripada tidak ada acuan.
+      map.fitBounds(titik.length ? L.latLngBounds(titik) : BATAS_DKI, {
+        padding: [40, 40],
+        maxZoom: 14,
+      });
+      if (titik.length) sudah.current = true;
+    });
+    return () => cancelAnimationFrame(id);
+  }, [map, daftar]);
+
+  return null;
+}
+
 export default function PetaLowongan({ daftar, terpilih, disorot, onPilih, posisiSaya, pusatUlang = 0 }) {
   return (
     <MapContainer
-      center={PUSAT_AWAL}
-      zoom={11}
+      /* 🔴 `bounds`, BUKAN `center` + `zoom` tetap.
+       *
+       * `zoom={11}` menampilkan wilayah yang sama luasnya di layar selebar
+       * apa pun — di 1440px itu berarti Karawang, Serang, dan Depok ikut
+       * masuk, sementara Jakarta cuma segumpal di tengah dan pin-pinnya
+       * menumpuk jadi satu.
+       *
+       * Dengan `bounds`, Leaflet menghitung sendiri zoom yang membuat kotak
+       * DKI memenuhi kanvas — jadi benar di 390px maupun 1440px tanpa angka
+       * ajaib yang harus disetel ulang tiap kali tata letak berubah. */
+      bounds={BATAS_DKI}
+      boundsOptions={{ padding: [16, 16] }}
       className="peta"
       zoomControl={true}
       scrollWheelZoom={true}
     >
+      <PasBatasAwal daftar={daftar} />
       {/* Atribusi ODbL wajib terlihat — syarat lisensi OpenStreetMap. */}
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
