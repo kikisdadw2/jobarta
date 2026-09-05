@@ -167,8 +167,27 @@ export default function Perusahaan() {
             <p className="akun__sub" role="status" aria-live="polite">
               <strong>{aktif}</strong> lowongan tayang dari {urut.length} yang kamu buat.
             </p>
-            <ul className="riwayat">
-              {urut.map((l) => {
+
+            {/* 🔴 Dikelompokkan menurut status, bukan satu daftar datar.
+                Employer membuka dasbor ini untuk dua pertanyaan berbeda —
+                "yang sedang tayang apa saja?" dan "yang mana yang sudah saya
+                tutup?" — dan daftar tercampur memaksa dia memindai badge satu
+                per satu untuk memisahkannya sendiri.
+
+                Kelompok kosong TIDAK dirender: judul "Ditutup 0" adalah
+                kekosongan yang mengambil ruang tanpa memberi kabar apa pun. */}
+            {[
+              { kunci: "tayang", judul: "Sedang tayang", isi: urut.filter((l) => l.aktif !== false) },
+              { kunci: "ditutup", judul: "Sudah ditutup", isi: urut.filter((l) => l.aktif === false) },
+            ]
+              .filter((grup) => grup.isi.length > 0)
+              .map((grup) => (
+                <section key={grup.kunci} className="kelompok">
+                  <h3 className="kelompok__judul">
+                    {grup.judul} <span className="kelompok__jumlah">{grup.isi.length}</span>
+                  </h3>
+                  <ul className="riwayat">
+              {grup.isi.map((l) => {
                 const jumlah = pelamar(l.id);
                 return (
                   <li key={l.id} className="riwayat__baris">
@@ -288,7 +307,9 @@ export default function Perusahaan() {
                   </li>
                 );
               })}
-            </ul>
+                  </ul>
+                </section>
+              ))}
           </>
         )}
       </main>

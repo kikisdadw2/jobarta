@@ -137,3 +137,26 @@
   min-height: 100dvh;
   color: var(--color-primary);
 }
+
+/* ---------- Kelompok status lowongan ---------- */
+/* Judul kelompok sengaja lebih tenang daripada judul seksi di atasnya: ia
+   memisahkan, bukan mengumumkan. Hierarki lewat ukuran dan bobot, bukan lewat
+   garis atau kotak tambahan — daftar di bawahnya sudah punya batasnya sendiri. */
+.kelompok + .kelompok { margin-top: var(--sp-5); }
+.kelompok__judul {
+  display: flex; align-items: center; gap: var(--sp-2);
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-sm); font-weight: 700;
+  letter-spacing: 0.02em; text-transform: uppercase;
+  color: var(--color-teks-redup);
+}
+/* Angka dibaca sebagai bagian dari judul, bukan lencana notifikasi — karena
+   itu tanpa warna aksi dan tanpa bentuk pil yang menuntut perhatian. */
+.kelompok__jumlah {
+  font-variant-numeric: tabular-nums;
+  padding: 2px var(--sp-2);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  color: var(--color-primary);
+  letter-spacing: 0;
+}
