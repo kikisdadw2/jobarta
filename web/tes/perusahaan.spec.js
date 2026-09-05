@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { employerSiap, seekerSiap } from "./bantu-sesi.js";
+import { employerSiap, seekerSiap, bersihkanLowonganku } from "./bantu-sesi.js";
 
 /* Alur sisi perusahaan, ujung ke ujung.
  *
@@ -19,6 +19,13 @@ async function pasangSesiEmployer(page, perusahaan = null) {
 }
 
 test.describe("sisi perusahaan", () => {
+  /* Lowongan yang dipasang tes ini nyata dan tayang di peta publik. Dihapus
+     sesudah tiap tes supaya peta yang dilihat orang sungguhan tidak dipenuhi
+     lowongan tiruan. */
+  test.afterEach(async ({ page }) => {
+    await bersihkanLowonganku(page);
+  });
+
   test("dasbor kosong mengajak memasang lowongan pertama", async ({ page }) => {
     await page.setViewportSize(HP);
     await pasangSesiEmployer(page);

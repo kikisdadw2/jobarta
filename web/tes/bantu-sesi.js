@@ -118,3 +118,39 @@ export async function employerSiap(page, perusahaan = null) {
   }, perusahaan);
   return u;
 }
+
+/* Hapus semua lowongan milik akun yang sedang masuk.
+ *
+ * 🔴 Tes sisi employer memasang lowongan SUNGGUHAN ke database produksi —
+ *    itu memang inti klaimnya ("lowongan yang dipasang muncul di peta pencari
+ *    kerja"), dan tidak bisa dipalsukan tanpa kehilangan maknanya. Tapi tanpa
+ *    pembersihan, tiap kali suite dijalankan ia meninggalkan satu lowongan
+ *    tiruan di peta yang dilihat orang sungguhan. Empat "Penjaga Toko Malam"
+ *    duplikat sempat menumpuk di produksi sebelum ini dipasang.
+ *
+ * Dipanggil di `afterEach`, dan sengaja tidak melempar kalau gagal: kegagalan
+ * bersih-bersih tidak boleh memerahkan tes yang sebenarnya lulus.
+ */
+export async function bersihkanLowonganku(page) {
+  try {
+    await page.evaluate(
+      async ({ url, kunci }) => {
+        const k = Object.keys(localStorage).find((x) => x.startsWith("sb-") && x.endsWith("-auth-token"));
+        if (!k) return;
+        const mentah = JSON.parse(localStorage.getItem(k));
+        const sesi = mentah.currentSession ?? mentah;
+        await fetch(`${url}/rest/v1/lowongan?pemilik=eq.${sesi.user.id}`, {
+          method: "DELETE",
+          headers: {
+            apikey: kunci,
+            Authorization: `Bearer ${sesi.access_token}`,
+            Prefer: "return=minimal",
+          },
+        });
+      },
+      { url: env.url, kunci: env.kunci }
+    );
+  } catch {
+    /* halaman sudah ditutup atau sesi hilang — tidak apa-apa */
+  }
+}
