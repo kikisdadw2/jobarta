@@ -35,3 +35,10 @@ dist-ssr
 test-results/
 playwright-report/
 tes/hasil/
+
+# Rahasia lokal. `.env.example` TETAP ikut repo — ia yang memberi tahu orang
+# berikutnya variabel apa yang harus diisi. (`vercel link` menulis `.env*`
+# di sini dan menelan berkas contoh itu; dipersempit 2026-09-05.)
+.env
+.env.local
+.env.*.local

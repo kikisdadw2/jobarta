@@ -6,6 +6,7 @@ import Masuk from "./halaman/Masuk";
 import Callback from "./halaman/Callback";
 import TidakDitemukan from "./halaman/TidakDitemukan";
 import BatasGalat from "./komponen-ui/BatasGalat";
+import useJudul from "./lib/useJudul";
 import Daftar from "./halaman/Daftar";
 import Onboarding from "./halaman/Onboarding";
 import Peta from "./halaman/Peta";
@@ -35,11 +36,20 @@ import "./perusahaan.css";
  *   PERLU MASUK  — /profil, /lamaran.
  *   PERLU PERAN  — /perusahaan/*, cuma untuk role "employer".
  */
+/* Hook judul butuh konteks Router, jadi ia dibungkus komponen sendiri di
+ * dalam <BrowserRouter> — memanggilnya langsung di App() akan melempar
+ * "useLocation() may be used only in the context of a <Router>". */
+function JudulRute() {
+  useJudul();
+  return null;
+}
+
 export default function App() {
   return (
     <BatasGalat>
       <PenyediaAuth>
       <BrowserRouter>
+      <JudulRute />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/masuk" element={<Masuk />} />

@@ -1,0 +1,17 @@
+# JOBARTA
+User-agent: *
+Allow: /
+
+# Rute berikut tidak layak diindeks: sebagian butuh sesi, sebagian hanya
+# bermakna dengan token di URL. Membiarkannya terindeks cuma menghasilkan
+# hasil pencarian yang membawa orang ke layar kosong atau layar galat.
+Disallow: /profil
+Disallow: /lamaran
+Disallow: /tersimpan
+Disallow: /onboarding
+Disallow: /perusahaan
+Disallow: /auth/
+Disallow: /atur-ulang
+Disallow: /verifikasi-email
+
+Sitemap: https://jobarta.vercel.app/sitemap.xml

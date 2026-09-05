@@ -3,13 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="description" content="JOBARTA — cari lowongan kerja di Jakarta lewat peta interaktif. Lihat lowongan yang benar-benar dekat rumahmu." />
-    <meta name="theme-color" content="#F0E5CF" />
+
+    <!-- Judul & deskripsi di sini adalah NILAI AWAL untuk beranda. Rute lain
+         menimpanya lewat src/lib/useJudul.js sesudah React jalan. -->
+    <title>JOBARTA — Cari kerja di sekitarmu, lewat peta</title>
+    <meta name="description" content="Cari lowongan kerja di Jakarta lewat peta interaktif. Lihat lowongan yang benar-benar dekat rumahmu, lengkap dengan jarak dan gaji." />
+
+    <!-- Open Graph & Twitter SENGAJA statis dan hanya satu set untuk seluruh
+         situs. JOBARTA adalah SPA tanpa prerender: scraper WhatsApp, Twitter,
+         dan LinkedIn membaca HTML mentah dan tidak menjalankan JavaScript,
+         jadi tag OG per rute yang ditulis dari React tidak akan pernah mereka
+         baca. Satu preview yang benar untuk semua orang lebih jujur daripada
+         preview per halaman yang tidak pernah muncul. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="JOBARTA" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:url" content="https://jobarta.vercel.app/" />
+    <meta property="og:title" content="JOBARTA — Cari kerja di sekitarmu, lewat peta" />
+    <meta property="og:description" content="Lowongan kerja di Jakarta yang benar-benar dekat dari rumahmu — lengkap dengan jarak, gaji, dan penanda perusahaan terverifikasi." />
+    <meta property="og:image" content="https://jobarta.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="JOBARTA — cari kerja di sekitarmu, lewat peta" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="JOBARTA — Cari kerja di sekitarmu, lewat peta" />
+    <meta name="twitter:description" content="Lowongan kerja di Jakarta yang benar-benar dekat dari rumahmu — lengkap dengan jarak, gaji, dan penanda perusahaan terverifikasi." />
+    <meta name="twitter:image" content="https://jobarta.vercel.app/og.png" />
+
+    <link rel="canonical" href="https://jobarta.vercel.app/" />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/pin.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#4B6587" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
-    <title>JOBARTA — Cari kerja di sekitarmu, lewat peta</title>
+
+    <!-- JSON-LD Organization. JobPosting per lowongan TIDAK dipasang: rute
+         lowongan hanya ada sebagai query (?lowongan=id) di atas SPA, jadi
+         crawler tak punya URL tersendiri untuk diindeks per lowongan.
+         Memasangnya sekarang akan menandai data yang tidak bisa dijangkau. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "JOBARTA",
+        "url": "https://jobarta.vercel.app/",
+        "logo": "https://jobarta.vercel.app/ikon-512.png",
+        "description": "Platform pencarian kerja berbasis peta untuk Jakarta.",
+        "areaServed": { "@type": "City", "name": "Jakarta" }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
