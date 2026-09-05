@@ -362,10 +362,26 @@ function PasBatasAwal({ daftar }) {
 
     const id = requestAnimationFrame(() => {
       map.invalidateSize();
+
+      /* 🔴 Bagian peta yang TERTUTUP bottom sheet harus dikurangi dulu.
+         `fitBounds` menghitung terhadap seluruh tinggi kanvas, sedangkan di
+         layar sempit ~420px bagian bawahnya berada di balik sheet. Tanpa
+         koreksi ini pin-pin terdorong ke bawah dan bersembunyi, sehingga yang
+         benar-benar terlihat pengguna cuma laut Jawa di utara Jakarta.
+         Pola yang sama sudah dipakai tombol "Lokasi Saya" di berkas ini. */
+      const panel = document.querySelector(".panel");
+      const petaKotak = map.getContainer().getBoundingClientRect();
+      const panelKotak = panel?.getBoundingClientRect();
+      const tertutup =
+        panelKotak && panelKotak.top < petaKotak.bottom && panelKotak.left < petaKotak.right
+          ? Math.max(0, petaKotak.bottom - panelKotak.top)
+          : 0;
+
       // Tanpa lowongan sama sekali, kotak DKI mencegah peta membuka di
       // tengah samudra — lebih baik daripada tidak ada acuan.
       map.fitBounds(titik.length ? L.latLngBounds(titik) : BATAS_DKI, {
-        padding: [40, 40],
+        paddingTopLeft: [24, 24],
+        paddingBottomRight: [24, 24 + tertutup],
         maxZoom: 14,
       });
       if (titik.length) sudah.current = true;
