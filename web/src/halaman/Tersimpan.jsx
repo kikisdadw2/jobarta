@@ -38,9 +38,10 @@ async function bangunPeta() {
  *    aplikasinya kehilangan simpanannya — padahal yang terjadi justru wajar.
  *    Selisih angka yang tidak dijelaskan selalu dibaca sebagai kerusakan.
  *
- *    `LamaranSaya.jsx` masih menyaring diam-diam (`if (!job) return null`).
- *    Itu utang yang sama, dicatat tapi tidak diperbaiki di sini supaya
- *    perubahan ini tetap satu perkara.
+ *    `LamaranSaya.jsx` dulu menyaring diam-diam dengan `if (!job) return null`.
+ *    Utang itu dibayar 2026-09-05 — kedua halaman kini menghitung dan
+ *    menjelaskan yang hilang, lengkap dengan kalimat kosong yang berbeda
+ *    untuk "belum pernah" dan "sudah tidak tayang".
  *
  * 🔴 Kartu redup bertanda "sudah tidak tayang" sempat dipertimbangkan dan
  *    ditolak: lowongan harian di Jakarta cepat sekali hilang, jadi daftar

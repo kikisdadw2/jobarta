@@ -149,9 +149,20 @@ function keBentukPeta(l, perusahaan) {
  * kalau ia jadi gerbang, employer baru melihat kerjanya menghilang dan tidak
  * pernah kembali. Lihat catatan keputusan di decisions.md.
  *
- * 30 lowongan contoh tetap disertakan dari sisi klien: kalau Supabase sedang
- * bermasalah, peta tetap terisi. Risiko "peta kosong saat pengunjung datang"
- * adalah risiko fatal yang tercatat di catatan proyek.
+ * 30 lowongan contoh dipakai sebagai JARING PENGAMAN, bukan tambahan tetap.
+ *
+ * 🔴 Sampai 2026-09-05 mereka selalu ditempelkan (`[...dinamis, ...statis]`),
+ *    dan itu menyembunyikan kerusakan serius: lowongan contoh hidup hanya di
+ *    JavaScript, sehingga TIDAK BISA DILAMAR — kolom `lamaran.lowongan_id`
+ *    bertipe uuid dan kebijakan RLS menuntut lowongannya ada di tabel. Peta
+ *    terlihat penuh, tombol "Lamar Sekarang" ada, dan yang menekannya
+ *    mendapat galat yang menyalahkan koneksinya.
+ *
+ *    Ke-30 lowongan itu kini ditanam sebagai baris sungguhan
+ *    (`supabase/tanam-lowongan.mjs`). Salinan klien tetap disimpan, tapi hanya
+ *    muncul kalau database TIDAK mengembalikan apa pun — risiko "peta kosong
+ *    saat pengunjung datang" tetap dijaga, tanpa lagi menyajikan lowongan
+ *    yang tidak bisa dilamar sebagai kalau-kalau ia bisa.
  */
 export async function semuaLowongan() {
   const perusahaan = bacaPerusahaan();
@@ -165,7 +176,10 @@ export async function semuaLowongan() {
     .filter((l) => l.aktif !== false)
     .map((l) => keBentukPeta(l, perusahaan))
     .sort((a, b) => new Date(b.dibuatPada) - new Date(a.dibuatPada));
-  return [...dinamis, ...statis];
+  /* Jaring pengaman, bukan tambahan: contoh statis hanya menutupi peta kosong
+     saat database tidak menjawab. Selama ia menjawab, yang tampil semuanya
+     lowongan yang benar-benar bisa dilamar. */
+  return dinamis.length ? dinamis : statis;
 }
 
 /** Semua lowongan termasuk yang ditutup — dipakai Lamaran Saya supaya lamaran
@@ -178,7 +192,8 @@ export async function katalogLengkap() {
   } catch {
     dari = [];
   }
-  return [...dari.map((l) => keBentukPeta(l, perusahaan)), ...statis];
+  const dinamis = dari.map((l) => keBentukPeta(l, perusahaan));
+  return dinamis.length ? dinamis : statis;
 }
 
 /** Pencarian radius lewat PostGIS. Dipakai saat peta perlu jawaban dari
