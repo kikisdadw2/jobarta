@@ -16,33 +16,40 @@ export default function TidakDitemukan() {
   const lokasi = useLocation();
 
   return (
-    <main className="auth__utama">
-      <div className="auth__kotak kotak-tunggu">
-        <Logo ukuran={44} />
+        <div className="auth auth--tunggal">
+      {/* Pembungkus `auth auth--tunggal` WAJIB, bukan hiasan: aturan 980px di
+        halaman.css:288 mengunci `.auth__utama` ke 620px di tepi kiri untuk layar
+        Masuk yang punya panel samping. Tanpa `.auth--tunggal`, halaman yang
+        berdiri sendiri mewarisi lebar itu dan isinya terjepit di kiri dengan
+        820px ruang kosong di kanannya. */}
+      <main className="auth__utama">
+        <div className="auth__kotak kotak-tunggu">
+          <Logo ukuran={44} />
 
-        <h1 className="auth__judul">Halaman ini tidak ada</h1>
-        <p className="auth__sub">
-          Alamat yang kamu buka tidak kami kenali. Mungkin tautannya sudah lama, atau ada
-          satu huruf yang keliru.
-        </p>
+          <h1 className="auth__judul">Halaman ini tidak ada</h1>
+          <p className="auth__sub">
+            Alamat yang kamu buka tidak kami kenali. Mungkin tautannya sudah lama, atau ada
+            satu huruf yang keliru.
+          </p>
 
-        {/* Alamat yang gagal ditampilkan apa adanya: orang bisa melihat sendiri
-            salah ketiknya, dan yang melaporkan punya sesuatu untuk disalin. */}
-        <p className="tidak-ada__alamat">
-          <code>{lokasi.pathname}</code>
-        </p>
+          {/* Alamat yang gagal ditampilkan apa adanya: orang bisa melihat sendiri
+              salah ketiknya, dan yang melaporkan punya sesuatu untuk disalin. */}
+          <p className="tidak-ada__alamat">
+            <code>{lokasi.pathname}</code>
+          </p>
 
-        <div className="auth__tombol">
-          {/* Peta jadi aksi utama, bukan beranda: yang dicari orang di JOBARTA
-              adalah lowongan, dan peta membawanya ke sana dalam satu langkah. */}
-          <Link to="/peta" className="tombol tombol--primary tombol--penuh tombol--besar">
-            Cari lowongan di peta
-          </Link>
-          <Link to="/" className="tombol tombol--sekunder tombol--penuh">
-            Kembali ke beranda
-          </Link>
+          <div className="auth__tombol">
+            {/* Peta jadi aksi utama, bukan beranda: yang dicari orang di JOBARTA
+                adalah lowongan, dan peta membawanya ke sana dalam satu langkah. */}
+            <Link to="/peta" className="tombol tombol--primary tombol--penuh tombol--besar">
+              Cari lowongan di peta
+            </Link>
+            <Link to="/" className="tombol tombol--sekunder tombol--penuh">
+              Kembali ke beranda
+            </Link>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

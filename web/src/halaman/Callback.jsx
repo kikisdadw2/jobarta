@@ -90,37 +90,44 @@ export default function Callback() {
   }, [navigate]);
 
   return (
-    <main className="auth__utama" aria-live="polite">
-      <div className="auth__kotak kotak-tunggu">
-        <Logo />
-        {galat ? (
-          <>
-            <h1 className="auth__judul">Belum berhasil masuk</h1>
-            <p className="auth__sub">{galat}</p>
-            {teknis && (
-              <details className="galat-teknis">
-                <summary>Detail teknis</summary>
-                <code>{teknis}</code>
-              </details>
-            )}
-            <button
-              type="button"
-              className="tombol tombol--primary tombol--penuh tombol--besar"
-              onClick={() => navigate("/masuk", { replace: true })}
-            >
-              Kembali ke halaman Masuk
-            </button>
-          </>
-        ) : (
-          <>
-            <h1 className="auth__judul">Menyiapkan akunmu…</h1>
-            {/* Kalimatnya menyebut APA yang sedang ditunggu. "Memuat…" tidak
-                memberi tahu apa pun, dan menunggu tanpa tahu terasa lebih lama. */}
-            <p className="auth__sub">Sebentar, kami sedang menyelesaikan masuk lewat Google.</p>
-            <span className="pemuat" role="status" aria-label="Sedang memproses" />
-          </>
-        )}
-      </div>
-    </main>
+        <div className="auth auth--tunggal">
+      {/* Pembungkus `auth auth--tunggal` WAJIB, bukan hiasan: aturan 980px di
+        halaman.css:288 mengunci `.auth__utama` ke 620px di tepi kiri untuk layar
+        Masuk yang punya panel samping. Tanpa `.auth--tunggal`, halaman yang
+        berdiri sendiri mewarisi lebar itu dan isinya terjepit di kiri dengan
+        820px ruang kosong di kanannya. */}
+      <main className="auth__utama" aria-live="polite">
+        <div className="auth__kotak kotak-tunggu">
+          <Logo />
+          {galat ? (
+            <>
+              <h1 className="auth__judul">Belum berhasil masuk</h1>
+              <p className="auth__sub">{galat}</p>
+              {teknis && (
+                <details className="galat-teknis">
+                  <summary>Detail teknis</summary>
+                  <code>{teknis}</code>
+                </details>
+              )}
+              <button
+                type="button"
+                className="tombol tombol--primary tombol--penuh tombol--besar"
+                onClick={() => navigate("/masuk", { replace: true })}
+              >
+                Kembali ke halaman Masuk
+              </button>
+            </>
+          ) : (
+            <>
+              <h1 className="auth__judul">Menyiapkan akunmu…</h1>
+              {/* Kalimatnya menyebut APA yang sedang ditunggu. "Memuat…" tidak
+                  memberi tahu apa pun, dan menunggu tanpa tahu terasa lebih lama. */}
+              <p className="auth__sub">Sebentar, kami sedang menyelesaikan masuk lewat Google.</p>
+              <span className="pemuat" role="status" aria-label="Sedang memproses" />
+            </>
+          )}
+        </div>
+      </main>
+    </div>
   );
 }

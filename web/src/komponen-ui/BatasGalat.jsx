@@ -33,41 +33,48 @@ export default class BatasGalat extends Component {
     if (!this.state.galat) return this.props.children;
 
     return (
+          <div className="auth auth--tunggal">
+      {/* Pembungkus `auth auth--tunggal` WAJIB, bukan hiasan: aturan 980px di
+        halaman.css:288 mengunci `.auth__utama` ke 620px di tepi kiri untuk layar
+        Masuk yang punya panel samping. Tanpa `.auth--tunggal`, halaman yang
+        berdiri sendiri mewarisi lebar itu dan isinya terjepit di kiri dengan
+        820px ruang kosong di kanannya. */}
       <main className="auth__utama">
-        <div className="auth__kotak kotak-tunggu">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-destructive)" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" />
-            <path d="M12 8v5M12 16.5v.01" />
-          </svg>
+          <div className="auth__kotak kotak-tunggu">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-destructive)" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 8v5M12 16.5v.01" />
+            </svg>
 
-          <h1 className="auth__judul">Ada yang rusak di halaman ini</h1>
-          <p className="auth__sub">
-            Bukan salahmu. Coba muat ulang halamannya; kalau masih sama, kembali ke peta
-            dan lanjutkan dari sana.
-          </p>
+            <h1 className="auth__judul">Ada yang rusak di halaman ini</h1>
+            <p className="auth__sub">
+              Bukan salahmu. Coba muat ulang halamannya; kalau masih sama, kembali ke peta
+              dan lanjutkan dari sana.
+            </p>
 
-          <div className="auth__tombol">
-            {/* Muat ulang penuh, bukan setState: keadaan yang membuat render
-                gagal masih tersimpan di memori, dan mencoba merender ulang
-                dengan keadaan yang sama akan gagal lagi seketika. */}
-            <button
-              type="button"
-              className="tombol tombol--primary tombol--penuh tombol--besar"
-              onClick={() => window.location.reload()}
-            >
-              Muat ulang halaman
-            </button>
-            <a href="/peta" className="tombol tombol--sekunder tombol--penuh">
-              Kembali ke peta
-            </a>
+            <div className="auth__tombol">
+              {/* Muat ulang penuh, bukan setState: keadaan yang membuat render
+                  gagal masih tersimpan di memori, dan mencoba merender ulang
+                  dengan keadaan yang sama akan gagal lagi seketika. */}
+              <button
+                type="button"
+                className="tombol tombol--primary tombol--penuh tombol--besar"
+                onClick={() => window.location.reload()}
+              >
+                Muat ulang halaman
+              </button>
+              <a href="/peta" className="tombol tombol--sekunder tombol--penuh">
+                Kembali ke peta
+              </a>
+            </div>
+
+            <details className="galat-teknis">
+              <summary>Detail teknis</summary>
+              <code>{String(this.state.galat?.message || this.state.galat)}</code>
+            </details>
           </div>
-
-          <details className="galat-teknis">
-            <summary>Detail teknis</summary>
-            <code>{String(this.state.galat?.message || this.state.galat)}</code>
-          </details>
-        </div>
-      </main>
+        </main>
+    </div>
     );
   }
 }

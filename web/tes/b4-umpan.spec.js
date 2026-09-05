@@ -129,3 +129,35 @@ test("B4 error boundary terpasang dan lengkap (uji STRUKTURAL, bukan perilaku)",
   expect(app.includes("BatasGalat"), "boundary tidak membungkus aplikasi").toBe(true);
   console.log("  BatasGalat lengkap dan membungkus seluruh aplikasi");
 });
+
+/* Regresi 2026-09-05: layar yang berdiri sendiri terjepit di kiri.
+ *
+ * `.auth__utama` dikunci 620px di tepi kiri oleh aturan 980px (halaman.css:288)
+ * demi layar Masuk yang punya panel samping. Halaman tanpa panel HARUS
+ * dibungkus `.auth--tunggal` untuk lepas dari aturan itu — kalau tidak, isinya
+ * berdiri di kiri dengan 820px ruang kosong di kanannya. Tiga layar pernah
+ * kehilangan pembungkus itu sekaligus: 404, callback OAuth, dan error boundary.
+ */
+test.describe("layar tunggal terpusat di layar lebar", () => {
+  for (const [nama, rute] of [["404", "/rute-ngawur-abc"], ["callback OAuth", "/auth/callback"]]) {
+    test(`${nama} berada di tengah, bukan terjepit di kiri`, async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await page.goto(rute);
+      await page.waitForTimeout(1200);
+
+      const kotak = page.locator(".auth__kotak").first();
+      await expect(kotak).toBeVisible();
+      const b = await kotak.boundingBox();
+      const tengahKotak = b.x + b.width / 2;
+      const selisih = Math.abs(tengahKotak - 720);
+      console.log(`\n  ${nama}: pusat kotak ${Math.round(tengahKotak)}px vs pusat layar 720px`);
+      expect(selisih, `${nama} melenceng ${Math.round(selisih)}px dari tengah`).toBeLessThan(24);
+    });
+  }
+
+  test("error boundary memakai pembungkus yang sama (uji struktural)", async () => {
+    const fs = await import("node:fs");
+    const src = fs.readFileSync(new URL("../src/komponen-ui/BatasGalat.jsx", import.meta.url), "utf8");
+    expect(src, "BatasGalat kehilangan pembungkus auth--tunggal").toContain("auth auth--tunggal");
+  });
+});

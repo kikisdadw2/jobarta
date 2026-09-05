@@ -4,6 +4,26 @@
    - 375px BUKAN versi kecil 1440px: desktop = split view, mobile = peta + sheet.
    - Kartu wajib punya garis atau bayangan; beda warna latar/permukaan cuma 1,16:1. */
 
+/* ---------- Pertahanan terhadap teks buatan pengguna ----------
+   🔴 Satu kata tanpa spasi sepanjang 500 karakter — ditempel employer ke
+      deskripsi lowongan, atau URL panjang yang tidak dipotong — menembus
+      kartunya dan MELEBARKAN seluruh halaman. Kolom kanan ikut tergeser dan
+      gulir horizontal muncul di layar yang tadinya bersih.
+
+   Ini yang lolos dari BLOK B3: uji overflow di sana memakai teks wajar, dan
+   teks wajar selalu punya spasi untuk dipatahkan. Isian sungguhan tidak.
+
+   `anywhere`, bukan `break-word`: hanya `anywhere` yang ikut mengecilkan
+   lebar min-content, dan itulah yang menahan flex/grid item meledak keluar
+   dari induknya. `break-word` merapikan tampilannya tapi membiarkan
+   perhitungan lebarnya tetap raksasa.
+
+   Diterapkan lewat `:where()` supaya kekhususannya nol — aturan mana pun di
+   berkas lain tetap menang tanpa perlu ditulis ulang. */
+:where(p, li, h1, h2, h3, h4, h5, h6, dd, dt, figcaption, blockquote, td, th, label, summary) {
+  overflow-wrap: anywhere;
+}
+
 /* `overflow: hidden` WAJIB, bukan sekadar rapi.
    Tinggi `.app` sudah dikunci 100dvh dan daftar lowongan menggulir di dalam
    panelnya sendiri — tapi tanpa ini area gulir DOKUMEN tetap terbentuk setinggi
