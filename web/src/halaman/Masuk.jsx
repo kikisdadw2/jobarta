@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { IkonGoogle, Pemisah } from "../komponen-ui/Dasar";
 import Umpan from "../komponen-ui/Umpan";
 import { useGoogleAktif } from "../lib/penyedia";
 import PanelAuth from "../komponen-ui/PanelAuth";
 import { useAuth } from "../konteks/useAuth";
+import { arahSetelahMasuk } from "../lib/arah";
 
 /* DESIGN 2B — Masuk, dua jalur setara.
  *
@@ -19,7 +20,25 @@ export default function Masuk() {
   const [proses, setProses] = useState(false);
   const [galat, setGalat] = useState("");
   const navigate = useNavigate();
-  const { masukPassword, masukGoogle: masukLewatGoogle, modeSupabase } = useAuth();
+  const { masukPassword, masukGoogle: masukLewatGoogle, modeSupabase, sesi, memuat, sudahMasuk } =
+    useAuth();
+  const [param] = useSearchParams();
+
+  /* 🔴 Arah tujuan TIDAK bisa diputuskan tepat saat `masukPassword()` selesai.
+   *    Di mode Supabase janji itu beres begitu kredensial diterima, sedangkan
+   *    baris `profiles` — yang memuat peran — baru menyusul lewat
+   *    `onAuthStateChange`. Memutuskan lebih awal berarti membaca peran yang
+   *    masih kosong, dan semua orang berakhir di /onboarding lagi.
+   *
+   *    Jadi login cuma MENYALAKAN NIAT berpindah; efek di bawah yang
+   *    menjalankannya begitu sesinya benar-benar lengkap. */
+  const [mauPindah, setMauPindah] = useState(false);
+
+  useEffect(() => {
+    if (!mauPindah || memuat || !sudahMasuk) return;
+    navigate(arahSetelahMasuk(sesi, param.get("lanjut")), { replace: true });
+  }, [mauPindah, memuat, sudahMasuk, sesi, param, navigate]);
+
   /* Tombol Google hanya tampil bila providernya benar-benar hidup di backend.
    * Lihat alasannya di src/lib/penyedia.js. */
   const googleAktif = useGoogleAktif();
@@ -37,7 +56,7 @@ export default function Masuk() {
 
     setProses(true);
     masukPassword(username.trim(), password)
-      .then(() => navigate("/onboarding"))
+      .then(() => setMauPindah(true))
       .catch((err) => {
         setGalat(err.message);
         setProses(false);
@@ -51,7 +70,7 @@ export default function Masuk() {
         // Mode Supabase memindahkan halaman ke Google; yang sampai ke baris ini
         // cuma mode lokal. Di mode Supabase pengguna kembali lewat redirect dan
         // ditangkap `onAuthStateChange`.
-        if (!modeSupabase) navigate("/onboarding");
+        if (!modeSupabase) setMauPindah(true);
       })
       .catch((err) => {
         setGalat(err.message);

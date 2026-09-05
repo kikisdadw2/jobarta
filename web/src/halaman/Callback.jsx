@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase, adaSupabase } from "../lib/supabase";
 import { Logo } from "../komponen-ui/Dasar";
+import { useAuth } from "../konteks/useAuth";
+import { arahSetelahMasuk } from "../lib/arah";
 
 /* Pendaratan setelah kembali dari Google.
  *
@@ -28,6 +30,19 @@ export default function Callback() {
   const navigate = useNavigate();
   const [galat, setGalat] = useState(null);
   const [teknis, setTeknis] = useState("");
+  const { sesi, memuat, sudahMasuk } = useAuth();
+
+  /* 🔴 Sesi Supabase ada LEBIH DULU daripada baris `profiles` yang memuat
+   *    peran. Versi lama berpindah begitu sesinya ada — selalu ke
+   *    /onboarding — sehingga pengguna Google yang sudah lama terdaftar
+   *    ditanyai perannya berulang kali. Di sini kita menunggu profilnya
+   *    lengkap, baru menentukan arah. */
+  const [siapPindah, setSiapPindah] = useState(false);
+
+  useEffect(() => {
+    if (!siapPindah || memuat || !sudahMasuk) return;
+    navigate(arahSetelahMasuk(sesi), { replace: true });
+  }, [siapPindah, memuat, sudahMasuk, sesi, navigate]);
 
   useEffect(() => {
     if (!adaSupabase) {
@@ -65,8 +80,11 @@ export default function Callback() {
        - sesi datang belakangan lewat onAuthStateChange */
     const teruskan = () => {
       if (!hidup) return;
-      // replace: halaman ini tidak boleh muncul saat pengguna menekan Kembali.
-      navigate("/onboarding", { replace: true });
+      /* Menyalakan niat, bukan langsung berpindah: arah tujuannya baru bisa
+         diputuskan sesudah profil (dan perannya) tiba. Efek di atas yang
+         mengeksekusi, dengan `replace` supaya halaman ini tidak muncul saat
+         pengguna menekan Kembali. */
+      setSiapPindah(true);
     };
 
     supabase.auth.getSession().then(({ data }) => {

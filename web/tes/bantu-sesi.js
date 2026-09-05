@@ -83,6 +83,11 @@ export async function seekerSiap(page, { denganCv = true } = {}) {
   const u = await daftar(page, "sk");
   await tulisProfil(page, {
     role: "seeker",
+    /* `account_status` ikut ditetapkan: "siap" di sini berarti onboarding
+       SELESAI. Pendaftaran meninggalkan akun di `pending_consent`, dan tanpa
+       baris ini setiap fixture menghasilkan pengguna yang masih akan dilempar
+       ke /onboarding — persis perilaku yang benar, tapi bukan yang diuji. */
+    account_status: "active",
     full_name: "Rizky Ghazirah Himawan",
     domisili: "Tebet",
     cv_meta: denganCv ? CV_CONTOH : null,
@@ -105,7 +110,7 @@ export async function seekerSiap(page, { denganCv = true } = {}) {
  *  verifikasi usaha masih disimpan di perangkat, bukan di server. */
 export async function employerSiap(page, perusahaan = null) {
   const u = await daftar(page, "em");
-  await tulisProfil(page, { role: "employer", full_name: "Toko Sejahtera" });
+  await tulisProfil(page, { role: "employer", account_status: "active", full_name: "Toko Sejahtera" });
   await page.addInitScript((p) => {
     localStorage.removeItem("jobarta.lowonganku");
     if (p) localStorage.setItem("jobarta.perusahaan", JSON.stringify(p));
