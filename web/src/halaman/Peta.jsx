@@ -375,7 +375,21 @@ export default function Peta() {
       </div>
 
       <div className="saring__grup saring__grup--radius">
-        <label htmlFor={`${awalan}-radius`}>
+        {/* 🔴 Tanda "—" saat lokasi belum menyala BUKAN kerusakan: menyaring
+            "dalam radius 5 km" dari titik yang tidak diketahui itu mustahil,
+            dan menampilkan angka yang tidak menyaring apa pun membuat UI
+            berbohong. Yang kurang selama ini adalah ALASANNYA — penjelasan
+            hanya ada di sheet mobile, sehingga di desktop kontrol ini terbaca
+            seperti rusak. `title` menyampaikannya tanpa menambah satu baris
+            pun ke bilah saring. */}
+        <label
+          htmlFor={`${awalan}-radius`}
+          title={
+            posisiSaya
+              ? "Hanya menampilkan lowongan sejauh ini dari lokasimu"
+              : "Radius aktif setelah kamu menyalakan “Lokasi Saya”"
+          }
+        >
           Radius{" "}
           <span className="angka">
             {posisiSaya ? `${radius.toFixed(1).replace(".", ",")} km` : "—"}
@@ -389,6 +403,12 @@ export default function Peta() {
           step="0.5"
           value={radius}
           disabled={!posisiSaya}
+          /* Pembaca layar mendengar sebabnya, bukan cuma "dinonaktifkan". */
+          aria-label={
+            posisiSaya
+              ? `Radius pencarian, ${radius.toFixed(1).replace(".", ",")} kilometer`
+              : "Radius pencarian — aktif setelah lokasi dinyalakan"
+          }
           onChange={(e) => setRadius(Number(e.target.value))}
         />
         {/* Kontrol mati tanpa penjelasan membuat orang mengira aplikasinya
