@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
+import { seekerSiap } from "./bantu-sesi.js";
 import { idContoh, ID_HILANG } from "./bantu-lowongan.js";
 
 /* Kredensial klien dibaca dari `.env.local` di sisi Node, bukan ditanam di
@@ -52,33 +53,11 @@ async function masukDulu(page) {
   return u;
 }
 
+/* Profil pencari kerja SUNGGUHAN. Versi lama menyemai `jobarta.sesi` dan
+   `jobarta.profil` ke localStorage — diabaikan sepenuhnya sejak auth pindah ke
+   Supabase, sehingga tesnya menguji pengguna yang tidak pernah masuk. */
 async function pasangProfil(page, { denganCv }) {
-  // addInitScript jalan di SETIAP navigasi, termasuk reload — kalau ia menulis
-  // tanpa syarat, ia menghapus perubahan yang justru sedang diuji bertahan.
-  await page.addInitScript((cv) => {
-    if (localStorage.getItem("jobarta.profil")) return;
-    localStorage.setItem(
-      "jobarta.sesi",
-      JSON.stringify({
-        username: "rizkyghazirah",
-        authMethod: "password",
-        fullName: "Rizky Ghazirah Himawan",
-        role: "seeker",
-        accountStatus: "active",
-      })
-    );
-    localStorage.setItem(
-      "jobarta.profil",
-      JSON.stringify({
-        namaLengkap: "Rizky Ghazirah Himawan",
-        domisili: "Tebet",
-        foto: null,
-        cv,
-        pengingatDitutup: false,
-      })
-    );
-    localStorage.removeItem("jobarta.lamaran");
-  }, denganCv ? { nama: "CV-Rizky-2026.pdf", ukuran: 1887436, tipe: "application/pdf", diunggahPada: new Date().toISOString() } : null);
+  await seekerSiap(page, { denganCv });
 }
 
 test.describe("Peta", () => {
@@ -172,12 +151,18 @@ test.describe("Melamar", () => {
     await page.locator(".kartu__tombol").first().click();
     await page.getByRole("button", { name: "Lamar Sekarang" }).click();
     await page.getByRole("button", { name: "Ya, Kirim Lamaran" }).click();
-    await expect(page.getByText(/Sudah dilamar/)).toBeVisible();
+    /* Melamar kini menempuh jaringan; dulu localStorage seketika. Batas 5 detik
+       bawaan Playwright kadang lebih pendek daripada satu perjalanan ke
+       Supabase. */
+    await expect(page.getByText(/Sudah dilamar/)).toBeVisible({ timeout: 20000 });
 
     // Inti bug lama: status hilang begitu halaman dimuat ulang.
     await page.reload();
     await page.locator(".kartu__tombol").first().click();
-    await expect(page.getByText(/Sudah dilamar/)).toBeVisible();
+    /* Melamar kini menempuh jaringan; dulu localStorage seketika. Batas 5 detik
+       bawaan Playwright kadang lebih pendek daripada satu perjalanan ke
+       Supabase. */
+    await expect(page.getByText(/Sudah dilamar/)).toBeVisible({ timeout: 20000 });
 
     await page.goto("/lamaran");
     await expect(page.locator(".riwayat__baris")).toHaveCount(1);
@@ -233,7 +218,10 @@ test.describe("Melamar", () => {
 
     // Jalan keluar untuk yang belum punya CV.
     await page.getByRole("button", { name: /Saya belum punya CV/ }).click();
-    await expect(page.getByText(/Sudah dilamar/)).toBeVisible();
+    /* Melamar kini menempuh jaringan; dulu localStorage seketika. Batas 5 detik
+       bawaan Playwright kadang lebih pendek daripada satu perjalanan ke
+       Supabase. */
+    await expect(page.getByText(/Sudah dilamar/)).toBeVisible({ timeout: 20000 });
   });
 });
 

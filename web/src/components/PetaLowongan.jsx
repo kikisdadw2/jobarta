@@ -99,27 +99,44 @@ function LapisanPin({ daftar, terpilih, disorot, onPilih }) {
     return sc;
   }, [daftar]);
 
+  /* 🔴 Id kluster hanya sah untuk indeks yang MELAHIRKANNYA.
+   *
+   * `tampilan` adalah state, jadi ia bertahan satu render lebih lama daripada
+   * `indeks` yang baru dibangun. Di sela itu komponen memegang id kluster lama
+   * dan memanggil `getLeaves()` pada indeks baru — supercluster melempar
+   * "No cluster with the specified id" dan seluruh peta jatuh ke error
+   * boundary.
+   *
+   * Celah itu tidak pernah terbuka selama lowongan hidup di JavaScript: daftar
+   * tidak pernah berubah sesudah render pertama. Begitu datanya datang dari
+   * database (2026-09-05), setiap kunjungan ke peta melewatinya.
+   *
+   * Menyimpan indeksnya BERSAMA hasilnya membuat ketidakcocokan itu mustahil:
+   * hasil dari indeks lama tidak akan pernah dipakai bersama indeks baru. */
   const hitung = () => {
     const b = map.getBounds();
-    setTampilan(
-      indeks.getClusters(
+    setTampilan({
+      indeks,
+      fitur: indeks.getClusters(
         [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()],
         Math.round(map.getZoom())
-      )
-    );
+      ),
+    });
   };
 
   useEffect(hitung, [indeks, map]);
   useMapEvents({ moveend: hitung, zoomend: hitung });
 
-  if (!tampilan) return null;
+  // Belum dihitung, atau dihitung oleh indeks yang sudah usang.
+  if (!tampilan || tampilan.indeks !== indeks) return null;
+  const fitur = tampilan.fitur;
 
   /* Kalau lowongan yang di-hover sedang berada DI DALAM kluster, klusternya
      yang menyala — kalau tidak, sorotan dari daftar seolah tidak berfungsi
      setiap kali pin-nya sedang menggumpal. */
   let klusterDisorot = null;
   if (disorot) {
-    for (const f of tampilan) {
+    for (const f of fitur) {
       if (!f.properties.cluster) continue;
       const isi = indeks.getLeaves(f.id, 1000);
       if (isi.some((d) => d.properties.id === disorot)) {
@@ -129,7 +146,7 @@ function LapisanPin({ daftar, terpilih, disorot, onPilih }) {
     }
   }
 
-  return tampilan.map((f) => {
+  return fitur.map((f) => {
     const [lng, lat] = f.geometry.coordinates;
 
     if (f.properties.cluster) {

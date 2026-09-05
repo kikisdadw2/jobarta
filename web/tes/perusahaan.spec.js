@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { employerSiap, seekerSiap } from "./bantu-sesi.js";
 
 /* Alur sisi perusahaan, ujung ke ujung.
  *
@@ -11,23 +12,10 @@ import { test, expect } from "@playwright/test";
 const HP = { width: 375, height: 812 };
 const DESKTOP = { width: 1440, height: 900 };
 
-/** Sesi employer yang sudah selesai onboarding. */
+/* Sesi employer SUNGGUHAN — lihat catatan di tes/bantu-sesi.js soal kenapa
+   fixture localStorage berhenti bekerja. */
 async function pasangSesiEmployer(page, perusahaan = null) {
-  await page.addInitScript((p) => {
-    localStorage.setItem(
-      "jobarta.sesi",
-      JSON.stringify({
-        username: "tokosejahtera",
-        authMethod: "password",
-        fullName: "Toko Sejahtera",
-        role: "employer",
-        accountStatus: "active",
-      })
-    );
-    localStorage.removeItem("jobarta.lowonganku");
-    if (p) localStorage.setItem("jobarta.perusahaan", JSON.stringify(p));
-    else localStorage.removeItem("jobarta.perusahaan");
-  }, perusahaan);
+  await employerSiap(page, perusahaan);
 }
 
 test.describe("sisi perusahaan", () => {
@@ -43,13 +31,9 @@ test.describe("sisi perusahaan", () => {
   });
 
   test("seeker tidak bisa masuk ke dasbor perusahaan", async ({ page }) => {
-    await page.addInitScript(() => {
-      localStorage.setItem(
-        "jobarta.sesi",
-        JSON.stringify({ username: "rizky", role: "seeker", accountStatus: "active" })
-      );
-    });
+    await seekerSiap(page, { denganCv: false });
     await page.goto("/perusahaan");
+    await page.waitForTimeout(1500);
     // Dilempar ke peta, BUKAN ke layar galat: peran yang salah bukan kesalahan.
     await expect(page).toHaveURL(/\/peta/);
   });
@@ -69,7 +53,10 @@ test.describe("sisi perusahaan", () => {
     await page.getByRole("button", { name: "Pasang lowongan", exact: true }).click();
 
     await expect(page.getByText(/isi gaji minimum/i)).toBeVisible();
-    await expect(page.getByText(/ketuk peta untuk menandai/i)).toBeVisible();
+    /* Kalimat yang sama muncul dua kali di layar sempit: sebagai keterangan
+       field DAN sebagai pesan galat. Keduanya sah — yang dituntut tes ini
+       adalah galatnya terlihat, bukan bahwa kalimatnya unik. */
+    await expect(page.getByText(/ketuk peta untuk menandai/i).first()).toBeVisible();
     // Tidak berpindah halaman selama masih ada yang salah.
     await expect(page).toHaveURL(/\/perusahaan\/pasang/);
   });
@@ -101,7 +88,8 @@ test.describe("sisi perusahaan", () => {
 
     await page.getByRole("button", { name: "Pasang lowongan", exact: true }).click();
     await expect(page).toHaveURL(/\/perusahaan\?baru=1/);
-    await expect(page.getByText(/sudah tayang di peta/i)).toBeVisible();
+    // Teksnya berubah di BLOK B4: pesan sukses ad-hoc diganti <Umpan>.
+    await expect(page.getByText(/lowongan kamu sudah tayang/i)).toBeVisible();
 
     // Klaim intinya: pencari kerja melihatnya.
     await page.goto("/peta");
