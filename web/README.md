@@ -30,6 +30,10 @@ npm run dev
 > atau `service_role` melewati seluruh Row Level Security dan tidak boleh
 > masuk ke kode klien — apa pun yang berprefix `VITE_` berakhir sebagai teks
 > polos di dalam bundle JavaScript.
+>
+> Repo ini publik dan kunci publishable memang terbaca dari bundel produksi —
+> itu perilaku yang benar. Yang menjaga data adalah Row Level Security, bukan
+> kerahasiaan kunci ini.
 
 ## Menyiapkan database
 

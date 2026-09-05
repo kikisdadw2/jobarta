@@ -323,6 +323,9 @@ VITE_SUPABASE_PUBLISHABLE_KEY="[publishable_key]"
 
 > 🔴 Hanya kunci **publishable** (atau `anon` pada project lama). Kunci `secret`/`service_role` melewati seluruh RLS dan tidak boleh masuk ke kode klien — apa pun yang berprefix `VITE_` berakhir sebagai teks polos di dalam bundle JavaScript.
 >
+>
+> Repo ini publik dan kunci publishable memang terbaca dari bundel produksi — itu perilaku yang benar. Yang menjaga data adalah Row Level Security, bukan kerahasiaan kunci ini.
+>
 > Vite membaca variabel ini **saat build**, bukan saat halaman dibuka: setelah mengubahnya, dev server harus di-restart dan hosting harus di-redeploy.
 
 ### 5️⃣ Jalankan
