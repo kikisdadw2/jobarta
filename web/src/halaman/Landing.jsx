@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import L from "leaflet";
-import lowongan, { KATEGORI } from "../data/lowongan";
+import statis, { KATEGORI } from "../data/lowongan";
+import { semuaLowongan } from "../lib/lowonganku";
 import { formatGaji, jarakKm, formatJarak } from "../lib/format";
 import { Logo, Merek, IkonGoogle, Terverifikasi } from "../komponen-ui/Dasar";
 import { useGoogleAktif } from "../lib/penyedia";
@@ -84,6 +85,28 @@ export default function Landing() {
   const [tempat, setTempat] = useState("");
   const [posisi, setPosisi] = useState("");
   const navigate = useNavigate();
+
+  /* 🔴 Katalog SUNGGUHAN, bukan salinan statis.
+   *
+   * Sampai 2026-09-05 beranda memakai `data/lowongan` langsung. Itu tidak
+   * pernah terlihat salah — sampai lowongan pindah ke database dan id-nya
+   * berubah jadi uuid. Sejak itu setiap kartu di beranda menaut ke
+   * `/peta?lowongan=jkt-019`: id yang tidak ada lagi di katalog, jadi peta
+   * terbuka TANPA panel detail. "Lihat lowongan ini di peta" berhenti
+   * membawa ke lowongan yang dijanjikannya.
+   *
+   * Data statis tetap jadi nilai awal supaya beranda tidak pernah tampil
+   * kosong sambil menunggu jaringan — alasan yang sama dengan di peta. */
+  const [lowongan, setLowongan] = useState(statis);
+  useEffect(() => {
+    let batal = false;
+    semuaLowongan()
+      .then((d) => !batal && d.length && setLowongan(d))
+      .catch(() => {}); // biarkan contoh statis yang tampil
+    return () => {
+      batal = true;
+    };
+  }, []);
 
   // Tiga lowongan terdekat dari acuan — data sungguhan, bukan contoh karangan.
   const terbaru = lowongan
