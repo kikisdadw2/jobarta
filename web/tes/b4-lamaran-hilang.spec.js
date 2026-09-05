@@ -12,6 +12,7 @@
  */
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
+import { idContoh, ID_HILANG } from "./bantu-lowongan.js";
 
 async function masuk(page) {
   const u = "lh" + Date.now().toString(36) + Math.floor(Math.random() * 900 + 100);
@@ -49,7 +50,7 @@ async function pasangLamaran(page, ids) {
 test.describe("lamaran ke lowongan yang sudah tidak tayang", () => {
   test("selisihnya dijelaskan, bukan disembunyikan", async ({ page }) => {
     await masuk(page);
-    await pasangLamaran(page, ["jkt-001", "lowongan-sudah-dihapus"]);
+    await pasangLamaran(page, [await idContoh("jkt-001"), ID_HILANG]);
 
     const baris = page.locator(".riwayat__baris");
     const sub = page.locator(".akun__sub");
@@ -71,7 +72,7 @@ test.describe("lamaran ke lowongan yang sudah tidak tayang", () => {
 
   test("semua lowongan hilang: bukan dibilang belum pernah melamar", async ({ page }) => {
     await masuk(page);
-    await pasangLamaran(page, ["hilang-a", "hilang-b"]);
+    await pasangLamaran(page, [ID_HILANG, ID_HILANG.replace("000000000000","000000000001")]);
 
     const kosong = page.locator(".kosong h2");
     if ((await kosong.count()) === 0) test.skip(true, "riwayat dilayani server");

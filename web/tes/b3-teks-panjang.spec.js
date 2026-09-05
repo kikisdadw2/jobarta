@@ -8,6 +8,7 @@
  * untuk dipatahkan. Tes ini sengaja memakai data yang TIDAK wajar.
  */
 import { test, expect } from "@playwright/test";
+import { idContoh, ID_HILANG } from "./bantu-lowongan.js";
 
 const PANJANG = "a".repeat(300) + "w" + "a".repeat(300);
 
@@ -28,7 +29,7 @@ for (const [nama, lebar, tinggi] of [
        dan di situlah bug-nya dilaporkan. Menyuntik ke kartu daftar tidak
        mereproduksi apa pun: daftar dan peta hidup di dalam `.app` yang
        ber-`overflow:hidden`, jadi apa pun di sana selalu terklip. */
-    await page.goto("/peta?lowongan=jkt-001");
+    await page.goto(`/peta?lowongan=${await idContoh("jkt-001")}`);
     await page.waitForTimeout(2000);
     await expect(page.locator(".detail__isi")).toBeVisible();
 

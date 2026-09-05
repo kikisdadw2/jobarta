@@ -7,6 +7,7 @@
  */
 import { test, expect } from "@playwright/test";
 import { EMAIL_KONTAK } from "../src/lib/kontak.js";
+import { idContoh, ID_HILANG } from "./bantu-lowongan.js";
 
 test.describe("B6 halaman legal", () => {
   for (const [nama, rute, kunci] of [
@@ -114,7 +115,7 @@ test.describe("B6 kontak bisa diklik dan konsisten", () => {
   });
 
   test("tombol Laporkan Lowongan bukan lagi tombol mati", async ({ page }) => {
-    await page.goto("/peta?lowongan=jkt-001");
+    await page.goto(`/peta?lowongan=${await idContoh("jkt-001")}`);
     await page.waitForTimeout(2000);
 
     const lapor = page.getByRole("link", { name: /Laporkan Lowongan/i });

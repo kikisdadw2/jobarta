@@ -1,4 +1,5 @@
 import { test } from "@playwright/test";
+import { idContoh, ID_HILANG } from "./bantu-lowongan.js";
 
 /* Tangkapan pembanding: tiap layar difoto di lebar yang sama dengan artboard
  * (375px dan 1440px) supaya bisa ditumpuk dengan PNG di design-canvas/_export.
@@ -15,7 +16,7 @@ const LAYAR = [
   ["atur-ulang", "/atur-ulang"],
   ["verifikasi-email", "/verifikasi-email"],
   ["peta", "/peta"],
-  ["detail", "/peta?lowongan=jkt-001"],
+  ["detail", `/peta?lowongan=${await idContoh("jkt-001")}`],
 ];
 
 for (const [nama, rute] of LAYAR) {

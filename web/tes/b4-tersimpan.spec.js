@@ -6,6 +6,7 @@
  * DIHITUNG — bukan disaring diam-diam.
  */
 import { test, expect } from "@playwright/test";
+import { idContoh, ID_HILANG } from "./bantu-lowongan.js";
 
 /* Penjaga rute menolak sesi localStorage palsu — di mode Supabase ia
  * menunggu jawaban jaringan. Jadi akunnya didaftarkan sungguhan, sama seperti
@@ -45,7 +46,7 @@ test.describe("B4 lowongan tersimpan", () => {
 
   test("simpanan yang masih tayang muncul sebagai daftar", async ({ page }) => {
     await masuk(page);
-    await bukaDenganSimpanan(page, ["jkt-001", "jkt-002"]);
+    await bukaDenganSimpanan(page, await Promise.all([idContoh("jkt-001"), idContoh("jkt-002")]));
 
     await expect(page.locator(".riwayat__baris")).toHaveCount(2);
     await expect(page.locator(".akun__sub")).toContainText("2");
@@ -56,7 +57,7 @@ test.describe("B4 lowongan tersimpan", () => {
 
   test("simpanan yang sudah tidak tayang dihitung, bukan disaring diam-diam", async ({ page }) => {
     await masuk(page);
-    await bukaDenganSimpanan(page, ["jkt-001", "lowongan-yang-sudah-dihapus"]);
+    await bukaDenganSimpanan(page, [await idContoh("jkt-001"), ID_HILANG]);
 
     await expect(page.locator(".riwayat__baris")).toHaveCount(1);
     /* Inti tes ini: selisih 2 tersimpan vs 1 tampil HARUS dijelaskan.
@@ -67,7 +68,7 @@ test.describe("B4 lowongan tersimpan", () => {
 
   test("semua simpanan hilang: bukan dibilang belum pernah menyimpan", async ({ page }) => {
     await masuk(page);
-    await bukaDenganSimpanan(page, ["sudah-dihapus-a", "sudah-dihapus-b"]);
+    await bukaDenganSimpanan(page, [ID_HILANG, ID_HILANG.replace("000000000000","000000000001")]);
 
     const judul = page.locator(".kosong h2");
     await expect(judul).toContainText("sudah tidak tayang");
@@ -78,7 +79,7 @@ test.describe("B4 lowongan tersimpan", () => {
 
   test("hapus dari simpanan langsung mengurangi daftar", async ({ page }) => {
     await masuk(page);
-    await bukaDenganSimpanan(page, ["jkt-001", "jkt-002"]);
+    await bukaDenganSimpanan(page, await Promise.all([idContoh("jkt-001"), idContoh("jkt-002")]));
     await expect(page.locator(".riwayat__baris")).toHaveCount(2);
 
     await page.locator(".tautan-aksi--rusak").first().click();

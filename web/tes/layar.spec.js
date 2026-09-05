@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
+import { idContoh, ID_HILANG } from "./bantu-lowongan.js";
 
 /* Kredensial klien dibaca dari `.env.local` di sisi Node, bukan ditanam di
    berkas tes. Yang dibaca hanya kunci PUBLISHABLE — kunci yang memang sudah
@@ -304,7 +305,7 @@ test.describe("Detail lowongan", () => {
   test("terverifikasi: badge dulu, gaji belakangan, tanggal verifikasi disebut", async ({ page }) => {
     await page.setViewportSize(HP);
     await pasangProfil(page, { denganCv: true });
-    await page.goto("/peta?lowongan=jkt-001");
+    await page.goto(`/peta?lowongan=${await idContoh("jkt-001")}`);
 
     const detail = page.getByRole("dialog");
     await expect(detail.getByText("Terverifikasi")).toBeVisible();
@@ -326,8 +327,10 @@ test.describe("Detail lowongan", () => {
     await page.setViewportSize(HP);
     await pasangProfil(page, { denganCv: true });
 
-    // jkt-004 sengaja diseed tanpa verifikasi — lihat src/data/lowongan.js.
-    await page.goto("/peta?lowongan=jkt-004");
+    // "Admin Data Entry" (dulu jkt-004) sengaja diseed TANPA verifikasi —
+    // lihat src/data/lowongan.js. Id-nya dicari lewat posisi karena penanaman
+    // ke database mengganti id, bukan isinya.
+    await page.goto(`/peta?lowongan=${await idContoh("jkt-004")}`);
     const detail = page.getByRole("dialog");
     await expect(detail.locator(".badge--terverifikasi")).toHaveCount(0);
     await expect(detail.getByText("Perusahaan ini belum diverifikasi")).toBeVisible();
@@ -337,7 +340,7 @@ test.describe("Detail lowongan", () => {
   test("CTA sticky tetap terlihat setelah menggulir", async ({ page }) => {
     await page.setViewportSize(HP);
     await pasangProfil(page, { denganCv: true });
-    await page.goto("/peta?lowongan=jkt-001");
+    await page.goto(`/peta?lowongan=${await idContoh("jkt-001")}`);
 
     const cta = page.getByRole("button", { name: "Lamar Sekarang" });
     await expect(cta).toBeInViewport();
@@ -683,7 +686,7 @@ test.describe("Detail lowongan: state tombol Lamar", () => {
   test("lowongan ditutup: tombol lamar diganti jalan keluar, bukan dimatikan", async ({ page }) => {
     await page.setViewportSize(HP);
     await pasangProfil(page, { denganCv: true });
-    await page.goto("/peta?lowongan=jkt-003");
+    await page.goto(`/peta?lowongan=${await idContoh("jkt-003")}`);
 
     await expect(page.getByText(/Lowongan ini ditutup pada/)).toBeVisible();
     await expect(page.getByRole("button", { name: "Lamar Sekarang" })).toHaveCount(0);
@@ -708,7 +711,7 @@ test.describe("Detail lowongan: state tombol Lamar", () => {
 test.describe("Simpan lowongan", () => {
   test("tersimpan bertahan setelah muat ulang, dan bisa dibatalkan", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/peta?lowongan=jkt-001");
+    await page.goto(`/peta?lowongan=${await idContoh("jkt-001")}`);
 
     const simpan = page.getByRole("button", { name: "Simpan Lowongan" });
     await expect(simpan).toHaveAttribute("aria-pressed", "false");
@@ -728,7 +731,7 @@ test.describe("Simpan lowongan", () => {
 
   test("peta kecil memusat pada pin walau kontainernya berubah lebar", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/peta?lowongan=jkt-021");
+    await page.goto(`/peta?lowongan=${await idContoh("jkt-021")}`);
 
     const peta = page.locator(".peta-kecil .leaflet-container");
     await expect(peta).toBeVisible();
@@ -780,9 +783,10 @@ test.describe("Cuplikan peta di landing", () => {
     await page.waitForTimeout(1000);
 
     // Kartunya tautan ke lowongan yang sedang disorot, bukan kotak mati.
-    await expect(kartu).toHaveAttribute("href", /\/peta\?lowongan=jkt-/);
+    // Id kini uuid dari database, bukan `jkt-*` yang hidup di JavaScript.
+    await expect(kartu).toHaveAttribute("href", /\/peta\?lowongan=[0-9a-f-]{36}/);
     await kartu.click();
-    await expect(page).toHaveURL(/\/peta\?lowongan=jkt-/);
+    await expect(page).toHaveURL(/\/peta\?lowongan=[0-9a-f-]{36}/);
   });
 });
 
@@ -812,7 +816,7 @@ test.describe("Kerangka halaman peta", () => {
 
   test("panel detail tetap bisa digulir walau kerangkanya dikunci", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto("/peta?lowongan=jkt-001");
+    await page.goto(`/peta?lowongan=${await idContoh("jkt-001")}`);
     await page.waitForTimeout(600);
 
     const detail = page.locator(".detail");

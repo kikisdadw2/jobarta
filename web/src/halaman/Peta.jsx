@@ -79,6 +79,22 @@ export default function Peta() {
   const [terpilih, setTerpilih] = useState(
     () => lowongan.find((l) => l.id === param.get("lowongan")) || null
   );
+
+  /* 🔴 Tautan dalam ke satu lowongan (`/peta?lowongan=<id>`) harus tetap
+     terbuka walau datanya baru tiba SESUDAH render pertama.
+
+     Initializer `useState` di atas jalan sekali, saat daftar masih berisi
+     contoh bawaan. Selama lowongan hidup di JavaScript hal itu tidak pernah
+     ketahuan — id yang dicari kebetulan sudah ada di sana. Begitu lowongan
+     pindah ke database (2026-09-05), setiap tautan dalam mendarat di peta
+     tanpa panel detail: tautan yang dibagikan pelamar, "Lihat lowongan ini di
+     peta" di beranda, dan setiap baris di Lamaran Saya dan Tersimpan. */
+  const idDariUrl = param.get("lowongan");
+  useEffect(() => {
+    if (!idDariUrl || terpilih) return;
+    const cocok = lowongan.find((l) => l.id === idDariUrl);
+    if (cocok) setTerpilih(cocok);
+  }, [idDariUrl, lowongan, terpilih]);
   const [dilamar, setDilamar] = useState(() => new Set());
   const [lamaranku, setLamaranku] = useState([]);
   useEffect(() => {
