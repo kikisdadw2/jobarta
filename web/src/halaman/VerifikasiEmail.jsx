@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import PanelAuth from "../komponen-ui/PanelAuth";
 import { Logo } from "../komponen-ui/Dasar";
-import { bacaSesi, simpanSesi } from "../lib/sesi";
+import { simpanSesi } from "../lib/sesi";
+import { useAuth } from "../konteks/useAuth";
 
 /* "Verifikasi email pemulihan" — artboard 2b-auth/VerifikasiEmail.
  *
@@ -21,7 +22,7 @@ export default function VerifikasiEmail() {
   const [param] = useSearchParams();
   const keadaan = param.get("keadaan") || "menunggu"; // menunggu | berhasil | kedaluwarsa | bantuan
   const navigate = useNavigate();
-  const sesi = bacaSesi();
+  const { sesi } = useAuth();
   const alamat = param.get("email") || sesi.recoveryEmail || "email kamu";
   const [detik, setDetik] = useState(JEDA_KIRIM_ULANG);
 

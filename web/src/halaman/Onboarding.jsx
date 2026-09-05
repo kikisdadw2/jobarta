@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Logo, Progres, Terverifikasi } from "../komponen-ui/Dasar";
-import { bacaSesi, simpanSesi } from "../lib/sesi";
+import { simpanSesi } from "../lib/sesi";
 import { useAuth } from "../konteks/useAuth";
 import Umpan from "../komponen-ui/Umpan";
 
@@ -15,14 +15,34 @@ import Umpan from "../komponen-ui/Umpan";
  */
 
 export default function Onboarding() {
-  const { perbaruiProfil } = useAuth();
-  const sesi = bacaSesi();
+  /* 🔴 `useAuth()`, BUKAN `bacaSesi()`. Sampai 2026-09-05 halaman ini membaca
+   *    localStorage langsung — padahal lib/sesi.js sendiri memperingatkan
+   *    bahwa sumber kebenarannya ada di konteks Auth. Akibatnya fatal dan
+   *    tidak kelihatan dari kode ini saja: jalur Google BERHASIL masuk, lalu
+   *    ditolak di sini dengan "Kamu belum masuk", karena localStorage cuma
+   *    diisi oleh jalur username/password.
+   *
+   *    Penjaganya juga salah field. `username` NULL untuk pengguna Google —
+   *    trigger di schema.sql:82 mengisinya dari metadata yang hanya ada di
+   *    jalur password. Yang benar ditanyakan adalah `sudahMasuk`. */
+  const { sesi, memuat, sudahMasuk, perbaruiProfil } = useAuth();
   const lewatGoogle = sesi.authMethod === "google";
 
   const [langkah, setLangkah] = useState(1);
   const [peran, setPeran] = useState(sesi.role);
   const [nama, setNama] = useState(sesi.fullName || "");
   const [emailPemulihan, setEmailPemulihan] = useState(sesi.recoveryEmail || "");
+
+  /* Sesi Supabase tiba SESUDAH render pertama. Tanpa penyelarasan ini, nama
+     yang dibawa Google tidak pernah muncul di kolomnya — state-nya terlanjur
+     dikunci pada nilai kosong saat sesi masih dimuat. Disinkronkan pada
+     `sesi.id` supaya ketikan pengguna tidak tertimpa di render berikutnya. */
+  useEffect(() => {
+    if (!sesi.id) return;
+    setPeran((p) => p ?? sesi.role);
+    setNama((n) => n || sesi.fullName || "");
+    setEmailPemulihan((e) => e || sesi.recoveryEmail || "");
+  }, [sesi.id, sesi.role, sesi.fullName, sesi.recoveryEmail]);
   const [setuju, setSetuju] = useState(false);
   const [tolak, setTolak] = useState(false);
   // Menonaktifkan akun bukan aksi yang boleh terjadi dalam satu ketukan tanpa
@@ -32,7 +52,23 @@ export default function Onboarding() {
   const navigate = useNavigate();
   const [param] = useSearchParams();
 
-  if (!sesi.username) {
+  /* Memuat dibedakan dari belum-masuk. Menyamakannya berarti setiap pengguna
+     Google melihat "Kamu belum masuk" selama sesinya masih dijemput dari
+     jaringan — layar yang menuduh, tepat pada detik ia sebenarnya berhasil. */
+  if (memuat) {
+    return (
+      <div className="auth auth--tunggal">
+        <main className="auth__utama">
+          <div className="auth__kotak kotak-tunggu" role="status" aria-live="polite">
+            <Logo ukuran={40} />
+            <p>Menyiapkan akun kamu&hellip;</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (!sudahMasuk) {
     return (
       <div className="auth auth--tunggal">
         <main className="auth__utama">

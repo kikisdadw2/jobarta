@@ -10,7 +10,7 @@ import KartuPengingat from "../components/KartuPengingat";
 import { jarakKm } from "../lib/format";
 import { idLamaran, tambahLamaran, bacaLamaran } from "../lib/lamaran";
 import { useProfil } from "../lib/useProfil";
-import { bacaSesi } from "../lib/sesi";
+import { useAuth } from "../konteks/useAuth";
 import { IkonKosong } from "../komponen-ui/Dasar";
 import {
   mintaPosisi,
@@ -45,6 +45,11 @@ const SNAP = ["peek", "setengah", "penuh"];
 
 export default function Peta() {
   const [param] = useSearchParams();
+  /* 🔴 Dari konteks Auth, bukan localStorage. Sebelum ini panel detail
+     menghitung "sudah masuk" dari `bacaSesi().username` — yang selalu kosong
+     untuk pengguna Google. Akibatnya: orang yang BARU SAJA masuk lewat Google
+     tetap disuruh masuk lagi begitu menekan "Lamar Sekarang". */
+  const { sudahMasuk } = useAuth();
   /* Diambil SEKALI per kunjungan, bukan setiap render: `semuaLowongan()`
    * memanggil jaringan dan membuat array baru, jadi memanggilnya di badan
    * komponen akan membatalkan setiap useMemo di bawahnya pada tiap ketikan di
@@ -736,7 +741,7 @@ export default function Peta() {
           sudahDilamar={dilamar.has(terpilih.id)}
           dilamarPada={lamaranku.find((l) => l.lowonganId === terpilih.id)?.dilamarPada}
           mengirim={mengirim === terpilih.id}
-          sudahMasuk={Boolean(bacaSesi().username)}
+          sudahMasuk={sudahMasuk}
           jarakKm={posisiSaya ? jarakKm(posisiSaya, terpilih) : null}
           onLamar={lamar}
           onTutup={() => setTerpilih(null)}

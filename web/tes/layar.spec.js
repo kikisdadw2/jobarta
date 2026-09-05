@@ -1,4 +1,18 @@
 import { test, expect } from "@playwright/test";
+import fs from "node:fs";
+
+/* Kredensial klien dibaca dari `.env.local` di sisi Node, bukan ditanam di
+   berkas tes. Yang dibaca hanya kunci PUBLISHABLE — kunci yang memang sudah
+   ikut terbit di bundel produksi dan aman dilihat siapa pun. */
+const ENV_SUPABASE = (() => {
+  const teks = fs.readFileSync(new URL("../.env.local", import.meta.url), "utf8");
+  const ambil = (nama) =>
+    (teks.match(new RegExp(`^${nama}=(.*)$`, "m"))?.[1] ?? "").trim().replace(/^["']|["']$/g, "");
+  return {
+    url: ambil("VITE_SUPABASE_URL"),
+    kunci: ambil("VITE_SUPABASE_PUBLISHABLE_KEY") || ambil("VITE_SUPABASE_ANON_KEY"),
+  };
+})();
 
 /* Uji visual alur seeker.
  *
@@ -443,21 +457,74 @@ test.describe("Pemulihan akun", () => {
 });
 
 test.describe("Onboarding", () => {
-  /** Onboarding butuh sesi; tanpa itu halamannya menolak masuk. */
-  async function pasangSesi(page, authMethod) {
-    await page.addInitScript((m) => {
-      localStorage.setItem(
-        "jobarta.sesi",
-        JSON.stringify({
-          username: "rizkyghazirah",
-          authMethod: m,
-          fullName: m === "google" ? "Rizky Ghazirah Himawan" : null,
-          role: null,
-          accountStatus: "pending_consent",
-          recoveryEmail: m === "google" ? "rizky.ghazirah@gmail.com" : null,
-        })
+  /* Onboarding butuh sesi SUNGGUHAN.
+   *
+   * 🔴 Versi lama menyemai `jobarta.sesi` ke localStorage. Itu lolos hanya
+   *    karena Onboarding.jsx dulu membaca localStorage langsung — bug yang
+   *    membuat setiap pengguna Google ditolak dengan "Kamu belum masuk"
+   *    (diperbaiki 2026-09-05). Begitu halaman itu memakai `useAuth()`
+   *    sebagaimana mestinya, sesi palsu tidak berarti apa-apa lagi.
+   *
+   *    Jadi tesnya ikut jujur: akunnya didaftarkan betulan lewat layar Daftar.
+   */
+  async function daftarSungguhan(page) {
+    const u = "ob" + Date.now().toString(36) + Math.floor(Math.random() * 900 + 100);
+    await page.goto("/daftar");
+    await page.fill("#d-username", u);
+    await page.fill("#d-password", "jobarta2026");
+    await page.locator(".consent input[type=checkbox]").check();
+    await page.click("button[type=submit]");
+    const dlg = page.locator("text=Ya, lanjut tanpa email");
+    if (await dlg.count()) await dlg.click();
+    await expect(page).toHaveURL(/\/onboarding/, { timeout: 30000 });
+    return u;
+  }
+
+  /* Cabang "jalur Google" tidak bisa diuji dengan akun Google sungguhan di
+   * sini — tidak ada kredensialnya, dan memang tidak boleh ada. Yang diuji
+   * adalah PERILAKU UI-nya, dan itu bergantung pada satu kolom: `auth_method`.
+   *
+   * Jadi akunnya tetap akun sungguhan, lalu kolomnya diubah lewat REST memakai
+   * access token MILIK AKUN ITU SENDIRI — jalur yang sama dengan halaman
+   * Profil. Tidak ada RLS yang ditembus dan tidak ada kunci rahasia yang
+   * dipakai; kalau kebijakan RLS melarangnya, tes ini ikut gagal, dan itu
+   * justru informasi yang berguna. */
+  async function jadikanAkunGoogle(page) {
+    const hasil = await page.evaluate(async ({ url, kunci }) => {
+      const namaKunci = Object.keys(localStorage).find(
+        (k) => k.startsWith("sb-") && k.endsWith("-auth-token")
       );
-    }, authMethod);
+      if (!namaKunci) return "tidak ada sesi Supabase di penyimpanan";
+      const mentah = JSON.parse(localStorage.getItem(namaKunci));
+      const sesi = mentah.currentSession ?? mentah;
+      const token = sesi.access_token;
+      const uid = sesi.user?.id;
+      if (!token || !uid) return "sesi tidak memuat token/uid";
+
+      const r = await fetch(`${url}/rest/v1/profiles?id=eq.${uid}`, {
+        method: "PATCH",
+        headers: {
+          apikey: kunci,
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal",
+        },
+        body: JSON.stringify({
+          auth_method: "google",
+          full_name: "Rizky Ghazirah Himawan",
+          recovery_email: "rizky.ghazirah@gmail.com",
+        }),
+      });
+      return r.ok ? null : `PATCH profiles gagal: ${r.status} ${await r.text()}`;
+    }, ENV_SUPABASE);
+    expect(hasil, hasil ?? "").toBeNull();
+    await page.reload();
+    await page.waitForTimeout(1500);
+  }
+
+  async function pasangSesi(page, authMethod) {
+    await daftarSungguhan(page);
+    if (authMethod === "google") await jadikanAkunGoogle(page);
   }
 
   test("pilih peran: terpilih ditandai lebih dari sekadar warna", async ({ page }) => {
